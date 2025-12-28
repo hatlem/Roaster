@@ -1,4 +1,5 @@
 // Prisma Schema for Norwegian Labor Law Compliant Roster SaaS
+// Enhanced with Competitive Features: Shift Marketplace, Time-Off, Accruals, Labor Costs
 
 generator client {
   provider = "prisma-client-js"
@@ -37,6 +38,61 @@ enum ChangeReason {
   OTHER
 }
 
+// Shift marketplace status
+enum MarketplaceStatus {
+  AVAILABLE
+  CLAIMED
+  APPROVED
+  REJECTED
+  EXPIRED
+  CANCELLED
+}
+
+// Shift swap status
+enum SwapStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+// Time off request types
+enum TimeOffType {
+  VACATION
+  SICK_LEAVE
+  PERSONAL
+  PARENTAL
+  BEREAVEMENT
+  UNPAID
+  OTHER
+}
+
+// Time off request status
+enum TimeOffStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+// Accrual balance types
+enum AccrualType {
+  VACATION
+  SICK_LEAVE
+  COMP_TIME
+  PARENTAL_LEAVE
+}
+
+// Dashboard metric types
+enum MetricType {
+  LABOR_COST
+  COMPLIANCE_RATE
+  ATTENDANCE_RATE
+  OVERTIME_HOURS
+  SHIFT_COVERAGE
+  EMPLOYEE_SATISFACTION
+}
+
 // User/Employee model
 model User {
   id                String            @id @default(uuid())
@@ -55,6 +111,13 @@ model User {
   position          String?
   hireDate          DateTime?
 
+  // Labor cost tracking
+  hourlyRate        Decimal?          @db.Decimal(10, 2)  // For labor cost calculation
+
+  // Multi-location support
+  locationId        String?
+  location          Location?         @relation(fields: [locationId], references: [id])
+
   // Settings
   isActive          Boolean           @default(true)
   preferredLocale   String            @default("no")
@@ -70,10 +133,21 @@ model User {
   comments          RosterComment[]
   notifications     Notification[]
   actualHours       ActualHours[]
+  messagesSent      Message[]         @relation("MessagesSent")
+  messagesReceived  Message[]         @relation("MessagesReceived")
+  broadcastsSent    Broadcast[]       @relation("BroadcastsSent")
+
+  // New relations for enhanced features
+  shiftSwapsRequested     ShiftSwapRequest[]  @relation("RequestedBy")
+  shiftSwapsTarget        ShiftSwapRequest[]  @relation("TargetEmployee")
+  timeOffRequests         TimeOffRequest[]
+  accrualBalances         AccrualBalance[]
+  shiftMarketplaceClaims  ShiftMarketplaceListing[]  @relation("ClaimedBy")
 
   @@index([email])
   @@index([employeeNumber])
   @@index([role])
+  @@index([locationId])
 }
 
 // Organization/Company model
@@ -92,11 +166,44 @@ model Organization {
   minWeeklyRest     Int               @default(35)
   publishDeadline   Int               @default(14)  // Days before roster start
 
+  // Labor cost settings
+  laborBudgetPerWeek Decimal?         @db.Decimal(10, 2)
+  overtimePremium    Decimal          @default(1.4) @db.Decimal(3, 2)  // Norwegian minimum: 40%
+
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
   // Relations
   rosters           Roster[]
+  locations         Location[]
+}
+
+// Multi-location support
+model Location {
+  id                String            @id @default(uuid())
+  organizationId    String
+  organization      Organization      @relation(fields: [organizationId], references: [id])
+
+  name              String
+  address           String?
+  city              String?
+  region            String?
+  country           String            @default("NO")
+  timezone          String            @default("Europe/Oslo")
+
+  // Labor settings
+  laborBudgetPerWeek Decimal?         @db.Decimal(10, 2)
+  maxEmployees      Int?
+
+  isActive          Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relations
+  users             User[]
+  rosters           Roster[]
+
+  @@index([organizationId])
 }
 
 // Roster (vaktplan) model
@@ -133,11 +240,17 @@ model Roster {
   shifts            Shift[]
   comments          RosterComment[]
   auditLogs         AuditLog[]
+  messages          Message[]
+  broadcasts        Broadcast[]
+  laborCosts        LaborCost[]
+  location          Location?         @relation(fields: [locationId], references: [id])
+  locationId        String?
 
   @@index([organizationId])
   @@index([status])
   @@index([startDate, endDate])
   @@index([publishedAt])
+  @@index([locationId])
 }
 
 // Shift model
@@ -159,6 +272,10 @@ model Shift {
   location          String?
   notes             String?
 
+  // Labor cost tracking
+  hourlyRate        Decimal?          @db.Decimal(10, 2)  // Override user's rate
+  laborCost         Decimal?          @db.Decimal(10, 2)  // Calculated cost
+
   // Compliance flags
   violatesRestPeriod Boolean          @default(false)
   violatesDailyLimit Boolean          @default(false)
@@ -177,10 +294,195 @@ model Shift {
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
+  // Relations for enhanced features
+  marketplaceListing ShiftMarketplaceListing?
+  swapRequests       ShiftSwapRequest[]  @relation("RequestedShift")
+  offeredSwaps       ShiftSwapRequest[]  @relation("OfferedShift")
+
   @@index([rosterId])
   @@index([userId])
   @@index([startTime, endTime])
   @@index([violatesRestPeriod, violatesDailyLimit, violatesWeeklyLimit])
+}
+
+// Shift Marketplace - Employees can claim available shifts
+model ShiftMarketplaceListing {
+  id                String            @id @default(uuid())
+  shiftId           String            @unique
+  shift             Shift             @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+
+  postedBy          String            // Manager or employee giving up shift
+  postedAt          DateTime          @default(now())
+  availableUntil    DateTime          // Deadline to claim
+
+  reason            String?           // Why shift is available
+  eligibleRoles     String[]          // Which roles can claim (e.g., ["Server", "Bartender"])
+  eligibleUserIds   String[]          // Specific users who can claim (optional)
+
+  // Claiming
+  claimedBy         String?
+  claimedByUser     User?             @relation("ClaimedBy", fields: [claimedBy], references: [id])
+  claimedAt         DateTime?
+
+  // Approval
+  status            MarketplaceStatus @default(AVAILABLE)
+  approvedBy        String?
+  approvedAt        DateTime?
+  rejectionReason   String?
+
+  @@index([shiftId])
+  @@index([status])
+  @@index([availableUntil])
+}
+
+// Shift Swap Requests
+model ShiftSwapRequest {
+  id                String            @id @default(uuid())
+
+  // Requester info
+  requestedBy       String
+  requester         User              @relation("RequestedBy", fields: [requestedBy], references: [id])
+  requestedShiftId  String            // Shift requester wants to give away
+  requestedShift    Shift             @relation("RequestedShift", fields: [requestedShiftId], references: [id])
+
+  // Target info (optional - can be open swap)
+  targetEmployee    String?
+  targetUser        User?             @relation("TargetEmployee", fields: [targetEmployee], references: [id])
+  offeredShiftId    String?           // Shift requester will take in exchange
+  offeredShift      Shift?            @relation("OfferedShift", fields: [offeredShiftId], references: [id])
+
+  reason            String
+  createdAt         DateTime          @default(now())
+
+  // Response
+  status            SwapStatus        @default(PENDING)
+  respondedBy       String?           // Manager or target employee
+  respondedAt       DateTime?
+  rejectionReason   String?
+
+  @@index([requestedBy])
+  @@index([targetEmployee])
+  @@index([status])
+}
+
+// Time Off Requests
+model TimeOffRequest {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              TimeOffType
+  startDate         DateTime
+  endDate           DateTime
+  totalDays         Decimal           @db.Decimal(4, 1)  // Can be partial days
+
+  reason            String?
+  attachment        String?           // URL to doctor's note, etc.
+
+  createdAt         DateTime          @default(now())
+
+  // Approval workflow
+  status            TimeOffStatus     @default(PENDING)
+  approvedBy        String?
+  approvedAt        DateTime?
+  rejectionReason   String?
+
+  // Accrual deduction
+  deductedFrom      AccrualType?      // Which accrual balance to deduct from
+  deductedDays      Decimal?          @db.Decimal(4, 1)
+
+  @@index([userId])
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+// Accrual Balances (Vacation, Sick Time, Comp Time)
+model AccrualBalance {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              AccrualType
+  year              Int               // Accrual year
+
+  // Balance tracking
+  earnedDays        Decimal           @default(0) @db.Decimal(5, 2)
+  usedDays          Decimal           @default(0) @db.Decimal(5, 2)
+  remainingDays     Decimal           @default(0) @db.Decimal(5, 2)
+
+  // Carry-over from previous year
+  carryOverDays     Decimal?          @db.Decimal(5, 2)
+  carryOverExpiry   DateTime?         // When carry-over expires
+
+  // Norwegian vacation rules: 25 days/year (5 weeks)
+  annualEntitlement Decimal           @default(25) @db.Decimal(5, 2)
+
+  updatedAt         DateTime          @updatedAt
+
+  @@unique([userId, type, year])
+  @@index([userId])
+  @@index([type])
+}
+
+// Labor Cost Tracking
+model LaborCost {
+  id                String            @id @default(uuid())
+  rosterId          String?
+  roster            Roster?           @relation(fields: [rosterId], references: [id])
+
+  period            String            // "2024-W01" for weekly, "2024-01" for monthly
+  periodStart       DateTime
+  periodEnd         DateTime
+
+  // Budgeted costs
+  budgetedHours     Decimal           @db.Decimal(8, 2)
+  budgetedCost      Decimal           @db.Decimal(10, 2)
+
+  // Scheduled costs (from roster)
+  scheduledHours    Decimal           @db.Decimal(8, 2)
+  scheduledCost     Decimal           @db.Decimal(10, 2)
+  scheduledRegularCost  Decimal       @db.Decimal(10, 2)
+  scheduledOvertimeCost Decimal       @db.Decimal(10, 2)
+
+  // Actual costs (from time tracking)
+  actualHours       Decimal?          @db.Decimal(8, 2)
+  actualCost        Decimal?          @db.Decimal(10, 2)
+  actualRegularCost Decimal?          @db.Decimal(10, 2)
+  actualOvertimeCost Decimal?         @db.Decimal(10, 2)
+
+  // Variance
+  variance          Decimal?          @db.Decimal(10, 2)
+  variancePercent   Decimal?          @db.Decimal(5, 2)
+
+  // Breakdown by department
+  departmentBreakdown Json?
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([rosterId])
+  @@index([periodStart, periodEnd])
+}
+
+// Dashboard Metrics (Pre-calculated for performance)
+model DashboardMetric {
+  id                String            @id @default(uuid())
+  organizationId    String
+  locationId        String?
+
+  metricType        MetricType
+  period            String            // "2024-W01", "2024-01", etc.
+  periodStart       DateTime
+  periodEnd         DateTime
+
+  // Metric data (flexible JSON for different metric types)
+  data              Json
+
+  calculatedAt      DateTime          @default(now())
+
+  @@index([organizationId, metricType, period])
+  @@index([locationId])
+  @@index([periodStart, periodEnd])
 }
 
 // Employee preferences for AI scheduling
@@ -343,4 +645,71 @@ model ComplianceReport {
 
   @@index([startDate, endDate])
   @@index([reportType])
+}
+
+// Direct messages between employees
+model Message {
+  id                String            @id @default(uuid())
+
+  // Sender and recipient
+  senderId          String
+  sender            User              @relation("MessagesSent", fields: [senderId], references: [id], onDelete: Cascade)
+  recipientId       String
+  recipient         User              @relation("MessagesReceived", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  // Optional roster context
+  rosterId          String?
+  roster            Roster?           @relation(fields: [rosterId], references: [id], onDelete: SetNull)
+
+  // Message content
+  content           String
+
+  // Read tracking
+  isRead            Boolean           @default(false)
+  readAt            DateTime?
+
+  // Threading support
+  parentId          String?
+  parent            Message?          @relation("MessageThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies           Message[]         @relation("MessageThread")
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([senderId])
+  @@index([recipientId])
+  @@index([rosterId])
+  @@index([parentId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+// Team/department broadcast messages
+model Broadcast {
+  id                String            @id @default(uuid())
+
+  // Sender
+  senderId          String
+  sender            User              @relation("BroadcastsSent", fields: [senderId], references: [id], onDelete: Cascade)
+
+  // Optional roster context
+  rosterId          String?
+  roster            Roster?           @relation(fields: [rosterId], references: [id], onDelete: SetNull)
+
+  // Department targeting (optional)
+  departmentId      String?
+
+  // Broadcast content
+  title             String
+  content           String
+
+  // Audience type
+  audience          String            // "ALL", "DEPARTMENT", "ROSTER"
+
+  createdAt         DateTime          @default(now())
+
+  @@index([senderId])
+  @@index([rosterId])
+  @@index([departmentId])
+  @@index([createdAt])
 }

@@ -22,6 +22,11 @@ import employeeRoutes from './routes/employee.routes';
 import marketplaceRoutes from './routes/marketplace.routes';
 import timeoffRoutes from './routes/timeoff.routes';
 import dashboardRoutes from './routes/dashboard.routes';
+import communicationRoutes from './routes/communication.routes';
+import swapRoutes from './routes/swap.routes';
+import timeclockRoutes from './routes/timeclock.routes';
+import reportsRoutes from './routes/reports.routes';
+import integrationsRoutes from './routes/integrations.routes';
 
 // Load environment variables
 dotenv.config();
@@ -163,6 +168,11 @@ app.use('/api/employee', employeeRoutes);
 app.use('/api/marketplace', marketplaceRoutes);
 app.use('/api/timeoff', timeoffRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/communication', communicationRoutes);
+app.use('/api/swaps', swapRoutes);
+app.use('/api/timeclock', timeclockRoutes);
+app.use('/api/reports', reportsRoutes);
+app.use('/api/integrations', integrationsRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
