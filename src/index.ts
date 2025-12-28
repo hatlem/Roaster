@@ -19,6 +19,9 @@ import { sanitizeMiddleware } from './middleware/validation';
 import authRoutes from './routes/auth.routes';
 import rosterRoutes from './routes/roster.routes';
 import employeeRoutes from './routes/employee.routes';
+import marketplaceRoutes from './routes/marketplace.routes';
+import timeoffRoutes from './routes/timeoff.routes';
+import dashboardRoutes from './routes/dashboard.routes';
 
 // Load environment variables
 dotenv.config();
@@ -157,6 +160,9 @@ app.get('/live', (req, res) => {
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/rosters', rosterRoutes);
 app.use('/api/employee', employeeRoutes);
+app.use('/api/marketplace', marketplaceRoutes);
+app.use('/api/timeoff', timeoffRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
