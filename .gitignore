@@ -5,6 +5,7 @@ node_modules/
 
 # Testing
 coverage/
+.nyc_output/
 
 # Production
 dist/
@@ -15,6 +16,7 @@ build/
 .env.local
 .env.development.local
 .env.test.local
+.env.production
 .env.production.local
 
 # Logs
@@ -23,10 +25,13 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # OS
 .DS_Store
 Thumbs.db
+.AppleDouble
+.LSOverride
 
 # IDE
 .vscode/
@@ -34,6 +39,26 @@ Thumbs.db
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # Prisma
 prisma/migrations/
+
+# Docker
+docker-compose.override.yml
+
+# Backups
+backups/
+*.sql
+*.sql.gz
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# Temporary files
+tmp/
+temp/
+.cache/
