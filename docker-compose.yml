@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: roster-postgres
+    environment:
+      POSTGRES_USER: roster_user
+      POSTGRES_PASSWORD: roster_password
+      POSTGRES_DB: roster_saas
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U roster_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Application (optional - for production deployment)
+  app:
+    build: .
+    container_name: roster-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://roster_user:roster_password@postgres:5432/roster_saas?schema=public
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  postgres_data:

@@ -1,0 +1,49 @@
+MIT License
+
+Copyright (c) 2024 Roster SaaS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+LEGAL DISCLAIMER:
+
+This software provides tools to help organizations maintain compliance with
+Norwegian labor laws (Arbeidsmiljøloven - Working Environment Act) but does
+not guarantee legal compliance.
+
+Users are responsible for:
+- Proper configuration for their specific industry and collective agreements
+- Handling exceptions and special cases appropriately
+- Consulting legal counsel when needed
+- Maintaining accurate and complete records
+- Understanding and complying with all applicable laws
+
+The employer remains legally responsible for compliance with Norwegian labor
+laws and regulations. This software is a tool to assist with compliance, not
+a substitute for legal advice or proper workforce management practices.
+
+The authors and contributors of this software accept no liability for any
+legal consequences, fines, penalties, or damages resulting from the use or
+misuse of this software.
+
+When in doubt, consult:
+- Norwegian Labour Inspection Authority (Arbeidstilsynet)
+- Legal counsel specializing in Norwegian labor law
+- Your industry's collective bargaining agreements
