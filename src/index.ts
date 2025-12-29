@@ -58,7 +58,9 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://cdnjs.cloudflare.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com'],
+      fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
     },
   },
   hsts: {
@@ -91,6 +93,9 @@ app.use(requestLoggerMiddleware);
 
 // Metrics collection
 app.use(metricsMiddleware);
+
+// Serve static marketing pages from public directory
+app.use(express.static('public'));
 
 // Global rate limiting
 app.use('/api/', apiLimiter);
