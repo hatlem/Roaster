@@ -62,3 +62,8 @@ backups/
 tmp/
 temp/
 .cache/
+
+# Shell config
+.zshrc
+.bashrc
+.bash_profile
