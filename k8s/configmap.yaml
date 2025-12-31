@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roster-config
+  namespace: roster-saas
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  LOG_LEVEL: "info"
+  JWT_EXPIRES_IN: "7d"
+
+  # Norwegian Labor Law Compliance
+  ROSTER_PUBLISH_DEADLINE_DAYS: "14"
+  MIN_DAILY_REST_HOURS: "11"
+  MIN_WEEKLY_REST_HOURS: "35"
+  MAX_DAILY_WORK_HOURS: "9"
+  MAX_WEEKLY_WORK_HOURS: "40"
+  AUDIT_RETENTION_YEARS: "2"

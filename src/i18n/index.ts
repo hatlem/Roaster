@@ -72,14 +72,18 @@ export function isLocaleSupported(locale: string): locale is SupportedLocale {
 
 /**
  * Get the browser's preferred locale, falling back to default
+ * Note: This function is primarily for client-side use. In Node.js, it returns the default.
  */
 export function getBrowserLocale(defaultLocale: SupportedLocale = 'no'): SupportedLocale {
-  if (typeof navigator === 'undefined') {
-    return defaultLocale;
+  // Check if we're in a browser environment
+  if (typeof globalThis !== 'undefined' && 'navigator' in globalThis) {
+    const nav = globalThis.navigator as { language?: string };
+    if (nav.language) {
+      const browserLocale = nav.language.split('-')[0];
+      return isLocaleSupported(browserLocale) ? browserLocale : defaultLocale;
+    }
   }
-
-  const browserLocale = navigator.language.split('-')[0];
-  return isLocaleSupported(browserLocale) ? browserLocale : defaultLocale;
+  return defaultLocale;
 }
 
 /**
