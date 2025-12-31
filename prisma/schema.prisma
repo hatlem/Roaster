@@ -144,6 +144,15 @@ model User {
   accrualBalances         AccrualBalance[]
   shiftMarketplaceClaims  ShiftMarketplaceListing[]  @relation("ClaimedBy")
 
+  // People-First relations
+  kudosGiven              Kudos[]             @relation("KudosGiven")
+  kudosReceived           Kudos[]             @relation("KudosReceived")
+  milestones              Milestone[]
+  wellnessInsights        WellnessInsight[]
+  quickActions            UserQuickAction[]
+  moodCheckIns            MoodCheckIn[]
+  employeeProfile         EmployeeProfile?
+
   @@index([email])
   @@index([employeeNumber])
   @@index([role])
@@ -712,4 +721,223 @@ model Broadcast {
   @@index([rosterId])
   @@index([departmentId])
   @@index([createdAt])
+}
+
+// =====================================
+// PEOPLE-FIRST FEATURES
+// =====================================
+
+// Kudos category types
+enum KudosCategory {
+  TEAMWORK
+  INNOVATION
+  CUSTOMER_SERVICE
+  LEADERSHIP
+  GOING_EXTRA_MILE
+  PROBLEM_SOLVING
+  MENTORSHIP
+  POSITIVE_ATTITUDE
+  RELIABILITY
+  OTHER
+}
+
+// Employee Recognition / Kudos
+model Kudos {
+  id                String            @id @default(uuid())
+
+  // Who gave the kudos
+  fromUserId        String
+  fromUser          User              @relation("KudosGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
+
+  // Who received the kudos
+  toUserId          String
+  toUser            User              @relation("KudosReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+
+  // Kudos details
+  category          KudosCategory
+  message           String
+  isPublic          Boolean           @default(true)  // Show on team feed
+
+  // Reactions from others
+  celebrationCount  Int               @default(0)     // Number of "celebrations" (likes)
+
+  createdAt         DateTime          @default(now())
+
+  @@index([fromUserId])
+  @@index([toUserId])
+  @@index([createdAt])
+  @@index([isPublic])
+}
+
+// Milestone types
+enum MilestoneType {
+  WORK_ANNIVERSARY
+  BIRTHDAY
+  PROMOTION
+  FIRST_SHIFT
+  HUNDRED_SHIFTS
+  FIVE_HUNDRED_SHIFTS
+  FIRST_KUDOS
+  TEN_KUDOS_RECEIVED
+  PERFECT_ATTENDANCE_MONTH
+  PERFECT_ATTENDANCE_QUARTER
+  TEAM_PLAYER_AWARD
+  CUSTOM
+}
+
+// Employee Milestones & Celebrations
+model Milestone {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              MilestoneType
+  title             String
+  description       String?
+
+  // For anniversaries: years of service
+  yearsCount        Int?
+
+  // When milestone occurs/occurred
+  milestoneDate     DateTime
+
+  // Whether user wants this celebrated publicly
+  isPublic          Boolean           @default(true)
+  isCelebrated      Boolean           @default(false)
+
+  // Celebration messages from colleagues
+  celebrationCount  Int               @default(0)
+
+  createdAt         DateTime          @default(now())
+
+  @@index([userId])
+  @@index([milestoneDate])
+  @@index([type])
+  @@index([isPublic])
+}
+
+// Wellness/Work-Life Balance Insights
+model WellnessInsight {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Period this insight covers
+  periodStart       DateTime
+  periodEnd         DateTime
+  periodType        String            // "WEEK", "MONTH"
+
+  // Work pattern metrics
+  averageHoursPerDay     Float
+  averageHoursPerWeek    Float
+  totalOvertimeHours     Float
+  consecutiveWorkDays    Int               // Max consecutive days worked
+
+  // Rest & recovery metrics
+  averageRestBetweenShifts Float          // Hours
+  weekendDaysWorked      Int
+  lateNightShiftsCount   Int              // Shifts ending after 22:00
+  earlyMorningShiftsCount Int             // Shifts starting before 07:00
+
+  // Balance score (0-100)
+  workLifeBalanceScore   Int
+
+  // Personalized insights (AI-generated)
+  insights          String[]          // Array of insight messages
+  recommendations   String[]          // Array of recommendations
+
+  // Trends compared to previous period
+  trendDirection    String?           // "IMPROVING", "STABLE", "DECLINING"
+  trendPercentage   Float?
+
+  calculatedAt      DateTime          @default(now())
+
+  @@unique([userId, periodStart, periodEnd])
+  @@index([userId])
+  @@index([periodStart, periodEnd])
+}
+
+// Quick Action types for personalization
+enum QuickActionType {
+  REQUEST_TIME_OFF
+  SWAP_SHIFT
+  CLAIM_OPEN_SHIFT
+  SEND_KUDOS
+  VIEW_SCHEDULE
+  CHECK_BALANCE
+  CLOCK_IN
+  CLOCK_OUT
+  MESSAGE_MANAGER
+  VIEW_TEAM
+}
+
+// User's personalized quick actions
+model UserQuickAction {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  actionType        QuickActionType
+  displayOrder      Int               @default(0)
+  isEnabled         Boolean           @default(true)
+
+  // Usage tracking for smart sorting
+  usageCount        Int               @default(0)
+  lastUsedAt        DateTime?
+
+  @@unique([userId, actionType])
+  @@index([userId])
+}
+
+// Team mood/pulse check-ins
+model MoodCheckIn {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Mood on 1-5 scale (emoji-based)
+  moodScore         Int               // 1=😔, 2=😐, 3=🙂, 4=😊, 5=🤩
+
+  // Optional tags
+  tags              String[]          // ["Stressed", "Energized", "Tired", etc.]
+
+  // Optional private note (only visible to employee)
+  privateNote       String?
+
+  // When checking in
+  checkInDate       DateTime          @default(now())
+
+  @@index([userId])
+  @@index([checkInDate])
+}
+
+// Employee extended profile for People-First features
+model EmployeeProfile {
+  id                String            @id @default(uuid())
+  userId            String            @unique
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal info for celebrations
+  birthday          DateTime?         // Just month and day are used
+  showBirthdayPublicly Boolean        @default(true)
+
+  // Work preferences display
+  pronouns          String?
+  funFact           String?
+  skills            String[]
+  interests         String[]
+
+  // Communication preferences
+  preferredContactMethod String?      // "APP", "SMS", "EMAIL"
+  quietHoursStart   String?           // "22:00"
+  quietHoursEnd     String?           // "07:00"
+
+  // Onboarding status for new employees
+  isOnboardingComplete Boolean        @default(false)
+  onboardingStep    Int               @default(0)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([userId])
 }
