@@ -4,6 +4,7 @@ import { auth } from './auth';
 import { roster } from './roster';
 import { compliance } from './compliance';
 import { employee } from './employee';
+import { peopleFirst } from './peopleFirst';
 
 export const no: Translations = {
   common,
@@ -11,4 +12,5 @@ export const no: Translations = {
   roster,
   compliance,
   employee,
+  peopleFirst,
 };
