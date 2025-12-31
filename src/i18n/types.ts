@@ -230,12 +230,173 @@ export interface EmployeeTranslations {
   pushNotifications: string;
 }
 
+export interface PeopleFirstTranslations {
+  dashboard: {
+    title: string;
+    greeting: {
+      morning: string;
+      afternoon: string;
+      evening: string;
+      monday: string;
+      friday: string;
+      weekend: string;
+    };
+  };
+  today: {
+    yourShift: string;
+    startsIn: string;
+    noShift: string;
+    colleaguesWorking: string;
+    openShifts: string;
+    unread: string;
+    hours: string;
+  };
+  quickActions: {
+    title: string;
+    requestTimeOff: string;
+    swapShift: string;
+    claimShift: string;
+    sendKudos: string;
+    viewSchedule: string;
+    checkBalance: string;
+    clockIn: string;
+    clockOut: string;
+    messageManager: string;
+    viewTeam: string;
+  };
+  teamPulse: {
+    title: string;
+    teamMood: string;
+    workingToday: string;
+    kudosThisWeek: string;
+    celebrationsSoon: string;
+    trending: {
+      up: string;
+      down: string;
+      stable: string;
+    };
+  };
+  celebrations: {
+    title: string;
+    birthday: string;
+    anniversary: string;
+    milestone: string;
+    today: string;
+    tomorrow: string;
+    inDays: string;
+    celebrate: string;
+    yearsAtCompany: string;
+    congratulations: string;
+  };
+  kudos: {
+    title: string;
+    sendKudos: string;
+    gaveKudosTo: string;
+    noKudosYet: string;
+    sendFirstKudos: string;
+    youReceivedKudos: string;
+    categories: {
+      teamwork: string;
+      innovation: string;
+      customerService: string;
+      leadership: string;
+      goingExtraMile: string;
+      problemSolving: string;
+      mentorship: string;
+      positiveAttitude: string;
+      reliability: string;
+      other: string;
+    };
+    form: {
+      title: string;
+      selectPerson: string;
+      selectCategory: string;
+      writeMessage: string;
+      messagePlaceholder: string;
+      makePublic: string;
+      send: string;
+      cancel: string;
+    };
+  };
+  wellness: {
+    title: string;
+    workLifeBalance: string;
+    hoursThisWeek: string;
+    avgRest: string;
+    scoreLabels: {
+      excellent: string;
+      good: string;
+      moderate: string;
+      needsAttention: string;
+    };
+    insights: {
+      healthyBalance: string;
+      keepItUp: string;
+      manyHours: string;
+      takeBreak: string;
+      shortRest: string;
+      getRest: string;
+      normalWorkload: string;
+      prioritizeLife: string;
+    };
+  };
+  mood: {
+    question: string;
+    anythingElse: string;
+    optional: string;
+    done: string;
+    privacyNote: string;
+    moods: Record<number, string>;
+    tags: Record<string, string>;
+  };
+  stats: {
+    title: string;
+    shiftsThisMonth: string;
+    hours: string;
+    kudosReceived: string;
+    vacationDaysLeft: string;
+  };
+  team: {
+    title: string;
+    workingToday: string;
+    workingTomorrow: string;
+    noOneToday: string;
+  };
+  milestones: {
+    firstKudos: string;
+    tenKudos: string;
+    firstShift: string;
+    hundredShifts: string;
+    perfectAttendanceMonth: string;
+    perfectAttendanceQuarter: string;
+  };
+  empty: {
+    noShifts: string;
+    noCelebrations: string;
+    noKudos: string;
+    noTeamMembers: string;
+  };
+  actions: {
+    viewAll: string;
+    refresh: string;
+    share: string;
+    celebrate: string;
+  };
+  time: {
+    justNow: string;
+    hoursAgo: string;
+    yesterday: string;
+    daysAgo: string;
+  };
+}
+
 export interface Translations {
   common: CommonTranslations;
   auth: AuthTranslations;
   roster: RosterTranslations;
   compliance: ComplianceTranslations;
   employee: EmployeeTranslations;
+  peopleFirst: PeopleFirstTranslations;
 }
 
 export interface LocaleConfig {

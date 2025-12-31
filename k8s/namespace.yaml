@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: roster-saas
+  labels:
+    name: roster-saas
+    environment: production
