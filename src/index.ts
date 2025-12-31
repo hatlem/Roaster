@@ -27,7 +27,7 @@ import swapRoutes from './routes/swap.routes';
 import timeclockRoutes from './routes/timeclock.routes';
 import reportsRoutes from './routes/reports.routes';
 import integrationsRoutes from './routes/integrations.routes';
-import peopleFirstRoutes from './routes/peopleFirst';
+import zapierRoutes from './routes/zapier.routes';
 
 // Load environment variables
 dotenv.config();
@@ -179,7 +179,7 @@ app.use('/api/swaps', swapRoutes);
 app.use('/api/timeclock', timeclockRoutes);
 app.use('/api/reports', reportsRoutes);
 app.use('/api/integrations', integrationsRoutes);
-app.use('/api/people', peopleFirstRoutes);  // People-First features
+app.use('/api/zapier', zapierRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

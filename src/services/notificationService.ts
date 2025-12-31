@@ -2,8 +2,26 @@
 // Sends notifications to employees about roster changes, marketplace, swaps, time-off, and more
 
 import { PrismaClient, Shift } from '@prisma/client';
+import { zapierWebhookService, NotificationType as ZapierNotificationType } from './zapierWebhookService';
 
 const prisma = new PrismaClient();
+
+// Helper to dispatch to Zapier (fire and forget)
+async function dispatchToZapier(
+  organizationId: string,
+  notificationType: ZapierNotificationType,
+  data: Record<string, unknown>
+): Promise<void> {
+  try {
+    await zapierWebhookService.dispatchFromNotification({
+      organizationId,
+      notificationType,
+      data,
+    });
+  } catch (error) {
+    console.error('Zapier dispatch error:', error);
+  }
+}
 
 // Notification types for all competitive features
 export type NotificationType =
@@ -516,4 +534,141 @@ export class NotificationService {
 
     return result.count;
   }
+
+  // ==========================================
+  // ZAPIER INTEGRATION
+  // ==========================================
+
+  /**
+   * Dispatch roster published event to Zapier
+   */
+  async dispatchRosterPublished(
+    organizationId: string,
+    rosterId: string,
+    rosterName: string,
+    startDate: Date,
+    endDate: Date,
+    shiftsCount: number,
+    employeesCount: number
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'ROSTER_PUBLISHED', {
+      rosterId,
+      rosterName,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      shiftsCount,
+      employeesCount,
+    });
+  }
+
+  /**
+   * Dispatch shift assigned event to Zapier
+   */
+  async dispatchShiftAssigned(
+    organizationId: string,
+    shift: Shift,
+    employeeName: string,
+    employeeEmail: string
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'SHIFT_ASSIGNED', {
+      shiftId: shift.id,
+      employeeId: shift.userId,
+      employeeName,
+      employeeEmail,
+      date: shift.startTime.toISOString().split('T')[0],
+      startTime: shift.startTime.toISOString(),
+      endTime: shift.endTime.toISOString(),
+      department: shift.department,
+      location: shift.location,
+    });
+  }
+
+  /**
+   * Dispatch shift changed event to Zapier
+   */
+  async dispatchShiftChanged(
+    organizationId: string,
+    shift: Shift,
+    employeeName: string,
+    changeReason: string
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'SHIFT_CHANGED', {
+      shiftId: shift.id,
+      employeeId: shift.userId,
+      employeeName,
+      date: shift.startTime.toISOString().split('T')[0],
+      startTime: shift.startTime.toISOString(),
+      endTime: shift.endTime.toISOString(),
+      originalStartTime: shift.originalStartTime?.toISOString(),
+      originalEndTime: shift.originalEndTime?.toISOString(),
+      changeReason,
+    });
+  }
+
+  /**
+   * Dispatch marketplace shift available event to Zapier
+   */
+  async dispatchMarketplaceShiftAvailable(
+    organizationId: string,
+    listingId: string,
+    shift: Shift
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'MARKETPLACE_SHIFT_AVAILABLE', {
+      listingId,
+      shiftId: shift.id,
+      date: shift.startTime.toISOString().split('T')[0],
+      startTime: shift.startTime.toISOString(),
+      endTime: shift.endTime.toISOString(),
+      department: shift.department,
+      location: shift.location,
+    });
+  }
+
+  /**
+   * Dispatch time-off request event to Zapier
+   */
+  async dispatchTimeOffRequest(
+    organizationId: string,
+    requestId: string,
+    employeeId: string,
+    employeeName: string,
+    type: string,
+    startDate: Date,
+    endDate: Date,
+    totalDays: number
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'TIMEOFF_REQUEST_RECEIVED', {
+      requestId,
+      employeeId,
+      employeeName,
+      type,
+      startDate: startDate.toISOString().split('T')[0],
+      endDate: endDate.toISOString().split('T')[0],
+      totalDays,
+    });
+  }
+
+  /**
+   * Dispatch compliance alert event to Zapier
+   */
+  async dispatchComplianceAlert(
+    organizationId: string,
+    violationType: string,
+    employeeId: string,
+    employeeName: string,
+    issue: string,
+    severity: 'warning' | 'error',
+    details?: Record<string, unknown>
+  ): Promise<void> {
+    await dispatchToZapier(organizationId, 'COMPLIANCE_ALERT', {
+      violationType,
+      employeeId,
+      employeeName,
+      issue,
+      severity,
+      details,
+    });
+  }
 }
+
+export const notificationService = new NotificationService();
