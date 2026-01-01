@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Roaster | Get in Touch</title>
+    <meta name="description" content="Have questions about Roaster? Contact our team for sales inquiries, support, or general questions.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="/industries.html" class="text-gray-700 hover:text-purple-600 transition">Industries</a>
+                    <a href="/customers.html" class="text-gray-700 hover:text-purple-600 transition">Customers</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Pricing</a>
+                <a href="/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Industries</a>
+                <a href="/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Customers</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+                <a href="/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Get Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Get in Touch
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Have questions? We're here to help. Reach out to our team for sales inquiries,
+                technical support, or general questions about Roaster.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-headset text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sales Inquiries</h3>
+                    <p class="text-gray-600 mb-4">
+                        Interested in Roaster for your business? Talk to our sales team.
+                    </p>
+                    <a href="mailto:sales@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        sales@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">+47 123 45 678</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-life-ring text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Customer Support</h3>
+                    <p class="text-gray-600 mb-4">
+                        Need help with your account? Our support team is ready to assist.
+                    </p>
+                    <a href="mailto:support@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        support@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">Mon-Fri: 08:00-17:00</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-envelope text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">General Inquiries</h3>
+                    <p class="text-gray-600 mb-4">
+                        Have a question or partnership proposal? We'd love to hear from you.
+                    </p>
+                    <a href="mailto:hello@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        hello@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">We reply within 24 hours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
+                <p class="text-xl text-gray-600">Fill out the form below and we'll get back to you shortly</p>
+            </div>
+
+            <form id="contact-form" class="bg-white border-2 border-gray-200 rounded-2xl p-8">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="first-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            First Name *
+                        </label>
+                        <input type="text" id="first-name" name="first-name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="last-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Last Name *
+                        </label>
+                        <input type="text" id="last-name" name="last-name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Work Email *
+                        </label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Phone Number
+                        </label>
+                        <input type="tel" id="phone" name="phone"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Company Name
+                    </label>
+                    <input type="text" id="company" name="company"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                </div>
+
+                <div class="mb-6">
+                    <label for="employees" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Number of Employees
+                    </label>
+                    <select id="employees" name="employees"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                        <option value="">Select range</option>
+                        <option value="1-25">1-25</option>
+                        <option value="26-100">26-100</option>
+                        <option value="101-500">101-500</option>
+                        <option value="500+">500+</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">
+                        How can we help? *
+                    </label>
+                    <select id="subject" name="subject" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                        <option value="">Select a topic</option>
+                        <option value="sales">Sales Inquiry</option>
+                        <option value="demo">Request a Demo</option>
+                        <option value="support">Technical Support</option>
+                        <option value="billing">Billing Question</option>
+                        <option value="partnership">Partnership Opportunity</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Message *
+                    </label>
+                    <textarea id="message" name="message" rows="5" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                              placeholder="Tell us more about how we can help you..."></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start">
+                        <input type="checkbox" name="newsletter" class="mt-1 mr-3">
+                        <span class="text-sm text-gray-600">
+                            I'd like to receive updates about Roaster features and Norwegian labor law changes
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition">
+                    Send Message
+                </button>
+
+                <p class="text-sm text-gray-500 mt-4 text-center">
+                    By submitting this form, you agree to our
+                    <a href="/privacy.html" class="text-purple-600 hover:underline">Privacy Policy</a>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Office Info -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Office</h2>
+                <p class="text-xl text-gray-600">Visit us in Oslo</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+                <div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Roaster HQ</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Address</p>
+                                    <p class="text-gray-600">
+                                        Storgata 123<br>
+                                        0182 Oslo, Norway
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Office Hours</p>
+                                    <p class="text-gray-600">
+                                        Monday - Friday: 08:00 - 17:00<br>
+                                        Saturday - Sunday: Closed
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Email</p>
+                                    <p class="text-gray-600">hello@roaster.no</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Phone</p>
+                                    <p class="text-gray-600">+47 123 45 678</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-200 h-96 rounded-xl flex items-center justify-center">
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-map text-6xl mb-4"></i>
+                        <p class="font-semibold">Map placeholder</p>
+                        <p class="text-sm">(Integrate with Google Maps or similar)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Link -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Looking for Quick Answers?</h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Check out our frequently asked questions or comprehensive documentation
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/pricing.html#faq" class="bg-purple-100 text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                    View FAQ
+                </a>
+                <a href="/api-docs.html" class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                    Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                        <li><a href="/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                        <li><a href="/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/customers.html" class="hover:text-purple-400 transition">Customer Stories</a></li>
+                        <li><a href="/compliance-guide.html" class="hover:text-purple-400 transition">Compliance Guide</a></li>
+                        <li><a href="/compare.html" class="hover:text-purple-400 transition">Compare</a></li>
+                        <li><a href="/industries.html" class="hover:text-purple-400 transition">Industries</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. All rights reserved.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/security.html" class="text-sm hover:text-purple-400 transition">Security</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! Our team will get back to you within 24 hours.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de-AT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Roaster vs Competitors - Norwegian Scheduling Software</title>
+    <meta name="description" content="See how Roaster compares to other scheduling solutions. Only Roaster offers built-in Norwegian labor law compliance with Arbeidsmiljøloven.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <i class="fas fa-calendar-check text-purple-600 text-2xl"></i>
+                        <span class="text-xl font-bold text-gray-800">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="features.html" class="text-gray-600 hover:text-purple-600">Features</a>
+                    <a href="pricing.html" class="text-gray-600 hover:text-purple-600">Pricing</a>
+                    <a href="industries.html" class="text-gray-600 hover:text-purple-600">Industries</a>
+                    <a href="customers.html" class="text-gray-600 hover:text-purple-600">Customers</a>
+                    <a href="about.html" class="text-gray-600 hover:text-purple-600">About</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-purple-600">Contact</a>
+                    <a href="demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Demo</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="features.html" class="block py-2 text-gray-600">Features</a>
+                <a href="pricing.html" class="block py-2 text-gray-600">Pricing</a>
+                <a href="industries.html" class="block py-2 text-gray-600">Industries</a>
+                <a href="customers.html" class="block py-2 text-gray-600">Customers</a>
+                <a href="about.html" class="block py-2 text-gray-600">About</a>
+                <a href="contact.html" class="block py-2 text-gray-600">Contact</a>
+                <a href="demo.html" class="block py-2 text-purple-600 font-semibold">Get Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Why Choose Roaster?
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto mb-8">
+                The only scheduling solution built from the ground up for Norwegian labor law compliance.
+                See how we compare to generic international solutions.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="demo.html" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                    See It In Action
+                </a>
+                <a href="#comparison-table" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition">
+                    View Comparison
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Differentiator -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">The Norwegian Compliance Advantage</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    While other solutions require manual compliance checks and expensive add-ons,
+                    Roaster has Norwegian labor law built into every feature.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-gavel text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Built-In Arbeidsmiljøloven</h3>
+                    <p class="text-gray-600">
+                        Every schedule is automatically validated against Norwegian Working Environment Act requirements.
+                        No plugins, no manual checks needed.
+                    </p>
+                </div>
+
+                <div class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-language text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Native Norwegian Experience</h3>
+                    <p class="text-gray-600">
+                        Full Norwegian language support, local date formats, Norwegian holidays,
+                        and terminology your team already understands.
+                    </p>
+                </div>
+
+                <div class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-headset text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Local Support Team</h3>
+                    <p class="text-gray-600">
+                        Support from people who understand Norwegian regulations, in your timezone,
+                        speaking your language.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section id="comparison-table" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Feature Comparison</h2>
+                <p class="text-gray-600">See how Roaster stacks up against generic scheduling solutions</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                    <thead>
+                        <tr class="gradient-bg text-white">
+                            <th class="py-4 px-6 text-left">Feature</th>
+                            <th class="py-4 px-6 text-center">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Roaster</span>
+                                </div>
+                            </th>
+                            <th class="py-4 px-6 text-center">Generic Solutions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Norwegian Compliance -->
+                        <tr class="bg-purple-50">
+                            <td colspan="3" class="py-3 px-6 font-bold text-purple-800">
+                                <i class="fas fa-balance-scale mr-2"></i>Norwegian Labor Law Compliance
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">14-Day Rule Enforcement (§ 10-2)</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Automatic Rest Period Validation (§ 10-8)</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Working Hour Limits (§ 10-4)</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Manual</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Overtime Tracking (§ 10-6)</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Partial</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Night Work Rules (§ 10-11)</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Arbeidstilsynet-Ready Reports</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+
+                        <!-- Core Features -->
+                        <tr class="bg-purple-50">
+                            <td colspan="3" class="py-3 px-6 font-bold text-purple-800">
+                                <i class="fas fa-cogs mr-2"></i>Core Scheduling Features
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Drag-and-Drop Scheduling</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Mobile App</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Shift Swapping</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Time Tracking</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Notifications & Alerts</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+
+                        <!-- Localization -->
+                        <tr class="bg-purple-50">
+                            <td colspan="3" class="py-3 px-6 font-bold text-purple-800">
+                                <i class="fas fa-globe-europe mr-2"></i>Norwegian Localization
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Native Norwegian Interface</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Translation</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Norwegian Holidays Built-In</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Manual</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Norwegian Payroll Integration</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">Visma & Tripletex Integration</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+
+                        <!-- Support -->
+                        <tr class="bg-purple-50">
+                            <td colspan="3" class="py-3 px-6 font-bold text-purple-800">
+                                <i class="fas fa-life-ring mr-2"></i>Support & Security
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">Norwegian-Speaking Support</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times text-red-500 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">CET Timezone Support</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Limited</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-700">EU Data Residency</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><span class="text-yellow-600">Varies</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 text-gray-700">GDPR Compliant</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check text-green-500 text-xl"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost of Non-Compliance -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">The True Cost of Non-Compliance</h2>
+                    <p class="text-gray-600 mb-6">
+                        Using a scheduling solution without built-in Norwegian compliance isn't just inconvenient—it's risky.
+                        Violations of Arbeidsmiljøloven can result in:
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                            <div>
+                                <span class="font-semibold text-gray-800">Financial Penalties</span>
+                                <p class="text-gray-600 text-sm">Fines from Arbeidstilsynet can reach hundreds of thousands of kroner</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                            <div>
+                                <span class="font-semibold text-gray-800">Employee Claims</span>
+                                <p class="text-gray-600 text-sm">Workers can claim compensation for inadequate rest periods</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                            <div>
+                                <span class="font-semibold text-gray-800">Operational Disruption</span>
+                                <p class="text-gray-600 text-sm">In severe cases, authorities can halt operations</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                            <div>
+                                <span class="font-semibold text-gray-800">Reputation Damage</span>
+                                <p class="text-gray-600 text-sm">Compliance issues affect employer branding and recruitment</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8">
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-purple-600 mb-2">100%</div>
+                        <p class="text-gray-700 mb-6">Compliance Rate for Roaster Customers</p>
+
+                        <div class="bg-white rounded-xl p-6 shadow-md">
+                            <i class="fas fa-quote-left text-purple-300 text-2xl mb-4"></i>
+                            <p class="text-gray-700 italic mb-4">
+                                "Before Roaster, we spent hours manually checking schedules against labor laws.
+                                Now compliance is automatic, and we haven't had a single violation in two years."
+                            </p>
+                            <p class="font-semibold text-gray-800">— HR Director, Oslo Retail Chain</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Migration Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Easy Migration from Any System</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Switching to Roaster is simple. Our migration team handles everything,
+                    so you can be up and running in days, not months.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-purple-600 font-bold text-xl">1</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Export Data</h3>
+                    <p class="text-gray-600 text-sm">We help you export your existing schedule data</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-purple-600 font-bold text-xl">2</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Import & Configure</h3>
+                    <p class="text-gray-600 text-sm">Your data is imported and compliance rules configured</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-purple-600 font-bold text-xl">3</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Team Training</h3>
+                    <p class="text-gray-600 text-sm">Your team gets personalized onboarding</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-purple-600 font-bold text-xl">4</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Go Live</h3>
+                    <p class="text-gray-600 text-sm">Start scheduling with full compliance</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-gray-600 mb-4">Average migration time: <span class="font-semibold">5-7 business days</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Ready to Switch to Compliant Scheduling?
+            </h2>
+            <p class="text-xl text-purple-100 mb-8">
+                See why hundreds of Norwegian businesses trust Roaster for their scheduling needs.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="demo.html" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-flex items-center">
+                    <i class="fas fa-play-circle mr-2"></i>
+                    Request a Demo
+                </a>
+                <a href="pricing.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition inline-flex items-center">
+                    <i class="fas fa-tag mr-2"></i>
+                    View Pricing
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-calendar-check text-purple-400 text-xl"></i>
+                        <span class="text-white font-bold text-lg">Roaster</span>
+                    </div>
+                    <p class="text-sm">Norwegian labor law compliant scheduling made simple.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="features.html" class="hover:text-white">Features</a></li>
+                        <li><a href="pricing.html" class="hover:text-white">Pricing</a></li>
+                        <li><a href="integrations.html" class="hover:text-white">Integrations</a></li>
+                        <li><a href="mobile-app.html" class="hover:text-white">Mobile App</a></li>
+                        <li><a href="api-docs.html" class="hover:text-white">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="customers.html" class="hover:text-white">Customer Stories</a></li>
+                        <li><a href="compliance-guide.html" class="hover:text-white">Compliance Guide</a></li>
+                        <li><a href="compare.html" class="hover:text-white">Compare</a></li>
+                        <li><a href="industries.html" class="hover:text-white">Industries</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="about.html" class="hover:text-white">About Us</a></li>
+                        <li><a href="careers.html" class="hover:text-white">Careers</a></li>
+                        <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+                        <li><a href="privacy.html" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm">&copy; 2025 Roaster. All rights reserved.</p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <a href="gdpr.html" class="text-sm hover:text-white">GDPR</a>
+                    <a href="security.html" class="text-sm hover:text-white">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

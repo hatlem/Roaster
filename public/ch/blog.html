@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="de-CH" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Roaster | Norwegian Labor Law & Scheduling Insights</title>
+    <meta name="description" content="Stay updated on Norwegian labor law changes, scheduling best practices, and workforce management tips from the Roaster team.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/blog.html" class="text-purple-600 font-semibold transition">Blog</a>
+                    <a href="/contact.html" class="text-gray-700 hover:text-purple-600 transition">Contact</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/#demo" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Pricing</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/blog.html" class="block py-2 text-purple-600 font-semibold">Blog</a>
+                <a href="/contact.html" class="block py-2 text-gray-700 hover:text-purple-600">Contact</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Roaster Blog
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Insights on Norwegian labor law, workforce scheduling best practices, and
+                tips for building a compliant, employee-first workplace.
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <!-- Featured Post -->
+                    <article class="mb-12">
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
+                        <h2 class="text-3xl font-bold text-gray-900 mt-4 mb-4">
+                            <a href="#" class="hover:text-purple-600 transition">
+                                2025 Changes to Arbeidsmiljøloven: What Employers Need to Know
+                            </a>
+                        </h2>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span>January 10, 2025</span>
+                            <span class="mx-2">|</span>
+                            <span>8 min read</span>
+                            <span class="mx-2">|</span>
+                            <span class="text-purple-600">Compliance</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Norway's Working Environment Act sees significant updates in 2025. From new rest period
+                            interpretations to updated overtime documentation requirements, here's everything employers
+                            need to know to stay compliant this year.
+                        </p>
+                        <a href="#" class="text-purple-600 font-semibold hover:text-purple-700">
+                            Read more <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </article>
+
+                    <hr class="mb-12">
+
+                    <!-- Post Grid -->
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Best Practices</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        5 Tips for Better Shift Planning in Retail
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Learn how to balance customer demand, employee preferences, and compliance
+                                    when creating schedules for your retail team.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>January 8, 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>5 min read</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Compliance</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        The 14-Day Rule Explained: A Complete Guide
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Everything you need to know about publishing schedules 14 days in advance
+                                    according to Arbeidsmiljøloven 10-2.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>January 5, 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>7 min read</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-amber-400 to-orange-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Healthcare</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Managing 24/7 Healthcare Schedules Compliantly
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Healthcare facilities face unique challenges. Here's how to ensure rest
+                                    period compliance while maintaining patient care coverage.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>January 2, 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>6 min read</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-red-400 to-pink-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Employee Experience</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Why Employee Self-Service Scheduling Works
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Shift marketplaces and self-service tools reduce admin burden while
+                                    improving employee satisfaction. Here's the data.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>December 28, 2024</span>
+                                    <span class="mx-2">|</span>
+                                    <span>4 min read</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-indigo-400 to-blue-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Compliance</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Understanding Rest Period Requirements
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    A deep dive into the 11-hour daily and 35-hour weekly rest requirements
+                                    and how to calculate them correctly.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>December 20, 2024</span>
+                                    <span class="mx-2">|</span>
+                                    <span>8 min read</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-purple-400 to-indigo-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Technology</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Integrating Scheduling with Payroll Systems
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Automate the flow of worked hours to your payroll system. Step-by-step
+                                    guide for Visma and Tripletex integration.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>December 15, 2024</span>
+                                    <span class="mx-2">|</span>
+                                    <span>5 min read</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#" class="px-4 py-2 bg-purple-600 text-white rounded-lg">1</a>
+                            <a href="#" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">2</a>
+                            <a href="#" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">3</a>
+                            <span class="px-4 py-2 text-gray-500">...</span>
+                            <a href="#" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">10</a>
+                            <a href="#" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Newsletter -->
+                    <div class="bg-purple-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Subscribe to Updates</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Get the latest on Norwegian labor law changes and scheduling tips delivered to your inbox.
+                        </p>
+                        <form>
+                            <input type="email" placeholder="Your email"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                            <button type="submit" class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="bg-gray-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Categories</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Compliance</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Best Practices</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Healthcare</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Employee Experience</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">6</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Technology</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Product Updates</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">10</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Popular Posts -->
+                    <div class="bg-gray-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Popular Posts</h3>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#" class="text-gray-700 hover:text-purple-600 text-sm font-medium">
+                                    The Complete Guide to Norwegian Labor Law Compliance
+                                </a>
+                                <p class="text-xs text-gray-500 mt-1">5,234 views</p>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 hover:text-purple-600 text-sm font-medium">
+                                    How to Prepare for an Arbeidstilsynet Inspection
+                                </a>
+                                <p class="text-xs text-gray-500 mt-1">3,891 views</p>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 hover:text-purple-600 text-sm font-medium">
+                                    Overtime Limits Explained: 10h, 25h, 200h Rules
+                                </a>
+                                <p class="text-xs text-gray-500 mt-1">2,756 views</p>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 hover:text-purple-600 text-sm font-medium">
+                                    Managing Night Shifts: Best Practices for Compliance
+                                </a>
+                                <p class="text-xs text-gray-500 mt-1">2,412 views</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Resources -->
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="font-bold text-lg mb-4">Resources</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="/compliance-guide.html" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-book text-purple-600 mr-3"></i>
+                                    Compliance Guide
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/api-docs.html" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-code text-purple-600 mr-3"></i>
+                                    API Documentation
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-video text-purple-600 mr-3"></i>
+                                    Video Tutorials
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-file-pdf text-purple-600 mr-3"></i>
+                                    Download: Compliance Checklist
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                        <li><a href="/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/gdpr.html" class="hover:text-purple-400 transition">GDPR Compliance</a></li>
+                        <li><a href="/security.html" class="hover:text-purple-400 transition">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster SaaS. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="https://linkedin.com/company/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="https://twitter.com/roaster_saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://facebook.com/roastersaas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="https://github.com/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

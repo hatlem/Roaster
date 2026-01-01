@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Roaster | Join Our Team</title>
+    <meta name="description" content="Join the Roaster team and help build the future of compliant workforce scheduling. View open positions in Oslo, Norway.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/careers.html" class="text-purple-600 font-semibold transition">Careers</a>
+                    <a href="/contact.html" class="text-gray-700 hover:text-purple-600 transition">Contact</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/#demo" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Pricing</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/careers.html" class="block py-2 text-purple-600 font-semibold">Careers</a>
+                <a href="/contact.html" class="block py-2 text-gray-700 hover:text-purple-600">Contact</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Build the Future of Work
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Join a team passionate about protecting workers' rights through technology.
+                We're building software that makes compliance effortless for Norwegian businesses.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Join Us -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Join Roaster?</h2>
+                <p class="text-xl text-gray-600">More than just a job, it's a mission</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Meaningful Impact</h3>
+                    <p class="text-gray-600">
+                        Your work directly helps protect workers' rights and ensures fair treatment
+                        for thousands of employees across Norway.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Growth Stage</h3>
+                    <p class="text-gray-600">
+                        We're at an exciting growth stage with product-market fit. Join now to have
+                        real influence on our direction and culture.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-laptop-house text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Flexible Work</h3>
+                    <p class="text-gray-600">
+                        We practice what we preach. Enjoy flexible hours, remote options, and a
+                        healthy work-life balance.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-graduation-cap text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Learning Budget</h3>
+                    <p class="text-gray-600">
+                        Annual learning budget for courses, conferences, and books. We invest in
+                        your professional growth.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Great Team</h3>
+                    <p class="text-gray-600">
+                        Work with talented, friendly people who care about building great products
+                        and supporting each other.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Competitive Package</h3>
+                    <p class="text-gray-600">
+                        Competitive salary, equity options, pension, insurance, and comprehensive
+                        benefits package.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Open Positions</h2>
+                <p class="text-xl text-gray-600">Find your next role at Roaster</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Engineering -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                        <i class="fas fa-code text-purple-600 mr-3"></i> Engineering
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">Senior Backend Engineer</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Node.js</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">TypeScript</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Hybrid</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">React Native Developer</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">React Native</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">TypeScript</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">iOS/Android</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Hybrid</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">DevOps Engineer</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Kubernetes</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">AWS</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Terraform</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Hybrid</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-purple-600 mr-3"></i> Product
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">Product Designer</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">UX/UI</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Figma</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">B2B SaaS</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Hybrid</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sales & Marketing -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                        <i class="fas fa-bullhorn text-purple-600 mr-3"></i> Sales & Marketing
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">Account Executive</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">B2B Sales</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">SaaS</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Norwegian</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">Content Marketing Manager</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Content</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">SEO</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Norwegian/English</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Remote</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer Success -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                        <i class="fas fa-headset text-purple-600 mr-3"></i> Customer Success
+                    </h3>
+                    <div class="space-y-4">
+                        <a href="#" class="block bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">Customer Success Manager</h4>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">CSM</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Onboarding</span>
+                                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Norwegian</span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Oslo, Norway / Hybrid</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-purple-600"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Benefits & Perks</h2>
+                <p class="text-xl text-gray-600">Taking care of our team</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-money-bill-wave text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Competitive Salary</h4>
+                    <p class="text-gray-600 text-sm">Top-of-market compensation reviewed annually</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-pie text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Equity Options</h4>
+                    <p class="text-gray-600 text-sm">Share in our success with stock options</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-umbrella-beach text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">5 Weeks Vacation</h4>
+                    <p class="text-gray-600 text-sm">Plus Norwegian public holidays</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Flexible Work</h4>
+                    <p class="text-gray-600 text-sm">Remote-friendly with flexible hours</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heartbeat text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Health Insurance</h4>
+                    <p class="text-gray-600 text-sm">Comprehensive private health coverage</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-piggy-bank text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Pension</h4>
+                    <p class="text-gray-600 text-sm">Generous pension contributions</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Learning Budget</h4>
+                    <p class="text-gray-600 text-sm">NOK 15,000/year for professional development</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop text-xl text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Equipment</h4>
+                    <p class="text-gray-600 text-sm">Latest MacBook, monitors, and accessories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Don't See a Perfect Fit?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                We're always looking for talented people. Send us your CV and tell us how you'd contribute.
+            </p>
+            <a href="mailto:careers@roaster.no" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Send General Application
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                        <li><a href="/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/gdpr.html" class="hover:text-purple-400 transition">GDPR Compliance</a></li>
+                        <li><a href="/security.html" class="hover:text-purple-400 transition">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster SaaS. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="https://linkedin.com/company/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="https://twitter.com/roaster_saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://facebook.com/roastersaas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="https://github.com/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

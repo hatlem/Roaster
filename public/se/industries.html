@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industries - Roaster | Scheduling Solutions by Sector</title>
+    <meta name="description" content="Discover how Roaster helps different industries maintain Norwegian labor law compliance. Tailored solutions for retail, healthcare, hospitality, and more.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="/industries.html" class="text-purple-600 font-semibold transition">Industries</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/contact.html" class="text-gray-700 hover:text-purple-600 transition">Contact</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/#demo" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Pricing</a>
+                <a href="/industries.html" class="block py-2 text-purple-600 font-semibold">Industries</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/contact.html" class="block py-2 text-gray-700 hover:text-purple-600">Contact</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Built for Your Industry
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Whether you're in retail, healthcare, hospitality, or manufacturing, Roaster understands
+                the unique scheduling challenges you face and the specific Norwegian labor law requirements
+                that apply to your sector.
+            </p>
+        </div>
+    </section>
+
+    <!-- Industries Grid -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Retail -->
+            <div id="retail" class="mb-20">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-store text-4xl text-blue-600"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Retail</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            From small boutiques to large supermarket chains, manage variable schedules
+                            while ensuring compliance with Norwegian opening hours regulations and
+                            employee rest requirements.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Variable shift patterns</span>
+                                    <p class="text-gray-600 text-sm">Handle part-time, full-time, and seasonal workers seamlessly</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Sunday and holiday compliance</span>
+                                    <p class="text-gray-600 text-sm">Automatic validation of opening hour restrictions</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">High employee turnover support</span>
+                                    <p class="text-gray-600 text-sm">Easy onboarding and schedule updates</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Multi-location management</span>
+                                    <p class="text-gray-600 text-sm">Manage schedules across multiple stores</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-bold">Weekly Schedule - Oslo Retail AS</h4>
+                                    <span class="text-green-600 text-sm font-semibold">100% Compliant</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-sm font-medium">Morning Shift</span>
+                                        <span class="text-sm text-gray-600">08:00 - 16:00</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-sm font-medium">Afternoon Shift</span>
+                                        <span class="text-sm text-gray-600">12:00 - 20:00</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-sm font-medium">Saturday Shift</span>
+                                        <span class="text-sm text-gray-600">10:00 - 18:00</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fas fa-users mr-2 text-purple-600"></i>
+                                        12 employees scheduled this week
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Healthcare -->
+            <div id="healthcare" class="mb-20">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-red-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-hospital text-4xl text-red-600"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Healthcare</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            Hospitals, clinics, and care facilities require 24/7 coverage with strict
+                            rest period enforcement. Roaster handles complex rotation patterns while
+                            ensuring patient care is never compromised.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">24/7 shift coverage</span>
+                                    <p class="text-gray-600 text-sm">Manage day, evening, and night shifts with automatic handoff</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Fatigue management</span>
+                                    <p class="text-gray-600 text-sm">Strict rest period validation for patient safety</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">On-call scheduling</span>
+                                    <p class="text-gray-600 text-sm">Track on-call hours and compensation separately</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Skill-based assignments</span>
+                                    <p class="text-gray-600 text-sm">Match qualifications to shift requirements</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-red-50 to-purple-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="font-bold mb-4">Rest Period Compliance - Bergen Hospital</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-medium">Nurse Maria - Rest After Night Shift</span>
+                                            <span class="text-green-600 text-sm font-semibold">13h</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 118%"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Minimum 11h required</p>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-medium">Dr. Hansen - Weekly Rest</span>
+                                            <span class="text-green-600 text-sm font-semibold">42h</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 120%"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Minimum 35h required</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                    <p class="text-sm text-green-800">
+                                        <i class="fas fa-shield-alt mr-2"></i>
+                                        All healthcare staff meet rest requirements
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hospitality -->
+            <div id="hospitality" class="mb-20">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-amber-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-utensils text-4xl text-amber-600"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Hospitality</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            Restaurants, hotels, and catering companies face unique challenges with
+                            split shifts, late nights, and seasonal demand. Roaster keeps you compliant
+                            even during your busiest seasons.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Split shift management</span>
+                                    <p class="text-gray-600 text-sm">Handle lunch and dinner shifts with proper rest between</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Late night compliance</span>
+                                    <p class="text-gray-600 text-sm">Track hours for staff working past midnight</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Seasonal scaling</span>
+                                    <p class="text-gray-600 text-sm">Easily add temporary staff during peak seasons</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Tip tracking integration</span>
+                                    <p class="text-gray-600 text-sm">Connect hours to payroll and tip distribution</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-amber-50 to-purple-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="font-bold mb-4">Split Shift Schedule - Trondheim Restaurant</h4>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-amber-50 rounded-lg border-l-4 border-amber-500">
+                                        <p class="font-semibold text-sm">Lunch Service</p>
+                                        <p class="text-sm text-gray-600">10:00 - 14:30</p>
+                                    </div>
+                                    <div class="p-3 bg-gray-50 rounded-lg text-center">
+                                        <p class="text-sm text-gray-500">
+                                            <i class="fas fa-clock mr-2"></i>
+                                            4.5 hour break (compliant)
+                                        </p>
+                                    </div>
+                                    <div class="p-3 bg-amber-50 rounded-lg border-l-4 border-amber-500">
+                                        <p class="font-semibold text-sm">Dinner Service</p>
+                                        <p class="text-sm text-gray-600">19:00 - 23:30</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fas fa-check text-green-600 mr-2"></i>
+                                        Total: 9h work with proper rest
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manufacturing -->
+            <div id="manufacturing" class="mb-20">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-200 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-industry text-4xl text-gray-700"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Manufacturing</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            Production lines don't stop, and neither does compliance. Manage rotating
+                            shifts, overtime limits, and safety requirements across your entire operation.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Rotating shift patterns</span>
+                                    <p class="text-gray-600 text-sm">2-2-3, continental, and custom rotations</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Overtime monitoring</span>
+                                    <p class="text-gray-600 text-sm">Stay within 10h/week and 200h/year limits</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Safety certifications</span>
+                                    <p class="text-gray-600 text-sm">Track required certifications and training</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Union agreement support</span>
+                                    <p class="text-gray-600 text-sm">Configure for collective bargaining rules</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-gray-100 to-purple-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="font-bold mb-4">3-Shift Rotation - Stavanger Manufacturing</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-sun text-yellow-500 mr-3"></i>
+                                            <span class="font-medium">Day Shift</span>
+                                        </div>
+                                        <span class="text-sm text-gray-600">06:00 - 14:00</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-cloud-sun text-orange-500 mr-3"></i>
+                                            <span class="font-medium">Swing Shift</span>
+                                        </div>
+                                        <span class="text-sm text-gray-600">14:00 - 22:00</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-indigo-50 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-moon text-indigo-500 mr-3"></i>
+                                            <span class="font-medium">Night Shift</span>
+                                        </div>
+                                        <span class="text-sm text-gray-600">22:00 - 06:00</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                    <p class="text-sm text-green-800">
+                                        <i class="fas fa-sync-alt mr-2"></i>
+                                        Auto-rotation every 5 days
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logistics & Transport -->
+            <div id="logistics" class="mb-20">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-green-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-truck text-4xl text-green-600"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Logistics & Transport</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            Drivers, warehouse workers, and logistics staff require careful scheduling
+                            to meet delivery demands while staying compliant with driving hour regulations
+                            and rest requirements.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Driving hours compliance</span>
+                                    <p class="text-gray-600 text-sm">Integrate with tachograph data for complete picture</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Warehouse shift planning</span>
+                                    <p class="text-gray-600 text-sm">Coordinate picking, packing, and shipping teams</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Route-based scheduling</span>
+                                    <p class="text-gray-600 text-sm">Account for travel time in shift calculations</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">License tracking</span>
+                                    <p class="text-gray-600 text-sm">Ensure drivers have valid certifications</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-green-50 to-purple-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="font-bold mb-4">Driver Schedule - Oslo Logistics</h4>
+                                <div class="space-y-4">
+                                    <div class="p-3 bg-gray-50 rounded-lg">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="font-medium">Driver: Erik S.</span>
+                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Compliant</span>
+                                        </div>
+                                        <div class="text-sm text-gray-600">
+                                            <p>Driving: 8h 30m / 9h max</p>
+                                            <p>Weekly: 42h / 48h max</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 bg-yellow-50 rounded-lg">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="font-medium">Driver: Anna L.</span>
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Near Limit</span>
+                                        </div>
+                                        <div class="text-sm text-gray-600">
+                                            <p>Driving: 8h 45m / 9h max</p>
+                                            <p>Weekly: 44h / 48h max</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fas fa-tachometer-alt mr-2 text-purple-600"></i>
+                                        5 drivers scheduled today
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div id="education">
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas fa-graduation-cap text-4xl text-purple-600"></i>
+                        </div>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Education</h2>
+                        <p class="text-xl text-gray-600 mb-6">
+                            Schools, universities, and training centers need to manage teachers,
+                            support staff, and part-time workers across academic calendars and
+                            varying schedules.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Academic calendar integration</span>
+                                    <p class="text-gray-600 text-sm">Align schedules with semesters and holidays</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Part-time staff management</span>
+                                    <p class="text-gray-600 text-sm">Handle variable hours for teaching assistants</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Substitute coordination</span>
+                                    <p class="text-gray-600 text-sm">Quick replacement when staff are absent</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold">Public sector compliance</span>
+                                    <p class="text-gray-600 text-sm">Meet specific requirements for public employees</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="/contact.html" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-block">
+                            Talk to Sales
+                        </a>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="font-bold mb-4">Staff Schedule - Trondheim School</h4>
+                                <div class="grid grid-cols-5 gap-2 mb-4">
+                                    <div class="text-center text-xs font-semibold text-gray-500">Mon</div>
+                                    <div class="text-center text-xs font-semibold text-gray-500">Tue</div>
+                                    <div class="text-center text-xs font-semibold text-gray-500">Wed</div>
+                                    <div class="text-center text-xs font-semibold text-gray-500">Thu</div>
+                                    <div class="text-center text-xs font-semibold text-gray-500">Fri</div>
+
+                                    <div class="bg-purple-100 p-2 rounded text-center text-xs">8-16</div>
+                                    <div class="bg-purple-100 p-2 rounded text-center text-xs">8-16</div>
+                                    <div class="bg-purple-100 p-2 rounded text-center text-xs">8-14</div>
+                                    <div class="bg-purple-100 p-2 rounded text-center text-xs">8-16</div>
+                                    <div class="bg-purple-100 p-2 rounded text-center text-xs">8-14</div>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <p class="text-sm font-medium mb-1">Weekly Hours: 36h</p>
+                                    <p class="text-xs text-gray-600">Full-time teaching position</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                    <p class="text-sm text-green-800">
+                                        <i class="fas fa-check mr-2"></i>
+                                        Aligned with academic calendar
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Industries -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Other Industries We Serve</h2>
+                <p class="text-xl text-gray-600">Roaster adapts to any workforce scheduling need</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-building text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Facilities Management</h3>
+                    <p class="text-sm text-gray-600">Cleaning, security, and maintenance staff</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-phone-alt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Call Centers</h3>
+                    <p class="text-sm text-gray-600">Customer service teams across time zones</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-spa text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Wellness & Fitness</h3>
+                    <p class="text-sm text-gray-600">Gyms, spas, and wellness centers</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-tools text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Construction</h3>
+                    <p class="text-sm text-gray-600">Project-based worker scheduling</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-theater-masks text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Entertainment</h3>
+                    <p class="text-sm text-gray-600">Venues, theaters, and event staff</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-seedling text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Agriculture</h3>
+                    <p class="text-sm text-gray-600">Seasonal and farm worker scheduling</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-child text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Childcare</h3>
+                    <p class="text-sm text-gray-600">Daycare and after-school programs</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-oil-can text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="font-bold mb-2">Energy & Offshore</h3>
+                    <p class="text-sm text-gray-600">Rotation schedules for remote workers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Don't See Your Industry?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Roaster is highly configurable. Talk to our team about how we can
+                customize the platform for your specific needs.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/contact.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                    Contact Sales
+                </a>
+                <a href="/#demo" class="bg-purple-700 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-800 transition inline-block">
+                    Start Free Trial
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/industries.html" class="hover:text-purple-400 transition">Industries</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/gdpr.html" class="hover:text-purple-400 transition">GDPR Compliance</a></li>
+                        <li><a href="/security.html" class="hover:text-purple-400 transition">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster SaaS. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="https://linkedin.com/company/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="https://twitter.com/roaster_saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://facebook.com/roastersaas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="https://github.com/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

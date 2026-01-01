@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App - Roaster | Schedule Access Anywhere</title>
+    <meta name="description" content="Access your work schedule anytime, anywhere with the Roaster mobile app. Available for iOS and Android.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="/mobile-app.html" class="text-purple-600 font-semibold transition">Mobile App</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/contact.html" class="text-gray-700 hover:text-purple-600 transition">Contact</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/#demo" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Pricing</a>
+                <a href="/mobile-app.html" class="block py-2 text-purple-600 font-semibold">Mobile App</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/contact.html" class="block py-2 text-gray-700 hover:text-purple-600">Contact</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 class="text-5xl font-bold mb-6">
+                        Your Schedule,<br>In Your Pocket
+                    </h1>
+                    <p class="text-xl text-purple-100 mb-8">
+                        The Roaster mobile app puts your work schedule, shift swaps, time-off requests,
+                        and team communication at your fingertips. Available for iOS and Android.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center">
+                            <i class="fab fa-apple text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <p class="text-xs">Download on the</p>
+                                <p class="text-lg font-bold -mt-1">App Store</p>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center">
+                            <i class="fab fa-google-play text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <p class="text-xs">Get it on</p>
+                                <p class="text-lg font-bold -mt-1">Google Play</p>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="text-purple-200 mt-6 text-sm">
+                        <i class="fas fa-check-circle mr-2"></i>Free for all Roaster users
+                    </p>
+                </div>
+                <div class="relative">
+                    <!-- Phone mockup placeholder -->
+                    <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-4 max-w-xs mx-auto">
+                        <div class="bg-gray-900 rounded-2xl p-4">
+                            <div class="bg-white rounded-xl overflow-hidden">
+                                <!-- App Screen Mockup -->
+                                <div class="bg-purple-600 p-4 text-white">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="font-semibold">Roaster</span>
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold">Good morning, Emma!</h3>
+                                    <p class="text-purple-200 text-sm">Monday, Jan 13</p>
+                                </div>
+                                <div class="p-4">
+                                    <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                                        <p class="text-sm text-gray-600 mb-1">Next Shift</p>
+                                        <p class="font-bold text-lg">Today, 14:00 - 22:00</p>
+                                        <p class="text-sm text-gray-600">Evening Shift</p>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2 mb-4">
+                                        <div class="text-center p-2 bg-gray-50 rounded-lg">
+                                            <i class="fas fa-calendar text-purple-600 mb-1"></i>
+                                            <p class="text-xs">Schedule</p>
+                                        </div>
+                                        <div class="text-center p-2 bg-gray-50 rounded-lg">
+                                            <i class="fas fa-exchange-alt text-purple-600 mb-1"></i>
+                                            <p class="text-xs">Swap</p>
+                                        </div>
+                                        <div class="text-center p-2 bg-gray-50 rounded-lg">
+                                            <i class="fas fa-umbrella-beach text-purple-600 mb-1"></i>
+                                            <p class="text-xs">Time Off</p>
+                                        </div>
+                                        <div class="text-center p-2 bg-gray-50 rounded-lg">
+                                            <i class="fas fa-comments text-purple-600 mb-1"></i>
+                                            <p class="text-xs">Chat</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <p class="text-sm text-green-800">
+                                            <i class="fas fa-heart mr-2"></i>
+                                            You received a kudos from Maria!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Everything You Need, Mobile</h2>
+                <p class="text-xl text-gray-600">A full-featured app for employees on the go</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar-alt text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">View Your Schedule</h3>
+                    <p class="text-gray-600">
+                        See your upcoming shifts at a glance. Weekly, monthly, or list view with
+                        all the details you need including location, role, and notes.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-exchange-alt text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Shift Swaps</h3>
+                    <p class="text-gray-600">
+                        Request to swap shifts with colleagues or post shifts to the marketplace.
+                        Get notifications when swaps are approved.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-umbrella-beach text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Time-Off Requests</h3>
+                    <p class="text-gray-600">
+                        Submit vacation, sick leave, and other time-off requests directly from
+                        the app. Track your balance and approval status.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Clock In/Out</h3>
+                    <p class="text-gray-600">
+                        Start and end your shifts with a tap. Track your actual hours worked
+                        with optional GPS verification for remote locations.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bell text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Push Notifications</h3>
+                    <p class="text-gray-600">
+                        Stay informed with instant notifications for schedule changes, swap
+                        requests, messages, and shift reminders.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-comments text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Team Chat</h3>
+                    <p class="text-gray-600">
+                        Communicate with your team, receive broadcast messages, and coordinate
+                        shift coverage all within the app.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- People-First Features -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">People-First</span>
+                    <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-6">More Than Just Scheduling</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Our app is designed with employee wellbeing in mind. Features that foster
+                        connection, recognition, and a positive workplace culture.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-amber-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-heart text-xl text-amber-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Send Kudos</h4>
+                                <p class="text-gray-600">Recognize colleagues with appreciation messages. Celebrate wins and build team morale.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-smile text-xl text-teal-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Mood Check-Ins</h4>
+                                <p class="text-gray-600">Quick daily check-ins help managers understand team wellbeing and address concerns early.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-birthday-cake text-xl text-pink-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Celebrations</h4>
+                                <p class="text-gray-600">Birthdays, work anniversaries, and milestones are highlighted to foster team connection.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-xl">
+                    <div class="bg-gray-100 rounded-xl p-6">
+                        <!-- Kudos Feed Mockup -->
+                        <h4 class="font-bold mb-4">Recent Kudos</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center mr-3">
+                                        <span class="font-bold text-purple-600">MA</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-sm">Maria to Emma</p>
+                                        <p class="text-xs text-gray-500">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 text-sm">
+                                    <i class="fas fa-star text-amber-400 mr-2"></i>
+                                    Great job covering the morning shift on short notice! You're a lifesaver.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center mr-3">
+                                        <span class="font-bold text-blue-600">EJ</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-sm">Erik to Team</p>
+                                        <p class="text-xs text-gray-500">Yesterday</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 text-sm">
+                                    <i class="fas fa-trophy text-amber-400 mr-2"></i>
+                                    Congratulations on hitting our monthly target! Amazing teamwork everyone.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manager Features -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">For Managers</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Manage On the Go</h2>
+                <p class="text-xl text-gray-600">Approve requests, handle coverage, and stay connected anywhere</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-circle text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Approve Requests</h3>
+                    <p class="text-gray-600 text-sm">Review and approve time-off and swap requests with one tap</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Team Overview</h3>
+                    <p class="text-gray-600 text-sm">See who's working today and upcoming coverage at a glance</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Quick Stats</h3>
+                    <p class="text-gray-600 text-sm">View compliance status and key metrics from anywhere</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bullhorn text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Broadcast Messages</h3>
+                    <p class="text-gray-600 text-sm">Send urgent updates to your entire team instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Stats -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">4.8</div>
+                    <div class="flex justify-center text-yellow-400 mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600">App Store Rating</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">4.7</div>
+                    <div class="flex justify-center text-yellow-400 mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600">Google Play Rating</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">50K+</div>
+                    <p class="text-gray-600">Active Users</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">98%</div>
+                    <p class="text-gray-600">User Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Download the Roaster App</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Free for all Roaster users. Available on iOS and Android.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center">
+                    <i class="fab fa-apple text-3xl mr-3"></i>
+                    <div class="text-left">
+                        <p class="text-xs">Download on the</p>
+                        <p class="text-xl font-bold -mt-1">App Store</p>
+                    </div>
+                </a>
+                <a href="#" class="bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition inline-flex items-center justify-center">
+                    <i class="fab fa-google-play text-3xl mr-3"></i>
+                    <div class="text-left">
+                        <p class="text-xs">Get it on</p>
+                        <p class="text-xl font-bold -mt-1">Google Play</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                        <li><a href="/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/gdpr.html" class="hover:text-purple-400 transition">GDPR Compliance</a></li>
+                        <li><a href="/security.html" class="hover:text-purple-400 transition">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster SaaS. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="https://linkedin.com/company/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="https://twitter.com/roaster_saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://facebook.com/roastersaas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="https://github.com/roaster-saas" target="_blank" rel="noopener" class="hover:text-purple-400 transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

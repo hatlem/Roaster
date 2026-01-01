@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Roaster | Transparent and Simple Pricing</title>
+    <meta name="description" content="Affordable, transparent pricing for Norwegian businesses. Start free and scale as you grow.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/features.html" class="text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="/pricing.html" class="text-purple-600 font-semibold transition">Pricing</a>
+                    <a href="/industries.html" class="text-gray-700 hover:text-purple-600 transition">Industries</a>
+                    <a href="/customers.html" class="text-gray-700 hover:text-purple-600 transition">Customers</a>
+                    <a href="/about.html" class="text-gray-700 hover:text-purple-600 transition">About</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Sign In</a>
+                    <a href="/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Get Demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Features</a>
+                <a href="/pricing.html" class="block py-2 text-purple-600 font-semibold">Pricing</a>
+                <a href="/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Industries</a>
+                <a href="/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Customers</a>
+                <a href="/about.html" class="block py-2 text-gray-700 hover:text-purple-600">About</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Sign In</a>
+                <a href="/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Get Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Simple, Transparent Pricing
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Start free and scale as you grow. No hidden fees, no surprises.
+            </p>
+            <div class="mt-8 inline-flex items-center bg-white/20 backdrop-blur-sm rounded-lg p-1">
+                <button id="monthly-btn" class="px-6 py-2 rounded-md text-white font-semibold transition bg-white/30">
+                    Monthly
+                </button>
+                <button id="annual-btn" class="px-6 py-2 rounded-md text-white font-semibold transition">
+                    Annual
+                    <span class="ml-2 bg-green-400 text-green-900 text-xs px-2 py-1 rounded-full">Save 20%</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section id="pricing" class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                        <p class="text-gray-600">Perfect for small teams</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">990</span>
+                            <span class="annual-price hidden">792</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">NOK/month</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Billed monthly</span>
+                            <span class="annual-price hidden">Billed annually (9,504 NOK/year)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Up to 25 employees</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Full compliance features</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">14-day rule automation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Rest period validation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Email support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Mobile app access</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Basic reporting</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Start Free Trial
+                    </button>
+                </div>
+
+                <!-- Professional Plan (Featured) -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-600 relative transform md:scale-105">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Most Popular
+                        </span>
+                    </div>
+                    <div class="mb-6 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+                        <p class="text-gray-600">For growing businesses</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">1,990</span>
+                            <span class="annual-price hidden">1,592</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">NOK/month</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Billed monthly</span>
+                            <span class="annual-price hidden">Billed annually (19,104 NOK/year)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Up to 100 employees</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Everything in Starter, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Shift marketplace</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Time-off management</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Advanced analytics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Priority email & chat support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Custom compliance reports</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">API access</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        Start Free Trial
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                        <p class="text-gray-600">For large organizations</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">Custom</span>
+                        <p class="text-sm text-gray-500 mt-2">Contact us for pricing</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Unlimited employees</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Everything in Professional, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Multi-location support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Dedicated account manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">24/7 phone support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Custom integrations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SSO / SAML authentication</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SLA guarantee (99.9% uptime)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">On-premise deployment option</span>
+                        </li>
+                    </ul>
+                    <a href="/contact.html" class="block w-full text-center bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+
+            <!-- Free Trial Banner -->
+            <div class="mt-12 bg-purple-100 border-2 border-purple-300 rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-gift text-purple-600 mr-2"></i>
+                    14-Day Free Trial on All Plans
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    No credit card required • Full feature access • Cancel anytime
+                </p>
+                <div class="flex justify-center gap-4 text-sm text-gray-600">
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Setup in 5 minutes</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Data migration included</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Dedicated onboarding</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Compare Plans</h2>
+                <p class="text-xl text-gray-600">All the details to help you choose the right plan</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-4 px-4 font-semibold text-gray-900">Features</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900 bg-purple-50">Professional</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Employee Limit</td>
+                            <td class="text-center py-4 px-4">25</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">100</td>
+                            <td class="text-center py-4 px-4">Unlimited</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">14-Day Rule Automation</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Rest Period Validation</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Working Hours & Overtime Tracking</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Mobile App Access</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Shift Marketplace</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Time-Off Management</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Advanced Analytics</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">API Access</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Multi-Location Support</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">SSO / SAML</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Support</td>
+                            <td class="text-center py-4 px-4">Email</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">Email & Chat</td>
+                            <td class="text-center py-4 px-4">24/7 Phone</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">SLA</td>
+                            <td class="text-center py-4 px-4">Best effort</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">99% uptime</td>
+                            <td class="text-center py-4 px-4">99.9% uptime</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600">Everything you need to know about pricing</p>
+            </div>
+
+            <div class="space-y-6">
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        What happens after the 14-day free trial?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        After your trial ends, you'll be prompted to choose a plan. If you don't select one,
+                        your account will revert to read-only mode, but your data remains safe for 30 days.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Can I change plans later?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Absolutely! You can upgrade or downgrade at any time. Upgrades take effect immediately,
+                        and downgrades apply at the start of your next billing cycle.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        What payment methods do you accept?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        We accept all major credit cards (Visa, Mastercard, American Express), bank transfers,
+                        and invoice payments for annual contracts.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Is there a setup fee?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        No setup fees for Starter and Professional plans. Enterprise plans include complimentary
+                        onboarding and data migration assistance.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        What if I exceed my employee limit?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        We'll notify you when you approach your limit. You can upgrade to a higher tier or
+                        contact us for custom pricing if you need more flexibility.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Do you offer refunds?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        We offer a 30-day money-back guarantee. If you're not satisfied within the first month,
+                        we'll refund your payment in full, no questions asked.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Join 500+ Norwegian businesses already using Roaster
+            </p>
+            <a href="/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start Your Free Trial
+            </a>
+            <p class="text-purple-200 mt-4 text-sm">
+                No credit card required • 14-day trial • Cancel anytime
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        The only scheduling software built for Norwegian labor laws.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features.html" class="hover:text-purple-400 transition">Features</a></li>
+                        <li><a href="/pricing.html" class="hover:text-purple-400 transition">Pricing</a></li>
+                        <li><a href="/integrations.html" class="hover:text-purple-400 transition">Integrations</a></li>
+                        <li><a href="/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                        <li><a href="/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/customers.html" class="hover:text-purple-400 transition">Customer Stories</a></li>
+                        <li><a href="/compliance-guide.html" class="hover:text-purple-400 transition">Compliance Guide</a></li>
+                        <li><a href="/compare.html" class="hover:text-purple-400 transition">Compare</a></li>
+                        <li><a href="/industries.html" class="hover:text-purple-400 transition">Industries</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about.html" class="hover:text-purple-400 transition">About Us</a></li>
+                        <li><a href="/careers.html" class="hover:text-purple-400 transition">Careers</a></li>
+                        <li><a href="/contact.html" class="hover:text-purple-400 transition">Contact</a></li>
+                        <li><a href="/privacy.html" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:text-purple-400 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. All rights reserved.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/security.html" class="text-sm hover:text-purple-400 transition">Security</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Pricing toggle
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annualBtn = document.getElementById('annual-btn');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('bg-white/30');
+            annualBtn.classList.remove('bg-white/30');
+            monthlyPrices.forEach(el => el.classList.remove('hidden'));
+            annualPrices.forEach(el => el.classList.add('hidden'));
+        });
+
+        annualBtn.addEventListener('click', () => {
+            annualBtn.classList.add('bg-white/30');
+            monthlyBtn.classList.remove('bg-white/30');
+            annualPrices.forEach(el => el.classList.remove('hidden'));
+            monthlyPrices.forEach(el => el.classList.add('hidden'));
+        });
+    </script>
+</body>
+</html>
