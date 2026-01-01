@@ -28,6 +28,7 @@ import timeclockRoutes from './routes/timeclock.routes';
 import reportsRoutes from './routes/reports.routes';
 import integrationsRoutes from './routes/integrations.routes';
 import zapierRoutes from './routes/zapier.routes';
+import { consensusRoutes } from './routes/consensus.routes';
 
 // Load environment variables
 dotenv.config();
@@ -180,6 +181,7 @@ app.use('/api/timeclock', timeclockRoutes);
 app.use('/api/reports', reportsRoutes);
 app.use('/api/integrations', integrationsRoutes);
 app.use('/api/zapier', zapierRoutes);
+app.use('/api/consensus', consensusRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

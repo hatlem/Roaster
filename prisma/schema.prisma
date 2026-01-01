@@ -245,6 +245,7 @@ model Roster {
   laborCosts        LaborCost[]
   location          Location?         @relation(fields: [locationId], references: [id])
   locationId        String?
+  consensusDecisions ConsensusDecision[]
 
   @@index([organizationId])
   @@index([status])
@@ -759,4 +760,132 @@ model ZapierWebhookDelivery {
   @@index([webhookId])
   @@index([eventType])
   @@index([createdAt])
+}
+
+// ==========================================
+// MULTI-AGENT CONSENSUS SYSTEM
+// ==========================================
+
+// Consensus decision types
+enum ConsensusDecisionType {
+  SHIFT_ASSIGNMENT
+  SCHEDULE_CREATION
+  SHIFT_SWAP
+  SCHEDULE_OPTIMIZATION
+  CONFLICT_RESOLUTION
+  COMPLIANCE_OVERRIDE
+}
+
+// Consensus status outcomes
+enum ConsensusStatus {
+  UNANIMOUS_APPROVE
+  MAJORITY_APPROVE
+  UNANIMOUS_REJECT
+  MAJORITY_REJECT
+  DEADLOCK
+  ESCALATE
+}
+
+// User decision status
+enum UserDecisionStatus {
+  PENDING_REVIEW
+  APPROVED
+  MODIFIED
+  REJECTED
+}
+
+// Stores consensus decisions for audit trail and user review
+model ConsensusDecision {
+  id                String            @id @default(uuid())
+
+  // Decision context
+  decisionType      ConsensusDecisionType
+  rosterId          String?
+  roster            Roster?           @relation(fields: [rosterId], references: [id])
+
+  // The proposal that was evaluated (stored as JSON)
+  proposal          Json
+
+  // Consensus result
+  consensusStatus   ConsensusStatus
+  finalDecision     String            // 'approve' | 'reject' | 'escalate'
+  votesFor          Int
+  votesAgainst      Int
+  abstentions       Int
+  consensusScore    Int               // 0-100
+  confidenceLevel   Int               // 0-100
+
+  // Agent decisions (stored as JSON array)
+  agentDecisions    Json
+
+  // Debate rounds (stored as JSON array)
+  debateRounds      Json?
+
+  // Summary and key points
+  summary           String
+  keyReasons        String[]
+  remainingConcerns String[]
+  conditions        String[]
+
+  // User interaction
+  userStatus        UserDecisionStatus @default(PENDING_REVIEW)
+  userEdits         Json?             // Any edits made by user
+  userDecisionBy    String?           // User ID who made final decision
+  userDecisionAt    DateTime?
+  userReason        String?           // Reason for approval/rejection
+
+  // Metadata
+  requestedBy       String
+  evaluationDurationMs Int
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Compliance retention (2 years minimum)
+  retainUntil       DateTime
+
+  // Relations
+  agentEvaluations  AgentEvaluation[]
+
+  @@index([rosterId])
+  @@index([decisionType])
+  @@index([consensusStatus])
+  @@index([userStatus])
+  @@index([createdAt])
+  @@index([retainUntil])
+}
+
+// Stores individual agent evaluations for transparency
+model AgentEvaluation {
+  id                String            @id @default(uuid())
+
+  // Link to consensus decision
+  consensusId       String
+  consensus         ConsensusDecision @relation(fields: [consensusId], references: [id], onDelete: Cascade)
+
+  // Agent info
+  agentRole         String
+  agentName         String
+
+  // Evaluation result
+  recommendation    String            // 'approve' | 'approve_with_conditions' | 'reject' | 'needs_modification'
+  confidence        Int               // 0-100
+  score             Int               // 0-100
+  scoreBreakdown    Json
+
+  // Reasoning (transparent for users)
+  reasoning         String[]
+  concerns          String[]
+  suggestions       String[]
+
+  // Scoring components (detailed breakdown for editing)
+  scoringComponents Json
+
+  // User override (if user disagrees with agent)
+  userOverrideApproved Boolean?
+  userOverrideReason   String?
+
+  createdAt         DateTime          @default(now())
+
+  @@index([consensusId])
+  @@index([agentRole])
 }
