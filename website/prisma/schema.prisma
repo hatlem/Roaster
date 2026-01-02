@@ -97,8 +97,16 @@ enum MetricType {
 model User {
   id                String            @id @default(uuid())
   email             String            @unique
-  passwordHash      String
+  passwordHash      String?           // Optional - users can use magic link login
   role              UserRole          @default(EMPLOYEE)
+
+  // Magic link authentication
+  magicLinkToken    String?           @unique
+  magicLinkExpires  DateTime?
+
+  // Organization (for multi-tenant support)
+  organizationId    String?
+  organization      Organization?     @relation(fields: [organizationId], references: [id])
 
   // Personal information
   firstName         String
@@ -148,6 +156,8 @@ model User {
   @@index([employeeNumber])
   @@index([role])
   @@index([locationId])
+  @@index([organizationId])
+  @@index([magicLinkToken])
 }
 
 // Organization/Company model
@@ -174,6 +184,7 @@ model Organization {
   updatedAt         DateTime          @updatedAt
 
   // Relations
+  users             User[]
   rosters           Roster[]
   locations         Location[]
 }
