@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { company } from "@/content";
+import PasswordSetupModal from "@/components/PasswordSetupModal";
 
 export default function AppLayout({
   children,
@@ -98,6 +99,9 @@ export default function AppLayout({
       <main className="flex-1 overflow-auto">
         {children}
       </main>
+
+      {/* Password setup modal for users without password */}
+      <PasswordSetupModal />
     </div>
   );
 }

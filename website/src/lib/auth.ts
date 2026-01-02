@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: `${user.firstName} ${user.lastName}`.trim() || user.email,
           role: user.role,
-          organizationId: user.organizationId,
+          organizationId: user.organizationId ?? undefined,
           hasPassword: true,
         };
       },
@@ -103,7 +103,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: `${user.firstName} ${user.lastName}`.trim() || user.email,
           role: user.role,
-          organizationId: user.organizationId,
+          organizationId: user.organizationId ?? undefined,
           hasPassword: !!user.passwordHash,
         };
       },
@@ -127,7 +127,7 @@ export const authOptions: NextAuthOptions = {
         });
         if (dbUser) {
           token.hasPassword = !!dbUser.passwordHash;
-          token.organizationId = dbUser.organizationId;
+          token.organizationId = dbUser.organizationId ?? undefined;
         }
       }
 

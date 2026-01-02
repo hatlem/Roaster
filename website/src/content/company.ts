@@ -65,7 +65,7 @@ export const navigation = {
     ],
   },
   cta: {
-    primary: { name: "Start free trial", href: "/demo" },
+    primary: { name: "Start free trial", href: "/onboarding" },
     secondary: { name: "Contact sales", href: "/contact" },
   },
 } as const;

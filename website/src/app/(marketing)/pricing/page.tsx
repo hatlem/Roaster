@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { pricing, company, navigation } from "@/content";
+import EmailCaptureForm from "@/components/EmailCaptureForm";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(true);
@@ -87,7 +88,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <Link
-                  href={plan.id === "enterprise" ? "/contact" : "/demo"}
+                  href={plan.id === "enterprise" ? "/contact" : "/onboarding"}
                   className={`block text-center py-3 px-6 rounded-full font-semibold transition-all ${
                     plan.highlighted
                       ? "bg-ink text-cream hover:bg-terracotta"
@@ -128,13 +129,7 @@ export default function PricingPage() {
           <p className="text-xl text-cream/60 mb-10">
             {pricing.trial.days} days free. No credit card required.
           </p>
-          <Link
-            href={navigation.cta.primary.href}
-            className="bg-cream text-ink px-8 py-4 rounded-full text-lg font-semibold hover:bg-cream/90 transition-all inline-flex items-center gap-2"
-          >
-            {navigation.cta.primary.name}
-            <i className="fas fa-arrow-right" />
-          </Link>
+          <EmailCaptureForm variant="dark" className="max-w-xl mx-auto" />
         </div>
       </section>
     </>

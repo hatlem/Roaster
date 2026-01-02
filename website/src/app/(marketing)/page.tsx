@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { company, navigation, features, complianceStats, testimonials, industries } from "@/content";
+import EmailCaptureForm from "@/components/EmailCaptureForm";
 
 export default function HomePage() {
   const featuredTestimonial = testimonials.find((t) => t.featured);
@@ -24,15 +25,10 @@ export default function HomePage() {
               <p className="text-xl text-ink/60 mb-8 leading-relaxed max-w-lg">
                 {company.description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={navigation.cta.primary.href} className="btn-primary group">
-                  {navigation.cta.primary.name}
-                  <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link href={navigation.cta.secondary.href} className="btn-secondary">
-                  {navigation.cta.secondary.name}
-                </Link>
-              </div>
+              <EmailCaptureForm variant="light" className="max-w-xl" />
+              <p className="text-sm text-ink/50 mt-3">
+                14-day free trial. No credit card required.
+              </p>
             </div>
 
             {/* Compliance Dashboard Mockup */}
@@ -326,21 +322,7 @@ export default function HomePage() {
           <p className="text-xl text-cream/60 mb-10 max-w-2xl mx-auto">
             Start your free 14-day trial. No credit card required. Full compliance from day one.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href={navigation.cta.primary.href}
-              className="bg-cream text-ink px-8 py-4 rounded-full text-lg font-semibold hover:bg-cream/90 transition-all hover:scale-105 inline-flex items-center justify-center gap-2 group"
-            >
-              {navigation.cta.primary.name}
-              <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href={navigation.cta.secondary.href}
-              className="bg-white/10 text-cream px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-all inline-flex items-center justify-center border border-white/20"
-            >
-              {navigation.cta.secondary.name}
-            </Link>
-          </div>
+          <EmailCaptureForm variant="dark" className="max-w-xl mx-auto" />
         </div>
       </section>
     </>
