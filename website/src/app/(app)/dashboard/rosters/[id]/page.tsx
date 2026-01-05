@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { RosterActions } from "@/components/scheduling/RosterActions";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +78,7 @@ export default async function RosterDetailPage({ params }: Props) {
           <div>
             <h1 className="font-display text-4xl mb-2">{roster.name}</h1>
             <p className="text-ink/60">
-              {startDate.toLocaleDateString("nb-NO")} - {endDate.toLocaleDateString("nb-NO")}
+              {startDate.toLocaleDateString("en-GB")} - {endDate.toLocaleDateString("en-GB")}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -148,10 +149,12 @@ export default async function RosterDetailPage({ params }: Props) {
       <div className="bg-white rounded-2xl p-6 border border-stone/50">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-display text-xl">Shifts</h2>
-          <button className="bg-ocean text-white px-4 py-2 rounded-xl font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2">
-            <i className="fas fa-plus" />
-            Add Shift
-          </button>
+          <RosterActions
+            rosterId={roster.id}
+            rosterName={roster.name}
+            status={roster.status}
+            hasShifts={roster.shifts.length > 0}
+          />
         </div>
 
         {roster.shifts.length === 0 ? (
@@ -194,10 +197,10 @@ export default async function RosterDetailPage({ params }: Props) {
                         <span className="text-ink/40">Unassigned</span>
                       )}
                     </td>
-                    <td className="p-3 text-ink/60">{start.toLocaleDateString("nb-NO")}</td>
+                    <td className="p-3 text-ink/60">{start.toLocaleDateString("en-GB")}</td>
                     <td className="p-3 text-ink/60">
-                      {start.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" })} -
-                      {end.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" })}
+                      {start.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} -
+                      {end.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
                     </td>
                     <td className="p-3 text-ink/60">{duration.toFixed(1)}h</td>
                     <td className="p-3">

@@ -58,7 +58,12 @@
       "Bash(git restore:*)",
       "WebFetch(domain:getmailer.co)",
       "mcp__puppeteer__puppeteer_fill",
-      "mcp__puppeteer__puppeteer_evaluate"
+      "mcp__puppeteer__puppeteer_evaluate",
+      "mcp__puppeteer__puppeteer_click",
+      "WebSearch",
+      "Bash(npx web-push:*)",
+      "Bash(node -e:*)",
+      "Skill(frontend-tester)"
     ]
   }
 }

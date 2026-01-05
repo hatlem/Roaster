@@ -16,12 +16,12 @@ export default function OvertimeReportPage() {
           Back to Reports
         </Link>
         <h1 className="font-display text-4xl mb-2">Overtime Analysis</h1>
-        <p className="text-ink/60">Track overtime hours against Norwegian labor law limits</p>
+        <p className="text-ink/60">Track overtime hours against legal limits</p>
       </div>
 
       {/* Overtime Limits Info */}
       <div className="bg-ocean/5 rounded-2xl p-6 border border-ocean/20 mb-6">
-        <h3 className="font-semibold mb-3">Norwegian Overtime Limits (Arbeidsmiljoloven)</h3>
+        <h3 className="font-semibold mb-3">Overtime Limits</h3>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-ocean/10 rounded-lg flex items-center justify-center">

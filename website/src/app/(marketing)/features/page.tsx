@@ -1,103 +1,72 @@
 import Link from "next/link";
-import { features, complianceStats, navigation } from "@/content";
+import { features, navigation } from "@/content";
 
 export const metadata = {
-  title: "Features",
-  description: "Comprehensive compliance features designed for Norwegian businesses",
+  title: "How it works | Roaster",
+  description: "Automatic compliance with Norwegian working time regulations",
 };
 
 export default function FeaturesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-24 bg-cream relative noise-bg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <span className="feature-tag mb-6 inline-block">
-            <span className="w-2 h-2 bg-terracotta rounded-full mr-2" />
-            Compliance Features
-          </span>
-          <h1 className="font-display text-5xl md:text-7xl mb-6">
+      <section className="pt-32 pb-16 px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
             {features.hero.title}
           </h1>
-          <p className="text-xl text-ink/60 max-w-2xl mx-auto">
+          <p className="text-xl text-ink/60 leading-relaxed">
             {features.hero.subtitle}
           </p>
         </div>
       </section>
 
-      {/* Main Features */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.main.map((feature) => (
-              <div
-                key={feature.id}
-                className="bg-cream/50 p-8 rounded-3xl border border-stone/50 hover:shadow-xl transition-all group"
-              >
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-                  style={{ backgroundColor: `var(--${feature.color}, #3a6b7c)` + "1a" }}
-                >
-                  <i
-                    className={`fas fa-${feature.icon} text-3xl`}
-                    style={{ color: `var(--${feature.color}, #3a6b7c)` }}
-                  />
+      {/* The rules section */}
+      <section className="py-16 px-6 lg:px-8 border-t border-stone">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/50 mb-10">
+            Arbeidsmiljøloven compliance
+          </h2>
+
+          <div className="space-y-12">
+            {features.rules.map((rule) => (
+              <div key={rule.id} className="grid md:grid-cols-12 gap-6 pb-12 border-b border-stone/50 last:border-0">
+                <div className="md:col-span-2">
+                  <span className="font-mono text-terracotta font-medium">{rule.law}</span>
                 </div>
-                <h3 className="font-display text-2xl mb-3">{feature.title}</h3>
-                <p className="text-ink/60 mb-4">{feature.description}</p>
-                {feature.lawReference && (
-                  <span className="inline-block bg-ink/5 text-ink/60 text-xs font-medium px-3 py-1 rounded-full">
-                    {feature.lawReference}
-                  </span>
-                )}
+                <div className="md:col-span-4">
+                  <h3 className="font-display text-2xl mb-2">{rule.title}</h3>
+                </div>
+                <div className="md:col-span-6">
+                  <p className="text-ink/60 mb-3">{rule.description}</p>
+                  <p className="text-sm text-ink/40">
+                    <span className="text-terracotta">→</span> {rule.consequence}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-24 bg-ink text-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="font-display text-6xl mb-2">{complianceStats.customersCount}</p>
-              <p className="text-cream/60">Norwegian businesses</p>
-            </div>
-            <div>
-              <p className="font-display text-6xl mb-2">{complianceStats.employeesScheduled}</p>
-              <p className="text-cream/60">Employees scheduled</p>
-            </div>
-            <div>
-              <p className="font-display text-6xl text-terracotta mb-2">{complianceStats.complianceRate}</p>
-              <p className="text-cream/60">Compliance rate</p>
-            </div>
-            <div>
-              <p className="font-display text-6xl text-forest mb-2">{complianceStats.timeSaved}</p>
-              <p className="text-cream/60">Time saved</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Product features */}
+      <section className="py-20 px-6 lg:px-8 bg-ink text-cream">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-cream/50 mb-10">
+            Product features
+          </h2>
 
-      {/* Extended Features */}
-      <section className="py-24 bg-cream relative noise-bg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-5xl mb-4">Everything you need</h2>
-            <p className="text-xl text-ink/60">Beyond compliance, we help you work smarter</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.extended.map((feature) => (
-              <div
-                key={feature.id}
-                className="bg-white p-6 rounded-2xl border border-stone/50 hover:shadow-lg transition-all"
-              >
-                <div className="w-12 h-12 bg-ocean/10 rounded-xl flex items-center justify-center mb-4">
-                  <i className={`fas fa-${feature.icon} text-ocean text-xl`} />
+          <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
+            {features.main.map((feature) => (
+              <div key={feature.id}>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `var(--${feature.color})` }}
+                >
+                  <i className={`fas fa-${feature.icon} text-cream`} />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-ink/60 text-sm">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-cream/60 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -105,18 +74,17 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="font-display text-5xl mb-6">
-            Ready to see it in action?
+      <section className="py-20 px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
+            Try it free for 14 days
           </h2>
-          <p className="text-xl text-ink/60 mb-10">
-            Start your free 14-day trial today.
+          <p className="text-xl text-ink/60 mb-8">
+            Set up takes 10 minutes. No credit card required.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link href={navigation.cta.primary.href} className="btn-primary">
               {navigation.cta.primary.name}
-              <i className="fas fa-arrow-right" />
             </Link>
             <Link href={navigation.cta.secondary.href} className="btn-secondary">
               {navigation.cta.secondary.name}

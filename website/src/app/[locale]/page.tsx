@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getDictionary } from '@/i18n/dictionaries';
-import { countryToLocale, localeToCountry, laborLawByLocale, type Locale } from '@/i18n/config';
+import { countryToLocale, type Locale } from '@/i18n/config';
+import { getCountryConfig } from '@/i18n/countries';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -8,9 +9,9 @@ interface PageProps {
 
 export default async function LocaleHomePage({ params }: PageProps) {
   const { locale: country } = await params;
-  const locale = countryToLocale[country as keyof typeof countryToLocale] || 'en';
+  const locale = (countryToLocale[country as keyof typeof countryToLocale] || 'en') as Locale;
   const dict = getDictionary(locale);
-  const laborLaw = laborLawByLocale[locale];
+  const countryConfig = getCountryConfig(locale);
 
   // Stats (would come from API in production)
   const stats = {
@@ -79,7 +80,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
               <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-stone/50 float z-20">
                 <div className="flex items-center gap-2">
                   <i className="fas fa-check-circle text-forest text-lg" />
-                  <span className="text-sm font-semibold">{laborLaw.shortName}</span>
+                  <span className="text-sm font-semibold">{countryConfig.laborLaw.shortName}</span>
                 </div>
               </div>
               <div className="absolute -bottom-6 -left-6 w-full h-full bg-terracotta/10 rounded-3xl -z-10" />
@@ -109,7 +110,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
                     <i className="fas fa-exclamation-triangle text-terracotta" />
                   </div>
                   <div>
-                    <p className="font-semibold">500,000+ {dict.problem.fines}</p>
+                    <p className="font-semibold">{dict.problem.fines}</p>
                     <p className="text-sm text-cream/50">{dict.problem.finesDesc}</p>
                   </div>
                 </div>

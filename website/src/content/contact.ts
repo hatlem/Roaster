@@ -56,7 +56,7 @@ export const demo = {
     {
       icon: "shield-alt",
       title: "Instant compliance",
-      description: "Every schedule is validated against Norwegian labor laws automatically.",
+      description: "Every schedule is validated against local labor laws automatically.",
     },
     {
       icon: "headset",

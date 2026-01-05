@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: `%s | ${company.name}`,
   },
   description: company.description,
-  keywords: ["roster", "scheduling", "norwegian", "compliance", "arbeidsmiljøloven", "AML"],
+  keywords: ["roster", "scheduling", "compliance", "labor law", "workforce management", "shift planning"],
 };
 
 export default function RootLayout({
@@ -26,6 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1a1a1a" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Roaster" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+        {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

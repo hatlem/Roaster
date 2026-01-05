@@ -25,8 +25,8 @@ export const en = {
     title: 'Labor law is',
     titleEmphasis: 'complex',
     description: 'Strict requirements: 11-hour daily rest, 35-hour weekly rest, publishing rules, overtime limits. Manual tracking is error-prone and time-consuming.',
-    fines: 'in fines',
-    finesDesc: 'For serious compliance violations',
+    fines: 'Significant fines',
+    finesDesc: 'For labor law violations',
     hours: 'hours per week',
     hoursDesc: 'Average time spent on manual compliance checks',
   },
@@ -42,7 +42,7 @@ export const en = {
   },
   features: {
     tagline: 'Compliance Features',
-    title: 'Built for AML',
+    title: 'Built for Compliance',
     subtitle: 'Every feature designed with labor law at its core',
     seeAll: 'See all features',
     items: {
@@ -64,7 +64,7 @@ export const en = {
       },
       'reports': {
         title: 'Audit-Ready Reports',
-        description: 'Generate comprehensive compliance reports for inspections in one click.',
+        description: 'Generate comprehensive compliance reports for labor inspections in one click.',
       },
       'marketplace': {
         title: 'Shift Marketplace',

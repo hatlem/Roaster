@@ -28,8 +28,8 @@ export default function AuditReportPage() {
           <div>
             <h3 className="font-semibold mb-1">2-Year Retention Policy</h3>
             <p className="text-ink/60 text-sm">
-              According to Norwegian regulations, all schedule changes and roster modifications are
-              logged and retained for 2 years. This audit trail is available for Arbeidstilsynet inspections.
+              All schedule changes and roster modifications are logged and retained for 2 years.
+              This audit trail is available for labor inspections.
             </p>
           </div>
         </div>

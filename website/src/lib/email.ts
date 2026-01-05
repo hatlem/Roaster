@@ -92,7 +92,7 @@ export async function sendMagicLinkEmail(
             </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Roaster - The only scheduling software built for Norwegian labor laws
+              Roaster - Scheduling software built for labor law compliance
             </p>
           </div>
         </body>
@@ -129,7 +129,7 @@ export async function sendWelcomeEmail(
           <div style="max-width: 480px; margin: 0 auto; background: white; border-radius: 16px; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
             <h1 style="font-size: 24px; margin: 0 0 16px; color: #1a1a1a;">Welcome to Roaster!</h1>
             <p style="color: #666; margin: 0 0 16px; line-height: 1.6;">
-              Your 14-day free trial is ready. You now have access to the only scheduling software built for Norwegian labor laws.
+              Your 14-day free trial is ready. You now have access to the only scheduling software built for labor law compliance.
             </p>
             <p style="color: #666; margin: 0 0 24px; line-height: 1.6;">
               Click the button below to access your dashboard:
@@ -140,10 +140,10 @@ export async function sendWelcomeEmail(
             <div style="background: #f8f7f5; border-radius: 12px; padding: 20px; margin: 24px 0;">
               <p style="color: #1a1a1a; font-weight: 600; margin: 0 0 12px;">What's included:</p>
               <ul style="color: #666; margin: 0; padding-left: 20px; line-height: 1.8;">
-                <li>Automatic compliance with Arbeidsmiljoloven</li>
-                <li>14-day rule enforcement</li>
+                <li>Automatic labor law compliance</li>
+                <li>Publishing rule enforcement</li>
                 <li>Rest period validation</li>
-                <li>Arbeidstilsynet-ready reports</li>
+                <li>Audit-ready compliance reports</li>
               </ul>
             </div>
             <p style="color: #999; font-size: 14px; margin: 0; line-height: 1.6;">
@@ -151,12 +151,12 @@ export async function sendWelcomeEmail(
             </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Roaster - The only scheduling software built for Norwegian labor laws
+              Roaster - Scheduling software built for labor law compliance
             </p>
           </div>
         </body>
       </html>
     `,
-    text: `Welcome to Roaster!\n\nYour 14-day free trial is ready. Click the link below to access your dashboard:\n${magicLinkUrl}\n\nWhat's included:\n- Automatic compliance with Arbeidsmiljoloven\n- 14-day rule enforcement\n- Rest period validation\n- Arbeidstilsynet-ready reports\n\nQuestions? Contact us at hello@getia.no`,
+    text: `Welcome to Roaster!\n\nYour 14-day free trial is ready. Click the link below to access your dashboard:\n${magicLinkUrl}\n\nWhat's included:\n- Automatic labor law compliance\n- Publishing rule enforcement\n- Rest period validation\n- Audit-ready compliance reports\n\nQuestions? Contact us at hello@getia.no`,
   });
 }

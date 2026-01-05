@@ -43,7 +43,7 @@ export default async function ComplianceReportPage() {
           Back to Reports
         </Link>
         <h1 className="font-display text-4xl mb-2">Compliance Report</h1>
-        <p className="text-ink/60">Arbeidstilsynet-ready compliance documentation</p>
+        <p className="text-ink/60">Audit-ready compliance documentation</p>
       </div>
 
       {/* Report Summary */}
@@ -77,10 +77,10 @@ export default async function ComplianceReportPage() {
 
         <div className="border-t border-stone/30 pt-4">
           <p className="text-sm text-ink/60">
-            <strong>Report Period:</strong> {new Date().toLocaleDateString("nb-NO", { month: "long", year: "numeric" })}
+            <strong>Report Period:</strong> {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
           </p>
           <p className="text-sm text-ink/60">
-            <strong>Generated:</strong> {new Date().toLocaleDateString("nb-NO")} at {new Date().toLocaleTimeString("nb-NO")}
+            <strong>Generated:</strong> {new Date().toLocaleDateString("en-GB")} at {new Date().toLocaleTimeString("en-GB")}
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default async function ComplianceReportPage() {
       <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
         <h2 className="font-display text-xl mb-4">14-Day Publication Rule</h2>
         <p className="text-ink/60 text-sm mb-4">
-          According to Arbeidsmiljoloven, rosters must be published at least 14 days before they take effect.
+          Rosters must be published with the required advance notice before they take effect.
         </p>
 
         {rosters.length === 0 ? (
@@ -120,9 +120,9 @@ export default async function ComplianceReportPage() {
                 return (
                   <tr key={roster.id} className="border-b border-stone/30">
                     <td className="p-3">{roster.name}</td>
-                    <td className="p-3 text-ink/60">{startDate.toLocaleDateString("nb-NO")}</td>
+                    <td className="p-3 text-ink/60">{startDate.toLocaleDateString("en-GB")}</td>
                     <td className="p-3 text-ink/60">
-                      {publishedAt ? publishedAt.toLocaleDateString("nb-NO") : "Not published"}
+                      {publishedAt ? publishedAt.toLocaleDateString("en-GB") : "Not published"}
                     </td>
                     <td className="p-3">{daysNotice !== null ? `${daysNotice} days` : "-"}</td>
                     <td className="p-3">
@@ -161,7 +161,7 @@ export default async function ComplianceReportPage() {
       <div className="bg-white rounded-2xl p-6 border border-stone/50">
         <h2 className="font-display text-xl mb-4">Overtime Limits</h2>
         <p className="text-ink/60 text-sm mb-4">
-          Norwegian law limits overtime to 10 hours/week, 25 hours/month, and 200 hours/year.
+          Overtime is tracked against configured weekly, monthly, and annual limits.
         </p>
         <div className="text-center py-8 text-ink/60">
           <i className="fas fa-check-circle text-4xl mb-4 text-forest" />

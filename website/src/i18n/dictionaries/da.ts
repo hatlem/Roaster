@@ -3,8 +3,8 @@ import type { Dictionary } from './en';
 
 export const da: Dictionary = {
   metadata: {
-    title: 'Roaster - Vagtplanlægning i overensstemmelse med arbejdstidsloven',
-    description: 'Planlæg med tillid. Hver vagtplan valideret mod arbejdstidslovens krav.',
+    title: 'Roaster - Vagtplanlægning i overensstemmelse med arbejdsmiljøloven',
+    description: 'Planlæg med tillid. Hver vagtplan valideret mod arbejdsmiljølovens krav.',
   },
   nav: {
     features: 'Funktioner',
@@ -17,18 +17,18 @@ export const da: Dictionary = {
     scheduleDemo: 'Book en demo',
   },
   hero: {
-    tagline: 'Bygget til Arbejdstidsloven',
+    tagline: 'Bygget til Arbejdsmiljøloven',
     title: 'Planlæg med',
     titleEmphasis: 'tillid',
-    description: 'Den eneste planlægningsplatform der sikrer 100% overholdelse af arbejdstidsloven. Realtidsvalidering, automatiske advarsler og revisionsklare rapporter.',
+    description: 'Den eneste planlægningsplatform der sikrer 100% overholdelse af arbejdsmiljøloven. Realtidsvalidering, automatiske advarsler og revisionsklare rapporter.',
   },
   problem: {
     tagline: 'Problemet',
-    title: 'Arbejdstidsloven er',
+    title: 'Arbejdsmiljøloven er',
     titleEmphasis: 'kompleks',
     description: 'Strenge krav: 11 timers daglig hvile, 35 timers ugentlig hvile, publiceringsregler, overtidsgrænser. Manuel opfølgning er tidskrævende og fejlbehæftet.',
-    fines: 'i bøder',
-    finesDesc: 'For alvorlige lovovertrædelser',
+    fines: 'Op til 1,5 mio. DKK',
+    finesDesc: 'I bøder for grove AML-overtrædelser',
     hours: 'timer om ugen',
     hoursDesc: 'Gennemsnitlig tid brugt på manuel overholdelseskontrol',
   },
@@ -44,8 +44,8 @@ export const da: Dictionary = {
   },
   features: {
     tagline: 'Overholdelsesfunktioner',
-    title: 'Bygget til ATL',
-    subtitle: 'Hver funktion designet med arbejdstidsloven i fokus',
+    title: 'Bygget til AML',
+    subtitle: 'Hver funktion designet med arbejdsmiljøloven i fokus',
     seeAll: 'Se alle funktioner',
     items: {
       '14-day-rule': {

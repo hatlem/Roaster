@@ -20,7 +20,7 @@ export default function ReportsPage() {
           </div>
           <h3 className="font-display text-xl mb-2">Compliance Report</h3>
           <p className="text-ink/60 text-sm mb-4">
-            Generate Arbeidstilsynet-ready compliance documentation for audits
+            Generate audit-ready compliance documentation for inspections
           </p>
           <Link
             href="/dashboard/reports/compliance"
@@ -54,7 +54,7 @@ export default function ReportsPage() {
           </div>
           <h3 className="font-display text-xl mb-2">Overtime Analysis</h3>
           <p className="text-ink/60 text-sm mb-4">
-            Track overtime hours against Norwegian labor law limits
+            Track overtime hours against legal limits
           </p>
           <Link
             href="/dashboard/reports/overtime"

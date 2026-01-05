@@ -82,7 +82,7 @@ export default async function EmployeeDetailPage({ params }: Props) {
               <div>
                 <p className="text-sm text-ink/60 mb-1">Hire Date</p>
                 <p className="font-medium">
-                  {employee.hireDate ? new Date(employee.hireDate).toLocaleDateString("nb-NO") : "-"}
+                  {employee.hireDate ? new Date(employee.hireDate).toLocaleDateString("en-GB") : "-"}
                 </p>
               </div>
             </div>

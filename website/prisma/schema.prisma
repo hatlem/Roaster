@@ -48,6 +48,30 @@ enum MarketplaceStatus {
   CANCELLED
 }
 
+// Shift marketplace mode (Planday-style)
+enum MarketplaceMode {
+  SWAP       // Exchange with another employee's shift
+  HANDOVER   // Give to specific person
+  SELL       // Post to open market for anyone to claim
+}
+
+// AI Auto-scheduling priority modes
+enum SchedulePriorityMode {
+  LOWEST_COST       // Minimize labor expenses, avoid overtime
+  EQUAL_HOURS       // Fair distribution across employees
+  PREFERENCE_BASED  // Maximize employee preference satisfaction
+}
+
+// Auto-schedule job status
+enum AutoScheduleStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  APPLIED
+  REJECTED
+}
+
 // Shift swap status
 enum SwapStatus {
   PENDING
@@ -152,6 +176,9 @@ model User {
   accrualBalances         AccrualBalance[]
   shiftMarketplaceClaims  ShiftMarketplaceListing[]  @relation("ClaimedBy")
 
+  // Mobile PWA push notifications
+  pushSubscriptions       PushSubscription[]
+
   @@index([email])
   @@index([employeeNumber])
   @@index([role])
@@ -205,6 +232,12 @@ model Location {
   // Labor settings
   laborBudgetPerWeek Decimal?         @db.Decimal(10, 2)
   maxEmployees      Int?
+
+  // Geofencing for GPS clock-in (Mobile PWA)
+  geofenceLatitude  Float?
+  geofenceLongitude Float?
+  geofenceRadius    Int               @default(100)  // meters
+  requireGeofence   Boolean           @default(false)
 
   isActive          Boolean           @default(true)
   createdAt         DateTime          @default(now())
@@ -327,6 +360,10 @@ model ShiftMarketplaceListing {
   postedAt          DateTime          @default(now())
   availableUntil    DateTime          // Deadline to claim
 
+  // Marketplace mode (Planday-style)
+  mode              MarketplaceMode   @default(SELL)
+  targetEmployeeId  String?           // For HANDOVER mode - specific recipient
+
   reason            String?           // Why shift is available
   eligibleRoles     String[]          // Which roles can claim (e.g., ["Server", "Bartender"])
   eligibleUserIds   String[]          // Specific users who can claim (optional)
@@ -345,6 +382,7 @@ model ShiftMarketplaceListing {
   @@index([shiftId])
   @@index([status])
   @@index([availableUntil])
+  @@index([mode])
 }
 
 // Shift Swap Requests
@@ -537,6 +575,15 @@ model ActualHours {
   clockOut          DateTime?
   breakMinutes      Int               @default(0)
   totalHours        Float
+
+  // GPS tracking for clock in/out (Mobile PWA)
+  clockInLatitude   Float?
+  clockInLongitude  Float?
+  clockInAccuracy   Float?            // GPS accuracy in meters
+  clockOutLatitude  Float?
+  clockOutLongitude Float?
+  clockOutAccuracy  Float?
+  isGeofenceValid   Boolean           @default(false)
 
   // Classification
   isOvertime        Boolean           @default(false)
@@ -899,4 +946,74 @@ model AgentEvaluation {
 
   @@index([consensusId])
   @@index([agentRole])
+}
+
+// ==========================================
+// AI AUTO-SCHEDULING
+// ==========================================
+
+// Auto-schedule job for tracking AI scheduling requests
+model AutoScheduleJob {
+  id                String              @id @default(uuid())
+  rosterId          String
+  organizationId    String
+
+  // Scheduling parameters
+  priorityMode      SchedulePriorityMode
+  status            AutoScheduleStatus  @default(PENDING)
+
+  // Generated output
+  generatedShifts   Json?               // Array of proposed shift assignments
+  metrics           Json?               // { totalCost, coverageScore, preferenceScore, complianceScore }
+
+  // Consensus evaluation
+  consensusDecisionId String?
+  consensusScore    Int?                // 0-100 from multi-agent system
+
+  // Error handling
+  errorMessage      String?
+  failedAt          DateTime?
+
+  // User actions
+  requestedBy       String
+  appliedBy         String?
+  appliedAt         DateTime?
+  rejectedBy        String?
+  rejectedAt        DateTime?
+  rejectionReason   String?
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([rosterId])
+  @@index([organizationId])
+  @@index([status])
+  @@index([requestedBy])
+}
+
+// ==========================================
+// MOBILE PWA - PUSH NOTIFICATIONS
+// ==========================================
+
+// Push notification subscriptions for Web Push API
+model PushSubscription {
+  id                String            @id @default(uuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Web Push API subscription data
+  endpoint          String            @unique
+  p256dh            String            // Public key
+  auth              String            // Auth secret
+
+  // Device info
+  userAgent         String?
+  deviceName        String?
+
+  isActive          Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([isActive])
 }

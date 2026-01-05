@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { pricing, company, navigation } from "@/content";
-import EmailCaptureForm from "@/components/EmailCaptureForm";
+import { pricing, navigation } from "@/content";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(true);
@@ -11,108 +10,106 @@ export default function PricingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-24 bg-cream relative noise-bg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <span className="feature-tag mb-6 inline-block">
-            <span className="w-2 h-2 bg-terracotta rounded-full mr-2" />
-            Simple Pricing
-          </span>
-          <h1 className="font-display text-5xl md:text-7xl mb-6">
-            Plans that <em className="not-italic text-terracotta">scale</em> with you
+      <section className="pt-32 pb-16 px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
+            Pricing
           </h1>
-          <p className="text-xl text-ink/60 max-w-2xl mx-auto mb-12">
-            Start with a {pricing.trial.days}-day free trial. No credit card required.
+          <p className="text-xl text-ink/60 leading-relaxed mb-8">
+            {pricing.trial.days}-day free trial. No credit card required.
           </p>
 
           {/* Toggle */}
-          <div className="flex items-center justify-center gap-4 mb-16">
-            <span className={`font-medium ${!isYearly ? "text-ink" : "text-ink/40"}`}>
-              {pricing.billingPeriods.monthly.label}
-            </span>
+          <div className="flex items-center gap-4">
             <button
-              onClick={() => setIsYearly(!isYearly)}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
-                isYearly ? "bg-forest" : "bg-ink/20"
+              onClick={() => setIsYearly(false)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                !isYearly ? "bg-ink text-cream" : "text-ink/60 hover:text-ink"
               }`}
             >
-              <span
-                className={`absolute top-1 w-6 h-6 bg-white rounded-full transition-transform ${
-                  isYearly ? "translate-x-7" : "translate-x-1"
-                }`}
-              />
+              Monthly
             </button>
-            <span className={`font-medium ${isYearly ? "text-ink" : "text-ink/40"}`}>
-              {pricing.billingPeriods.yearly.label}
-              <span className="ml-2 text-xs bg-forest/10 text-forest px-2 py-1 rounded-full">
-                Save {pricing.billingPeriods.yearly.discount}%
-              </span>
-            </span>
+            <button
+              onClick={() => setIsYearly(true)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                isYearly ? "bg-ink text-cream" : "text-ink/60 hover:text-ink"
+              }`}
+            >
+              Yearly
+              <span className="ml-2 text-xs opacity-70">−20%</span>
+            </button>
           </div>
+        </div>
+      </section>
 
-          {/* Plans */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {pricing.plans.map((plan) => (
-              <div
-                key={plan.id}
-                className={`relative bg-white rounded-3xl p-8 text-left ${
-                  plan.highlighted
-                    ? "border-2 border-terracotta shadow-xl scale-105"
-                    : "border border-stone/50"
-                }`}
-              >
-                {plan.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-terracotta text-cream text-xs font-bold px-4 py-1 rounded-full">
-                    {plan.badge}
-                  </span>
-                )}
-                <h3 className="font-display text-2xl mb-2">{plan.name}</h3>
-                <p className="text-ink/60 text-sm mb-6">{plan.description}</p>
-                <div className="mb-6">
-                  {plan.price.monthly ? (
-                    <>
-                      <span className="font-display text-5xl">
-                        {pricing.currency} {isYearly ? plan.price.yearly : plan.price.monthly}
-                      </span>
-                      <span className="text-ink/40 text-sm ml-2">{plan.priceUnit}</span>
-                    </>
-                  ) : (
-                    <span className="font-display text-3xl">Custom pricing</span>
-                  )}
-                </div>
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm">
-                      <i className="fas fa-check text-forest mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={plan.id === "enterprise" ? "/contact" : "/onboarding"}
-                  className={`block text-center py-3 px-6 rounded-full font-semibold transition-all ${
+      {/* Plans */}
+      <section className="py-16 px-6 lg:px-8 border-t border-stone">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricing.plans.map((plan) => {
+              const price = isYearly ? plan.basePrice.yearly : plan.basePrice.monthly;
+
+              return (
+                <div
+                  key={plan.id}
+                  className={`p-6 rounded-lg ${
                     plan.highlighted
-                      ? "bg-ink text-cream hover:bg-terracotta"
-                      : "bg-ink/5 text-ink hover:bg-ink/10"
+                      ? "bg-ink text-cream"
+                      : "bg-stone/30"
                   }`}
                 >
-                  {plan.cta}
-                </Link>
-              </div>
-            ))}
+                  <h3 className="font-semibold text-lg mb-1">{plan.name}</h3>
+                  <p className={`text-sm mb-6 ${plan.highlighted ? "text-cream/60" : "text-ink/60"}`}>
+                    {plan.description}
+                  </p>
+
+                  <div className="mb-6">
+                    {price !== null ? (
+                      <div className="flex items-baseline gap-1">
+                        <span className="font-display text-4xl">€{price}</span>
+                        <span className={`text-sm ${plan.highlighted ? "text-cream/60" : "text-ink/60"}`}>
+                          /employee/month
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="font-display text-2xl">Contact us</span>
+                    )}
+                  </div>
+
+                  <ul className="space-y-2 mb-8">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <span className={plan.highlighted ? "text-cream/60" : "text-ink/60"}>→</span>
+                        <span className={plan.highlighted ? "text-cream/80" : ""}>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href={plan.id === "enterprise" ? "/contact" : "/onboarding"}
+                    className={`block text-center py-3 rounded-lg font-medium transition-colors ${
+                      plan.highlighted
+                        ? "bg-cream text-ink hover:bg-cream/90"
+                        : "bg-ink text-cream hover:bg-ink/90"
+                    }`}
+                  >
+                    {plan.cta}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-white">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8">
-          <h2 className="font-display text-4xl text-center mb-12">
-            Frequently asked questions
-          </h2>
-          <div className="space-y-6">
+      <section className="py-20 px-6 lg:px-8 border-t border-stone">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display text-3xl mb-10">Questions</h2>
+          <div className="space-y-8">
             {pricing.faq.map((item, i) => (
-              <div key={i} className="border-b border-stone pb-6">
-                <h3 className="font-semibold text-lg mb-2">{item.question}</h3>
+              <div key={i}>
+                <h3 className="font-medium mb-2">{item.question}</h3>
                 <p className="text-ink/60">{item.answer}</p>
               </div>
             ))}
@@ -121,15 +118,28 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-ink text-cream relative overflow-hidden noise-bg">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-          <h2 className="font-display text-5xl mb-6">
-            Start your free trial today
+      <section className="py-20 px-6 lg:px-8 bg-ink text-cream">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
+            Try it free for {pricing.trial.days} days
           </h2>
-          <p className="text-xl text-cream/60 mb-10">
-            {pricing.trial.days} days free. No credit card required.
+          <p className="text-cream/60 text-xl mb-8">
+            Get started in 10 minutes. No credit card required.
           </p>
-          <EmailCaptureForm variant="dark" className="max-w-xl mx-auto" />
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href={navigation.cta.primary.href}
+              className="bg-cream text-ink px-6 py-3 rounded-lg font-medium hover:bg-cream/90 transition-colors text-center"
+            >
+              {navigation.cta.primary.name}
+            </Link>
+            <Link
+              href={navigation.cta.secondary.href}
+              className="border border-cream/30 text-cream px-6 py-3 rounded-lg font-medium hover:bg-cream/10 transition-colors text-center"
+            >
+              {navigation.cta.secondary.name}
+            </Link>
+          </div>
         </div>
       </section>
     </>

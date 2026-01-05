@@ -1,79 +1,24 @@
-// About page content - single source of truth
+// About page content - honest and specific
 
 export const about = {
   hero: {
-    title: "Built by Norwegians, for Norwegian businesses",
-    subtitle: "We understand the complexities of Arbeidsmiljoloven because we've lived them.",
-  },
-
-  mission: {
-    title: "Our Mission",
-    description: "To make labor law compliance effortless for every Norwegian business, so you can focus on what matters most—your people and your work.",
+    title: "We build scheduling software for Norway",
+    subtitle: "Deep knowledge of Arbeidsmiljøloven, built into every feature.",
   },
 
   story: {
-    title: "Our Story",
     paragraphs: [
-      "We started Roaster after experiencing firsthand the challenges of scheduling employees while staying compliant with Norwegian labor laws. Hours spent manually checking rest periods, the stress of inspection deadlines, the fear of costly violations.",
-      "We knew there had to be a better way. So we built Roaster—a scheduling platform that automates compliance from the ground up. Every schedule is validated in real-time against Arbeidsmiljoloven, so you never have to worry about violations again.",
+      "Norwegian labor law is specific. § 10-8 says schedules must be published 14 days ahead. § 10-11 requires 11 hours rest between shifts. § 10-6 caps overtime at 10 hours per week. Miss any of these and employees can refuse shifts—or Arbeidstilsynet gets involved.",
+      "Most scheduling software is built for the American market, then awkwardly adapted for Europe. We took the opposite approach: built from the ground up for Norwegian law, with every rule from Arbeidsmiljøloven Chapter 10 validated automatically.",
+      "The result is software that doesn't just schedule shifts—it prevents compliance violations before they happen.",
     ],
   },
 
-  values: [
-    {
-      icon: "shield-alt",
-      title: "Compliance First",
-      description: "Every feature we build starts with the question: does this help our customers stay compliant?",
-    },
-    {
-      icon: "users",
-      title: "People Focused",
-      description: "Labor laws exist to protect workers. We help businesses honor that protection effortlessly.",
-    },
-    {
-      icon: "lightbulb",
-      title: "Simplicity",
-      description: "Complex regulations shouldn't require complex software. We make compliance simple.",
-    },
-    {
-      icon: "handshake",
-      title: "Trust",
-      description: "Our customers trust us with their compliance. We take that responsibility seriously.",
-    },
-  ],
-
-  // Placeholder team - replace with real team data
-  team: [
-    {
-      name: "Team Member",
-      role: "Co-founder & CEO",
-      initials: "TM",
-      bio: "Background in HR technology and Norwegian labor law.",
-    },
-    {
-      name: "Team Member",
-      role: "Co-founder & CTO",
-      initials: "TM",
-      bio: "Previously built scheduling systems for healthcare.",
-    },
-    {
-      name: "Team Member",
-      role: "Head of Product",
-      initials: "TM",
-      bio: "Former HR manager with deep compliance expertise.",
-    },
-    {
-      name: "Team Member",
-      role: "Head of Customer Success",
-      initials: "TM",
-      bio: "Passionate about helping businesses succeed.",
-    },
-  ],
-
-  stats: {
-    founded: "2023",
-    location: "Oslo, Norway",
-    customers: "500+",
-    teamSize: "Growing",
+  location: {
+    city: "Oslo",
+    country: "Norway",
   },
+
+  // Only add real team members when available
+  team: [] as { name: string; role: string; initials: string; bio: string }[],
 };

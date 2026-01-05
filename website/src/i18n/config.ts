@@ -66,10 +66,10 @@ export const localeToCountry: Record<Locale, string> = {
 
 // Labor law references per locale
 export const laborLawByLocale: Record<Locale, { name: string; shortName: string }> = {
-  en: { name: 'Labor Law', shortName: 'Labor Law' },
+  en: { name: 'Labor Law', shortName: 'Compliant' },
   no: { name: 'Arbeidsmiljøloven', shortName: 'AML' },
-  sv: { name: 'Arbetstidslagen', shortName: 'ATL' },
-  da: { name: 'Arbejdstidsloven', shortName: 'ATL' },
+  sv: { name: 'Arbetsmiljölagen', shortName: 'AML' },
+  da: { name: 'Arbejdsmiljøloven', shortName: 'AML' },
   fi: { name: 'Työaikalaki', shortName: 'TAL' },
   de: { name: 'Arbeitszeitgesetz', shortName: 'ArbZG' },
   'de-AT': { name: 'Arbeitszeitgesetz', shortName: 'AZG' },

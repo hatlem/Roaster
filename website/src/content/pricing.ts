@@ -1,8 +1,11 @@
 // Pricing content - single source of truth
 // Update this file to change pricing across the site
+// Base prices are in EUR, converted per locale using country config
 
 export const pricing = {
-  currency: "NOK",
+  // Base currency for price definitions (converted per locale)
+  baseCurrency: "EUR",
+
   billingPeriods: {
     monthly: { label: "Monthly", discount: 0 },
     yearly: { label: "Yearly", discount: 20 }, // 20% discount for yearly
@@ -13,15 +16,16 @@ export const pricing = {
       id: "starter",
       name: "Starter",
       description: "Perfect for small teams getting started with compliant scheduling",
-      price: {
-        monthly: 99,
-        yearly: 79, // per month, billed yearly
+      // Base prices in EUR
+      basePrice: {
+        monthly: 9,
+        yearly: 7, // per month, billed yearly
       },
       priceUnit: "per employee/month",
       features: [
         "Up to 25 employees",
         "Basic compliance validation",
-        "14-day rule enforcement",
+        "Publishing rule enforcement",
         "Rest period checks",
         "Email support",
         "Mobile app access",
@@ -34,9 +38,9 @@ export const pricing = {
       id: "professional",
       name: "Professional",
       description: "For growing businesses that need full compliance automation",
-      price: {
-        monthly: 149,
-        yearly: 119,
+      basePrice: {
+        monthly: 14,
+        yearly: 11,
       },
       priceUnit: "per employee/month",
       features: [
@@ -44,7 +48,7 @@ export const pricing = {
         "Full compliance validation",
         "Overtime tracking & alerts",
         "Shift marketplace",
-        "Arbeidstilsynet reports",
+        "Audit-ready reports",
         "Priority support",
         "API access",
         "Payroll integrations",
@@ -57,7 +61,7 @@ export const pricing = {
       id: "enterprise",
       name: "Enterprise",
       description: "For large organizations with complex scheduling needs",
-      price: {
+      basePrice: {
         monthly: null,
         yearly: null,
       },

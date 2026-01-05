@@ -9,7 +9,7 @@ export default function CompliancePage() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="font-display text-4xl mb-2">Compliance</h1>
-        <p className="text-ink/60">Norwegian Labor Law (Arbeidsmiljoloven) compliance monitoring</p>
+        <p className="text-ink/60">Labor law compliance monitoring</p>
       </div>
 
       {/* Compliance Score */}

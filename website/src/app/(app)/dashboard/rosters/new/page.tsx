@@ -114,8 +114,8 @@ export default function NewRosterPage() {
             <div>
               <h3 className="font-semibold mb-1">14-Day Publication Rule</h3>
               <p className="text-ink/60 text-sm">
-                According to Norwegian labor law, rosters must be published at least 14 days before
-                they take effect. Roaster will help you track this deadline and notify employees automatically.
+                Rosters must be published with adequate advance notice before they take effect.
+                Roaster will help you track this deadline and notify employees automatically.
               </p>
             </div>
           </div>

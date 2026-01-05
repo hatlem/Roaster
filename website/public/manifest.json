@@ -1,0 +1,42 @@
+{
+  "name": "Roaster",
+  "short_name": "Roaster",
+  "description": "Scheduling software built for labor law compliance",
+  "start_url": "/m",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "My Schedule",
+      "short_name": "Schedule",
+      "url": "/m/schedule"
+    },
+    {
+      "name": "Clock In",
+      "short_name": "Clock",
+      "url": "/m/clock"
+    },
+    {
+      "name": "Time Off",
+      "short_name": "Time Off",
+      "url": "/m/time-off"
+    }
+  ]
+}

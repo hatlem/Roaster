@@ -55,6 +55,15 @@ export default function AppLayout({
             </li>
             <li>
               <Link
+                href="/dashboard/marketplace"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors"
+              >
+                <i className="fas fa-exchange-alt w-5" />
+                Marketplace
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/dashboard/compliance"
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors"
               >

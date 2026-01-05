@@ -28,7 +28,7 @@ export const industries = [
     icon: "heartbeat",
     color: "terracotta",
     headline: "Healthcare scheduling built for patient care",
-    description: "Ensure adequate staffing levels while maintaining strict compliance with Norwegian labor laws for healthcare workers.",
+    description: "Ensure adequate staffing levels while maintaining strict compliance with labor laws for healthcare workers.",
     challenges: [
       "24/7 coverage requirements",
       "Skill-based scheduling",
