@@ -1,178 +1,245 @@
 import Link from "next/link";
-import { complianceStats } from "@/content";
+import { CheckCircle2, ArrowRight, Calendar, Users, FileText, Clock } from "lucide-react";
 
 export const metadata = {
   title: "Dashboard",
 };
 
+// Setup steps for new users
+const setupSteps = [
+  {
+    id: "add-employees",
+    title: "Add your employees",
+    description: "Import or create employee profiles",
+    href: "/dashboard/employees/new",
+    icon: Users,
+  },
+  {
+    id: "create-roster",
+    title: "Create your first roster",
+    description: "Set up a work schedule for your team",
+    href: "/dashboard/rosters/new",
+    icon: Calendar,
+  },
+  {
+    id: "check-compliance",
+    title: "Run compliance check",
+    description: "Verify rest periods and working time rules",
+    href: "/dashboard/compliance",
+    icon: FileText,
+  },
+  {
+    id: "publish-roster",
+    title: "Publish to employees",
+    description: "Share the schedule with your team",
+    href: "/dashboard/rosters",
+    icon: Clock,
+  },
+];
+
 export default function DashboardPage() {
+  // TODO: Replace with actual data from database
+  const hasEmployees = false;
+  const hasRosters = false;
+  const hasPublished = false;
+
+  // Calculate completion status
+  const stepsWithCompletion = setupSteps.map((step, index) => ({
+    ...step,
+    completed:
+      index === 0 ? hasEmployees :
+      index === 1 ? hasRosters :
+      index === 2 ? hasRosters :
+      hasPublished,
+  }));
+
+  const completedSteps = stepsWithCompletion.filter((s) => s.completed).length;
+  const totalSteps = stepsWithCompletion.length;
+  const isSetupComplete = completedSteps === totalSteps;
+  const nextStep = stepsWithCompletion.find((s) => !s.completed);
+
   return (
-    <div className="p-8">
+    <div className="p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-8">
         <h1 className="font-display text-4xl mb-2">Dashboard</h1>
-        <p className="text-ink/60">Welcome back! Here&apos;s your compliance overview.</p>
+        <p className="text-ink/60">
+          {isSetupComplete
+            ? "Your rosters are compliant and published."
+            : "Get started with Roaster to ensure compliance."}
+        </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
+      {/* Setup Progress Card - only show when incomplete */}
+      {!isSetupComplete && (
+        <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center">
-              <i className="fas fa-shield-alt text-forest text-xl" />
+            <div>
+              <h2 className="font-display text-xl">Get started with Roaster</h2>
+              <p className="text-ink/60 text-sm">Complete these steps to ensure working time compliance</p>
             </div>
-            <span className="text-xs font-medium text-forest bg-forest/10 px-2 py-1 rounded-full">
-              Good
-            </span>
+            <div className="text-right">
+              <p className="text-2xl font-display text-forest">{completedSteps}/{totalSteps}</p>
+              <p className="text-xs text-ink/60">steps complete</p>
+            </div>
           </div>
-          <p className="font-display text-3xl mb-1">{complianceStats.complianceRate}</p>
-          <p className="text-ink/60 text-sm">Compliance Rate</p>
+          <div className="h-2 bg-stone/30 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-forest rounded-full transition-all duration-500"
+              style={{ width: `${(completedSteps / totalSteps) * 100}%` }}
+            />
+          </div>
         </div>
+      )}
 
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <div className="flex items-center justify-between mb-4">
+      {/* Setup Complete Banner */}
+      {isSetupComplete && (
+        <div className="bg-forest/10 border border-forest/30 rounded-2xl p-6 mb-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-forest/20 rounded-xl flex items-center justify-center">
+              <CheckCircle2 className="w-6 h-6 text-forest" />
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-forest">You're all set!</p>
+              <p className="text-sm text-ink/60">
+                Your team has compliant schedules. Monitor compliance status below.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/compliance"
+              className="px-4 py-2 bg-forest text-white rounded-lg font-medium hover:bg-forest/90 transition-colors flex items-center gap-2"
+            >
+              View Compliance
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Next Action Highlight */}
+      {nextStep && (
+        <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
+          <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-ocean/10 rounded-xl flex items-center justify-center">
-              <i className="fas fa-calendar-check text-ocean text-xl" />
+              <nextStep.icon className="w-6 h-6 text-ocean" />
             </div>
+            <div className="flex-1">
+              <p className="font-semibold">Next: {nextStep.title}</p>
+              <p className="text-sm text-ink/60">{nextStep.description}</p>
+            </div>
+            <Link
+              href={nextStep.href}
+              className="px-4 py-2 bg-ocean text-white rounded-lg font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2"
+            >
+              Get Started
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-          <p className="font-display text-3xl mb-1">3</p>
-          <p className="text-ink/60 text-sm">Active Rosters</p>
         </div>
+      )}
 
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <div className="flex items-center justify-between mb-4">
+      {/* Setup Checklist - only show when incomplete */}
+      {!isSetupComplete && (
+        <div className="bg-white rounded-2xl border border-stone/50 mb-8">
+          <div className="p-6 border-b border-stone/30">
+            <h2 className="font-display text-xl">Setup checklist</h2>
+            <p className="text-ink/60 text-sm">Complete each step to activate compliance monitoring</p>
+          </div>
+          <div className="p-4 space-y-2">
+            {stepsWithCompletion.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <Link
+                  key={step.id}
+                  href={step.href}
+                  className={`flex items-center gap-4 p-4 rounded-xl transition-colors ${
+                    step.completed
+                      ? "bg-forest/5 border border-forest/20"
+                      : "bg-cream hover:bg-stone/30 border border-transparent"
+                  }`}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                      step.completed
+                        ? "bg-forest/20 text-forest"
+                        : "bg-stone/50 text-ink/50"
+                    }`}
+                  >
+                    {step.completed ? (
+                      <CheckCircle2 className="w-5 h-5" />
+                    ) : (
+                      <span className="font-semibold">{index + 1}</span>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <p className={`font-medium ${step.completed ? "text-forest line-through" : ""}`}>
+                      {step.title}
+                    </p>
+                    <p className="text-sm text-ink/60">{step.description}</p>
+                  </div>
+                  {!step.completed && (
+                    <ArrowRight className="w-5 h-5 text-ink/40" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Quick Actions - show for active users */}
+      {isSetupComplete && (
+        <div className="grid md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/rosters/new"
+            className="flex items-center gap-4 p-6 bg-white rounded-2xl border border-stone/50 hover:border-ocean/50 transition-colors"
+          >
+            <div className="w-12 h-12 bg-ocean/10 rounded-xl flex items-center justify-center">
+              <Calendar className="w-6 h-6 text-ocean" />
+            </div>
+            <div>
+              <p className="font-semibold">Create New Roster</p>
+              <p className="text-sm text-ink/60">Schedule for a new period</p>
+            </div>
+          </Link>
+          <Link
+            href="/dashboard/employees/new"
+            className="flex items-center gap-4 p-6 bg-white rounded-2xl border border-stone/50 hover:border-forest/50 transition-colors"
+          >
+            <div className="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center">
+              <Users className="w-6 h-6 text-forest" />
+            </div>
+            <div>
+              <p className="font-semibold">Add Employee</p>
+              <p className="text-sm text-ink/60">Onboard a new team member</p>
+            </div>
+          </Link>
+          <Link
+            href="/dashboard/compliance"
+            className="flex items-center gap-4 p-6 bg-white rounded-2xl border border-stone/50 hover:border-terracotta/50 transition-colors"
+          >
             <div className="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center">
-              <i className="fas fa-users text-terracotta text-xl" />
+              <FileText className="w-6 h-6 text-terracotta" />
             </div>
-          </div>
-          <p className="font-display text-3xl mb-1">48</p>
-          <p className="text-ink/60 text-sm">Active Employees</p>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="font-semibold">Compliance Report</p>
+              <p className="text-sm text-ink/60">Generate documentation</p>
+            </div>
+          </Link>
+          <Link
+            href="/dashboard/marketplace"
+            className="flex items-center gap-4 p-6 bg-white rounded-2xl border border-stone/50 hover:border-gold/50 transition-colors"
+          >
             <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center">
-              <i className="fas fa-clock text-gold text-xl" />
+              <Clock className="w-6 h-6 text-gold" />
             </div>
-          </div>
-          <p className="font-display text-3xl mb-1">156</p>
-          <p className="text-ink/60 text-sm">Shifts This Week</p>
+            <div>
+              <p className="font-semibold">Shift Marketplace</p>
+              <p className="text-sm text-ink/60">Manage shift swaps</p>
+            </div>
+          </Link>
         </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <h2 className="font-display text-xl mb-4">Quick Actions</h2>
-          <div className="space-y-3">
-            <Link
-              href="/dashboard/rosters/new"
-              className="flex items-center gap-3 p-4 rounded-xl bg-cream hover:bg-stone/30 transition-colors"
-            >
-              <div className="w-10 h-10 bg-ocean/10 rounded-lg flex items-center justify-center">
-                <i className="fas fa-plus text-ocean" />
-              </div>
-              <div>
-                <p className="font-semibold">Create New Roster</p>
-                <p className="text-ink/60 text-sm">Start scheduling for a new period</p>
-              </div>
-            </Link>
-            <Link
-              href="/dashboard/employees/new"
-              className="flex items-center gap-3 p-4 rounded-xl bg-cream hover:bg-stone/30 transition-colors"
-            >
-              <div className="w-10 h-10 bg-forest/10 rounded-lg flex items-center justify-center">
-                <i className="fas fa-user-plus text-forest" />
-              </div>
-              <div>
-                <p className="font-semibold">Add Employee</p>
-                <p className="text-ink/60 text-sm">Onboard a new team member</p>
-              </div>
-            </Link>
-            <Link
-              href="/dashboard/reports/compliance"
-              className="flex items-center gap-3 p-4 rounded-xl bg-cream hover:bg-stone/30 transition-colors"
-            >
-              <div className="w-10 h-10 bg-terracotta/10 rounded-lg flex items-center justify-center">
-                <i className="fas fa-file-alt text-terracotta" />
-              </div>
-              <div>
-                <p className="font-semibold">Generate Report</p>
-                <p className="text-ink/60 text-sm">Create compliance documentation</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <h2 className="font-display text-xl mb-4">Compliance Alerts</h2>
-          <div className="space-y-3">
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-forest/5 border border-forest/20">
-              <div className="w-8 h-8 bg-forest/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <i className="fas fa-check text-forest text-sm" />
-              </div>
-              <div>
-                <p className="font-semibold text-sm">All Rest Periods Valid</p>
-                <p className="text-ink/60 text-xs">No violations detected in current rosters</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-gold/5 border border-gold/20">
-              <div className="w-8 h-8 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <i className="fas fa-exclamation text-gold text-sm" />
-              </div>
-              <div>
-                <p className="font-semibold text-sm">14-Day Rule Reminder</p>
-                <p className="text-ink/60 text-xs">February roster due in 5 days</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-ocean/5 border border-ocean/20">
-              <div className="w-8 h-8 bg-ocean/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <i className="fas fa-info text-ocean text-sm" />
-              </div>
-              <div>
-                <p className="font-semibold text-sm">Overtime Tracking</p>
-                <p className="text-ink/60 text-xs">2 employees approaching weekly limit</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Recent Activity */}
-      <div className="bg-white rounded-2xl p-6 border border-stone/50">
-        <h2 className="font-display text-xl mb-4">Recent Activity</h2>
-        <div className="space-y-4">
-          <div className="flex items-center gap-4 py-3 border-b border-stone/30">
-            <div className="w-10 h-10 bg-ocean/10 rounded-full flex items-center justify-center">
-              <i className="fas fa-calendar text-ocean text-sm" />
-            </div>
-            <div className="flex-1">
-              <p className="font-medium">January Roster Published</p>
-              <p className="text-ink/60 text-sm">Published 2 days ago by Manager</p>
-            </div>
-            <span className="text-xs text-forest bg-forest/10 px-2 py-1 rounded-full">Compliant</span>
-          </div>
-          <div className="flex items-center gap-4 py-3 border-b border-stone/30">
-            <div className="w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center">
-              <i className="fas fa-user-plus text-forest text-sm" />
-            </div>
-            <div className="flex-1">
-              <p className="font-medium">New Employee Added</p>
-              <p className="text-ink/60 text-sm">Employee onboarded 3 days ago</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 py-3">
-            <div className="w-10 h-10 bg-terracotta/10 rounded-full flex items-center justify-center">
-              <i className="fas fa-exchange-alt text-terracotta text-sm" />
-            </div>
-            <div className="flex-1">
-              <p className="font-medium">Shift Swap Approved</p>
-              <p className="text-ink/60 text-sm">Approved 5 days ago</p>
-            </div>
-            <span className="text-xs text-forest bg-forest/10 px-2 py-1 rounded-full">Validated</span>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
