@@ -1,9 +1,40 @@
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Calendar, Users, FileText, Clock } from "lucide-react";
+import { prisma } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Dashboard",
 };
+
+async function getDashboardData() {
+  try {
+    const [employeeCount, rosterCount, publishedRosterCount] = await Promise.all([
+      prisma.user.count({
+        where: { isActive: true },
+      }),
+      prisma.roster.count(),
+      prisma.roster.count({
+        where: {
+          status: { in: ["PUBLISHED", "ACTIVE"] },
+        },
+      }),
+    ]);
+
+    return {
+      hasEmployees: employeeCount > 0,
+      hasRosters: rosterCount > 0,
+      hasPublished: publishedRosterCount > 0,
+    };
+  } catch {
+    return {
+      hasEmployees: false,
+      hasRosters: false,
+      hasPublished: false,
+    };
+  }
+}
 
 // Setup steps for new users
 const setupSteps = [
@@ -37,11 +68,8 @@ const setupSteps = [
   },
 ];
 
-export default function DashboardPage() {
-  // TODO: Replace with actual data from database
-  const hasEmployees = false;
-  const hasRosters = false;
-  const hasPublished = false;
+export default async function DashboardPage() {
+  const { hasEmployees, hasRosters, hasPublished } = await getDashboardData();
 
   // Calculate completion status
   const stepsWithCompletion = setupSteps.map((step, index) => ({
