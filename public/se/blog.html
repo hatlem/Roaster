@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogg - Roaster | Arbetstidslagen och schemaläggningsinsikter</title>
+    <meta name="description" content="Håll dig uppdaterad om Arbetstidslagen-ändringar, bästa praxis för schemaläggning och tips för personalhantering.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/blog.html" class="text-purple-600 font-semibold transition">Blogg</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> SE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/blog.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Svenska</a>
+                            <a href="/de/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Roaster Blogg</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Insikter om Arbetstidslagen, bästa praxis för schemaläggning och
+                tips för att bygga en regelrätt, medarbetarfokuserad arbetsplats.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <article class="mb-12">
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold">Utvalt</span>
+                        <h2 class="text-3xl font-bold text-gray-900 mt-4 mb-4">
+                            2025-ändringar i Arbetstidslagen: Vad arbetsgivare behöver veta
+                        </h2>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span>10 januari 2025</span>
+                            <span class="mx-2">|</span>
+                            <span>8 min läsning</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Sveriges Arbetstidslag får betydande uppdateringar 2025. Här är allt arbetsgivare
+                            behöver veta för att förbli regelrätts i år.
+                        </p>
+                        <a href="#" class="text-purple-600 font-semibold hover:text-purple-700">
+                            Läs mer <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </article>
+
+                    <hr class="mb-12">
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Bästa praxis</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">5 tips för bättre schemaläggning inom detaljhandel</h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Lär dig hur du balanserar kundefterfrågan, medarbetarpreferenser och efterlevnad.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Efterlevnad</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">Förstå vilotidskrav</h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    En djupdykning i 11-timmars daglig och 36-timmars veckovis vilokrav.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="bg-purple-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Prenumerera på uppdateringar</h3>
+                        <form>
+                            <input type="email" placeholder="Din e-post"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-600">
+                            <button type="submit" class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                                Prenumerera
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

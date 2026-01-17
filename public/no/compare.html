@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sammenlign Roaster - Se hvordan vi skiller oss ut</title>
+    <meta name="description" content="Se hvordan Roaster sammenligner seg med andre planleggingsløsninger. Det eneste verktøyet bygget spesifikt for norsk arbeidsmiljølov-samsvar.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/compare.html" class="text-purple-600 font-semibold transition">Sammenlign</a>
+                    <a href="/no/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/compare.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/compare.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/compare.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/compare.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/compare.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Roaster vs. konkurrentene</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Se hvorfor norske bedrifter velger Roaster fremfor generiske planleggingsverktøy.
+                Den eneste løsningen bygget fra grunnen for Arbeidsmiljøloven-samsvar.
+            </p>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="py-4 px-6 text-left text-lg font-bold text-gray-900">Funksjon</th>
+                            <th class="py-4 px-6 text-center">
+                                <div class="bg-purple-100 rounded-lg p-4">
+                                    <span class="text-lg font-bold text-purple-600">Roaster</span>
+                                </div>
+                            </th>
+                            <th class="py-4 px-6 text-center text-gray-500">Generiske verktøy</th>
+                            <th class="py-4 px-6 text-center text-gray-500">Regneark</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="py-4 px-6 font-medium">Arbeidsmiljøloven-samsvar</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 font-medium">Automatisk hvileperiodevalidering</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-minus-circle text-yellow-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-medium">14-dagersregel automatisering</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 font-medium">Overtidsberegning per Arbeidsmiljøloven</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-medium">Visma/Tripletex-integrasjon</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-minus-circle text-yellow-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 font-medium">Norsk språkstøtte</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-minus-circle text-yellow-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-medium">Arbeidstilsynet-rapporter</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-4 px-6 font-medium">Norsk kundestøtte</td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-check-circle text-green-500 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center"><i class="fas fa-times-circle text-red-400 text-xl"></i></td>
+                            <td class="py-4 px-6 text-center">N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Roaster -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Hvorfor velge Roaster?</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-gavel text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Bygget for norsk lov</h3>
+                    <p class="text-gray-600">
+                        Roaster er designet fra grunnen for Arbeidsmiljøloven. Ikke tilpasset, ikke tilføyd - bygget inn.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Null samsvarsbrudd</h3>
+                    <p class="text-gray-600">
+                        Våre kunder rapporterer null lovbrudd. Automatisk validering stopper problemer før de skjer.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-headset text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Lokal støtte</h3>
+                    <p class="text-gray-600">
+                        Norsk støtteteam som forstår dine utfordringer. Ingen språkbarrierer, ingen tidssoner.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Klar til å bytte?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Se forskjellen selv med en gratis 14-dagers prøveperiode
+            </p>
+            <a href="/no/demo.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start gratis prøveperiode
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

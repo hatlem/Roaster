@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brancher - Roaster | Planlægningsløsninger efter sektor</title>
+    <meta name="description" content="Opdag hvordan Roaster hjælper forskellige brancher med at opretholde Arbejdsmiljøloven-overholdelse.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dk/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dk/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/dk/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/dk/industries.html" class="text-purple-600 font-semibold transition">Brancher</a>
+                    <a href="/dk/about.html" class="text-gray-700 hover:text-purple-600 transition">Om os</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DK <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/industries.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/industries.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/industries.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Dansk</a>
+                            <a href="/se/industries.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/industries.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Log ind</a>
+                    <a href="/dk/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Book demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Bygget til din branche</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Uanset om du er i detailhandel, sundhedsvæsen, hotel eller produktion, forstår Roaster de unikke
+                planlægningsudfordringer, du står over for, og de specifikke Arbejdsmiljøloven-krav, der gælder for din sektor.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-blue-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-store text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Detailhandel</h3>
+                    <p class="text-gray-600 mb-6">
+                        Håndter variable vagtmønstre, søndagsåbent og sæsonmedarbejdere med automatisk compliance-validering.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-red-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-hospital text-3xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Sundhedsvæsen</h3>
+                    <p class="text-gray-600 mb-6">
+                        24/7 dækning med streng hvileperiodehåndhævelse. Håndter komplekse rotationsmønstre sikkert.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-amber-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-utensils text-3xl text-amber-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Hotel og restaurant</h3>
+                    <p class="text-gray-600 mb-6">
+                        Delte vagter, sene aftener og sæsonbaseret efterspørgsel. Roaster holder dig compliant i travle sæsoner.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-gray-200 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-industry text-3xl text-gray-700"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Produktion</h3>
+                    <p class="text-gray-600 mb-6">
+                        Roterende skift og overtidskontrol for 24/7 operationer med fuld sporbarhed.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-green-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-3xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Logistik og transport</h3>
+                    <p class="text-gray-600 mb-6">
+                        Køretidskrav og lagerskift med automatisk compliance-overvågning.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="bg-purple-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-graduation-cap text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Uddannelse</h3>
+                    <p class="text-gray-600 mb-6">
+                        Akademisk kalender og deltidsmedarbejdere. Håndter studentermedarbejdere på tværs af afdelinger.
+                    </p>
+                    <a href="/dk/contact.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Lær mere <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Ser du ikke din branche?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Roaster er meget konfigurerbar. Tal med vores team om, hvordan vi kan tilpasse platformen til dine specifikke behov.
+            </p>
+            <a href="/dk/contact.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Kontakt salg
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheder forbeholdes.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

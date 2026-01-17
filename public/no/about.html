@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om oss - Roaster | Vår misjon og historie</title>
+    <meta name="description" content="Lær om Roasters misjon om å gjøre Arbeidsmiljøloven-samsvar uanstrengt for alle bedrifter.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/industries.html" class="text-gray-700 hover:text-purple-600 transition">Bransjer</a>
+                    <a href="/no/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/no/about.html" class="text-purple-600 font-semibold transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/about.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/about.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/about.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/about.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/about.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/no/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funksjoner</a>
+                <a href="/no/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Priser</a>
+                <a href="/no/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Bransjer</a>
+                <a href="/no/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/no/about.html" class="block py-2 text-purple-600 font-semibold">Om oss</a>
+                <div class="border-t pt-2">
+                    <p class="text-sm text-gray-500 mb-2">Språk:</p>
+                    <div class="flex space-x-2">
+                        <a href="/about.html" class="px-3 py-1 bg-gray-100 rounded text-sm">EN</a>
+                        <a href="/no/about.html" class="px-3 py-1 bg-purple-600 text-white rounded text-sm">NO</a>
+                        <a href="/dk/about.html" class="px-3 py-1 bg-gray-100 rounded text-sm">DK</a>
+                        <a href="/se/about.html" class="px-3 py-1 bg-gray-100 rounded text-sm">SE</a>
+                        <a href="/de/about.html" class="px-3 py-1 bg-gray-100 rounded text-sm">DE</a>
+                    </div>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Logg inn</a>
+                <a href="/no/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Bestill demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Gjør samsvar uanstrengt
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Vi mener at å følge arbeidsmiljøloven ikke skal være en byrde. Vår misjon er å automatisere
+                samsvar slik at norske bedrifter kan fokusere på det som betyr mest.
+            </p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">Vår historie</h2>
+                <div class="prose prose-lg text-gray-600 space-y-4">
+                    <p>
+                        Roaster ble født ut av en enkel observasjon: norske bedrifter brukte utallige
+                        timer på manuelt å sikre samsvar med arbeidsmiljøloven, og gjorde likevel ofte kostbare feil.
+                    </p>
+                    <p>
+                        Våre grunnleggere, tidligere HR-ledere som hadde erfart Arbeidstilsynet-inspeksjoner på nært hold,
+                        visste at det måtte finnes en bedre måte. De bestemte seg for å bygge programvare som ville gjøre
+                        samsvar automatisk, og eliminere stresset og usikkerheten som følger med manuell
+                        vaktplanlegging.
+                    </p>
+                    <p>
+                        I dag betjener Roaster over 500 norske bedrifter, fra små butikker til
+                        store sykehus, og hjelper dem med å planlegge med selvtillit og holde seg i samsvar uten
+                        hodepine.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Vår misjon og verdier</h2>
+                <p class="text-xl text-gray-600">Prinsippene som styrer alt vi gjør</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bullseye text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Samsvar først</h3>
+                    <p class="text-gray-600">
+                        Vi prioriterer nøyaktighet og pålitelighet over alt annet. Hver funksjon er designet
+                        med Arbeidsmiljøloven i kjernen, slik at våre brukere kan stole fullstendig på Roaster.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Brukersentrert design</h3>
+                    <p class="text-gray-600">
+                        Vi bygger for ekte mennesker som løser ekte problemer. Vårt grensesnitt er intuitivt fordi
+                        vi lytter til våre brukere og kontinuerlig forbedrer basert på deres tilbakemeldinger.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Tillit og åpenhet</h3>
+                    <p class="text-gray-600">
+                        Vi er åpne om hvordan systemet vårt fungerer, hvilke data vi samler inn, og hvordan vi
+                        beskytter dem. Våre brukeres tillit er vår mest verdifulle eiendel.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Kontinuerlig innovasjon</h3>
+                    <p class="text-gray-600">
+                        Arbeidsmiljøloven utvikler seg, og det gjør vi også. Vi holder oss i forkant av regelverksendringer og
+                        forbedrer kontinuerlig plattformen vår for å betjene våre brukere bedre.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Fremragende støtte</h3>
+                    <p class="text-gray-600">
+                        Vi mener at god programvare kommer med god støtte. Vårt team er her for å hjelpe
+                        deg å lykkes, hvert skritt på veien.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Bærekraft</h3>
+                    <p class="text-gray-600">
+                        Vi er forpliktet til å drive energieffektiv infrastruktur og støtte
+                        praksis som beskytter arbeidstakeres rettigheter og velvære.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Lederteamet</h2>
+                <p class="text-xl text-gray-600">Menneskene bak Roaster</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-5xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Erik Johansen</h3>
+                    <p class="text-purple-600 mb-3">CEO & medgründer</p>
+                    <p class="text-gray-600 text-sm">
+                        15+ års erfaring innen HR-teknologi, tidligere samsvarsansvarlig hos stor norsk detaljist
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-5xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Sofia Andersen</h3>
+                    <p class="text-purple-600 mb-3">CTO & medgründer</p>
+                    <p class="text-gray-600 text-sm">
+                        Programvarearkitekt med ekspertise innen samsvarsautomatisering og distribuerte systemer
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-5xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Henrik Berg</h3>
+                    <p class="text-purple-600 mb-3">Produktsjef</p>
+                    <p class="text-gray-600 text-sm">
+                        Produktleder lidenskapelig opptatt av å løse komplekse regulatoriske utfordringer med enkel UX
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Roaster i tall</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">500+</div>
+                    <p class="text-gray-600 font-semibold">Aktive kunder</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">25 000+</div>
+                    <p class="text-gray-600 font-semibold">Ansatte planlagt</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">99,9%</div>
+                    <p class="text-gray-600 font-semibold">Plattform oppetid</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">100%</div>
+                    <p class="text-gray-600 font-semibold">Samsvarsrate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Klar til å oppleve Roaster?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Se hvordan vi kan hjelpe bedriften din med å holde seg i samsvar uten anstrengelse
+            </p>
+            <a href="/no/demo.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start gratis prøveperiode
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Den eneste planleggingsprogramvaren bygget for norsk arbeidsmiljølov.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/no/features.html" class="hover:text-purple-400 transition">Funksjoner</a></li>
+                        <li><a href="/no/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/no/integrations.html" class="hover:text-purple-400 transition">Integrasjoner</a></li>
+                        <li><a href="/no/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ressurser</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/no/blog.html" class="hover:text-purple-400 transition">Blogg</a></li>
+                        <li><a href="/no/customers.html" class="hover:text-purple-400 transition">Kundehistorier</a></li>
+                        <li><a href="/no/compliance-guide.html" class="hover:text-purple-400 transition">Samsvarsveileder</a></li>
+                        <li><a href="/no/industries.html" class="hover:text-purple-400 transition">Bransjer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Selskap</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/no/about.html" class="hover:text-purple-400 transition">Om oss</a></li>
+                        <li><a href="/no/careers.html" class="hover:text-purple-400 transition">Karriere</a></li>
+                        <li><a href="/no/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/no/privacy.html" class="hover:text-purple-400 transition">Personvern</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/no/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/no/security.html" class="text-sm hover:text-purple-400 transition">Sikkerhet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

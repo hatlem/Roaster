@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book en demo - Roaster | Se compliance i aktion</title>
+    <meta name="description" content="Book en personlig demo af Roaster. Se hvordan automatiseret Arbejdsmiljøloven-overholdelse kan transformere din planlægningsproces.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dk/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dk/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/dk/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/dk/about.html" class="text-gray-700 hover:text-purple-600 transition">Om os</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DK <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/demo.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/demo.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/demo.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Dansk</a>
+                            <a href="/se/demo.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/demo.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Log ind</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-24 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Se Roaster i aktion</h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Få en personlig gennemgang af, hvordan Roaster kan automatisere arbejdsmiljølov-overholdelse
+                        for din organisation.
+                    </p>
+
+                    <div class="space-y-6 mb-12">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-clock text-xl text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">30-minutters demo</h3>
+                                <p class="text-gray-600">Hurtig, fokuseret gennemgang tilpasset dine behov</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-user-tie text-xl text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Ekspertguide</h3>
+                                <p class="text-gray-600">Lær fra en specialist, der kender Arbejdsmiljøloven</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-question-circle text-xl text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Q&A inkluderet</h3>
+                                <p class="text-gray-600">Få svar på alle dine spørgsmål om compliance og funktioner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Book din demo</h2>
+                        <form id="demo-form">
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fornavn *</label>
+                                    <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Efternavn *</label>
+                                    <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Arbejds-e-mail *</label>
+                                <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Virksomhedsnavn *</label>
+                                <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Antal medarbejdere *</label>
+                                    <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                                        <option value="">Vælg</option>
+                                        <option value="1-25">1-25</option>
+                                        <option value="26-100">26-100</option>
+                                        <option value="101-500">101-500</option>
+                                        <option value="500+">500+</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Branche *</label>
+                                    <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600">
+                                        <option value="">Vælg</option>
+                                        <option value="retail">Detailhandel</option>
+                                        <option value="healthcare">Sundhedsvæsen</option>
+                                        <option value="hospitality">Hotel og restaurant</option>
+                                        <option value="manufacturing">Produktion</option>
+                                        <option value="other">Andet</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition">
+                                Book demo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheder forbeholdes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('demo-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Tak for din interesse! Vores team vil kontakte dig inden for 24 timer for at planlægge din demo.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

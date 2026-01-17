@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-dokumentasjon - Roaster</title>
+    <meta name="description" content="Roaster API-dokumentasjon for utviklere. Bygg egendefinerte integrasjoner med vårt RESTful API.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/api-docs.html" class="text-purple-600 font-semibold transition">API</a>
+                    <a href="/no/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/api-docs.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">API-dokumentasjon</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Bygg egendefinerte integrasjoner med Roasters kraftige REST API.
+                Full dokumentasjon, webhooks og utviklerverktøy inkludert.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Quick Start -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Kom i gang</h2>
+                <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+                    <pre class="text-sm text-gray-300"><code><span class="text-green-400"># Autentiser med API-nøkkel</span>
+curl -X GET https://api.roaster.no/v1/schedules \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"</code></pre>
+                </div>
+            </div>
+
+            <!-- Endpoints -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Hovedendepunkter</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-mono mr-3">GET</span>
+                            <code class="text-gray-900">/v1/schedules</code>
+                        </div>
+                        <p class="text-gray-600">Hent alle vaktplaner for din organisasjon</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-mono mr-3">POST</span>
+                            <code class="text-gray-900">/v1/schedules</code>
+                        </div>
+                        <p class="text-gray-600">Opprett en ny vaktplan</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-mono mr-3">GET</span>
+                            <code class="text-gray-900">/v1/employees</code>
+                        </div>
+                        <p class="text-gray-600">Hent alle ansatte</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-mono mr-3">GET</span>
+                            <code class="text-gray-900">/v1/timesheets</code>
+                        </div>
+                        <p class="text-gray-600">Eksporter timelister for lønnsbehandling</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-mono mr-3">GET</span>
+                            <code class="text-gray-900">/v1/compliance/validate</code>
+                        </div>
+                        <p class="text-gray-600">Valider vaktplan mot Arbeidsmiljøloven</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <i class="fas fa-bolt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Webhooks</h3>
+                    <p class="text-gray-600">
+                        Motta sanntidsvarsler om vaktplanendringer, godkjenninger og andre hendelser.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <i class="fas fa-code text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">SDK-er</h3>
+                    <p class="text-gray-600">
+                        Offisielle SDK-er for JavaScript, Python, PHP og C#.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <i class="fas fa-shield-alt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">OAuth 2.0</h3>
+                    <p class="text-gray-600">
+                        Sikker autentisering med token-basert tilgang og scopes.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <i class="fas fa-tachometer-alt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Generøse grenser</h3>
+                    <p class="text-gray-600">
+                        1000 forespørsler/minutt for Business-planer, høyere for Enterprise.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="/no/contact.html" class="bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition inline-block">
+                    Få API-tilgang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilapp - Roaster | Schemat i fickan</title>
+    <meta name="description" content="Ladda ner Roaster-appen och hantera scheman, skiftbyten och frånvaro direkt från din smartphone.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/mobile-app.html" class="text-purple-600 font-semibold transition">App</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> SE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/mobile-app.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Svenska</a>
+                            <a href="/de/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-5xl font-bold text-white mb-6">Schemat i fickan</h1>
+                    <p class="text-xl text-purple-100 mb-8">
+                        Ladda ner Roaster-appen och ge dina anställda tillgång till scheman,
+                        skiftbyten och frånvaroregistrering - allt från deras smartphone.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-800 transition">
+                            <i class="fab fa-apple text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs">Ladda ner från</div>
+                                <div class="text-lg font-semibold">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-800 transition">
+                            <i class="fab fa-google-play text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs">Hämta från</div>
+                                <div class="text-lg font-semibold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="w-64 h-[500px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
+                        <div class="w-full h-full bg-purple-100 rounded-[2.5rem] flex items-center justify-center">
+                            <div class="text-center p-6">
+                                <i class="fas fa-calendar-check text-6xl text-purple-600 mb-4"></i>
+                                <p class="text-purple-800 font-semibold">Roaster App</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-16">Appfunktioner</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-calendar-day text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Se scheman</h3>
+                    <p class="text-gray-600">
+                        Anställda kan se sina kommande skift och chefer kan se hela teamets
+                        schema i realtid.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-exchange-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Skiftbyte</h3>
+                    <p class="text-gray-600">
+                        Begär att byta skift med en kollega direkt i appen. Chefer godkänner
+                        med ett enkelt tryck.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bell text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Push-notiser</h3>
+                    <p class="text-gray-600">
+                        Få meddelande om nya skift, godkända byten och viktiga uppdateringar
+                        direkt på telefonen.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-clock text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Tidregistrering</h3>
+                    <p class="text-gray-600">
+                        Stämpla in och ut direkt i appen med GPS-verifiering för exakt
+                        tidregistrering.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-umbrella-beach text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Frånvarobegäran</h3>
+                    <p class="text-gray-600">
+                        Begär semester, sjukanmälan eller annan frånvaro med några tryck direkt
+                        i appen.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-comments text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Team-chatt</h3>
+                    <p class="text-gray-600">
+                        Kommunicera med ditt team direkt i appen. Perfekt för snabba
+                        meddelanden om skift.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Ladda ner appen idag</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Gratis för alla Roaster-användare. Tillgänglig för iOS och Android.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="bg-white text-gray-900 px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition">
+                    <i class="fab fa-apple text-2xl mr-3"></i>
+                    <span class="font-semibold">App Store</span>
+                </a>
+                <a href="#" class="bg-white text-gray-900 px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition">
+                    <i class="fab fa-google-play text-2xl mr-3"></i>
+                    <span class="font-semibold">Google Play</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

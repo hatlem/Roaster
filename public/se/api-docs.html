@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Dokumentation - Roaster | Utvecklarguide</title>
+    <meta name="description" content="Roasters REST API låter dig integrera schemaläggning med dina befintliga system.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/api-docs.html" class="text-purple-600 font-semibold transition">API</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> SE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/api-docs.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Svenska</a>
+                            <a href="/de/api-docs.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">API Dokumentation</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Bygg kraftfulla integrationer med Roasters REST API. Synkronisera scheman,
+                anställdadata och efterlevnadsrapporter med dina befintliga system.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 rounded-xl p-6 sticky top-24">
+                        <h3 class="font-bold text-lg mb-4">Snabbstart</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#authentication" class="text-purple-600 hover:text-purple-700">Autentisering</a></li>
+                            <li><a href="#endpoints" class="text-purple-600 hover:text-purple-700">Endpoints</a></li>
+                            <li><a href="#rate-limits" class="text-purple-600 hover:text-purple-700">Rate limits</a></li>
+                            <li><a href="#webhooks" class="text-purple-600 hover:text-purple-700">Webhooks</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div id="authentication" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Autentisering</h2>
+                        <p class="text-gray-600 mb-6">
+                            Alla API-anrop måste autentiseras med en API-nyckel. Du hittar din nyckel
+                            i dashboarden under Inställningar → API.
+                        </p>
+                        <div class="bg-gray-900 rounded-xl p-6 text-white font-mono text-sm overflow-x-auto">
+                            <p class="text-gray-400"># Exempel på anrop</p>
+                            <p>curl -X GET "https://api.roaster.se/v1/shifts" \</p>
+                            <p class="pl-4">-H "Authorization: Bearer YOUR_API_KEY" \</p>
+                            <p class="pl-4">-H "Content-Type: application/json"</p>
+                        </div>
+                    </div>
+
+                    <div id="endpoints" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Endpoints</h2>
+
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="bg-gray-50 px-6 py-4 flex items-center">
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded font-mono text-sm mr-4">GET</span>
+                                    <code class="text-gray-900">/v1/shifts</code>
+                                </div>
+                                <div class="px-6 py-4">
+                                    <p class="text-gray-600">Hämta alla skift för din organisation. Stöder filtrering på datum, anställd och avdelning.</p>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="bg-gray-50 px-6 py-4 flex items-center">
+                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded font-mono text-sm mr-4">POST</span>
+                                    <code class="text-gray-900">/v1/shifts</code>
+                                </div>
+                                <div class="px-6 py-4">
+                                    <p class="text-gray-600">Skapa ett nytt skift. Efterlevnadsvalidering utförs automatiskt.</p>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="bg-gray-50 px-6 py-4 flex items-center">
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded font-mono text-sm mr-4">GET</span>
+                                    <code class="text-gray-900">/v1/employees</code>
+                                </div>
+                                <div class="px-6 py-4">
+                                    <p class="text-gray-600">Hämta lista över anställda med deras tillgänglighet och kompetenser.</p>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                <div class="bg-gray-50 px-6 py-4 flex items-center">
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded font-mono text-sm mr-4">GET</span>
+                                    <code class="text-gray-900">/v1/compliance/report</code>
+                                </div>
+                                <div class="px-6 py-4">
+                                    <p class="text-gray-600">Generera en Arbetstidslagen-efterlevnadsrapport för en given period.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rate-limits" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Rate limits</h2>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-info-circle text-yellow-600 mr-4 mt-1"></i>
+                                <div>
+                                    <p class="text-yellow-800">
+                                        Standard rate limit är 1 000 anrop per minut. Enterprise-kunder
+                                        kan få förhöjd limit vid behov. Kontakta support för mer information.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="webhooks">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Webhooks</h2>
+                        <p class="text-gray-600 mb-6">
+                            Konfigurera webhooks för att ta emot realtidsuppdateringar om skiftändringar,
+                            frånvaro och efterlevnadsvarningar.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <code class="text-purple-600">shift.created</code>
+                                <p class="text-sm text-gray-600 mt-1">När ett nytt skift skapas</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <code class="text-purple-600">shift.updated</code>
+                                <p class="text-sm text-gray-600 mt-1">När ett skift ändras</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <code class="text-purple-600">absence.requested</code>
+                                <p class="text-sm text-gray-600 mt-1">När en frånvarobegäran skickas</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <code class="text-purple-600">compliance.warning</code>
+                                <p class="text-sm text-gray-600 mt-1">När en efterlevnadsvarning utlöses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Behöver du hjälp?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Vår utvecklarsupport är redo att hjälpa dig bygga din integration.
+            </p>
+            <a href="/se/contact.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Kontakta utvecklarsupport
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

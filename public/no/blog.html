@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogg - Roaster | Norsk arbeidsmiljølov og planleggingsinnsikt</title>
+    <meta name="description" content="Hold deg oppdatert på Arbeidsmiljøloven-endringer, beste praksis for planlegging og tips for bemanningsstyring fra Roaster-teamet.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <a href="/no/blog.html" class="text-purple-600 font-semibold transition">Blogg</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/blog.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/blog.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Roaster Blogg</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Innsikt om Arbeidsmiljøloven, beste praksis for bemanningsplanlegging og
+                tips for å bygge en samsvarsbevisst, medarbeiderorientert arbeidsplass.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <!-- Featured Post -->
+                    <article class="mb-12">
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-semibold">Fremhevet</span>
+                        <h2 class="text-3xl font-bold text-gray-900 mt-4 mb-4">
+                            <a href="#" class="hover:text-purple-600 transition">
+                                2025-endringer i Arbeidsmiljøloven: Hva arbeidsgivere må vite
+                            </a>
+                        </h2>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span>10. januar 2025</span>
+                            <span class="mx-2">|</span>
+                            <span>8 min lesetid</span>
+                            <span class="mx-2">|</span>
+                            <span class="text-purple-600">Samsvar</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Norges Arbeidsmiljølov får betydelige oppdateringer i 2025. Fra nye hvileperiode-fortolkninger
+                            til oppdaterte overtidsdokumentasjonskrav, her er alt arbeidsgivere
+                            trenger å vite for å holde seg i samsvar i år.
+                        </p>
+                        <a href="#" class="text-purple-600 font-semibold hover:text-purple-700">
+                            Les mer <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </article>
+
+                    <hr class="mb-12">
+
+                    <!-- Post Grid -->
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Beste praksis</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        5 tips for bedre vaktplanlegging i detaljhandel
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Lær hvordan du balanserer kundeetterspørsel, ansattes preferanser og samsvar
+                                    når du lager vaktplaner for detaljhandelsteamet ditt.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>8. januar 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>5 min lesetid</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Samsvar</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        14-dagersregelen forklart: En komplett guide
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Alt du trenger å vite om å publisere vaktplaner 14 dager i forveien
+                                    i henhold til Arbeidsmiljøloven § 10-3.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>5. januar 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>7 min lesetid</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-amber-400 to-orange-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Helsevesen</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Administrere 24/7 helsevaktplaner i samsvar
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Helseinstitusjoner møter unike utfordringer. Her er hvordan du sikrer
+                                    hvileperiode-samsvar samtidig som du opprettholder pasientpleie.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>2. januar 2025</span>
+                                    <span class="mx-2">|</span>
+                                    <span>6 min lesetid</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 rounded-xl overflow-hidden">
+                            <div class="h-48 bg-gradient-to-br from-indigo-400 to-blue-500"></div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Samsvar</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">
+                                    <a href="#" class="hover:text-purple-600 transition">
+                                        Forstå hviletidskrav
+                                    </a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    Et dypdykk i 11-timers daglig og 35-timers ukentlig hvilekrav
+                                    og hvordan du beregner dem riktig.
+                                </p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>20. desember 2024</span>
+                                    <span class="mx-2">|</span>
+                                    <span>8 min lesetid</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-purple-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Abonner på oppdateringer</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Få det siste om Arbeidsmiljøloven-endringer og planleggingstips levert til innboksen din.
+                        </p>
+                        <form>
+                            <input type="email" placeholder="Din e-post"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                            <button type="submit" class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                                Abonner
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl mb-8">
+                        <h3 class="font-bold text-lg mb-4">Kategorier</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Samsvar</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Beste praksis</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Helsevesen</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex justify-between text-gray-700 hover:text-purple-600">
+                                    <span>Produktoppdateringer</span>
+                                    <span class="bg-gray-200 px-2 py-1 rounded text-xs">10</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="font-bold text-lg mb-4">Ressurser</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="/no/compliance-guide.html" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-book text-purple-600 mr-3"></i>
+                                    Samsvarsveileder
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/no/api-docs.html" class="flex items-center text-gray-700 hover:text-purple-600">
+                                    <i class="fas fa-code text-purple-600 mr-3"></i>
+                                    API-dokumentasjon
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

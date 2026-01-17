@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkerhet - Roaster | Hvordan vi beskytter dine data</title>
+    <meta name="description" content="Lær om Roasters sikkerhetsinfrastruktur, datakryptering og samsvarssertifiseringer.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/security.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/security.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/security.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/security.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/security.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Sikkerhet hos Roaster</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Dine ansattes data er trygg hos oss. Vi bruker bransjens beste praksis for
+                å beskytte informasjonen din.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-lock text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Kryptering</h3>
+                    <p class="text-gray-600">
+                        All data er kryptert med TLS 1.3 under overføring og AES-256 ved lagring.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-server text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">EU-hosting</h3>
+                    <p class="text-gray-600">
+                        Alle data lagres på sikre servere i EU/EØS med redundans på tvers av soner.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-user-lock text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Tilgangskontroll</h3>
+                    <p class="text-gray-600">
+                        Rollebasert tilgangskontroll, tofaktorautentisering og SSO-støtte.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-history text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Revisjonslogg</h3>
+                    <p class="text-gray-600">
+                        Komplett revisjonslogg av alle handlinger for sporbarhet og samsvar.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-cloud text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Sikkerhetskopiering</h3>
+                    <p class="text-gray-600">
+                        Daglige automatiske sikkerhetskopier med geografisk replikering.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bug text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Penetrasjonstesting</h3>
+                    <p class="text-gray-600">
+                        Regelmessig sikkerhetsrevisjon og penetrasjonstesting av tredjepart.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Sertifiseringer</h2>
+                <div class="flex justify-center items-center space-x-8">
+                    <div class="text-center">
+                        <div class="bg-gray-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold text-gray-700">ISO 27001</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Informasjonssikkerhet</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gray-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold text-gray-700">SOC 2</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Type II</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gray-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold text-gray-700">GDPR</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Samsvar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

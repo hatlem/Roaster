@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbetstidslagen Guide - Roaster | Din kompletta resurs</title>
+    <meta name="description" content="Allt du behöver veta om svensk Arbetstidslag. Viloperioder, övertid, veckovila och mer.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/compliance-guide.html" class="text-purple-600 font-semibold transition">Efterlevnad</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> SE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/compliance-guide.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/compliance-guide.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/compliance-guide.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/compliance-guide.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Svenska</a>
+                            <a href="/de/compliance-guide.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Arbetstidslagen Guide</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Din kompletta guide till svensk Arbetstidslag. Förstå dina skyldigheter och
+                håll ditt företag regelrätt med automatisk validering.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg max-w-none">
+                <div class="bg-purple-50 border-l-4 border-purple-600 p-6 mb-12">
+                    <h3 class="text-lg font-bold text-purple-900 mb-2">Vad är Arbetstidslagen?</h3>
+                    <p class="text-purple-800">
+                        Arbetstidslagen (1982:673) är Sveriges primära lagstiftning om arbetstid. Den reglerar
+                        arbetstid, viloperioder och säkerhetsförhållanden för att skydda anställdas
+                        hälsa och säkerhet.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Krav på viloperioder</h2>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-moon text-purple-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Dygnsvila</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Anställda har rätt till minst 11 sammanhängande timmars vila under varje
+                            24-timmarsperiod.
+                        </p>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-semibold text-gray-900">Exempel:</p>
+                            <p class="text-gray-600">Om ett skift slutar kl 23:00, kan nästa skift tidigast börja kl 10:00.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-calendar-week text-purple-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Veckovila</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Anställda har rätt till minst 36 sammanhängande timmars vila under varje
+                            sjudagarsperiod.
+                        </p>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <p class="font-semibold text-gray-900">Observera:</p>
+                            <p class="text-gray-600">Veckovilan ska om möjligt förläggas till veckoslutet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Övertidsregler</h2>
+                <div class="space-y-4 mb-12">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-600">Maximal veckoarbetstid är 48 timmar i genomsnitt över fyra månader</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-600">Övertid får uppgå till högst 200 timmar per kalenderår</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-600">Nattarbetare har särskilda skyddsregler</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-600">Ungdomar under 18 år har striktare begränsningar</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-xl mb-12">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 text-xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="text-lg font-bold text-yellow-900 mb-2">Viktigt om kollektivavtal</h3>
+                            <p class="text-yellow-800">
+                                Arbetstidslagen är dispositiv, vilket innebär att kollektivavtal kan ha
+                                andra regler. Kontrollera alltid vilket kollektivavtal som gäller för din bransch.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Automatisera din efterlevnad</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Låt Roaster hantera komplexiteten. Vårt system validerar automatiskt alla scheman
+                mot Arbetstidslagens krav.
+            </p>
+            <a href="/se/demo.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Starta gratis provperiod
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

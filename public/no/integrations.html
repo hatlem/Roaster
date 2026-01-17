@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrasjoner - Roaster</title>
+    <meta name="description" content="Roaster integrerer med dine favoritt lønn-, HR- og forretningsverktøy. Koble sømløst til Visma, Tripletex, SAP og mer.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/no/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/no/features.html" class="text-gray-700 hover:text-purple-600 transition">Funksjoner</a>
+                    <a href="/no/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/no/integrations.html" class="text-purple-600 font-semibold transition">Integrasjoner</a>
+                    <a href="/no/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> NO <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/integrations.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/integrations.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Norsk</a>
+                            <a href="/dk/integrations.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/integrations.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/integrations.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logg inn</a>
+                    <a href="/no/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestill demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Koble hele arbeidsflyten din</h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Roaster integrerer sømløst med verktøyene du allerede bruker. Synkroniser vaktplaner med lønn,
+                koble til HR-systemer og automatiser hele bemanningsstyringsprosessen.
+            </p>
+        </div>
+    </section>
+
+    <!-- Featured Integrations -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Fremhevet</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Populære integrasjoner</h2>
+                <p class="text-xl text-gray-600">Koble til Norges mest brukte forretningsprogramvare</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Visma -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl font-bold text-blue-600">V</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Visma</h3>
+                            <span class="text-sm text-green-600 font-medium">Offisiell partner</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Synkroniser ansattdata og arbeidede timer direkte til Visma Lønn, HR og regnskapsløsninger.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-sm">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Automatisk timeliste-eksport
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Ansattdata-synkronisering
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Overtidsberegninger
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tripletex -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl font-bold text-green-600">T</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Tripletex</h3>
+                            <span class="text-sm text-green-600 font-medium">Offisiell partner</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Koble til Tripletex for sømløs regnskapsføring, lønnsbehandling og finansiell rapportering.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-sm">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Sanntids time-synk
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Koststedskartlegging
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Prosjektsporing
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Microsoft 365 -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-300 hover:shadow-lg transition">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fab fa-microsoft text-3xl text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Microsoft 365</h3>
+                            <span class="text-sm text-gray-500 font-medium">Kalender og Teams</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Synkroniser vaktplaner til Outlook-kalendere og send varsler gjennom Microsoft Teams.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-sm">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Kalendersynkronisering
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Teams-varsler
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Azure AD SSO
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Categories -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Integrasjonskategorier</h2>
+                <p class="text-xl text-gray-600">Koble sammen alle deler av virksomheten din</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="bg-green-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-money-check-alt text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lønn</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Eksporter arbeidede timer direkte til lønnssystemet ditt for nøyaktige, rettidige utbetalinger.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>Visma Lønn</li>
+                        <li>Tripletex</li>
+                        <li>Xledger</li>
+                        <li>Duett</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users-cog text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">HR-systemer</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Synkroniser ansattdata, organisasjonskart og HR-poster automatisk.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>SAP SuccessFactors</li>
+                        <li>Workday</li>
+                        <li>BambooHR</li>
+                        <li>Simployer</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-comments text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Kommunikasjon</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Send varsler og oppdateringer gjennom kanalene teamet ditt bruker.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>Slack</li>
+                        <li>Microsoft Teams</li>
+                        <li>E-post (SMTP)</li>
+                        <li>SMS</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="bg-amber-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-calendar-alt text-2xl text-amber-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Kalender</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Synkroniser vaktplaner til personlige kalendere så ansatte aldri går glipp av en vakt.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>Google Kalender</li>
+                        <li>Microsoft Outlook</li>
+                        <li>Apple Kalender</li>
+                        <li>iCal-eksport</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Klar til å koble til verktøyene dine?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Start din gratis prøveperiode og utforsk integrasjonene våre i dag
+            </p>
+            <a href="/no/demo.html" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start gratis prøveperiode
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

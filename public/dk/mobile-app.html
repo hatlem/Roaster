@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilapp - Roaster | Vagtplaner i lommen</title>
+    <meta name="description" content="Download Roaster-appen og håndter vagtplaner, bytninger og fravær direkte fra din smartphone.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dk/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dk/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/dk/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/dk/mobile-app.html" class="text-purple-600 font-semibold transition">App</a>
+                    <a href="/dk/about.html" class="text-gray-700 hover:text-purple-600 transition">Om os</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DK <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/mobile-app.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Dansk</a>
+                            <a href="/se/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/mobile-app.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Log ind</a>
+                    <a href="/dk/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Book demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-5xl font-bold text-white mb-6">Vagtplanen i lommen</h1>
+                    <p class="text-xl text-purple-100 mb-8">
+                        Download Roaster-appen og giv dine medarbejdere adgang til vagtplaner,
+                        byttemuligheder og fraværsregistrering - alt sammen fra deres smartphone.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-800 transition">
+                            <i class="fab fa-apple text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs">Download fra</div>
+                                <div class="text-lg font-semibold">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-800 transition">
+                            <i class="fab fa-google-play text-2xl mr-3"></i>
+                            <div class="text-left">
+                                <div class="text-xs">Hent den fra</div>
+                                <div class="text-lg font-semibold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="w-64 h-[500px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
+                        <div class="w-full h-full bg-purple-100 rounded-[2.5rem] flex items-center justify-center">
+                            <div class="text-center p-6">
+                                <i class="fas fa-calendar-check text-6xl text-purple-600 mb-4"></i>
+                                <p class="text-purple-800 font-semibold">Roaster App</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-16">App-funktioner</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-calendar-day text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Se vagtplaner</h3>
+                    <p class="text-gray-600">
+                        Medarbejdere kan se deres kommende vagter, og ledere kan se hele teamets
+                        vagtplan i realtid.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-exchange-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Vagtbytning</h3>
+                    <p class="text-gray-600">
+                        Anmod om at bytte vagt med en kollega direkte i appen. Ledere godkender
+                        med et enkelt tryk.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bell text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Push-notifikationer</h3>
+                    <p class="text-gray-600">
+                        Få besked om nye vagter, godkendte bytninger og vigtige opdateringer
+                        direkte på telefonen.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-clock text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Tidsregistrering</h3>
+                    <p class="text-gray-600">
+                        Stemple ind og ud direkte i appen med GPS-verifikation for præcis
+                        tidsregistrering.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-umbrella-beach text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Fraværsanmodning</h3>
+                    <p class="text-gray-600">
+                        Anmod om ferie, sygemelding eller anden fravær med få tryk direkte
+                        fra appen.
+                    </p>
+                </div>
+
+                <div class="text-center p-8">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-comments text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Team-chat</h3>
+                    <p class="text-gray-600">
+                        Kommuniker med dit team direkte i appen. Perfekt til hurtige
+                        beskeder om vagter.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2">4.8</div>
+                    <div class="flex justify-center mb-2">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600">App Store bedømmelse</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2">50K+</div>
+                    <p class="text-gray-600">Downloads</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2">99.9%</div>
+                    <p class="text-gray-600">Oppetid</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-purple-600 mb-2">&lt;2s</div>
+                    <p class="text-gray-600">Gennemsnitlig svartid</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Download appen i dag</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Gratis for alle Roaster-brugere. Tilgængelig til iOS og Android.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="bg-white text-gray-900 px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition">
+                    <i class="fab fa-apple text-2xl mr-3"></i>
+                    <span class="font-semibold">App Store</span>
+                </a>
+                <a href="#" class="bg-white text-gray-900 px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition">
+                    <i class="fab fa-google-play text-2xl mr-3"></i>
+                    <span class="font-semibold">Google Play</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alle rettigheder forbeholdes.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
