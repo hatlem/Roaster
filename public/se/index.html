@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roaster - Schemaläggning som följer svensk arbetsrätt</title>
+    <meta name="description" content="Den enda schemaläggningsprogramvaran byggd för svensk arbetsrätt. Automatisera efterlevnad av Arbetstidslagen och slipp oroa dig för Arbetsmiljöverket inspektioner.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .hero-pattern {
+            background-color: #667eea;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branscher</a>
+                    <a href="/se/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+
+                    <!-- Language Switcher -->
+                    <div class="relative language-switcher">
+                        <button id="lang-button" class="flex items-center text-gray-700 hover:text-purple-600 transition">
+                            <i class="fas fa-globe mr-1"></i> SE
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                            <a href="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/" class="block px-4 py-2 text-sm text-purple-600 bg-purple-50 font-semibold">Svenska</a>
+                            <a href="/de/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/se/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktioner</a>
+                <a href="/se/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Priser</a>
+                <a href="/se/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branscher</a>
+                <a href="/se/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/se/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Om oss</a>
+                <div class="border-t pt-2 mt-2">
+                    <p class="text-xs text-gray-500 mb-2">Språk:</p>
+                    <a href="/" class="block py-1 text-sm text-gray-700">English</a>
+                    <a href="/no/" class="block py-1 text-sm text-gray-700">Norsk</a>
+                    <a href="/dk/" class="block py-1 text-sm text-gray-700">Dansk</a>
+                    <a href="/se/" class="block py-1 text-sm text-purple-600 font-semibold">Svenska</a>
+                    <a href="/de/" class="block py-1 text-sm text-gray-700">Deutsch</a>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Logga in</a>
+                <a href="/se/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Boka demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-pattern pt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Byggd för Arbetsmiljöverket,<br>
+                    <span class="text-purple-200">Så att du slipper</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-purple-100 mb-8 max-w-3xl mx-auto">
+                    Den enda schemaläggningsprogramvaran som automatiskt upprätthåller svensk arbetsrätt.
+                    Slipp oroa dig för efterlevnadsbrott eller inspektioner igen.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                        Starta gratis provperiod
+                    </a>
+                    <a href="/se/features.html" class="bg-purple-700 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-800 transition shadow-lg">
+                        Se hur det fungerar
+                    </a>
+                </div>
+                <p class="text-purple-200 mt-6">
+                    <i class="fas fa-check-circle mr-2"></i>14 dagars gratis provperiod • Inget kreditkort krävs • Avbryt när som helst
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="bg-white py-12 border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
+                <div>
+                    <i class="fas fa-shield-alt text-4xl text-purple-600 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-semibold">100% Efterlevnad</p>
+                </div>
+                <div>
+                    <i class="fas fa-lock text-4xl text-purple-600 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-semibold">GDPR-säkrad</p>
+                </div>
+                <div>
+                    <i class="fas fa-clock text-4xl text-purple-600 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-semibold">24/7 Support</p>
+                </div>
+                <div>
+                    <i class="fas fa-award text-4xl text-purple-600 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-semibold">ISO 27001</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Varför svenska företag väljer Roaster</h2>
+                <p class="text-xl text-gray-600">Efterlevnad, automation och sinnesro—inbyggt i varje funktion</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-gavel text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">14-dagarsregeln, automatiserad</h3>
+                    <p class="text-gray-600 mb-4">
+                        Publicera aldrig ett sent schema igen. Vårt system upprätthåller Arbetstidslagen
+                        automatiskt och varnar dig innan deadlines.
+                    </p>
+                    <a href="/se/features.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Läs mer <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-ban text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Olagliga pass? Blockerade.</h3>
+                    <p class="text-gray-600 mb-4">
+                        Vår AI validerar varje pass mot vilotidsregler (11t/35t), arbetstidsgränser
+                        och övertidstak. Överträdelser flaggas omedelbart.
+                    </p>
+                    <a href="/se/features.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Läs mer <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-file-alt text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Inspektionsredo på sekunder</h3>
+                    <p class="text-gray-600 mb-4">
+                        Efterlevnadsrapporter för Arbetsmiljöverket med ett klick. Kompletta granskningsloggar,
+                        överträdelseregister och 2+ års data—alltid redo.
+                    </p>
+                    <a href="/se/features.html" class="text-purple-600 font-semibold hover:text-purple-700">
+                        Läs mer <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Allt du behöver för efterlevnad</h2>
+                <p class="text-xl text-gray-600">Omfattande funktioner designade för svenska företag</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-clock text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Validering av vilotid</h4>
+                    <p class="text-gray-600 text-sm">11-timmars daglig och 35-timmars veckovis vila upprätthålls</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-hourglass-half text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Spårning av arbetstid</h4>
+                    <p class="text-gray-600 text-sm">Automatisk övervakning av dagliga (9t) och veckovisa (40t) gränser</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-chart-line text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Övertidshantering</h4>
+                    <p class="text-gray-600 text-sm">Spåra 10t/vecka, 25t/4veckor, 200t/år gränser</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-users text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Personalportal</h4>
+                    <p class="text-gray-600 text-sm">24/7 schematillgång med mobilappstöd</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-bell text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Smarta notiser</h4>
+                    <p class="text-gray-600 text-sm">Automatiska varningar för ändringar och uppdateringar</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg hover:border-purple-600 transition">
+                    <i class="fas fa-exchange-alt text-2xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Passmarknad</h4>
+                    <p class="text-gray-600 text-sm">Personaldriven passbyte med godkännandeflöde</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="/se/features.html" class="bg-purple-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 transition">
+                    Visa alla funktioner
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Betrodd av svenska företag</h2>
+                <p class="text-xl text-gray-600">Gå med i hundratals företag som hanterar scheman på ett efterlevande sätt</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Roaster räddade oss från flera efterlevnadsöverträdelser. Den automatiska 14-dagars
+                        valideringen är ensam värd investeringen."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-bold">KA</span>
+                        </div>
+                        <div>
+                            <p class="font-bold">Karin Andersson</p>
+                            <p class="text-sm text-gray-500">HR-chef, Stockholm Retail AB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Vi gick från att spendera timmar på efterlevnadsrapporter till att generera dem på
+                        sekunder. En game changer för vårt team."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-bold">LN</span>
+                        </div>
+                        <div>
+                            <p class="font-bold">Lars Nilsson</p>
+                            <p class="text-sm text-gray-500">Driftschef, Göteborg Sjukhus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Passmarknaden minskade vår administrativa arbetsbörda med 60%.
+                        Personalen älskar att hantera sina egna byten."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-bold">MA</span>
+                        </div>
+                        <div>
+                            <p class="font-bold">Maria Åberg</p>
+                            <p class="text-sm text-gray-500">VD, Malmö Services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="demo" class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Redo att automatisera din efterlevnad?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Starta din 14-dagars gratis provperiod idag. Inget kreditkort krävs.
+            </p>
+            <form class="max-w-md mx-auto">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Ange din e-postadress"
+                           class="flex-1 px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                    <button type="submit" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        Kom igång
+                    </button>
+                </div>
+                <p class="text-purple-200 text-sm mt-4">
+                    Gå med i 500+ svenska företag som redan använder Roaster
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Den enda schemaläggningsprogramvaran byggd för svensk arbetsrätt.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/se/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/se/integrations.html" class="hover:text-purple-400 transition">Integrationer</a></li>
+                        <li><a href="/se/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                        <li><a href="/se/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resurser</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/blog.html" class="hover:text-purple-400 transition">Blogg</a></li>
+                        <li><a href="/se/customers.html" class="hover:text-purple-400 transition">Kundberättelser</a></li>
+                        <li><a href="/se/compliance-guide.html" class="hover:text-purple-400 transition">Efterlevnadsguide</a></li>
+                        <li><a href="/se/compare.html" class="hover:text-purple-400 transition">Jämför</a></li>
+                        <li><a href="/se/industries.html" class="hover:text-purple-400 transition">Branscher</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Företag</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/about.html" class="hover:text-purple-400 transition">Om oss</a></li>
+                        <li><a href="/se/careers.html" class="hover:text-purple-400 transition">Karriär</a></li>
+                        <li><a href="/se/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/se/privacy.html" class="hover:text-purple-400 transition">Integritetspolicy</a></li>
+                        <li><a href="/se/terms.html" class="hover:text-purple-400 transition">Villkor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/se/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/se/security.html" class="text-sm hover:text-purple-400 transition">Säkerhet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language switcher
+        const langButton = document.getElementById('lang-button');
+        const langMenu = document.getElementById('lang-menu');
+
+        langButton.addEventListener('click', () => {
+            langMenu.classList.toggle('hidden');
+        });
+
+        // Close language menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!langButton.contains(e.target) && !langMenu.contains(e.target)) {
+                langMenu.classList.add('hidden');
+            }
+        });
+
+        // Form submission (placeholder)
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Tack för ditt intresse! Vårt team kommer att kontakta dig snart.');
+        });
+    </script>
+</body>
+</html>

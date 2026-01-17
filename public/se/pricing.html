@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priser - Roaster | Transparent och enkel prissättning</title>
+    <meta name="description" content="Överkomlig, transparent prissättning för svenska företag. Börja gratis och skala när du växer.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-purple-600 font-semibold transition">Priser</a>
+                    <a href="/se/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branscher</a>
+                    <a href="/se/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative language-switcher">
+                        <button id="lang-button" class="flex items-center text-gray-700 hover:text-purple-600 transition">
+                            <i class="fas fa-globe mr-1"></i> SE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                            <a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/pricing.html" class="block px-4 py-2 text-sm text-purple-600 bg-purple-50 font-semibold">Svenska</a>
+                            <a href="/de/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/se/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktioner</a>
+                <a href="/se/pricing.html" class="block py-2 text-purple-600 font-semibold">Priser</a>
+                <a href="/se/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branscher</a>
+                <a href="/se/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/se/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Om oss</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Logga in</a>
+                <a href="/se/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Boka demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Enkel, transparent prissättning
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Börja gratis och skala när du växer. Inga dolda avgifter, inga överraskningar.
+            </p>
+            <div class="mt-8 inline-flex items-center bg-white/20 backdrop-blur-sm rounded-lg p-1">
+                <button id="monthly-btn" class="px-6 py-2 rounded-md text-white font-semibold transition bg-white/30">
+                    Månadsvis
+                </button>
+                <button id="annual-btn" class="px-6 py-2 rounded-md text-white font-semibold transition">
+                    Årsvis
+                    <span class="ml-2 bg-green-400 text-green-900 text-xs px-2 py-1 rounded-full">Spara 20%</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Start</h3>
+                        <p class="text-gray-600">Perfekt för små team</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">990</span>
+                            <span class="annual-price hidden">792</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">SEK/månad</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Faktureras månadsvis</span>
+                            <span class="annual-price hidden">Faktureras årligen (9 504 SEK/år)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Upp till 25 anställda</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Kompletta efterlevnadsfunktioner</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">14-dagars regelautomation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Validering av vilotid</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">E-postsupport</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Mobilappåtkomst</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Starta gratis provperiod
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-600 relative transform md:scale-105">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Mest populär
+                        </span>
+                    </div>
+                    <div class="mb-6 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Professionell</h3>
+                        <p class="text-gray-600">För växande företag</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">1 990</span>
+                            <span class="annual-price hidden">1 592</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">SEK/månad</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Faktureras månadsvis</span>
+                            <span class="annual-price hidden">Faktureras årligen (19 104 SEK/år)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Upp till 100 anställda</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Allt i Start, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Passmarknad</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Ledighetshantering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Avancerad analys</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Prioriterad e-post & chattsupport</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">API-åtkomst</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        Starta gratis provperiod
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                        <p class="text-gray-600">För stora organisationer</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">Anpassat</span>
+                        <p class="text-sm text-gray-500 mt-2">Kontakta oss för prissättning</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Obegränsat antal anställda</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Allt i Professionell, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Stöd för flera platser</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Dedikerad account manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">24/7 telefonsupport</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SSO / SAML-autentisering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SLA-garanti (99,9% drifttid)</span>
+                        </li>
+                    </ul>
+                    <a href="/se/contact.html" class="block w-full text-center bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Kontakta försäljning
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-purple-100 border-2 border-purple-300 rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-gift text-purple-600 mr-2"></i>
+                    14 dagars gratis provperiod på alla planer
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    Inget kreditkort krävs • Full funktionsåtkomst • Avbryt när som helst
+                </p>
+                <div class="flex justify-center gap-4 text-sm text-gray-600">
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Installation på 5 minuter</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Datamigrering inkluderad</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Dedikerad onboarding</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Vanliga frågor</h2>
+                <p class="text-xl text-gray-600">Allt du behöver veta om prissättning</p>
+            </div>
+
+            <div class="space-y-6">
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Vad händer efter den 14-dagars gratis provperioden?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Efter att din provperiod tar slut kommer du att uppmanas att välja en plan. Om du inte väljer en,
+                        kommer ditt konto att återgå till skrivskyddat läge, men din data förblir säker i 30 dagar.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Kan jag byta plan senare?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Absolut! Du kan uppgradera eller nedgradera när som helst. Uppgraderingar träder i kraft omedelbart,
+                        och nedgraderingar gäller från början av din nästa faktureringsperiod.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Vilka betalningsmetoder accepterar ni?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Vi accepterar alla större kreditkort (Visa, Mastercard, American Express), banköverföringar
+                        och fakturabetalningar för årskontrakt.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Erbjuder ni återbetalning?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Vi erbjuder 30 dagars pengarna-tillbaka-garanti. Om du inte är nöjd inom den första månaden,
+                        återbetalar vi din betalning i sin helhet, inga frågor ställda.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Redo att komma igång?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Gå med i 500+ svenska företag som redan använder Roaster
+            </p>
+            <a href="/se/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Starta din gratis provperiod
+            </a>
+            <p class="text-purple-200 mt-4 text-sm">
+                Inget kreditkort krävs • 14-dagars provperiod • Avbryt när som helst
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">Den enda schemaläggningsprogramvaran byggd för svensk arbetsrätt.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/se/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/se/integrations.html" class="hover:text-purple-400 transition">Integrationer</a></li>
+                        <li><a href="/se/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resurser</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/blog.html" class="hover:text-purple-400 transition">Blogg</a></li>
+                        <li><a href="/se/customers.html" class="hover:text-purple-400 transition">Kundberättelser</a></li>
+                        <li><a href="/se/compliance-guide.html" class="hover:text-purple-400 transition">Efterlevnadsguide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Företag</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/about.html" class="hover:text-purple-400 transition">Om oss</a></li>
+                        <li><a href="/se/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/se/privacy.html" class="hover:text-purple-400 transition">Integritetspolicy</a></li>
+                        <li><a href="/se/terms.html" class="hover:text-purple-400 transition">Villkor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/se/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/se/security.html" class="text-sm hover:text-purple-400 transition">Säkerhet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const langButton = document.getElementById('lang-button');
+        const langMenu = document.getElementById('lang-menu');
+        if (langButton && langMenu) {
+            langButton.addEventListener('click', () => langMenu.classList.toggle('hidden'));
+            document.addEventListener('click', (e) => {
+                if (!langButton.contains(e.target) && !langMenu.contains(e.target)) {
+                    langMenu.classList.add('hidden');
+                }
+            });
+        }
+
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annualBtn = document.getElementById('annual-btn');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('bg-white/30');
+            annualBtn.classList.remove('bg-white/30');
+            monthlyPrices.forEach(el => el.classList.remove('hidden'));
+            annualPrices.forEach(el => el.classList.add('hidden'));
+        });
+
+        annualBtn.addEventListener('click', () => {
+            annualBtn.classList.add('bg-white/30');
+            monthlyBtn.classList.remove('bg-white/30');
+            annualPrices.forEach(el => el.classList.remove('hidden'));
+            monthlyPrices.forEach(el => el.classList.add('hidden'));
+        });
+    </script>
+</body>
+</html>

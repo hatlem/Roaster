@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Roaster | Kom i kontakt</title>
+    <meta name="description" content="Har du frågor om Roaster? Kontakta vårt team för försäljningsfrågor, support eller allmänna frågor.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branscher</a>
+                    <a href="/se/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/se/about.html" class="text-gray-700 hover:text-purple-600 transition">Om oss</a>
+                    <div class="relative language-switcher">
+                        <button id="lang-button" class="flex items-center text-gray-700 hover:text-purple-600 transition">
+                            <i class="fas fa-globe mr-1"></i> SE
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                            <a href="/contact.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/contact.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/contact.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/contact.html" class="block px-4 py-2 text-sm text-purple-600 bg-purple-50 font-semibold">Svenska</a>
+                            <a href="/de/contact.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/se/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktioner</a>
+                <a href="/se/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Priser</a>
+                <a href="/se/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branscher</a>
+                <a href="/se/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/se/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Om oss</a>
+                <div class="border-t pt-2 mt-2">
+                    <p class="text-xs text-gray-500 mb-2">Språk:</p>
+                    <a href="/contact.html" class="block py-1 text-sm text-gray-700">English</a>
+                    <a href="/no/contact.html" class="block py-1 text-sm text-gray-700">Norsk</a>
+                    <a href="/dk/contact.html" class="block py-1 text-sm text-gray-700">Dansk</a>
+                    <a href="/se/contact.html" class="block py-1 text-sm text-purple-600 font-semibold">Svenska</a>
+                    <a href="/de/contact.html" class="block py-1 text-sm text-gray-700">Deutsch</a>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Logga in</a>
+                <a href="/se/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Boka demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Kom i kontakt
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Har du frågor? Vi finns här för att hjälpa till. Kontakta vårt team för försäljningsfrågor,
+                teknisk support eller allmänna frågor om Roaster.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-headset text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Försäljningsfrågor</h3>
+                    <p class="text-gray-600 mb-4">
+                        Intresserad av Roaster för ditt företag? Prata med vårt säljteam.
+                    </p>
+                    <a href="mailto:sales@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        sales@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">+47 123 45 678</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-life-ring text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Kundsupport</h3>
+                    <p class="text-gray-600 mb-4">
+                        Behöver du hjälp med ditt konto? Vårt supportteam är redo att hjälpa till.
+                    </p>
+                    <a href="mailto:support@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        support@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">Mån-Fre: 08:00-17:00</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-envelope text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Allmänna frågor</h3>
+                    <p class="text-gray-600 mb-4">
+                        Har du en fråga eller ett partnerskapsförslag? Vi skulle gärna höra från dig.
+                    </p>
+                    <a href="mailto:hello@roaster.no" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        hello@roaster.no
+                    </a>
+                    <p class="text-gray-500 mt-2">Vi svarar inom 24 timmar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Skicka oss ett meddelande</h2>
+                <p class="text-xl text-gray-600">Fyll i formuläret nedan så återkommer vi inom kort</p>
+            </div>
+
+            <form id="contact-form" class="bg-white border-2 border-gray-200 rounded-2xl p-8">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="first-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Förnamn *
+                        </label>
+                        <input type="text" id="first-name" name="first-name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="last-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Efternamn *
+                        </label>
+                        <input type="text" id="last-name" name="last-name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                            E-postadress *
+                        </label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Telefonnummer
+                        </label>
+                        <input type="tel" id="phone" name="phone"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Företagsnamn
+                    </label>
+                    <input type="text" id="company" name="company"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                </div>
+
+                <div class="mb-6">
+                    <label for="employees" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Antal anställda
+                    </label>
+                    <select id="employees" name="employees"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                        <option value="">Välj intervall</option>
+                        <option value="1-25">1-25</option>
+                        <option value="26-100">26-100</option>
+                        <option value="101-500">101-500</option>
+                        <option value="500+">500+</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Hur kan vi hjälpa? *
+                    </label>
+                    <select id="subject" name="subject" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                        <option value="">Välj ett ämne</option>
+                        <option value="sales">Försäljningsfråga</option>
+                        <option value="demo">Begär en demo</option>
+                        <option value="support">Teknisk support</option>
+                        <option value="billing">Faktureringsfråga</option>
+                        <option value="partnership">Partnerskap</option>
+                        <option value="other">Annat</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Meddelande *
+                    </label>
+                    <textarea id="message" name="message" rows="5" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                              placeholder="Berätta mer om hur vi kan hjälpa dig..."></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start">
+                        <input type="checkbox" name="newsletter" class="mt-1 mr-3">
+                        <span class="text-sm text-gray-600">
+                            Jag vill ta emot uppdateringar om Roasters funktioner och ändringar i Arbetstidslagen
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition">
+                    Skicka meddelande
+                </button>
+
+                <p class="text-sm text-gray-500 mt-4 text-center">
+                    Genom att skicka detta formulär godkänner du vår
+                    <a href="/se/privacy.html" class="text-purple-600 hover:underline">Integritetspolicy</a>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Office Info -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Vårt kontor</h2>
+                <p class="text-xl text-gray-600">Besök oss i Oslo</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+                <div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Roaster HQ</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Adress</p>
+                                    <p class="text-gray-600">
+                                        Storgata 123<br>
+                                        0182 Oslo, Norge
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Öppettider</p>
+                                    <p class="text-gray-600">
+                                        Måndag - Fredag: 08:00 - 17:00<br>
+                                        Lördag - Söndag: Stängt
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">E-post</p>
+                                    <p class="text-gray-600">hello@roaster.no</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone text-purple-600 mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-semibold">Telefon</p>
+                                    <p class="text-gray-600">+47 123 45 678</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-200 h-96 rounded-xl flex items-center justify-center">
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-map text-6xl mb-4"></i>
+                        <p class="font-semibold">Kartplatshållare</p>
+                        <p class="text-sm">(Integrera med Google Maps eller liknande)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Link -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Letar du efter snabba svar?</h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Kolla in våra vanliga frågor eller omfattande dokumentation
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/se/pricing.html#faq" class="bg-purple-100 text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                    Visa FAQ
+                </a>
+                <a href="/se/api-docs.html" class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                    Dokumentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Den enda schemaläggningsprogramvaran byggd för svensk arbetsrätt.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/se/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/se/integrations.html" class="hover:text-purple-400 transition">Integrationer</a></li>
+                        <li><a href="/se/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                        <li><a href="/se/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resurser</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/blog.html" class="hover:text-purple-400 transition">Blogg</a></li>
+                        <li><a href="/se/customers.html" class="hover:text-purple-400 transition">Kunder</a></li>
+                        <li><a href="/se/compliance-guide.html" class="hover:text-purple-400 transition">Efterlevnadsguide</a></li>
+                        <li><a href="/se/compare.html" class="hover:text-purple-400 transition">Jämför</a></li>
+                        <li><a href="/se/industries.html" class="hover:text-purple-400 transition">Branscher</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Företag</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/about.html" class="hover:text-purple-400 transition">Om oss</a></li>
+                        <li><a href="/se/careers.html" class="hover:text-purple-400 transition">Karriär</a></li>
+                        <li><a href="/se/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/se/privacy.html" class="hover:text-purple-400 transition">Integritetspolicy</a></li>
+                        <li><a href="/se/terms.html" class="hover:text-purple-400 transition">Villkor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/se/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/se/security.html" class="text-sm hover:text-purple-400 transition">Säkerhet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language switcher
+        const langButton = document.getElementById('lang-button');
+        const langMenu = document.getElementById('lang-menu');
+
+        langButton.addEventListener('click', () => {
+            langMenu.classList.toggle('hidden');
+        });
+
+        // Close language menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!langButton.contains(e.target) && !langMenu.contains(e.target)) {
+                langMenu.classList.add('hidden');
+            }
+        });
+
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Tack för ditt meddelande! Vårt team kommer att återkomma till dig inom 24 timmar.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

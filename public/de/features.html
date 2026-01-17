@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funktionen - Roaster | Arbeitszeitgesetz Compliance</title>
+    <meta name="description" content="Entdecken Sie alle Funktionen, die Roaster zur führenden Software für die Einhaltung des deutschen Arbeitszeitgesetzes machen.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/de/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/de/features.html" class="text-purple-600 font-semibold transition">Funktionen</a>
+                    <a href="/de/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Preise</a>
+                    <a href="/de/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branchen</a>
+                    <a href="/de/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunden</a>
+                    <a href="/de/about.html" class="text-gray-700 hover:text-purple-600 transition">Über uns</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/features.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/features.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/features.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/features.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/features.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Anmelden</a>
+                    <a href="/de/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Demo anfordern</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/de/features.html" class="block py-2 text-purple-600 font-semibold">Funktionen</a>
+                <a href="/de/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Preise</a>
+                <a href="/de/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branchen</a>
+                <a href="/de/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunden</a>
+                <a href="/de/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Über uns</a>
+                <div class="border-t pt-2">
+                    <p class="text-sm text-gray-500 mb-2">Sprache:</p>
+                    <div class="flex space-x-2">
+                        <a href="/features.html" class="px-3 py-1 bg-gray-100 rounded text-sm">EN</a>
+                        <a href="/no/features.html" class="px-3 py-1 bg-gray-100 rounded text-sm">NO</a>
+                        <a href="/dk/features.html" class="px-3 py-1 bg-gray-100 rounded text-sm">DK</a>
+                        <a href="/se/features.html" class="px-3 py-1 bg-gray-100 rounded text-sm">SE</a>
+                        <a href="/de/features.html" class="px-3 py-1 bg-purple-600 text-white rounded text-sm">DE</a>
+                    </div>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Anmelden</a>
+                <a href="/de/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Demo anfordern</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Compliance-Funktionen für Deutschland
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Jede Funktion ist darauf ausgelegt, Sie mit dem Arbeitszeitgesetz konform zu halten und die Schichtplanung mühelos zu gestalten
+            </p>
+        </div>
+    </section>
+
+    <!-- Compliance Features -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Rechtliche Compliance</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Arbeitszeitgesetz-Durchsetzung</h2>
+                <p class="text-xl text-gray-600">Automatische Validierung gegen alle deutschen Arbeitszeitvorschriften</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Rest Periods -->
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-bed text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Ruhezeitvalidierung (§ 5 ArbZG)</h3>
+                        <p class="text-gray-600 mb-6">
+                            Echtzeitvalidierung stellt sicher, dass jeder Mitarbeiter seine gesetzlich vorgeschriebene Ruhezeit erhält.
+                            Das System prüft 11 Stunden tägliche Ruhezeit in gleitenden Zeitfenstern.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">11 Stunden Mindestzeit zwischen Schichten durchgesetzt</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Sofortige Konflikterkennung beim Erstellen von Schichten</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Nachverfolgung von Ausnahmen für gültige Abweichungen</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Ruhezeitanalyse</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Tägliche Ruhe (Mind. 11h)</span>
+                                            <span class="text-sm text-green-600 font-semibold">12h ✓</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 109%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                        <p class="text-sm text-green-800">
+                                            <i class="fas fa-check-circle mr-2"></i>
+                                            Alle Ruhezeitanforderungen erfüllt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Working Hours -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-clock text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Arbeitszeitgrenzen (§ 3 ArbZG)</h3>
+                        <p class="text-gray-600 mb-6">
+                            Integrierte Durchsetzung der maximalen täglichen und wöchentlichen Arbeitszeiten. Das System
+                            verfolgt kumulative Stunden und verhindert Planungsverstöße, bevor sie auftreten.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">8 Stunden tägliches Maximum (Regelarbeitszeit)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Durchsetzung der wöchentlichen Höchstarbeitszeit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Echtzeitverfolgung der Stundenakkumulation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Konfigurierbare Grenzen für Sondervereinbarungen</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Wochenstundenzusammenfassung</h4>
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-semibold">Stunden diese Woche</span>
+                                        <span class="text-sm font-semibold">38 / 40</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-purple-600 h-3 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 mb-4">
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">M</p>
+                                        <div class="bg-purple-600 h-12 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">8h</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">D</p>
+                                        <div class="bg-purple-600 h-14 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">9h</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">M</p>
+                                        <div class="bg-purple-600 h-10 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">7h</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">D</p>
+                                        <div class="bg-purple-600 h-12 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">8h</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">F</p>
+                                        <div class="bg-purple-600 h-10 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">6h</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">S</p>
+                                        <div class="bg-gray-200 h-2 rounded"></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">S</p>
+                                        <div class="bg-gray-200 h-2 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overtime Tracking -->
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-hourglass-half text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Überstundenverwaltung</h3>
+                        <p class="text-gray-600 mb-6">
+                            Umfassende Überstundenverfolgung gewährleistet die Einhaltung aller Grenzen.
+                            Automatische Warnungen verhindern Verstöße.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Verfolgung wöchentlicher Überstunden</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Monatliche Überstundengrenzen</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Durchsetzung jährlicher Überstundenlimits</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Automatische Benachrichtigungen bei Annäherung an Grenzen</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Überstundenstatus</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Diese Woche</span>
+                                            <span class="text-sm text-yellow-600 font-semibold">8h</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Diesen Monat</span>
+                                            <span class="text-sm text-green-600 font-semibold">18h</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 72%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Dieses Jahr</span>
+                                            <span class="text-sm text-green-600 font-semibold">142h</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 71%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Features -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Intelligente Planung</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Für Effizienz entwickelt</h2>
+                <p class="text-xl text-gray-600">Moderne Funktionen, die die Planung schneller und einfacher machen</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-store text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Schichtbörse</h3>
+                    <p class="text-gray-600">
+                        Mitarbeiter können Schichten anbieten, beanspruchen und tauschen – mit Manager-Genehmigung.
+                        Reduziert den Verwaltungsaufwand um 60% und verbessert die Mitarbeiterzufriedenheit.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-umbrella-beach text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Urlaubsverwaltung</h3>
+                    <p class="text-gray-600">
+                        Komplettes Urlaubs- und Abwesenheitssystem mit automatischer Konflikterkennung
+                        und Saldenverfolgung. Integriert in die Schichtplanung.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-mobile-alt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Mobile App</h3>
+                    <p class="text-gray-600">
+                        Native iOS- und Android-Apps geben Mitarbeitern 24/7 Zugriff auf ihre Dienstpläne,
+                        Schichttausche und Benachrichtigungen – überall und jederzeit.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-bell text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Intelligente Benachrichtigungen</h3>
+                    <p class="text-gray-600">
+                        Automatische Warnungen für Dienstplanänderungen, bevorstehende Schichten, Tauschangebote
+                        und Compliance-Fristen. E-Mail-, Push- und SMS-Unterstützung.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-chart-bar text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Analyse-Dashboard</h3>
+                    <p class="text-gray-600">
+                        Echtzeit-Einblicke in Personalkosten, Überstundentrends, Compliance-Status
+                        und Produktivitätskennzahlen. Berichte in mehreren Formaten exportieren.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-globe text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Mehrsprachige Unterstützung</h3>
+                    <p class="text-gray-600">
+                        Volle Unterstützung für Deutsch, Englisch, Polnisch und mehr.
+                        Perfekt für vielfältige Belegschaften in Deutschland.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audit & Reporting -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Prüfungsbereit</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Compliance-Berichte</h2>
+                <p class="text-xl text-gray-600">Berichte mit einem Klick für Behördenkontrollen</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6">Vollständiger Prüfpfad</h3>
+                    <p class="text-gray-600 mb-6">
+                        Jede Aktion wird mit Zeitstempeln, Benutzerinformationen und Gründen protokolliert.
+                        2+ Jahre Datenaufbewahrung sorgen dafür, dass Sie immer prüfungsbereit sind.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Automatisierte Compliance-Berichte</p>
+                                <p class="text-sm text-gray-600">Erstellen Sie umfassende Berichte in Sekunden</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Verstoßverfolgung</p>
+                                <p class="text-sm text-gray-600">Detaillierte Protokolle aller Compliance-Probleme</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Änderungshistorie</p>
+                                <p class="text-sm text-gray-600">Vollständiger Prüfpfad von Änderungen</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Exportformate</p>
+                                <p class="text-sm text-gray-600">CSV-, JSON-, PDF-Berichte verfügbar</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 p-8 rounded-xl">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="font-bold">Compliance-Bericht</h4>
+                            <button class="text-purple-600 text-sm">
+                                <i class="fas fa-download mr-1"></i>Export
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Ruhezeiten</span>
+                                    <span class="text-green-600 text-sm font-bold">100% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Arbeitszeiten</span>
+                                    <span class="text-green-600 text-sm font-bold">99% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 99%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Überstundengrenzen</span>
+                                    <span class="text-green-600 text-sm font-bold">100% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                            <p class="text-sm text-purple-900 font-semibold">
+                                <i class="fas fa-shield-alt mr-2"></i>
+                                Gesamte Compliance: 99,7%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Sehen Sie alle Funktionen in Aktion</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Starten Sie Ihre kostenlose Testphase und erleben Sie Compliance-Automatisierung aus erster Hand
+            </p>
+            <a href="/de/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Kostenlos testen
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Die einzige Schichtplanungssoftware für das deutsche Arbeitszeitgesetz.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/features.html" class="hover:text-purple-400 transition">Funktionen</a></li>
+                        <li><a href="/de/pricing.html" class="hover:text-purple-400 transition">Preise</a></li>
+                        <li><a href="/de/integrations.html" class="hover:text-purple-400 transition">Integrationen</a></li>
+                        <li><a href="/de/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                        <li><a href="/de/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ressourcen</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/de/customers.html" class="hover:text-purple-400 transition">Kundenreferenzen</a></li>
+                        <li><a href="/de/compliance-guide.html" class="hover:text-purple-400 transition">Compliance-Leitfaden</a></li>
+                        <li><a href="/de/compare.html" class="hover:text-purple-400 transition">Vergleich</a></li>
+                        <li><a href="/de/industries.html" class="hover:text-purple-400 transition">Branchen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Unternehmen</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/about.html" class="hover:text-purple-400 transition">Über uns</a></li>
+                        <li><a href="/de/careers.html" class="hover:text-purple-400 transition">Karriere</a></li>
+                        <li><a href="/de/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/de/privacy.html" class="hover:text-purple-400 transition">Datenschutz</a></li>
+                        <li><a href="/de/terms.html" class="hover:text-purple-400 transition">AGB</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alle Rechte vorbehalten.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/de/gdpr.html" class="text-sm hover:text-purple-400 transition">DSGVO</a>
+                        <a href="/de/security.html" class="text-sm hover:text-purple-400 transition">Sicherheit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

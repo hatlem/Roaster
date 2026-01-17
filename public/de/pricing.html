@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preise - Roaster | Transparente und einfache Preisgestaltung</title>
+    <meta name="description" content="Erschwingliche, transparente Preise für deutsche Unternehmen. Kostenlos starten und mit Ihrem Wachstum skalieren.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/de/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/de/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktionen</a>
+                    <a href="/de/pricing.html" class="text-purple-600 font-semibold transition">Preise</a>
+                    <a href="/de/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branchen</a>
+                    <a href="/de/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunden</a>
+                    <a href="/de/about.html" class="text-gray-700 hover:text-purple-600 transition">Über uns</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DE <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dansk</a>
+                            <a href="/se/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/pricing.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Anmelden</a>
+                    <a href="/de/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Demo anfordern</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/de/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktionen</a>
+                <a href="/de/pricing.html" class="block py-2 text-purple-600 font-semibold">Preise</a>
+                <a href="/de/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branchen</a>
+                <a href="/de/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunden</a>
+                <a href="/de/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Über uns</a>
+                <div class="border-t pt-2">
+                    <p class="text-sm text-gray-500 mb-2">Sprache:</p>
+                    <div class="flex space-x-2">
+                        <a href="/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">EN</a>
+                        <a href="/no/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">NO</a>
+                        <a href="/dk/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">DK</a>
+                        <a href="/se/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">SE</a>
+                        <a href="/de/pricing.html" class="px-3 py-1 bg-purple-600 text-white rounded text-sm">DE</a>
+                    </div>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Anmelden</a>
+                <a href="/de/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Demo anfordern</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Einfache, transparente Preisgestaltung
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Kostenlos starten und mit Ihrem Wachstum skalieren. Keine versteckten Gebühren, keine Überraschungen.
+            </p>
+            <div class="mt-8 inline-flex items-center bg-white/20 backdrop-blur-sm rounded-lg p-1">
+                <button id="monthly-btn" class="px-6 py-2 rounded-md text-white font-semibold transition bg-white/30">
+                    Monatlich
+                </button>
+                <button id="annual-btn" class="px-6 py-2 rounded-md text-white font-semibold transition">
+                    Jährlich
+                    <span class="ml-2 bg-green-400 text-green-900 text-xs px-2 py-1 rounded-full">20% sparen</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section id="pricing" class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                        <p class="text-gray-600">Perfekt für kleine Teams</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">89</span>
+                            <span class="annual-price hidden">71</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">€/Monat</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Monatlich abgerechnet</span>
+                            <span class="annual-price hidden">Jährlich abgerechnet (852 €/Jahr)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Bis zu 25 Mitarbeiter</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alle Compliance-Funktionen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Ruhezeitvalidierung</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">E-Mail-Support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Mobile App-Zugang</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Basis-Berichterstattung</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Kostenlos testen
+                    </button>
+                </div>
+
+                <!-- Professional Plan (Featured) -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-600 relative transform md:scale-105">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Am beliebtesten
+                        </span>
+                    </div>
+                    <div class="mb-6 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+                        <p class="text-gray-600">Für wachsende Unternehmen</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">179</span>
+                            <span class="annual-price hidden">143</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">€/Monat</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Monatlich abgerechnet</span>
+                            <span class="annual-price hidden">Jährlich abgerechnet (1.716 €/Jahr)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Bis zu 100 Mitarbeiter</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alles in Starter, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Schichtbörse</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Urlaubsverwaltung</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Erweiterte Analysen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Prioritäts-E-Mail & Chat-Support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Benutzerdefinierte Compliance-Berichte</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">API-Zugang</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        Kostenlos testen
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                        <p class="text-gray-600">Für große Organisationen</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">Individuell</span>
+                        <p class="text-sm text-gray-500 mt-2">Kontaktieren Sie uns für Preise</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Unbegrenzte Mitarbeiter</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alles in Professional, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Multi-Standort-Unterstützung</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Dedizierter Account-Manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">24/7 Telefonsupport</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Benutzerdefinierte Integrationen</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SSO / SAML-Authentifizierung</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SLA-Garantie (99,9% Verfügbarkeit)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">On-Premise-Bereitstellungsoption</span>
+                        </li>
+                    </ul>
+                    <a href="/de/contact.html" class="block w-full text-center bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Vertrieb kontaktieren
+                    </a>
+                </div>
+            </div>
+
+            <!-- Free Trial Banner -->
+            <div class="mt-12 bg-purple-100 border-2 border-purple-300 rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-gift text-purple-600 mr-2"></i>
+                    14 Tage kostenlos testen für alle Pläne
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    Keine Kreditkarte erforderlich • Voller Funktionszugriff • Jederzeit kündbar
+                </p>
+                <div class="flex justify-center gap-4 text-sm text-gray-600">
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Einrichtung in 5 Minuten</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Datenmigration inklusive</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Dediziertes Onboarding</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Pläne vergleichen</h2>
+                <p class="text-xl text-gray-600">Alle Details, die Ihnen helfen, den richtigen Plan zu wählen</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-4 px-4 font-semibold text-gray-900">Funktionen</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900 bg-purple-50">Professional</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Mitarbeiterlimit</td>
+                            <td class="text-center py-4 px-4">25</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">100</td>
+                            <td class="text-center py-4 px-4">Unbegrenzt</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Ruhezeitvalidierung</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Arbeitszeitverfolgung & Überstunden</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Mobile App-Zugang</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Schichtbörse</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Urlaubsverwaltung</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Support</td>
+                            <td class="text-center py-4 px-4">E-Mail</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">E-Mail & Chat</td>
+                            <td class="text-center py-4 px-4">24/7 Telefon</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Häufig gestellte Fragen</h2>
+                <p class="text-xl text-gray-600">Alles, was Sie über die Preisgestaltung wissen müssen</p>
+            </div>
+
+            <div class="space-y-6">
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Was passiert nach der 14-tägigen kostenlosen Testphase?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Nach Ende der Testphase werden Sie aufgefordert, einen Plan zu wählen. Wenn Sie keinen auswählen,
+                        wird Ihr Konto in den schreibgeschützten Modus versetzt, aber Ihre Daten bleiben 30 Tage lang sicher.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Kann ich den Plan später ändern?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Auf jeden Fall! Sie können jederzeit upgraden oder downgraden. Upgrades werden sofort wirksam,
+                        und Downgrades gelten ab Beginn Ihres nächsten Abrechnungszyklus.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Welche Zahlungsmethoden akzeptieren Sie?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Wir akzeptieren alle gängigen Kreditkarten (Visa, Mastercard, American Express), Banküberweisungen
+                        und Rechnungszahlungen für Jahresverträge.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Gibt es eine Einrichtungsgebühr?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Keine Einrichtungsgebühren für Starter- und Professional-Pläne. Enterprise-Pläne beinhalten
+                        kostenloses Onboarding und Unterstützung bei der Datenmigration.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Bieten Sie Rückerstattungen an?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Wir bieten eine 30-tägige Geld-zurück-Garantie. Wenn Sie innerhalb des ersten Monats nicht zufrieden sind,
+                        erstatten wir Ihre Zahlung vollständig, ohne Fragen zu stellen.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Bereit loszulegen?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Schließen Sie sich über 500 deutschen Unternehmen an, die bereits Roaster nutzen
+            </p>
+            <a href="/de/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Kostenlose Testphase starten
+            </a>
+            <p class="text-purple-200 mt-4 text-sm">
+                Keine Kreditkarte erforderlich • 14 Tage testen • Jederzeit kündbar
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Die einzige Schichtplanungssoftware für das deutsche Arbeitszeitgesetz.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/features.html" class="hover:text-purple-400 transition">Funktionen</a></li>
+                        <li><a href="/de/pricing.html" class="hover:text-purple-400 transition">Preise</a></li>
+                        <li><a href="/de/integrations.html" class="hover:text-purple-400 transition">Integrationen</a></li>
+                        <li><a href="/de/mobile-app.html" class="hover:text-purple-400 transition">Mobile App</a></li>
+                        <li><a href="/de/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ressourcen</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/de/customers.html" class="hover:text-purple-400 transition">Kundenreferenzen</a></li>
+                        <li><a href="/de/compliance-guide.html" class="hover:text-purple-400 transition">Compliance-Leitfaden</a></li>
+                        <li><a href="/de/compare.html" class="hover:text-purple-400 transition">Vergleich</a></li>
+                        <li><a href="/de/industries.html" class="hover:text-purple-400 transition">Branchen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Unternehmen</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/de/about.html" class="hover:text-purple-400 transition">Über uns</a></li>
+                        <li><a href="/de/careers.html" class="hover:text-purple-400 transition">Karriere</a></li>
+                        <li><a href="/de/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/de/privacy.html" class="hover:text-purple-400 transition">Datenschutz</a></li>
+                        <li><a href="/de/terms.html" class="hover:text-purple-400 transition">AGB</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alle Rechte vorbehalten.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/de/gdpr.html" class="text-sm hover:text-purple-400 transition">DSGVO</a>
+                        <a href="/de/security.html" class="text-sm hover:text-purple-400 transition">Sicherheit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Pricing toggle
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annualBtn = document.getElementById('annual-btn');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('bg-white/30');
+            annualBtn.classList.remove('bg-white/30');
+            monthlyPrices.forEach(el => el.classList.remove('hidden'));
+            annualPrices.forEach(el => el.classList.add('hidden'));
+        });
+
+        annualBtn.addEventListener('click', () => {
+            annualBtn.classList.add('bg-white/30');
+            monthlyBtn.classList.remove('bg-white/30');
+            annualPrices.forEach(el => el.classList.remove('hidden'));
+            monthlyPrices.forEach(el => el.classList.add('hidden'));
+        });
+    </script>
+</body>
+</html>

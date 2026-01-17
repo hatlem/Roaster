@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funktioner - Roaster | Overholdelse af dansk arbejdsmiljølov</title>
+    <meta name="description" content="Oplev alle funktionerne der gør Roaster til den førende softwareløsning til overholdelse af dansk arbejdsmiljølov.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dk/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dk/features.html" class="text-purple-600 font-semibold transition">Funktioner</a>
+                    <a href="/dk/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/dk/industries.html" class="text-gray-700 hover:text-purple-600 transition">Brancher</a>
+                    <a href="/dk/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/dk/about.html" class="text-gray-700 hover:text-purple-600 transition">Om os</a>
+                    <!-- Language Switcher -->
+                    <div class="relative group">
+                        <button class="flex items-center text-gray-700 hover:text-purple-600 transition">
+                            <i class="fas fa-globe mr-2"></i>
+                            <span>DK</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="hidden group-hover:block absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg py-2 z-50">
+                            <a href="/features.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/features.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/features.html" class="block px-4 py-2 text-sm text-purple-600 font-semibold bg-purple-50">Dansk</a>
+                            <a href="/se/features.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/features.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Log ind</a>
+                    <a href="/dk/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestil demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/dk/features.html" class="block py-2 text-purple-600 font-semibold">Funktioner</a>
+                <a href="/dk/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Priser</a>
+                <a href="/dk/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Brancher</a>
+                <a href="/dk/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/dk/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Om os</a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a href="/features.html" class="block py-2 text-sm text-gray-600">English</a>
+                <a href="/no/features.html" class="block py-2 text-sm text-gray-600">Norsk</a>
+                <a href="/dk/features.html" class="block py-2 text-sm text-purple-600 font-semibold">Dansk</a>
+                <a href="/se/features.html" class="block py-2 text-sm text-gray-600">Svenska</a>
+                <a href="/de/features.html" class="block py-2 text-sm text-gray-600">Deutsch</a>
+                <div class="border-t border-gray-200 my-2"></div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Log ind</a>
+                <a href="/dk/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Bestil demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Overholdelse funktioner bygget til Danmark
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Hver funktion designet til at holde dig i overensstemmelse med Arbejdsmiljøloven, mens planlægningen gøres ubesværet
+            </p>
+        </div>
+    </section>
+
+    <!-- Compliance Features -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Lovlig overholdelse</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Håndhævelse af Arbejdsmiljøloven</h2>
+                <p class="text-xl text-gray-600">Automatisk validering mod alle krav i dansk arbejdsmiljølov</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- 14-Day Rule -->
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-calendar-alt text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">14-dages udgivelsesregel</h3>
+                        <p class="text-gray-600 mb-6">
+                            Vores system håndhæver automatisk kravet om at offentliggøre arbejdsplaner mindst
+                            14 dage før de starter. Modtag advarsler før deadlines og forebyg overtrædelser
+                            før de sker.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Automatisk deadline beregning for hver vagtplan</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Pre-offentliggørelse advarsler og påmindelser</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Overtrædelses logning for revisionsspor</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Repræsentant gennemgangsworkflow support</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-bold text-lg">Vagtplan udgivelsestidslinje</h4>
+                                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">På sporet</span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-check text-white text-xs"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-sm">Oprettet</p>
+                                            <p class="text-xs text-gray-500">15 dage før start</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-hourglass-half text-white text-xs"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-sm">Udgiv inden</p>
+                                            <p class="text-xs text-gray-500">14 dage før start</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center opacity-50">
+                                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-calendar text-white text-xs"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-sm">Vagtplan starter</p>
+                                            <p class="text-xs text-gray-500">0 dage</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rest Periods -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-bed text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Hvileperiode validering</h3>
+                        <p class="text-gray-600 mb-6">
+                            Realtidsvalidering sikrer at hver medarbejder får deres lovligt påkrævede hvile.
+                            Systemet kontrollerer 11-timers daglig hvile og 35-timers ugentlig hvile på tværs af rullende vinduer.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">11-timers minimum mellem vagter håndhævet</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">35-timers ugentlig hvile i rullende 7-dages vinduer</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Øjeblikkelig konfliktregistrering ved oprettelse af vagter</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Undtagelsessporing for gyldige afvigelser</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Hvileperiode analyse</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Daglig hvile (Min 11t)</span>
+                                            <span class="text-sm text-green-600 font-semibold">12t ✓</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 109%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Ugentlig hvile (Min 35t)</span>
+                                            <span class="text-sm text-green-600 font-semibold">48t ✓</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 137%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                        <p class="text-sm text-green-800">
+                                            <i class="fas fa-check-circle mr-2"></i>
+                                            Alle hvilekrav opfyldt
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Working Hours -->
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-clock text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Arbejdstidsgrænser</h3>
+                        <p class="text-gray-600 mb-6">
+                            Indbygget håndhævelse af maksimale daglige og ugentlige arbejdstimer. Systemet sporer
+                            kumulative timer og forhindrer planlægningsovertrædelser før de opstår.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">9-timers dagligt maksimum (standardarbejde)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">37-timers ugentligt maksimum håndhævelse</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Realtids time akkumulering sporing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Konfigurerbare grænser for specielle aftaler</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Ugentlig time oversigt</h4>
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-semibold">Timer denne uge</span>
+                                        <span class="text-sm font-semibold">36 / 37</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-purple-600 h-3 rounded-full" style="width: 97%"></div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 mb-4">
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">M</p>
+                                        <div class="bg-purple-600 h-12 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">7,5t</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">T</p>
+                                        <div class="bg-purple-600 h-14 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">8t</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">O</p>
+                                        <div class="bg-purple-600 h-10 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">7t</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">T</p>
+                                        <div class="bg-purple-600 h-12 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">7,5t</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">F</p>
+                                        <div class="bg-purple-600 h-10 rounded flex items-end justify-center pb-1">
+                                            <span class="text-white text-xs">6t</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">L</p>
+                                        <div class="bg-gray-200 h-2 rounded"></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-xs text-gray-500 mb-1">S</p>
+                                        <div class="bg-gray-200 h-2 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overtime Tracking -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-hourglass-half text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Overarbejdsstyring</h3>
+                        <p class="text-gray-600 mb-6">
+                            Omfattende overarbejdssporing sikrer overholdelse af alle grænser. Automatiske advarsler
+                            forhindrer overtrædelser.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Overarbejdsgrænse overvågning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Månedlig og årlig overarbejdssporing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Årlig overarbejdsgrænse håndhævelse</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Automatiske alarmer når du nærmer dig grænser</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-100 p-8 rounded-xl">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <h4 class="font-bold text-lg mb-4">Overarbejdsstatus</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Denne uge</span>
+                                            <span class="text-sm text-green-600 font-semibold">5t</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Denne måned</span>
+                                            <span class="text-sm text-green-600 font-semibold">18t</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 45%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-semibold">Dette år</span>
+                                            <span class="text-sm text-green-600 font-semibold">95t</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 48%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Features -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Smart planlægning</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Bygget til effektivitet</h2>
+                <p class="text-xl text-gray-600">Moderne funktioner der gør planlægningen hurtigere og nemmere</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-store text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Vagtbørs</h3>
+                    <p class="text-gray-600">
+                        Medarbejdere kan tilbyde, påtage sig og bytte vagter med ledergodkendelse. Reducerer
+                        administrativ overhead med 60% og forbedrer medarbejdertilfredshed.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-umbrella-beach text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Fri-styring</h3>
+                    <p class="text-gray-600">
+                        Komplet ferie- og orlovsanmodningssystem med automatisk konfliktregistrering
+                        og balancesporing. Integrerer med vagtplanplanlægning.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-mobile-alt text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Mobilapp</h3>
+                    <p class="text-gray-600">
+                        Native iOS og Android apps giver medarbejdere 24/7 adgang til deres vagtplaner,
+                        vagtbytninger og notifikationer - hvor som helst, når som helst.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-bell text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Smarte notifikationer</h3>
+                    <p class="text-gray-600">
+                        Automatiske alarmer for vagtplanændringer, kommende vagter, bytteforespørgsler
+                        og overholdelsesdeadlines. Email, push og SMS support.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-chart-bar text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Analyse dashboard</h3>
+                    <p class="text-gray-600">
+                        Realtids indsigt i lønomkostninger, overarbejdstendenser, overholdelsesstatus
+                        og produktivitetsmålinger. Eksporter rapporter i flere formater.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <i class="fas fa-globe text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">Multi-sprog support</h3>
+                    <p class="text-gray-600">
+                        Fuld support for dansk, engelsk, polsk og mere.
+                        Perfekt til diverse arbejdsstyrker i Danmark.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audit & Reporting -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Inspektionsklar</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">Overholdelsesrapportering</h2>
+                <p class="text-xl text-gray-600">Et-klik rapporter til Arbejdstilsynet inspektioner</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6">Komplet revisionsspor</h3>
+                    <p class="text-gray-600 mb-6">
+                        Hver handling logges med tidsstempler, brugerinformation og årsager.
+                        2+ års datalagring sikrer at du altid er inspektionsklar.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Automatiserede overholdelsesrapporter</p>
+                                <p class="text-sm text-gray-600">Generer omfattende rapporter på sekunder</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Overtrædelsessporing</p>
+                                <p class="text-sm text-gray-600">Detaljerede logs af alle overholdelsesproblemer</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Ændringshistorik</p>
+                                <p class="text-sm text-gray-600">Komplet revisionsspor af ændringer</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">Eksport formater</p>
+                                <p class="text-sm text-gray-600">CSV, JSON, PDF rapporter tilgængelige</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 p-8 rounded-xl">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="font-bold">Overholdelsesrapport</h4>
+                            <button class="text-purple-600 text-sm">
+                                <i class="fas fa-download mr-1"></i>Eksporter
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">14-dages regel</span>
+                                    <span class="text-green-600 text-sm font-bold">98% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 98%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Hvileperioder</span>
+                                    <span class="text-green-600 text-sm font-bold">100% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Arbejdstider</span>
+                                    <span class="text-green-600 text-sm font-bold">99% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 99%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold">Overarbejdsgrænser</span>
+                                    <span class="text-green-600 text-sm font-bold">100% ✓</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                            <p class="text-sm text-purple-900 font-semibold">
+                                <i class="fas fa-shield-alt mr-2"></i>
+                                Samlet overholdelse: 99,2%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Se alle funktioner i aktion</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Start din gratis prøveperiode og oplev overholdelsesautomatisering på første hånd
+            </p>
+            <a href="/dk/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start gratis prøveperiode
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Den eneste planlægningssoftware bygget til dansk arbejdsmiljølov.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/dk/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/dk/integrations.html" class="hover:text-purple-400 transition">Integrationer</a></li>
+                        <li><a href="/dk/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                        <li><a href="/dk/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ressourcer</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/dk/customers.html" class="hover:text-purple-400 transition">Kundehistorier</a></li>
+                        <li><a href="/dk/compliance-guide.html" class="hover:text-purple-400 transition">Overholdelsesguide</a></li>
+                        <li><a href="/dk/compare.html" class="hover:text-purple-400 transition">Sammenlign</a></li>
+                        <li><a href="/dk/industries.html" class="hover:text-purple-400 transition">Brancher</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Firma</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/about.html" class="hover:text-purple-400 transition">Om os</a></li>
+                        <li><a href="/dk/careers.html" class="hover:text-purple-400 transition">Karriere</a></li>
+                        <li><a href="/dk/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/dk/privacy.html" class="hover:text-purple-400 transition">Privatlivspolitik</a></li>
+                        <li><a href="/dk/terms.html" class="hover:text-purple-400 transition">Vilkår</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alle rettigheder forbeholdes.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/dk/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/dk/security.html" class="text-sm hover:text-purple-400 transition">Sikkerhed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

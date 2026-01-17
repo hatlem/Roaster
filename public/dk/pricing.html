@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priser - Roaster | Transparent og enkel prissætning</title>
+    <meta name="description" content="Overkommelige, transparente priser for danske virksomheder. Start gratis og skaler med din vækst.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/dk/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dk/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/dk/pricing.html" class="text-purple-600 font-semibold transition">Priser</a>
+                    <a href="/dk/industries.html" class="text-gray-700 hover:text-purple-600 transition">Brancher</a>
+                    <a href="/dk/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/dk/about.html" class="text-gray-700 hover:text-purple-600 transition">Om os</a>
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-purple-600 transition flex items-center">
+                            <i class="fas fa-globe mr-1"></i> DK <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">English</a>
+                            <a href="/no/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Norsk</a>
+                            <a href="/dk/pricing.html" class="block px-4 py-2 text-purple-600 bg-purple-50">Dansk</a>
+                            <a href="/se/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Svenska</a>
+                            <a href="/de/pricing.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Deutsch</a>
+                        </div>
+                    </div>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Log ind</a>
+                    <a href="/dk/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Bestil demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/dk/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktioner</a>
+                <a href="/dk/pricing.html" class="block py-2 text-purple-600 font-semibold">Priser</a>
+                <a href="/dk/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Brancher</a>
+                <a href="/dk/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/dk/about.html" class="block py-2 text-gray-700 hover:text-purple-600">Om os</a>
+                <div class="border-t pt-2">
+                    <p class="text-sm text-gray-500 mb-2">Sprog:</p>
+                    <div class="flex space-x-2">
+                        <a href="/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">EN</a>
+                        <a href="/no/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">NO</a>
+                        <a href="/dk/pricing.html" class="px-3 py-1 bg-purple-600 text-white rounded text-sm">DK</a>
+                        <a href="/se/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">SE</a>
+                        <a href="/de/pricing.html" class="px-3 py-1 bg-gray-100 rounded text-sm">DE</a>
+                    </div>
+                </div>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Log ind</a>
+                <a href="/dk/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Bestil demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Enkel, transparent prissætning
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Start gratis og skaler med din vækst. Ingen skjulte gebyrer, ingen overraskelser.
+            </p>
+            <div class="mt-8 inline-flex items-center bg-white/20 backdrop-blur-sm rounded-lg p-1">
+                <button id="monthly-btn" class="px-6 py-2 rounded-md text-white font-semibold transition bg-white/30">
+                    Månedligt
+                </button>
+                <button id="annual-btn" class="px-6 py-2 rounded-md text-white font-semibold transition">
+                    Årligt
+                    <span class="ml-2 bg-green-400 text-green-900 text-xs px-2 py-1 rounded-full">Spar 20%</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section id="pricing" class="py-20 bg-gray-50 -mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                        <p class="text-gray-600">Perfekt til små teams</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">649</span>
+                            <span class="annual-price hidden">519</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">kr/måned</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Månedlig fakturering</span>
+                            <span class="annual-price hidden">Årlig fakturering (6.228 kr/år)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Op til 25 medarbejdere</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alle overholdelsesf
+
+unktioner</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Hvileperiode validering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Email support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Mobilapp-adgang</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Basis rapportering</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Test gratis
+                    </button>
+                </div>
+
+                <!-- Professional Plan (Featured) -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-purple-600 relative transform md:scale-105">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Mest populære
+                        </span>
+                    </div>
+                    <div class="mb-6 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+                        <p class="text-gray-600">Til voksende virksomheder</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">
+                            <span class="monthly-price">1.299</span>
+                            <span class="annual-price hidden">1.039</span>
+                        </span>
+                        <span class="text-gray-600 ml-2">kr/måned</span>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <span class="monthly-price">Månedlig fakturering</span>
+                            <span class="annual-price hidden">Årlig fakturering (12.468 kr/år)</span>
+                        </p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Op til 100 medarbejdere</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alt i Starter, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Vagtbørs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Ferie-styring</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Avanceret analyse</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Prioriteret Email & Chat support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Tilpassede overholdelsesrapporter</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">API-adgang</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        Test gratis
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-purple-300 transition">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                        <p class="text-gray-600">Til store organisationer</p>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-5xl font-bold text-gray-900">Tilpasset</span>
+                        <p class="text-sm text-gray-500 mt-2">Kontakt os for priser</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700"><strong>Ubegrænsede medarbejdere</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Alt i Professional, plus:</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Multi-lokations support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Dedikeret Account Manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">24/7 telefonsupport</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Tilpassede integrationer</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SSO / SAML-autentificering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">SLA-garanti (99,9% oppetid)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-600 mt-1 mr-3"></i>
+                            <span class="text-gray-700">On-premise implementeringsmulighed</span>
+                        </li>
+                    </ul>
+                    <a href="/dk/contact.html" class="block w-full text-center bg-purple-100 text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-200 transition">
+                        Kontakt salg
+                    </a>
+                </div>
+            </div>
+
+            <!-- Free Trial Banner -->
+            <div class="mt-12 bg-purple-100 border-2 border-purple-300 rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-gift text-purple-600 mr-2"></i>
+                    14 dages gratis prøveperiode for alle planer
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    Intet kreditkort påkrævet • Fuld funktionsadgang • Opsig når som helst
+                </p>
+                <div class="flex justify-center gap-4 text-sm text-gray-600">
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>5 minutters opsætning</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Datamigrering inkluderet</span>
+                    <span><i class="fas fa-check text-purple-600 mr-2"></i>Dedikeret onboarding</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Sammenlign planer</h2>
+                <p class="text-xl text-gray-600">Alle detaljer der hjælper dig med at vælge den rigtige plan</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-4 px-4 font-semibold text-gray-900">Funktioner</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900 bg-purple-50">Professional</th>
+                            <th class="text-center py-4 px-4 font-semibold text-gray-900">Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Medarbejdergrænse</td>
+                            <td class="text-center py-4 px-4">25</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">100</td>
+                            <td class="text-center py-4 px-4">Ubegrænset</td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Hvileperiode validering</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Arbejdstidssporing & overarbejde</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Mobilapp-adgang</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Vagtbørs</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Ferie-styring</td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-times text-gray-300"></i></td>
+                            <td class="text-center py-4 px-4 bg-purple-50"><i class="fas fa-check text-purple-600"></i></td>
+                            <td class="text-center py-4 px-4"><i class="fas fa-check text-purple-600"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 px-4 font-medium">Support</td>
+                            <td class="text-center py-4 px-4">Email</td>
+                            <td class="text-center py-4 px-4 bg-purple-50">Email & Chat</td>
+                            <td class="text-center py-4 px-4">24/7 Telefon</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Ofte stillede spørgsmål</h2>
+                <p class="text-xl text-gray-600">Alt hvad du skal vide om prissætning</p>
+            </div>
+
+            <div class="space-y-6">
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Hvad sker der efter 14 dages gratis prøveperiode?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Efter prøveperioden udløber, bliver du bedt om at vælge en plan. Hvis du ikke vælger en, bliver din konto sat i skrivebeskyttet tilstand, men dine data forbliver sikre i 30 dage.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Kan jeg ændre min plan senere?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Absolut! Du kan opgradere eller nedgradere når som helst. Opgraderinger træder i kraft øjeblikkeligt, og nedgraderinger gælder fra begyndelsen af din næste faktureringscyklus.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Hvilke betalingsmetoder accepterer I?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Vi accepterer alle større kreditkort (Visa, Mastercard, American Express), bankoverførsler og fakturabetalinger for årlige kontrakter.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Er der et opsætningsgebyr?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Ingen opsætningsgebyrer for Starter- og Professional-planer. Enterprise-planer inkluderer gratis onboarding og hjælp til datamigrering.
+                    </p>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md">
+                    <summary class="font-semibold text-lg cursor-pointer text-gray-900">
+                        Tilbyder I refusion?
+                    </summary>
+                    <p class="mt-4 text-gray-600">
+                        Vi tilbyder en 30-dages pengene-tilbage-garanti. Hvis du ikke er tilfreds inden for den første måned, refunderer vi din betaling fuldt ud, uden spørgsmål.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Klar til at komme i gang?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Bliv en del af 500+ danske virksomheder der allerede bruger Roaster
+            </p>
+            <a href="/dk/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Start gratis prøveperiode
+            </a>
+            <p class="text-purple-200 mt-4 text-sm">
+                Intet kreditkort påkrævet • 14 dages prøveperiode • Opsig når som helst
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">
+                        Den eneste planlægningssoftware bygget til dansk arbejdsmiljølov.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/dk/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                        <li><a href="/dk/integrations.html" class="hover:text-purple-400 transition">Integrationer</a></li>
+                        <li><a href="/dk/mobile-app.html" class="hover:text-purple-400 transition">Mobilapp</a></li>
+                        <li><a href="/dk/api-docs.html" class="hover:text-purple-400 transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Ressourcer</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/blog.html" class="hover:text-purple-400 transition">Blog</a></li>
+                        <li><a href="/dk/customers.html" class="hover:text-purple-400 transition">Kundehistorier</a></li>
+                        <li><a href="/dk/compliance-guide.html" class="hover:text-purple-400 transition">Overholdelsesguide</a></li>
+                        <li><a href="/dk/compare.html" class="hover:text-purple-400 transition">Sammenlign</a></li>
+                        <li><a href="/dk/industries.html" class="hover:text-purple-400 transition">Brancher</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Firma</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/dk/about.html" class="hover:text-purple-400 transition">Om os</a></li>
+                        <li><a href="/dk/careers.html" class="hover:text-purple-400 transition">Karriere</a></li>
+                        <li><a href="/dk/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/dk/privacy.html" class="hover:text-purple-400 transition">Privatlivspolitik</a></li>
+                        <li><a href="/dk/terms.html" class="hover:text-purple-400 transition">Vilkår</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm">&copy; 2025 Roaster. Alle rettigheder forbeholdes.</p>
+                    <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                        <a href="/dk/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/dk/security.html" class="text-sm hover:text-purple-400 transition">Sikkerhed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Pricing toggle
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annualBtn = document.getElementById('annual-btn');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        monthlyBtn.addEventListener('click', () => {
+            monthlyBtn.classList.add('bg-white/30');
+            annualBtn.classList.remove('bg-white/30');
+            monthlyPrices.forEach(el => el.classList.remove('hidden'));
+            annualPrices.forEach(el => el.classList.add('hidden'));
+        });
+
+        annualBtn.addEventListener('click', () => {
+            annualBtn.classList.add('bg-white/30');
+            monthlyBtn.classList.remove('bg-white/30');
+            annualPrices.forEach(el => el.classList.remove('hidden'));
+            monthlyPrices.forEach(el => el.classList.add('hidden'));
+        });
+    </script>
+</body>
+</html>

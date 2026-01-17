@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om oss - Roaster | Vår vision och historia</title>
+    <meta name="description" content="Lär dig om Roasters uppdrag att göra efterlevnad av svensk arbetsrätt enkelt för alla företag.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/se/" class="flex items-center">
+                        <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
+                        <span class="ml-2 text-2xl font-bold text-gray-900">Roaster</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/se/features.html" class="text-gray-700 hover:text-purple-600 transition">Funktioner</a>
+                    <a href="/se/pricing.html" class="text-gray-700 hover:text-purple-600 transition">Priser</a>
+                    <a href="/se/industries.html" class="text-gray-700 hover:text-purple-600 transition">Branscher</a>
+                    <a href="/se/customers.html" class="text-gray-700 hover:text-purple-600 transition">Kunder</a>
+                    <a href="/se/about.html" class="text-purple-600 font-semibold transition">Om oss</a>
+                    <a href="/api/auth/login" class="text-purple-600 hover:text-purple-700 transition">Logga in</a>
+                    <a href="/se/demo.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Boka demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/se/features.html" class="block py-2 text-gray-700 hover:text-purple-600">Funktioner</a>
+                <a href="/se/pricing.html" class="block py-2 text-gray-700 hover:text-purple-600">Priser</a>
+                <a href="/se/industries.html" class="block py-2 text-gray-700 hover:text-purple-600">Branscher</a>
+                <a href="/se/customers.html" class="block py-2 text-gray-700 hover:text-purple-600">Kunder</a>
+                <a href="/se/about.html" class="block py-2 text-purple-600 font-semibold">Om oss</a>
+                <a href="/api/auth/login" class="block py-2 text-purple-600">Logga in</a>
+                <a href="/se/demo.html" class="block py-2 bg-purple-600 text-white rounded-lg text-center">Boka demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="gradient-bg pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">
+                Göra efterlevnad enkelt
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto">
+                Vi tror att att följa arbetslagar inte ska vara en börda. Vårt uppdrag är att automatisera
+                efterlevnad så svenska företag kan fokusera på det som verkligen betyder något.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">Vår historia</h2>
+                <div class="prose prose-lg text-gray-600 space-y-4">
+                    <p>
+                        Roaster föddes ur en enkel observation: svenska företag spenderade otaliga
+                        timmar på att manuellt säkerställa efterlevnad av arbetslagar, och gjorde ofta kostsamma misstag ändå.
+                    </p>
+                    <p>
+                        Våra grundare, tidigare HR-chefer som hanterat Arbetsmiljöverket-inspektioner på egen hand,
+                        visste att det måste finnas ett bättre sätt. De satte sig för att bygga programvara som skulle göra
+                        efterlevnad automatisk, vilket eliminerar stressen och osäkerheten som följer med manuell
+                        schemahantering.
+                    </p>
+                    <p>
+                        Idag betjänar Roaster över 500 svenska företag, från små butiker till
+                        stora sjukhus, och hjälper dem att schemalägga med självförtroende och förbli efterlevande utan
+                        huvudvärken.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Vårt uppdrag & värderingar</h2>
+                <p class="text-xl text-gray-600">Principerna som styr allt vi gör</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bullseye text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Efterlevnad först</h3>
+                    <p class="text-gray-600">
+                        Vi prioriterar noggrannhet och tillförlitlighet framför allt annat. Varje funktion är designad
+                        med svensk arbetsrätt i kärnan, vilket säkerställer att våra användare kan lita på Roaster helt.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Användarcent rerad design</h3>
+                    <p class="text-gray-600">
+                        Vi bygger för riktiga människor som löser riktiga problem. Vårt gränssnitt är intuitivt eftersom
+                        vi lyssnar på våra användare och kontinuerligt förfinar baserat på deras feedback.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="bg-purple-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Förtroende & transparens</h3>
+                    <p class="text-gray-600">
+                        Vi är transparenta om hur vårt system fungerar, vilken data vi samlar in och hur vi
+                        skyddar den. Våra användares förtroende är vår mest värdefulla tillgång.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Roaster i siffror</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">500+</div>
+                    <p class="text-gray-600 font-semibold">Aktiva kunder</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">25 000+</div>
+                    <p class="text-gray-600 font-semibold">Schemalagda anställda</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">99,9%</div>
+                    <p class="text-gray-600 font-semibold">Plattformsdrifttid</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-purple-600 mb-2">100%</div>
+                    <p class="text-gray-600 font-semibold">Efterlevnadsgrad</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Redo att uppleva Roaster?</h2>
+            <p class="text-xl text-purple-100 mb-8">
+                Se hur vi kan hjälpa ditt företag att förbli efterlevande utan ansträngning
+            </p>
+            <a href="/se/#demo" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Starta gratis provperiod
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-check text-2xl text-purple-400"></i>
+                        <span class="ml-2 text-xl font-bold text-white">Roaster</span>
+                    </div>
+                    <p class="text-sm">Den enda schemaläggningsprogramvaran byggd för svensk arbetsrätt.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Produkt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/features.html" class="hover:text-purple-400 transition">Funktioner</a></li>
+                        <li><a href="/se/pricing.html" class="hover:text-purple-400 transition">Priser</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Företag</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/se/about.html" class="hover:text-purple-400 transition">Om oss</a></li>
+                        <li><a href="/se/careers.html" class="hover:text-purple-400 transition">Karriär</a></li>
+                        <li><a href="/se/contact.html" class="hover:text-purple-400 transition">Kontakt</a></li>
+                        <li><a href="/se/privacy.html" class="hover:text-purple-400 transition">Integritetspolicy</a></li>
+                        <li><a href="/se/terms.html" class="hover:text-purple-400 transition">Villkor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Juridiskt</h4>
+                    <ul class="space-y-2 text-sm">
+                        <a href="/se/gdpr.html" class="text-sm hover:text-purple-400 transition">GDPR</a>
+                        <a href="/se/security.html" class="text-sm hover:text-purple-400 transition">Säkerhet</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-sm text-center">&copy; 2025 Roaster. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
