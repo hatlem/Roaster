@@ -32,3 +32,7 @@ npm run build     # Production build
 ## Port Configuration
 - **STRICTLY FORBIDDEN**: Never run dev servers on port 3000
 - Use the project's configured port from package.json or environment variables
+
+## Infrastructure
+- Domains: Cloudflare
+- Hosting: Railway
