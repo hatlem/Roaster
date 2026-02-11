@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse } from "@/lib/api-utils";
 import { sendWelcomeEmail } from "@/lib/email";
+import { enrollInOnboardingAsync } from "@/lib/services/email-onboarding";
 import { randomBytes } from "crypto";
 
 // POST /api/onboarding - Create new account with organization
@@ -60,6 +61,12 @@ export async function POST(request: NextRequest) {
         magicLinkExpires,
       },
     });
+
+    // Enroll in GetMailer onboarding sequence (fire-and-forget)
+    enrollInOnboardingAsync({
+      email: email.toLowerCase(),
+      metadata: { userId: user.id },
+    })
 
     // Send welcome email with magic link
     await sendWelcomeEmail(email.toLowerCase(), magicLinkToken);

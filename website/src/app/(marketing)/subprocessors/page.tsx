@@ -10,7 +10,7 @@ const SUBPROCESSORS = [
   { name: "Railway", purpose: "Cloud hosting and infrastructure", location: "United States", website: "https://railway.app", gdprCompliant: true },
   { name: "Stripe", purpose: "Payment processing", location: "United States", website: "https://stripe.com", gdprCompliant: true },
   { name: "Cloudflare", purpose: "CDN, DNS, and security", location: "United States (global edge)", website: "https://cloudflare.com", gdprCompliant: true },
-  { name: "Resend", purpose: "Transactional email delivery", location: "United States", website: "https://resend.com", gdprCompliant: true },
+  { name: "GetMailer", purpose: "Transactional email delivery", location: "European Union", website: "https://getmailer.co", gdprCompliant: true },
   { name: "OpenAI", purpose: "AI model provider", location: "United States", website: "https://openai.com", gdprCompliant: true },
 ];
 

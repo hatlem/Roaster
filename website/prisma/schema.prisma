@@ -207,6 +207,12 @@ model Organization {
   laborBudgetPerWeek Decimal?         @db.Decimal(10, 2)
   overtimePremium    Decimal          @default(1.4) @db.Decimal(3, 2)  // Norwegian minimum: 40%
 
+  // Billing / Stripe
+  stripeCustomerId    String?         @unique
+  subscriptionPlan    String?         @default("free")   // "free" | "starter" | "professional" | "enterprise"
+  subscriptionStatus  String?                             // "active" | "trialing" | "past_due" | "canceled" | etc.
+  stripeSubscriptionId String?        @unique
+
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
