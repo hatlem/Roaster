@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { pricing, navigation } from "@/content";
+import { CurrencyNote } from "@/components/CurrencyNote";
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(true);
@@ -15,9 +16,10 @@ export default function PricingPage() {
           <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
             Pricing
           </h1>
-          <p className="text-xl text-ink/60 leading-relaxed mb-8">
+          <p className="text-xl text-ink/60 leading-relaxed mb-4">
             {pricing.trial.days}-day free trial. No credit card required.
           </p>
+          <CurrencyNote />
 
           {/* Toggle */}
           <div className="flex items-center gap-4">

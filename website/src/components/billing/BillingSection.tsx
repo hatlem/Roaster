@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { CurrencyNote } from "../CurrencyNote"
 
 interface BillingInfo {
   plan: string | null
@@ -147,7 +148,10 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
       {/* Upgrade Plans (for free users or canceled) */}
       {(isFree || billing.status === "canceled") && (
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <h2 className="font-display text-xl mb-6">Choose a Plan</h2>
+          <h2 className="font-display text-xl mb-2">Choose a Plan</h2>
+          <div className="mb-6">
+            <CurrencyNote />
+          </div>
 
           {error && (
             <div className="bg-terracotta/10 text-terracotta p-4 rounded-xl mb-6 text-sm flex items-start gap-3">
