@@ -2,7 +2,7 @@ import Link from "next/link";
 import { about, company, navigation } from "@/content";
 
 export const metadata = {
-  title: "About | Roaster",
+  title: "About",
   description: "Scheduling software built for Norwegian labor law compliance.",
 };
 

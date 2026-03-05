@@ -29,22 +29,22 @@ export function LocalizedFooter({ dictionary, country }: LocalizedFooterProps) {
             <h4 className="font-semibold mb-4">{footer.product}</h4>
             <ul className="space-y-2 text-sm text-cream/60">
               <li>
-                <Link href={`/${country}/features`} className="hover:text-cream transition-colors">
+                <Link href="/features" className="hover:text-cream transition-colors">
                   {nav.features}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/pricing`} className="hover:text-cream transition-colors">
+                <Link href="/pricing" className="hover:text-cream transition-colors">
                   {nav.pricing}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/industries`} className="hover:text-cream transition-colors">
+                <Link href="/industries" className="hover:text-cream transition-colors">
                   {nav.industries}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/customers`} className="hover:text-cream transition-colors">
+                <Link href="/customers" className="hover:text-cream transition-colors">
                   {nav.customers}
                 </Link>
               </li>
@@ -56,12 +56,12 @@ export function LocalizedFooter({ dictionary, country }: LocalizedFooterProps) {
             <h4 className="font-semibold mb-4">{footer.company}</h4>
             <ul className="space-y-2 text-sm text-cream/60">
               <li>
-                <Link href={`/${country}/about`} className="hover:text-cream transition-colors">
+                <Link href="/about" className="hover:text-cream transition-colors">
                   {nav.about}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/contact`} className="hover:text-cream transition-colors">
+                <Link href="/contact" className="hover:text-cream transition-colors">
                   {footer.contact}
                 </Link>
               </li>
@@ -73,17 +73,17 @@ export function LocalizedFooter({ dictionary, country }: LocalizedFooterProps) {
             <h4 className="font-semibold mb-4">{footer.legal}</h4>
             <ul className="space-y-2 text-sm text-cream/60">
               <li>
-                <Link href={`/${country}/privacy`} className="hover:text-cream transition-colors">
+                <Link href="/privacy" className="hover:text-cream transition-colors">
                   {footer.privacy}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/terms`} className="hover:text-cream transition-colors">
+                <Link href="/terms" className="hover:text-cream transition-colors">
                   {footer.terms}
                 </Link>
               </li>
               <li>
-                <Link href={`/${country}/cookies`} className="hover:text-cream transition-colors">
+                <Link href="/cookies" className="hover:text-cream transition-colors">
                   {footer.cookies}
                 </Link>
               </li>

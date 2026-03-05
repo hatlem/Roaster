@@ -1,4 +1,5 @@
 import { demo, testimonials, pricing } from "@/content";
+import { DemoForm } from "@/components/forms/DemoForm";
 
 export const metadata = {
   title: "Start Free Trial",
@@ -68,85 +69,7 @@ export default function DemoPage() {
               <p className="text-ink/60 mb-8">
                 Start your {pricing.trial.days}-day free trial in minutes.
               </p>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-                      First name *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-                      Last name *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Work email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium mb-2">
-                    Company name *
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="employees" className="block text-sm font-medium mb-2">
-                    Number of employees *
-                  </label>
-                  <select
-                    id="employees"
-                    name="employees"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20 bg-white"
-                  >
-                    <option value="">Select...</option>
-                    <option value="1-25">1-25 employees</option>
-                    <option value="26-100">26-100 employees</option>
-                    <option value="101-500">101-500 employees</option>
-                    <option value="500+">500+ employees</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-forest text-cream px-8 py-4 rounded-full font-semibold hover:bg-forest/90 transition-all flex items-center justify-center gap-2"
-                >
-                  {demo.form.submitText}
-                  <i className="fas fa-arrow-right" />
-                </button>
-                <p className="text-center text-ink/40 text-xs">
-                  By signing up, you agree to our Terms of Service and Privacy Policy.
-                </p>
-              </form>
+              <DemoForm />
             </div>
           </div>
         </div>

@@ -70,15 +70,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // No locale in pathname - redirect to preferred locale
-  const preferredLocale = getPreferredLocale(request);
-  const country = localeToCountry[preferredLocale];
+  // No locale in pathname - only redirect the root path to locale-specific homepage
+  // Other marketing pages don't have locale variants, so don't redirect them
+  if (pathname === '/') {
+    const preferredLocale = getPreferredLocale(request);
+    const country = localeToCountry[preferredLocale];
 
-  // Only redirect to non-default locale
-  if (preferredLocale !== defaultLocale) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/${country}${pathname}`;
-    return NextResponse.redirect(url);
+    if (preferredLocale !== defaultLocale) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${country}`;
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();

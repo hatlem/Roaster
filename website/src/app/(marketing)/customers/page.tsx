@@ -20,7 +20,7 @@ export default function CustomersPage() {
             Customer Stories
           </span>
           <h1 className="font-display text-5xl md:text-7xl mb-6">
-            Trusted by <em className="not-italic text-terracotta">{complianceStats.customersCount}</em> Norwegian businesses
+            Trusted by Norwegian businesses
           </h1>
           <p className="text-xl text-ink/60 max-w-2xl mx-auto">
             See how businesses like yours are automating compliance and saving time.
@@ -28,29 +28,31 @@ export default function CustomersPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-ink text-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="font-display text-5xl mb-2">{complianceStats.customersCount}</p>
-              <p className="text-cream/60">Businesses</p>
-            </div>
-            <div>
-              <p className="font-display text-5xl mb-2">{complianceStats.employeesScheduled}</p>
-              <p className="text-cream/60">Employees scheduled</p>
-            </div>
-            <div>
-              <p className="font-display text-5xl text-terracotta mb-2">{complianceStats.complianceRate}</p>
-              <p className="text-cream/60">Compliance rate</p>
-            </div>
-            <div>
-              <p className="font-display text-5xl text-forest mb-2">{complianceStats.timeSaved}</p>
-              <p className="text-cream/60">Time saved</p>
+      {/* Stats - only show when data is available */}
+      {complianceStats.customersCount && (
+        <section className="py-16 bg-ink text-cream">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <div>
+                <p className="font-display text-5xl mb-2">{complianceStats.customersCount}</p>
+                <p className="text-cream/60">Businesses</p>
+              </div>
+              <div>
+                <p className="font-display text-5xl mb-2">{complianceStats.employeesScheduled}</p>
+                <p className="text-cream/60">Employees scheduled</p>
+              </div>
+              <div>
+                <p className="font-display text-5xl text-terracotta mb-2">{complianceStats.complianceRate}</p>
+                <p className="text-cream/60">Compliance rate</p>
+              </div>
+              <div>
+                <p className="font-display text-5xl text-forest mb-2">{complianceStats.timeSaved}</p>
+                <p className="text-cream/60">Time saved</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Featured Testimonial */}
       {featuredTestimonial && (

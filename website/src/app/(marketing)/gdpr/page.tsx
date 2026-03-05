@@ -118,7 +118,7 @@ export default function GDPRPage() {
                     <tr className="border-b border-stone/20">
                       <td className="py-3">Railway</td>
                       <td className="py-3">Infrastructure hosting</td>
-                      <td className="py-3">EU</td>
+                      <td className="py-3">United States (EU region available)</td>
                     </tr>
                     <tr className="border-b border-stone/20">
                       <td className="py-3">PostgreSQL</td>

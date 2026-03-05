@@ -2,7 +2,7 @@ import Link from "next/link";
 import { features, navigation } from "@/content";
 
 export const metadata = {
-  title: "How it works | Roaster",
+  title: "How it works",
   description: "Automatic compliance with Norwegian working time regulations",
 };
 

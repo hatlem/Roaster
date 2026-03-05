@@ -1,4 +1,5 @@
 import { contact, company } from "@/content";
+import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata = {
   title: "Contact",
@@ -68,77 +69,7 @@ export default function ContactPage() {
             {/* Right - Form */}
             <div className="bg-white rounded-3xl p-8 lg:p-12 border border-stone/50 shadow-xl h-fit">
               <h2 className="font-display text-3xl mb-8">Send us a message</h2>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-                      First name *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-                      Last name *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Work email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium mb-2">
-                    Company *
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    How can we help? *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20 resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full btn-primary justify-center"
-                >
-                  {contact.form.submitText}
-                  <i className="fas fa-arrow-right" />
-                </button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>
