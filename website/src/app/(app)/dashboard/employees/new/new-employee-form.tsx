@@ -71,7 +71,7 @@ export function NewEmployeeForm({ dictionary: d }: Props) {
                   type="text"
                   name="firstName"
                   required
-                  placeholder="John"
+                  placeholder={d.placeholderFirstName}
                   className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
@@ -81,7 +81,7 @@ export function NewEmployeeForm({ dictionary: d }: Props) {
                   type="text"
                   name="lastName"
                   required
-                  placeholder="Doe"
+                  placeholder={d.placeholderLastName}
                   className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
@@ -92,7 +92,7 @@ export function NewEmployeeForm({ dictionary: d }: Props) {
                 type="email"
                 name="email"
                 required
-                placeholder="john.doe@company.no"
+                placeholder={d.placeholderEmail}
                 className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean"
               />
             </div>
@@ -101,7 +101,7 @@ export function NewEmployeeForm({ dictionary: d }: Props) {
               <input
                 type="tel"
                 name="phone"
-                placeholder="+47 123 45 678"
+                placeholder={d.placeholderPhone}
                 className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean"
               />
             </div>
@@ -146,7 +146,7 @@ export function NewEmployeeForm({ dictionary: d }: Props) {
                 <input
                   type="text"
                   name="employeeNumber"
-                  placeholder="EMP-001"
+                  placeholder={d.placeholderEmployeeNumber}
                   className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>

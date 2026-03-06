@@ -60,10 +60,10 @@ export default async function LocaleHomePage({ params }: PageProps) {
                     <div className="w-10 h-10 bg-forest/10 rounded-xl flex items-center justify-center">
                       <i className="fas fa-shield-alt text-forest" />
                     </div>
-                    <span className="font-semibold text-sm tracking-tight">Compliance Dashboard</span>
+                    <span className="font-semibold text-sm tracking-tight">{dict.common.complianceDashboard}</span>
                   </div>
                   <span className="px-3 py-1 bg-forest/10 text-forest text-xs font-bold rounded-full tracking-wide">
-                    ALL CLEAR
+                    {dict.common.allClear}
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">

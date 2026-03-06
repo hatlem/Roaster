@@ -2,7 +2,7 @@
 
 import { signOut } from "next-auth/react";
 
-export function SignOutButton() {
+export function SignOutButton({ label }: { label: string }) {
   const handleSignOut = () => {
     signOut({ callbackUrl: "/login" });
   };
@@ -13,7 +13,7 @@ export function SignOutButton() {
       className="w-full bg-terracotta/10 text-terracotta rounded-xl p-4 font-medium flex items-center justify-center gap-2"
     >
       <i className="fas fa-sign-out-alt" />
-      Sign Out
+      {label}
     </button>
   );
 }

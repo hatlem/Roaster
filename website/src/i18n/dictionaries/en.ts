@@ -617,6 +617,48 @@ export const en = {
     dpoText: 'For GDPR-related inquiries or to exercise your data subject rights, contact our Data Protection Officer at',
   },
 
+  // Cookies page
+  cookiesPage: {
+    metaTitle: 'Cookie Policy',
+    metaDescription: 'How Roaster uses cookies and similar technologies.',
+    tagline: 'Legal',
+    title: 'Cookie Policy',
+    introTitle: 'About Cookies',
+    introText: 'This Cookie Policy explains how Getia AS ("Roaster") uses cookies and similar technologies when you visit our website or use our scheduling platform. By continuing to use our services, you consent to the use of cookies as described in this policy.',
+    whatTitle: 'What Are Cookies?',
+    whatText: 'Cookies are small text files that are stored on your device when you visit a website. They help the website remember your preferences and improve your browsing experience.',
+    typesTitle: 'Types of Cookies We Use',
+    essentialTitle: 'Essential Cookies',
+    essentialText: 'These cookies are necessary for the website to function properly. They enable core features such as authentication, session management, and security. You cannot opt out of these cookies.',
+    essentialItems: [
+      'Session cookies for authentication',
+      'Security cookies for CSRF protection',
+      'Locale preference cookies',
+    ],
+    analyticsTitle: 'Analytics Cookies',
+    analyticsText: 'We use analytics cookies to understand how visitors interact with our website. This helps us improve our services and user experience.',
+    analyticsItems: [
+      'Page view tracking',
+      'Feature usage analytics',
+      'Performance monitoring',
+    ],
+    functionalTitle: 'Functional Cookies',
+    functionalText: 'These cookies enable enhanced functionality and personalization, such as remembering your language preference and display settings.',
+    functionalItems: [
+      'Language and locale preferences',
+      'Dashboard layout preferences',
+      'Theme settings',
+    ],
+    manageTitle: 'Managing Your Cookies',
+    manageText: 'You can control and manage cookies through your browser settings. Please note that removing or blocking certain cookies may impact your experience and limit the functionality of our services.',
+    retentionTitle: 'Cookie Retention',
+    retentionText: 'Session cookies are deleted when you close your browser. Persistent cookies remain on your device for a set period or until you delete them manually. Our analytics cookies are retained for a maximum of 12 months.',
+    updatesTitle: 'Updates to This Policy',
+    updatesText: 'We may update this Cookie Policy from time to time to reflect changes in technology or legislation. We encourage you to review this page periodically for the latest information on our cookie practices.',
+    contactTitle: 'Contact Us',
+    contactText: 'If you have questions about our use of cookies, please contact us at',
+  },
+
   // DPA page
   dpaPage: {
     metaTitle: 'Data Processing Addendum',

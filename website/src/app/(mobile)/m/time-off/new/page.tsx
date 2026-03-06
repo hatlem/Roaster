@@ -3,18 +3,22 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-const TIME_OFF_TYPES = [
-  { value: "VACATION", label: "Vacation", icon: "fa-umbrella-beach" },
-  { value: "SICK", label: "Sick Leave", icon: "fa-thermometer-half" },
-  { value: "PERSONAL", label: "Personal Day", icon: "fa-user" },
-  { value: "PARENTAL", label: "Parental Leave", icon: "fa-baby" },
-  { value: "BEREAVEMENT", label: "Bereavement", icon: "fa-heart" },
-  { value: "OTHER", label: "Other", icon: "fa-ellipsis-h" },
-];
+import { useDictionary } from "@/components/DictionaryProvider";
 
 export default function NewTimeOffPage() {
   const router = useRouter();
+  const { dictionary: dict } = useDictionary();
+  const t = dict.mobile.newTimeOff;
+
+  const TIME_OFF_TYPES = [
+    { value: "VACATION", label: t.vacation, icon: "fa-umbrella-beach" },
+    { value: "SICK", label: t.sickLeave, icon: "fa-thermometer-half" },
+    { value: "PERSONAL", label: t.personalDay, icon: "fa-user" },
+    { value: "PARENTAL", label: t.parentalLeave, icon: "fa-baby" },
+    { value: "BEREAVEMENT", label: t.bereavement, icon: "fa-heart" },
+    { value: "OTHER", label: t.other, icon: "fa-ellipsis-h" },
+  ];
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -71,15 +75,15 @@ export default function NewTimeOffPage() {
           <i className="fas fa-arrow-left text-ink/60" />
         </Link>
         <div>
-          <h1 className="font-display text-2xl">Request Time Off</h1>
-          <p className="text-ink/60 text-sm">Submit a new request</p>
+          <h1 className="font-display text-2xl">{t.title}</h1>
+          <p className="text-ink/60 text-sm">{t.subtitle}</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Type Selection */}
         <div>
-          <label className="block text-sm font-medium mb-3">Type</label>
+          <label className="block text-sm font-medium mb-3">{t.type}</label>
           <div className="grid grid-cols-3 gap-2">
             {TIME_OFF_TYPES.map((type) => (
               <button
@@ -104,7 +108,7 @@ export default function NewTimeOffPage() {
         {/* Date Range */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-medium mb-2">Start Date</label>
+            <label className="block text-sm font-medium mb-2">{t.startDate}</label>
             <input
               type="date"
               required
@@ -117,7 +121,7 @@ export default function NewTimeOffPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">End Date</label>
+            <label className="block text-sm font-medium mb-2">{t.endDate}</label>
             <input
               type="date"
               required
@@ -134,9 +138,9 @@ export default function NewTimeOffPage() {
         {/* Duration Display */}
         {days > 0 && (
           <div className="bg-ocean/10 rounded-xl p-4 flex items-center justify-between">
-            <span className="text-sm text-ink/60">Duration</span>
+            <span className="text-sm text-ink/60">{t.duration}</span>
             <span className="font-display text-ocean">
-              {days} day{days !== 1 ? "s" : ""}
+              {days} {days !== 1 ? dict.mobile.timeOff.days : dict.mobile.timeOff.day}
             </span>
           </div>
         )}
@@ -144,14 +148,14 @@ export default function NewTimeOffPage() {
         {/* Reason */}
         <div>
           <label className="block text-sm font-medium mb-2">
-            Reason <span className="text-ink/40">(optional)</span>
+            {t.reason} <span className="text-ink/40">{t.optional}</span>
           </label>
           <textarea
             value={formData.reason}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, reason: e.target.value }))
             }
-            placeholder="Add a note for your manager..."
+            placeholder={t.placeholder}
             rows={3}
             className="w-full bg-white border border-stone/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ocean/50 resize-none"
           />
@@ -176,12 +180,12 @@ export default function NewTimeOffPage() {
           {loading ? (
             <>
               <i className="fas fa-spinner fa-spin" />
-              Submitting...
+              {t.submitting}
             </>
           ) : (
             <>
               <i className="fas fa-paper-plane" />
-              Submit Request
+              {t.submitRequest}
             </>
           )}
         </button>

@@ -622,6 +622,48 @@ export const no: Dictionary = {
     dpoText: 'For GDPR-relaterte henvendelser eller for å utøve dine registrerte rettigheter, kontakt vårt personvernombud på',
   },
 
+  // Cookies page
+  cookiesPage: {
+    metaTitle: 'Retningslinjer for informasjonskapsler',
+    metaDescription: 'Hvordan Roaster bruker informasjonskapsler og lignende teknologier.',
+    tagline: 'Juridisk',
+    title: 'Retningslinjer for informasjonskapsler',
+    introTitle: 'Om informasjonskapsler',
+    introText: 'Denne retningslinjen forklarer hvordan Getia AS ("Roaster") bruker informasjonskapsler og lignende teknologier når du besøker nettstedet vårt eller bruker planleggingsplattformen vår. Ved å fortsette å bruke tjenestene våre samtykker du til bruk av informasjonskapsler som beskrevet i denne retningslinjen.',
+    whatTitle: 'Hva er informasjonskapsler?',
+    whatText: 'Informasjonskapsler er små tekstfiler som lagres på enheten din når du besøker et nettsted. De hjelper nettstedet med å huske preferansene dine og forbedre nettleseropplevelsen din.',
+    typesTitle: 'Typer informasjonskapsler vi bruker',
+    essentialTitle: 'Nødvendige informasjonskapsler',
+    essentialText: 'Disse informasjonskapslene er nødvendige for at nettstedet skal fungere riktig. De muliggjør kjernefunksjoner som autentisering, øktadministrasjon og sikkerhet. Du kan ikke velge bort disse informasjonskapslene.',
+    essentialItems: [
+      'Øktinformasjonskapsler for autentisering',
+      'Sikkerhetsinformasjonskapsler for CSRF-beskyttelse',
+      'Informasjonskapsler for språkpreferanse',
+    ],
+    analyticsTitle: 'Analyseinformasjonskapsler',
+    analyticsText: 'Vi bruker analyseinformasjonskapsler for å forstå hvordan besøkende samhandler med nettstedet vårt. Dette hjelper oss med å forbedre tjenestene og brukeropplevelsen.',
+    analyticsItems: [
+      'Sporing av sidevisninger',
+      'Analyser av funksjonsbruk',
+      'Ytelsesovervåking',
+    ],
+    functionalTitle: 'Funksjonelle informasjonskapsler',
+    functionalText: 'Disse informasjonskapslene muliggjør forbedret funksjonalitet og personalisering, som å huske språkpreferanser og visningsinnstillinger.',
+    functionalItems: [
+      'Språk- og lokalpreferanser',
+      'Preferanser for dashbordoppsett',
+      'Temainnstillinger',
+    ],
+    manageTitle: 'Administrere informasjonskapslene dine',
+    manageText: 'Du kan kontrollere og administrere informasjonskapsler gjennom nettleserinnstillingene. Vær oppmerksom på at fjerning eller blokkering av visse informasjonskapsler kan påvirke opplevelsen din og begrense funksjonaliteten til tjenestene våre.',
+    retentionTitle: 'Oppbevaring av informasjonskapsler',
+    retentionText: 'Øktinformasjonskapsler slettes når du lukker nettleseren. Vedvarende informasjonskapsler forblir på enheten din i en bestemt periode eller til du sletter dem manuelt. Våre analyseinformasjonskapsler beholdes i maksimalt 12 måneder.',
+    updatesTitle: 'Oppdateringer av denne retningslinjen',
+    updatesText: 'Vi kan oppdatere denne retningslinjen fra tid til annen for å gjenspeile endringer i teknologi eller lovgivning. Vi oppfordrer deg til å gjennomgå denne siden jevnlig for den nyeste informasjonen om våre praksiser for informasjonskapsler.',
+    contactTitle: 'Kontakt oss',
+    contactText: 'Hvis du har spørsmål om vår bruk av informasjonskapsler, vennligst kontakt oss på',
+  },
+
   // DPA page
   dpaPage: {
     metaTitle: 'Databehandleravtale',
