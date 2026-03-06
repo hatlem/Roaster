@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { requireRole } from "@/lib/api-utils";
 import { getAutoScheduleJob } from "@/services/autoSchedulerService";
 import { getConsensusDecision } from "@/services/consensus/multiAgentConsensusService";
 
@@ -9,11 +8,7 @@ export async function GET(
   { params }: { params: Promise<{ jobId: string }> }
 ) {
   try {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    await requireRole(["ADMIN", "MANAGER"]);
 
     const { jobId } = await params;
     const job = await getAutoScheduleJob(jobId);
@@ -60,6 +55,12 @@ export async function GET(
       rejectedAt: job.rejectedAt,
     });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (error instanceof Error && error.message === "Forbidden") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
     console.error("Get job error:", error);
     return NextResponse.json(
       { error: "Failed to get job status" },

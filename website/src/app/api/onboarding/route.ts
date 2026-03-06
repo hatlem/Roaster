@@ -79,7 +79,6 @@ export async function POST(request: NextRequest) {
       {
         userId: user.id,
         organizationId: organization.id,
-        magicLinkToken, // Return for auto-sign-in on same session
       },
       201
     );

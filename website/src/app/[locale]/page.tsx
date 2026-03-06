@@ -42,11 +42,11 @@ export default async function LocaleHomePage({ params }: PageProps) {
                 {dict.hero.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={`/${country}/demo`} className="btn-primary group">
+                <Link href="/demo" className="btn-primary group">
                   {dict.nav.startTrial}
                   <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link href={`/${country}/demo`} className="btn-secondary">
+                <Link href="/demo" className="btn-secondary">
                   {dict.nav.scheduleDemo}
                 </Link>
               </div>
@@ -191,7 +191,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
           </div>
           <div className="text-center mt-12">
             <Link
-              href={`/${country}/features`}
+              href="/features"
               className="inline-flex items-center gap-2 text-ink font-semibold hover:text-terracotta transition-colors group"
             >
               {dict.features.seeAll}
@@ -245,14 +245,14 @@ export default async function LocaleHomePage({ params }: PageProps) {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
-              href={`/${country}/demo`}
+              href="/demo"
               className="bg-cream text-ink px-8 py-4 rounded-full text-lg font-semibold hover:bg-cream/90 transition-all hover:scale-105 inline-flex items-center justify-center gap-2 group"
             >
               {dict.nav.startTrial}
               <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href={`/${country}/demo`}
+              href="/demo"
               className="bg-white/10 text-cream px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-all inline-flex items-center justify-center border border-white/20"
             >
               {dict.nav.scheduleDemo}

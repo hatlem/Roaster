@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server"
 import { getStripe } from "@/lib/stripe"
 import { prisma } from "@/lib/db"
-import { getAuthSession, errorResponse } from "@/lib/api-utils"
+import { requireRole, errorResponse } from "@/lib/api-utils"
 
 // POST /api/billing/portal - Create a Stripe Customer Portal session
 export async function POST() {
   try {
-    const session = await getAuthSession()
-    if (!session?.user) {
-      return errorResponse("Unauthorized", 401)
-    }
+    const session = await requireRole(["ADMIN"])
 
     // Get user with organization
     const user = await prisma.user.findUnique({
@@ -28,7 +25,7 @@ export async function POST() {
     }
 
     const stripe = getStripe()
-    const appUrl = process.env.NEXTAUTH_URL || "http://localhost:3001"
+    const appUrl = process.env.NEXTAUTH_URL || "http://localhost:3846"
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: org.stripeCustomerId,
@@ -40,6 +37,12 @@ export async function POST() {
       data: { url: portalSession.url },
     })
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return errorResponse("Unauthorized", 401)
+    }
+    if (error instanceof Error && error.message === "Forbidden") {
+      return errorResponse("Only admins can manage billing", 403)
+    }
     console.error("[billing/portal] Error:", error)
     return errorResponse("Failed to create portal session", 500)
   }

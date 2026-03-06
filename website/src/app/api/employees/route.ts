@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
 // POST /api/employees - Create employee
 export async function POST(request: NextRequest) {
   try {
-    await requireRole(["ADMIN", "MANAGER"]);
+    const session = await requireRole(["ADMIN", "MANAGER"]);
 
     const body = await request.json();
     const {
@@ -98,6 +98,17 @@ export async function POST(request: NextRequest) {
 
     if (!email || !firstName || !lastName) {
       return errorResponse("Missing required fields: email, firstName, lastName");
+    }
+
+    // Validate role is a valid enum value
+    const validRoles = ["ADMIN", "MANAGER", "REPRESENTATIVE", "EMPLOYEE"];
+    if (!validRoles.includes(role)) {
+      return errorResponse("Invalid role");
+    }
+
+    // Managers cannot create admins
+    if (session.user.role === "MANAGER" && role === "ADMIN") {
+      return errorResponse("Managers cannot create admin users", 403);
     }
 
     // Check if email already exists

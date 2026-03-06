@@ -24,31 +24,31 @@ export function LocalizedHeader({ dictionary, locale, country }: LocalizedHeader
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <Link
-              href={`/${country}/features`}
+              href="/features"
               className="text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.features}
             </Link>
             <Link
-              href={`/${country}/pricing`}
+              href="/pricing"
               className="text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.pricing}
             </Link>
             <Link
-              href={`/${country}/industries`}
+              href="/industries"
               className="text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.industries}
             </Link>
             <Link
-              href={`/${country}/customers`}
+              href="/customers"
               className="text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.customers}
             </Link>
             <Link
-              href={`/${country}/about`}
+              href="/about"
               className="text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.about}
@@ -59,13 +59,13 @@ export function LocalizedHeader({ dictionary, locale, country }: LocalizedHeader
           <div className="flex items-center gap-4">
             <LanguageSwitcher currentLocale={locale} />
             <Link
-              href={`/${country}/login`}
+              href="/login"
               className="hidden md:block text-sm font-medium text-ink/70 hover:text-ink transition-colors"
             >
               {nav.login}
             </Link>
             <Link
-              href={`/${country}/demo`}
+              href="/demo"
               className="bg-ink text-cream px-4 py-2 rounded-full text-sm font-semibold hover:bg-ink/90 transition-colors"
             >
               {nav.startTrial}

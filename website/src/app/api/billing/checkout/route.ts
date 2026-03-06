@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getStripe, STRIPE_PRICE_IDS } from "@/lib/stripe"
 import { prisma } from "@/lib/db"
-import { getAuthSession, errorResponse } from "@/lib/api-utils"
+import { requireRole, errorResponse } from "@/lib/api-utils"
 
 // POST /api/billing/checkout - Create a Stripe Checkout session
 export async function POST(request: NextRequest) {
   try {
-    const session = await getAuthSession()
-    if (!session?.user) {
-      return errorResponse("Unauthorized", 401)
-    }
+    const session = await requireRole(["ADMIN"])
 
     const { plan } = await request.json()
 
-    if (!plan || !STRIPE_PRICE_IDS[plan]) {
+    if (!plan || !["starter", "professional"].includes(plan)) {
       return errorResponse("Invalid plan. Choose 'starter' or 'professional'.")
     }
 
@@ -56,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build the Checkout session
-    const appUrl = process.env.NEXTAUTH_URL || "http://localhost:3001"
+    const appUrl = process.env.NEXTAUTH_URL || "http://localhost:3846"
 
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
@@ -90,6 +87,12 @@ export async function POST(request: NextRequest) {
       data: { url: checkoutSession.url },
     })
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return errorResponse("Unauthorized", 401)
+    }
+    if (error instanceof Error && error.message === "Forbidden") {
+      return errorResponse("Only admins can manage billing", 403)
+    }
     console.error("[billing/checkout] Error:", error)
     return errorResponse("Failed to create checkout session", 500)
   }
