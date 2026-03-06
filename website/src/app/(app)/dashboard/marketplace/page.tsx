@@ -4,12 +4,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { ClaimButton } from "@/components/marketplace/ClaimButton";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Shift Marketplace",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.marketplace.title };
+}
 
 async function getAvailableListings(organizationId: string, userId: string) {
   try {
@@ -17,7 +21,7 @@ async function getAvailableListings(organizationId: string, userId: string) {
       where: {
         status: "AVAILABLE",
         availableUntil: { gt: new Date() },
-        postedBy: { not: userId }, // Don't show own listings
+        postedBy: { not: userId },
         shift: {
           roster: { organizationId },
         },
@@ -64,6 +68,11 @@ export default async function MarketplacePage() {
     redirect("/dashboard");
   }
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.marketplace;
+  const cd = dict.dashboard.components;
+
   const listings = await getAvailableListings(user.organizationId, session.user.id);
   const isManager = ["ADMIN", "MANAGER"].includes(user.role);
 
@@ -72,8 +81,8 @@ export default async function MarketplacePage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-display text-4xl mb-2">Shift Marketplace</h1>
-            <p className="text-ink/60">Find and claim available shifts</p>
+            <h1 className="font-display text-4xl mb-2">{d.title}</h1>
+            <p className="text-ink/60">{d.subtitle}</p>
           </div>
           <div className="flex gap-3">
             <Link
@@ -81,7 +90,7 @@ export default async function MarketplacePage() {
               className="px-4 py-2 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors flex items-center gap-2"
             >
               <i className="fas fa-list" />
-              My Requests
+              {d.myRequests}
             </Link>
             {isManager && (
               <Link
@@ -89,7 +98,7 @@ export default async function MarketplacePage() {
                 className="px-4 py-2 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2"
               >
                 <i className="fas fa-check-circle" />
-                Approvals
+                {d.approvals}
               </Link>
             )}
           </div>
@@ -100,15 +109,15 @@ export default async function MarketplacePage() {
       <div className="flex gap-4 mb-6">
         <div className="flex items-center gap-2 text-sm">
           <span className="w-3 h-3 rounded-full bg-forest" />
-          <span className="text-ink/60">Sell - Anyone can claim</span>
+          <span className="text-ink/60">{d.sellMode}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <span className="w-3 h-3 rounded-full bg-ocean" />
-          <span className="text-ink/60">Swap - Exchange shifts</span>
+          <span className="text-ink/60">{d.swapMode}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <span className="w-3 h-3 rounded-full bg-gold" />
-          <span className="text-ink/60">Handover - Specific person</span>
+          <span className="text-ink/60">{d.handoverMode}</span>
         </div>
       </div>
 
@@ -116,9 +125,9 @@ export default async function MarketplacePage() {
       {listings.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 border border-stone/50 text-center">
           <i className="fas fa-store text-4xl mb-4 text-stone" />
-          <p className="text-lg font-medium mb-2">No shifts available</p>
+          <p className="text-lg font-medium mb-2">{d.noShiftsAvailable}</p>
           <p className="text-ink/60">
-            When coworkers post shifts to the marketplace, they&apos;ll appear here
+            {d.noShiftsAvailableDesc}
           </p>
         </div>
       ) : (
@@ -149,7 +158,7 @@ export default async function MarketplacePage() {
                     {listing.mode}
                   </span>
                   <span className="text-xs text-ink/60">
-                    Expires{" "}
+                    {d.expires}{" "}
                     {new Date(listing.availableUntil).toLocaleDateString("en-GB")}
                   </span>
                 </div>
@@ -203,7 +212,7 @@ export default async function MarketplacePage() {
                 )}
 
                 {/* Claim Button */}
-                <ClaimButton listingId={listing.id} />
+                <ClaimButton listingId={listing.id} dictionary={cd.claimButton} />
               </div>
             );
           })}

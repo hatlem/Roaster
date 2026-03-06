@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Calendar, Users, FileText, Clock } from "lucide-react";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Dashboard",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.home.title };
+}
 
 async function getDashboardData() {
   try {
@@ -36,40 +40,43 @@ async function getDashboardData() {
   }
 }
 
-// Setup steps for new users
-const setupSteps = [
-  {
-    id: "add-employees",
-    title: "Add your employees",
-    description: "Import or create employee profiles",
-    href: "/dashboard/employees/new",
-    icon: Users,
-  },
-  {
-    id: "create-roster",
-    title: "Create your first roster",
-    description: "Set up a work schedule for your team",
-    href: "/dashboard/rosters/new",
-    icon: Calendar,
-  },
-  {
-    id: "check-compliance",
-    title: "Run compliance check",
-    description: "Verify rest periods and working time rules",
-    href: "/dashboard/compliance",
-    icon: FileText,
-  },
-  {
-    id: "publish-roster",
-    title: "Publish to employees",
-    description: "Share the schedule with your team",
-    href: "/dashboard/rosters",
-    icon: Clock,
-  },
-];
-
 export default async function DashboardPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.home;
   const { hasEmployees, hasRosters, hasPublished } = await getDashboardData();
+
+  // Setup steps for new users
+  const setupSteps = [
+    {
+      id: "add-employees",
+      title: d.addEmployeesTitle,
+      description: d.addEmployeesDescription,
+      href: "/dashboard/employees/new",
+      icon: Users,
+    },
+    {
+      id: "create-roster",
+      title: d.createRosterTitle,
+      description: d.createRosterDescription,
+      href: "/dashboard/rosters/new",
+      icon: Calendar,
+    },
+    {
+      id: "check-compliance",
+      title: d.checkComplianceTitle,
+      description: d.checkComplianceDescription,
+      href: "/dashboard/compliance",
+      icon: FileText,
+    },
+    {
+      id: "publish-roster",
+      title: d.publishRosterTitle,
+      description: d.publishRosterDescription,
+      href: "/dashboard/rosters",
+      icon: Clock,
+    },
+  ];
 
   // Calculate completion status
   const stepsWithCompletion = setupSteps.map((step, index) => ({
@@ -90,11 +97,11 @@ export default async function DashboardPage() {
     <div className="p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="font-display text-4xl mb-2">Dashboard</h1>
+        <h1 className="font-display text-4xl mb-2">{d.title}</h1>
         <p className="text-ink/60">
           {isSetupComplete
-            ? "Your rosters are compliant and published."
-            : "Get started with Roaster to ensure compliance."}
+            ? d.completeMessage
+            : d.incompleteMessage}
         </p>
       </div>
 
@@ -103,12 +110,12 @@ export default async function DashboardPage() {
         <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="font-display text-xl">Get started with Roaster</h2>
-              <p className="text-ink/60 text-sm">Complete these steps to ensure working time compliance</p>
+              <h2 className="font-display text-xl">{d.getStarted}</h2>
+              <p className="text-ink/60 text-sm">{d.completeSteps}</p>
             </div>
             <div className="text-right">
               <p className="text-2xl font-display text-forest">{completedSteps}/{totalSteps}</p>
-              <p className="text-xs text-ink/60">steps complete</p>
+              <p className="text-xs text-ink/60">{d.stepsComplete}</p>
             </div>
           </div>
           <div className="h-2 bg-stone/30 rounded-full overflow-hidden">
@@ -128,16 +135,16 @@ export default async function DashboardPage() {
               <CheckCircle2 className="w-6 h-6 text-forest" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-forest">You're all set!</p>
+              <p className="font-semibold text-forest">{d.allSet}</p>
               <p className="text-sm text-ink/60">
-                Your team has compliant schedules. Monitor compliance status below.
+                {d.allSetDescription}
               </p>
             </div>
             <Link
               href="/dashboard/compliance"
               className="px-4 py-2 bg-forest text-white rounded-lg font-medium hover:bg-forest/90 transition-colors flex items-center gap-2"
             >
-              View Compliance
+              {d.viewCompliance}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -152,14 +159,14 @@ export default async function DashboardPage() {
               <nextStep.icon className="w-6 h-6 text-ocean" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold">Next: {nextStep.title}</p>
+              <p className="font-semibold">{d.next} {nextStep.title}</p>
               <p className="text-sm text-ink/60">{nextStep.description}</p>
             </div>
             <Link
               href={nextStep.href}
               className="px-4 py-2 bg-ocean text-white rounded-lg font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2"
             >
-              Get Started
+              {d.getStartedButton}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -170,8 +177,8 @@ export default async function DashboardPage() {
       {!isSetupComplete && (
         <div className="bg-white rounded-2xl border border-stone/50 mb-8">
           <div className="p-6 border-b border-stone/30">
-            <h2 className="font-display text-xl">Setup checklist</h2>
-            <p className="text-ink/60 text-sm">Complete each step to activate compliance monitoring</p>
+            <h2 className="font-display text-xl">{d.setupChecklist}</h2>
+            <p className="text-ink/60 text-sm">{d.setupChecklistDescription}</p>
           </div>
           <div className="p-4 space-y-2">
             {stepsWithCompletion.map((step, index) => {
@@ -226,8 +233,8 @@ export default async function DashboardPage() {
               <Calendar className="w-6 h-6 text-ocean" />
             </div>
             <div>
-              <p className="font-semibold">Create New Roster</p>
-              <p className="text-sm text-ink/60">Schedule for a new period</p>
+              <p className="font-semibold">{d.createNewRoster}</p>
+              <p className="text-sm text-ink/60">{d.scheduleNewPeriod}</p>
             </div>
           </Link>
           <Link
@@ -238,8 +245,8 @@ export default async function DashboardPage() {
               <Users className="w-6 h-6 text-forest" />
             </div>
             <div>
-              <p className="font-semibold">Add Employee</p>
-              <p className="text-sm text-ink/60">Onboard a new team member</p>
+              <p className="font-semibold">{d.addEmployee}</p>
+              <p className="text-sm text-ink/60">{d.onboardNewMember}</p>
             </div>
           </Link>
           <Link
@@ -250,8 +257,8 @@ export default async function DashboardPage() {
               <FileText className="w-6 h-6 text-terracotta" />
             </div>
             <div>
-              <p className="font-semibold">Compliance Report</p>
-              <p className="text-sm text-ink/60">Generate documentation</p>
+              <p className="font-semibold">{d.complianceReport}</p>
+              <p className="text-sm text-ink/60">{d.generateDocumentation}</p>
             </div>
           </Link>
           <Link
@@ -262,8 +269,8 @@ export default async function DashboardPage() {
               <Clock className="w-6 h-6 text-gold" />
             </div>
             <div>
-              <p className="font-semibold">Shift Marketplace</p>
-              <p className="text-sm text-ink/60">Manage shift swaps</p>
+              <p className="font-semibold">{d.shiftMarketplace}</p>
+              <p className="text-sm text-ink/60">{d.manageShiftSwaps}</p>
             </div>
           </Link>
         </div>

@@ -1,46 +1,71 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { features, navigation } from "@/content";
+import { navigation, pricing } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const metadata = {
-  title: "How it works",
-  description: "Automatic compliance with Norwegian working time regulations",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return {
+    title: dict.featuresPage.metaTitle,
+    description: dict.featuresPage.metaDescription,
+  };
+}
 
-export default function FeaturesPage() {
+export default async function FeaturesPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 px-6 lg:px-8">
+      <section className="relative pt-36 pb-20 px-6 lg:px-8 overflow-hidden grain">
+        <div
+          className="warm-orb w-[500px] h-[500px] -top-40 right-[-200px]"
+          style={{ background: "radial-gradient(circle, var(--forest), transparent)" }}
+        />
+
         <div className="max-w-3xl mx-auto">
-          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
-            {features.hero.title}
-          </h1>
-          <p className="text-xl text-ink/60 leading-relaxed">
-            {features.hero.subtitle}
+          <p className="text-forest mb-4 tracking-widest uppercase text-xs font-semibold animate-fade-up">
+            {dict.featuresPage.tagline}
           </p>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6 animate-fade-up delay-1">
+            {dict.featuresPage.metaTitle}
+          </h1>
+          <p className="text-xl text-ink/55 leading-relaxed animate-fade-up delay-2">
+            {dict.featuresPage.metaDescription}
+          </p>
+        </div>
+
+        <div className="max-w-3xl mx-auto mt-16">
+          <div className="accent-line animate-line-reveal delay-4" />
         </div>
       </section>
 
-      {/* The rules section */}
-      <section className="py-16 px-6 lg:px-8 border-t border-stone">
+      {/* The rules section — editorial grid */}
+      <section className="py-24 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/50 mb-10">
-            Arbeidsmiljøloven compliance
-          </h2>
+          <p className="text-terracotta mb-12 tracking-widest uppercase text-xs font-semibold">
+            {dict.featuresPage.complianceTagline}
+          </p>
 
-          <div className="space-y-12">
-            {features.rules.map((rule) => (
-              <div key={rule.id} className="grid md:grid-cols-12 gap-6 pb-12 border-b border-stone/50 last:border-0">
+          <div className="space-y-0">
+            {dict.content.rules.map((rule, index) => (
+              <div key={index} className="group grid md:grid-cols-12 gap-6 py-10 border-t border-stone/60 last:border-b">
                 <div className="md:col-span-2">
-                  <span className="font-mono text-terracotta font-medium">{rule.law}</span>
+                  <span className="font-mono text-terracotta font-medium rule-number">{rule.law}</span>
                 </div>
                 <div className="md:col-span-4">
-                  <h3 className="font-display text-2xl mb-2">{rule.title}</h3>
+                  <h3 className="font-display text-2xl mb-2 group-hover:text-terracotta transition-colors duration-300">
+                    {rule.title}
+                  </h3>
                 </div>
                 <div className="md:col-span-6">
-                  <p className="text-ink/60 mb-3">{rule.description}</p>
-                  <p className="text-sm text-ink/40">
-                    <span className="text-terracotta">→</span> {rule.consequence}
+                  <p className="text-ink/55 mb-3 leading-relaxed">{rule.description}</p>
+                  <p className="text-sm text-ink/35 flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-terracotta" />
+                    {rule.consequence}
                   </p>
                 </div>
               </div>
@@ -49,24 +74,34 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Product features */}
-      <section className="py-20 px-6 lg:px-8 bg-ink text-cream">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-cream/50 mb-10">
-            Product features
-          </h2>
+      {/* Product features — dark section with cards */}
+      <section className="relative py-24 px-6 lg:px-8 bg-warm-dark text-cream overflow-hidden grain">
+        <div
+          className="warm-orb w-[600px] h-[600px] -top-60 left-[-200px]"
+          style={{ background: "radial-gradient(circle, var(--ocean), transparent)", opacity: 0.08 }}
+        />
 
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
-            {features.main.map((feature) => (
-              <div key={feature.id}>
+        <div className="max-w-6xl mx-auto">
+          <p className="text-ocean mb-12 tracking-widest uppercase text-xs font-semibold">
+            {dict.featuresPage.productFeatures}
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {dict.content.mainFeatures.map((feature, index) => (
+              <div
+                key={index}
+                className="group p-7 rounded-xl border border-cream/8 hover:border-cream/15 hover:bg-cream/[0.03] transition-all duration-300"
+              >
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
                   style={{ backgroundColor: `var(--${feature.color})` }}
                 >
-                  <i className={`fas fa-${feature.icon} text-cream`} />
+                  <i className={`fas fa-${feature.icon} text-cream text-sm`} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-cream/60 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-terracotta transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-cream/50 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -74,20 +109,28 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 lg:px-8">
+      <section className="relative py-28 px-6 lg:px-8 overflow-hidden grain">
+        <div
+          className="warm-orb w-[400px] h-[400px] top-[-100px] right-[-100px]"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)", animationDelay: "-7s" }}
+        />
+
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
-            Try it free for 14 days
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6">
+            {dict.common.tryFreeForDays.replace('{days}', String(pricing.trial.days))}
           </h2>
-          <p className="text-xl text-ink/60 mb-8">
-            Set up takes 10 minutes. No credit card required.
+          <p className="text-xl text-ink/55 mb-10">
+            {dict.featuresPage.setupTime}
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href={navigation.cta.primary.href} className="btn-primary">
-              {navigation.cta.primary.name}
+              {dict.common.startFreeTrial}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
             <Link href={navigation.cta.secondary.href} className="btn-secondary">
-              {navigation.cta.secondary.name}
+              {dict.common.bookADemo}
             </Link>
           </div>
         </div>

@@ -3,12 +3,16 @@ import { prisma } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "My Shift Requests",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.marketplace.myRequestsTitle };
+}
 
 async function getMyListings(userId: string) {
   try {
@@ -18,26 +22,15 @@ async function getMyListings(userId: string) {
         shift: {
           include: {
             user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-              },
+              select: { id: true, firstName: true, lastName: true },
             },
             roster: {
-              select: {
-                id: true,
-                name: true,
-              },
+              select: { id: true, name: true },
             },
           },
         },
         claimedByUser: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-          },
+          select: { id: true, firstName: true, lastName: true },
         },
       },
       orderBy: { postedAt: "desc" },
@@ -55,17 +48,10 @@ async function getMyClaimedShifts(userId: string) {
         shift: {
           include: {
             user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-              },
+              select: { id: true, firstName: true, lastName: true },
             },
             roster: {
-              select: {
-                id: true,
-                name: true,
-              },
+              select: { id: true, name: true },
             },
           },
         },
@@ -84,6 +70,10 @@ export default async function MyRequestsPage() {
     redirect("/login");
   }
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.marketplace;
+
   const [myListings, claimedShifts] = await Promise.all([
     getMyListings(session.user.id),
     getMyClaimedShifts(session.user.id),
@@ -97,30 +87,30 @@ export default async function MyRequestsPage() {
           className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4"
         >
           <i className="fas fa-arrow-left" />
-          Back to Marketplace
+          {d.backToMarketplace}
         </Link>
-        <h1 className="font-display text-4xl mb-2">My Shift Requests</h1>
-        <p className="text-ink/60">Shifts you&apos;ve posted and claimed</p>
+        <h1 className="font-display text-4xl mb-2">{d.myRequestsTitle}</h1>
+        <p className="text-ink/60">{d.myRequestsSubtitle}</p>
       </div>
 
       {/* Shifts I've Posted */}
       <div className="mb-8">
-        <h2 className="font-display text-xl mb-4">Shifts I&apos;ve Posted</h2>
+        <h2 className="font-display text-xl mb-4">{d.shiftsPosted}</h2>
         {myListings.length === 0 ? (
           <div className="bg-white rounded-2xl p-8 border border-stone/50 text-center">
             <i className="fas fa-upload text-3xl mb-3 text-stone" />
-            <p className="text-ink/60">You haven&apos;t posted any shifts</p>
+            <p className="text-ink/60">{d.noShiftsPosted}</p>
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden">
             <table className="w-full">
               <thead className="bg-cream border-b border-stone/50">
                 <tr>
-                  <th className="text-left p-4 font-semibold text-sm">Shift</th>
-                  <th className="text-left p-4 font-semibold text-sm">Mode</th>
-                  <th className="text-left p-4 font-semibold text-sm">Claimed By</th>
-                  <th className="text-left p-4 font-semibold text-sm">Status</th>
-                  <th className="text-left p-4 font-semibold text-sm">Expires</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.shift}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.mode}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.claimedBy}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.statusLabel || 'Status'}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.expiresLabel}</th>
                 </tr>
               </thead>
               <tbody>
@@ -212,22 +202,22 @@ export default async function MyRequestsPage() {
 
       {/* Shifts I've Claimed */}
       <div>
-        <h2 className="font-display text-xl mb-4">Shifts I&apos;ve Claimed</h2>
+        <h2 className="font-display text-xl mb-4">{d.shiftsClaimed}</h2>
         {claimedShifts.length === 0 ? (
           <div className="bg-white rounded-2xl p-8 border border-stone/50 text-center">
             <i className="fas fa-hand-paper text-3xl mb-3 text-stone" />
-            <p className="text-ink/60">You haven&apos;t claimed any shifts</p>
+            <p className="text-ink/60">{d.noShiftsClaimed}</p>
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden">
             <table className="w-full">
               <thead className="bg-cream border-b border-stone/50">
                 <tr>
-                  <th className="text-left p-4 font-semibold text-sm">Shift</th>
-                  <th className="text-left p-4 font-semibold text-sm">Original Owner</th>
-                  <th className="text-left p-4 font-semibold text-sm">Roster</th>
-                  <th className="text-left p-4 font-semibold text-sm">Status</th>
-                  <th className="text-left p-4 font-semibold text-sm">Claimed</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.shift}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.originalOwner}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.rosterLabel}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.statusLabel || 'Status'}</th>
+                  <th className="text-left p-4 font-semibold text-sm">{d.claimed}</th>
                 </tr>
               </thead>
               <tbody>
@@ -287,7 +277,7 @@ export default async function MyRequestsPage() {
                           }`}
                         >
                           {listing.status === "CLAIMED"
-                            ? "Pending Approval"
+                            ? d.pendingApproval
                             : listing.status}
                         </span>
                       </td>

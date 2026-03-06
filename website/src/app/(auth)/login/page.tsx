@@ -1,14 +1,20 @@
 import { Suspense } from "react";
 import LoginForm from "./login-form";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const metadata = {
-  title: "Login",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.auth.login.metaTitle };
+}
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   return (
     <Suspense fallback={<LoginFormSkeleton />}>
-      <LoginForm />
+      <LoginForm dictionary={dict} />
     </Suspense>
   );
 }

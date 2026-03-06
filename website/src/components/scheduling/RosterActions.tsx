@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AutoScheduleModal } from "./AutoScheduleModal";
 import { ScheduleReviewPanel } from "./ScheduleReviewPanel";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface RosterActionsProps {
   rosterId: string;
   rosterName: string;
   status: string;
   hasShifts: boolean;
+  dictionary: Dictionary["dashboard"]["components"];
 }
 
 export function RosterActions({
@@ -17,10 +19,12 @@ export function RosterActions({
   rosterName,
   status,
   hasShifts,
+  dictionary,
 }: RosterActionsProps) {
   const router = useRouter();
   const [showAutoScheduleModal, setShowAutoScheduleModal] = useState(false);
   const [activeJobId, setActiveJobId] = useState<string | null>(null);
+  const d = dictionary.rosterActions;
 
   const handleAutoScheduleSuccess = (jobId: string) => {
     setShowAutoScheduleModal(false);
@@ -49,12 +53,12 @@ export function RosterActions({
             className="bg-forest text-white px-4 py-2 rounded-xl font-medium hover:bg-forest/90 transition-colors flex items-center gap-2"
           >
             <i className="fas fa-magic" />
-            AI Auto-Schedule
+            {d.aiAutoSchedule}
           </button>
         )}
         <button className="bg-ocean text-white px-4 py-2 rounded-xl font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2">
           <i className="fas fa-plus" />
-          Add Shift
+          {d.addShift}
         </button>
       </div>
 
@@ -65,6 +69,7 @@ export function RosterActions({
         isOpen={showAutoScheduleModal}
         onClose={() => setShowAutoScheduleModal(false)}
         onSuccess={handleAutoScheduleSuccess}
+        dictionary={dictionary.autoSchedule}
       />
 
       {/* Schedule Review Panel */}
@@ -74,6 +79,7 @@ export function RosterActions({
           onApply={handleScheduleApplied}
           onReject={handleScheduleRejected}
           onClose={() => setActiveJobId(null)}
+          dictionary={dictionary.scheduleReview}
         />
       )}
     </>

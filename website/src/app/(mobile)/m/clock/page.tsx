@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useDictionary } from "@/components/DictionaryProvider";
 
 interface ClockStatus {
   isClockedIn: boolean;
@@ -15,6 +16,9 @@ interface GeoPosition {
 }
 
 export default function ClockPage() {
+  const { dictionary: dict, locale } = useDictionary();
+  const t = dict.mobile.clock;
+
   const [status, setStatus] = useState<ClockStatus>({
     isClockedIn: false,
     clockInTime: null,
@@ -76,10 +80,10 @@ export default function ClockPage() {
           setGeoLoading(false);
           const message =
             err.code === 1
-              ? "Location access denied. Please enable location services."
+              ? t.locationDenied
               : err.code === 2
-                ? "Location unavailable. Please try again."
-                : "Location request timed out. Please try again.";
+                ? t.locationUnavailable
+                : t.locationTimeout;
           setGeoError(message);
           reject(new Error(message));
         },
@@ -142,13 +146,13 @@ export default function ClockPage() {
       {/* Current Time */}
       <div className="text-center mb-8">
         <p className="text-5xl font-display">
-          {currentTime.toLocaleTimeString("en-GB", {
+          {currentTime.toLocaleTimeString(locale, {
             hour: "2-digit",
             minute: "2-digit",
           })}
         </p>
         <p className="text-ink/60">
-          {currentTime.toLocaleDateString("en-GB", {
+          {currentTime.toLocaleDateString(locale, {
             weekday: "long",
             day: "numeric",
             month: "long",
@@ -172,7 +176,7 @@ export default function ClockPage() {
               }`}
             />
             <span className="font-medium">
-              {status.isClockedIn ? "Currently Working" : "Not Clocked In"}
+              {status.isClockedIn ? t.currentlyWorking : t.notClockedIn}
             </span>
           </div>
           {status.isClockedIn && (
@@ -184,8 +188,8 @@ export default function ClockPage() {
 
         {status.isClockedIn && status.clockInTime && (
           <p className="text-sm text-ink/60">
-            Clocked in at{" "}
-            {new Date(status.clockInTime).toLocaleTimeString("en-GB", {
+            {t.clockedInAt}{" "}
+            {new Date(status.clockInTime).toLocaleTimeString(locale, {
               hour: "2-digit",
               minute: "2-digit",
             })}
@@ -208,7 +212,7 @@ export default function ClockPage() {
             <>
               <i className="fas fa-spinner fa-spin text-4xl mb-2" />
               <span className="text-lg">
-                {geoLoading ? "Getting Location..." : "Processing..."}
+                {geoLoading ? t.gettingLocation : t.processing}
               </span>
             </>
           ) : (
@@ -217,7 +221,7 @@ export default function ClockPage() {
                 className={`fas ${status.isClockedIn ? "fa-stop" : "fa-play"} text-4xl mb-2`}
               />
               <span className="text-xl font-semibold">
-                {status.isClockedIn ? "Clock Out" : "Clock In"}
+                {status.isClockedIn ? t.clockOut : t.clockIn}
               </span>
             </>
           )}
@@ -230,9 +234,9 @@ export default function ClockPage() {
           <div className="flex items-center gap-3">
             <i className="fas fa-map-marker-alt text-ocean" />
             <div className="flex-1">
-              <p className="text-sm font-medium">Location Acquired</p>
+              <p className="text-sm font-medium">{t.locationAcquired}</p>
               <p className="text-xs text-ink/60">
-                Accuracy: {Math.round(position.accuracy)}m
+                {t.accuracy}: {Math.round(position.accuracy)}m
               </p>
             </div>
             <i className="fas fa-check-circle text-forest" />
@@ -247,7 +251,7 @@ export default function ClockPage() {
             <i className="fas fa-exclamation-triangle text-terracotta mt-0.5" />
             <div>
               <p className="text-sm font-medium text-terracotta">
-                Location Error
+                {t.locationError}
               </p>
               <p className="text-xs text-ink/60">{geoError}</p>
             </div>
@@ -259,7 +263,7 @@ export default function ClockPage() {
       <div className="bg-white rounded-xl p-4 border border-stone/30">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-ink/60">Today&apos;s Hours</p>
+            <p className="text-sm text-ink/60">{t.todaysHours}</p>
             <p className="text-2xl font-display">
               {status.todayHours.toFixed(1)}h
             </p>

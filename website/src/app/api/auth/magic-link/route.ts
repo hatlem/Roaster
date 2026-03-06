@@ -2,11 +2,18 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse } from "@/lib/api-utils";
 import { sendMagicLinkEmail } from "@/lib/email";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { randomBytes } from "crypto";
 
 // POST /api/auth/magic-link - Request magic link for login
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { allowed, resetIn } = checkRateLimit(`magic-link:${ip}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+    }
+
     const { email } = await request.json();
 
     if (!email) {

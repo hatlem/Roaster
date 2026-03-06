@@ -1,12 +1,22 @@
 import Link from "next/link";
-import { testimonials, complianceStats, navigation } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
+import { testimonials, complianceStats } from "@/content";
+import { pricing } from "@/content";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Customers",
-  description: "See how Norwegian businesses are succeeding with Roaster.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return {
+    title: dict.customersPage.metaTitle,
+    description: dict.customersPage.metaDescription,
+  };
+}
 
-export default function CustomersPage() {
+export default async function CustomersPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   const featuredTestimonial = testimonials.find((t) => t.featured);
   const otherTestimonials = testimonials.filter((t) => !t.featured);
 
@@ -17,13 +27,13 @@ export default function CustomersPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <span className="feature-tag mb-6 inline-block">
             <span className="w-2 h-2 bg-forest rounded-full mr-2" />
-            Customer Stories
+            {dict.customersPage.tagline}
           </span>
           <h1 className="font-display text-5xl md:text-7xl mb-6">
-            Trusted by Norwegian businesses
+            {dict.customersPage.title}
           </h1>
           <p className="text-xl text-ink/60 max-w-2xl mx-auto">
-            See how businesses like yours are automating compliance and saving time.
+            {dict.customersPage.subtitle}
           </p>
         </div>
       </section>
@@ -35,19 +45,19 @@ export default function CustomersPage() {
             <div className="grid md:grid-cols-4 gap-8 text-center">
               <div>
                 <p className="font-display text-5xl mb-2">{complianceStats.customersCount}</p>
-                <p className="text-cream/60">Businesses</p>
+                <p className="text-cream/60">{dict.customersPage.businesses}</p>
               </div>
               <div>
                 <p className="font-display text-5xl mb-2">{complianceStats.employeesScheduled}</p>
-                <p className="text-cream/60">Employees scheduled</p>
+                <p className="text-cream/60">{dict.customersPage.employeesScheduled}</p>
               </div>
               <div>
                 <p className="font-display text-5xl text-terracotta mb-2">{complianceStats.complianceRate}</p>
-                <p className="text-cream/60">Compliance rate</p>
+                <p className="text-cream/60">{dict.customersPage.complianceRate}</p>
               </div>
               <div>
                 <p className="font-display text-5xl text-forest mb-2">{complianceStats.timeSaved}</p>
-                <p className="text-cream/60">Time saved</p>
+                <p className="text-cream/60">{dict.customersPage.timeSaved}</p>
               </div>
             </div>
           </div>
@@ -85,7 +95,7 @@ export default function CustomersPage() {
       <section className="py-24 bg-cream relative noise-bg">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-display text-5xl mb-4">What our customers say</h2>
+            <h2 className="font-display text-5xl mb-4">{dict.customersPage.whatCustomersSay}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {otherTestimonials.map((testimonial) => (
@@ -118,18 +128,18 @@ export default function CustomersPage() {
       <section className="py-24 bg-ink text-cream relative overflow-hidden noise-bg">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="font-display text-5xl mb-6">
-            Join our growing community
+            {dict.customersPage.joinCommunity}
           </h2>
           <p className="text-xl text-cream/60 mb-10">
-            Start your free 14-day trial today.
+            {dict.common.startTrialToday.replace('{days}', String(pricing.trial.days))}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href={navigation.cta.primary.href} className="bg-cream text-ink px-8 py-4 rounded-full font-semibold hover:bg-cream/90 transition-all inline-flex items-center justify-center gap-2">
-              {navigation.cta.primary.name}
+            <Link href="/onboarding" className="bg-cream text-ink px-8 py-4 rounded-full font-semibold hover:bg-cream/90 transition-all inline-flex items-center justify-center gap-2">
+              {dict.common.startFreeTrial}
               <i className="fas fa-arrow-right" />
             </Link>
-            <Link href={navigation.cta.secondary.href} className="bg-white/10 text-cream px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all border border-white/20">
-              {navigation.cta.secondary.name}
+            <Link href="/demo" className="bg-white/10 text-cream px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all border border-white/20">
+              {dict.common.bookADemo}
             </Link>
           </div>
         </div>

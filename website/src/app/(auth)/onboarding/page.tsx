@@ -1,10 +1,16 @@
 import { Suspense } from "react";
 import OnboardingForm from "./onboarding-form";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const metadata = {
-  title: "Get Started",
-  description: "Create your Roaster account and start your free trial.",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return {
+    title: dict.auth.onboarding.metaTitle,
+    description: dict.auth.onboarding.metaDescription,
+  };
+}
 
 function OnboardingFormSkeleton() {
   return (
@@ -19,10 +25,12 @@ function OnboardingFormSkeleton() {
   );
 }
 
-export default function OnboardingPage() {
+export default async function OnboardingPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   return (
     <Suspense fallback={<OnboardingFormSkeleton />}>
-      <OnboardingForm />
+      <OnboardingForm dictionary={dict} />
     </Suspense>
   );
 }

@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { company } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   return (
     <div className="min-h-screen bg-cream flex flex-col">
       {/* Simple header */}
@@ -27,7 +32,7 @@ export default function AuthLayout({
 
       {/* Simple footer */}
       <footer className="p-6 text-center text-ink/40 text-sm">
-        &copy; {company.year} {company.name}. All rights reserved.
+        &copy; {company.year} {company.name}. {dict.auth.layout.allRightsReserved}
       </footer>
     </div>
   );

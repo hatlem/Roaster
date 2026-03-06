@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -40,13 +42,17 @@ export default async function MobileHomePage() {
 
   const upcomingShifts = await getUpcomingShifts(session.user.id);
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const t = dict.mobile.home;
+
   const today = new Date();
   const greeting =
     today.getHours() < 12
-      ? "Good morning"
+      ? t.goodMorning
       : today.getHours() < 18
-        ? "Good afternoon"
-        : "Good evening";
+        ? t.goodAfternoon
+        : t.goodEvening;
 
   return (
     <div className="p-4">
@@ -65,28 +71,28 @@ export default async function MobileHomePage() {
           className="bg-forest text-white rounded-2xl p-4 flex flex-col items-center justify-center min-h-[100px]"
         >
           <i className="fas fa-play-circle text-3xl mb-2" />
-          <span className="font-medium">Clock In</span>
+          <span className="font-medium">{t.clockIn}</span>
         </Link>
         <Link
           href="/m/time-off/new"
           className="bg-ocean text-white rounded-2xl p-4 flex flex-col items-center justify-center min-h-[100px]"
         >
           <i className="fas fa-umbrella-beach text-3xl mb-2" />
-          <span className="font-medium">Request Time Off</span>
+          <span className="font-medium">{t.requestTimeOff}</span>
         </Link>
       </div>
 
       {/* Upcoming Shifts */}
       <div className="bg-white rounded-2xl p-4 border border-stone/30 mb-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold">Upcoming Shifts</h2>
+          <h2 className="font-semibold">{t.upcomingShifts}</h2>
           <Link href="/m/schedule" className="text-ocean text-sm">
-            View All
+            {t.viewAll}
           </Link>
         </div>
 
         {upcomingShifts.length === 0 ? (
-          <p className="text-ink/60 text-center py-4">No upcoming shifts</p>
+          <p className="text-ink/60 text-center py-4">{t.noUpcomingShifts}</p>
         ) : (
           <div className="space-y-3">
             {upcomingShifts.map((shift) => {
@@ -112,27 +118,27 @@ export default async function MobileHomePage() {
                         {startTime.getDate()}
                       </span>
                       <span className="text-xs">
-                        {startTime.toLocaleDateString("en-GB", {
+                        {startTime.toLocaleDateString(locale, {
                           month: "short",
                         })}
                       </span>
                     </div>
                     <div className="flex-1">
                       <p className="font-medium">
-                        {startTime.toLocaleDateString("en-GB", {
+                        {startTime.toLocaleDateString(locale, {
                           weekday: "long",
                         })}
                         {isToday && (
-                          <span className="ml-2 text-xs text-ocean">Today</span>
+                          <span className="ml-2 text-xs text-ocean">{t.today}</span>
                         )}
                       </p>
                       <p className="text-sm text-ink/60">
-                        {startTime.toLocaleTimeString("en-GB", {
+                        {startTime.toLocaleTimeString(locale, {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}{" "}
                         -{" "}
-                        {endTime.toLocaleTimeString("en-GB", {
+                        {endTime.toLocaleTimeString(locale, {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
@@ -155,8 +161,8 @@ export default async function MobileHomePage() {
           <i className="fas fa-exchange-alt text-gold text-xl" />
         </div>
         <div className="flex-1">
-          <p className="font-semibold">Shift Marketplace</p>
-          <p className="text-sm text-ink/60">Claim or swap shifts</p>
+          <p className="font-semibold">{t.shiftMarketplace}</p>
+          <p className="text-sm text-ink/60">{t.claimOrSwapShifts}</p>
         </div>
         <i className="fas fa-chevron-right text-ink/30" />
       </Link>

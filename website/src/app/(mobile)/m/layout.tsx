@@ -3,14 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
-const navItems = [
-  { href: "/m/schedule", icon: "fa-calendar-alt", label: "Schedule" },
-  { href: "/m/clock", icon: "fa-clock", label: "Clock" },
-  { href: "/m/shifts", icon: "fa-exchange-alt", label: "Shifts" },
-  { href: "/m/time-off", icon: "fa-umbrella-beach", label: "Time Off" },
-  { href: "/m/profile", icon: "fa-user", label: "Profile" },
-];
+import { useDictionary } from "@/components/DictionaryProvider";
 
 export default function MobileLayout({
   children,
@@ -18,6 +11,16 @@ export default function MobileLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { dictionary: dict } = useDictionary();
+  const nav = dict.mobile.nav;
+
+  const navItems = [
+    { href: "/m/schedule", icon: "fa-calendar-alt", label: nav.schedule },
+    { href: "/m/clock", icon: "fa-clock", label: nav.clock },
+    { href: "/m/shifts", icon: "fa-exchange-alt", label: nav.shifts },
+    { href: "/m/time-off", icon: "fa-umbrella-beach", label: nav.timeOff },
+    { href: "/m/profile", icon: "fa-user", label: nav.profile },
+  ];
 
   // Register service worker
   useEffect(() => {

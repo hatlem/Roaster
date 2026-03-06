@@ -1,9 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { demo, pricing } from "@/content";
+import type { Dictionary } from "@/i18n/dictionaries";
+import { pricing } from "@/content";
 
-export function DemoForm() {
+interface DemoFormProps {
+  dictionary: Dictionary;
+}
+
+export function DemoForm({ dictionary }: DemoFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,9 +29,9 @@ export function DemoForm() {
         <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <i className="fas fa-check text-forest text-2xl" />
         </div>
-        <h3 className="font-display text-2xl mb-2">You&apos;re in!</h3>
+        <h3 className="font-display text-2xl mb-2">{dictionary.forms.youreIn}</h3>
         <p className="text-ink/60">
-          Check your email for login instructions to start your {pricing.trial.days}-day free trial.
+          {dictionary.forms.checkEmailForTrial.replace('{days}', String(pricing.trial.days))}
         </p>
       </div>
     );
@@ -37,7 +42,7 @@ export function DemoForm() {
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-            First name *
+            {dictionary.forms.firstName} *
           </label>
           <input
             type="text"
@@ -49,7 +54,7 @@ export function DemoForm() {
         </div>
         <div>
           <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-            Last name *
+            {dictionary.forms.lastName} *
           </label>
           <input
             type="text"
@@ -62,7 +67,7 @@ export function DemoForm() {
       </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Work email *
+          {dictionary.forms.workEmail} *
         </label>
         <input
           type="email"
@@ -74,7 +79,7 @@ export function DemoForm() {
       </div>
       <div>
         <label htmlFor="company" className="block text-sm font-medium mb-2">
-          Company name *
+          {dictionary.forms.companyName} *
         </label>
         <input
           type="text"
@@ -86,7 +91,7 @@ export function DemoForm() {
       </div>
       <div>
         <label htmlFor="employees" className="block text-sm font-medium mb-2">
-          Number of employees *
+          {dictionary.forms.numberOfEmployees} *
         </label>
         <select
           id="employees"
@@ -94,11 +99,11 @@ export function DemoForm() {
           required
           className="w-full px-4 py-3 rounded-xl border border-stone focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20 bg-white"
         >
-          <option value="">Select...</option>
-          <option value="1-25">1-25 employees</option>
-          <option value="26-100">26-100 employees</option>
-          <option value="101-500">101-500 employees</option>
-          <option value="500+">500+ employees</option>
+          <option value="">{dictionary.common.select}</option>
+          <option value="1-25">{dictionary.forms.employees1to25}</option>
+          <option value="26-100">{dictionary.forms.employees26to100}</option>
+          <option value="101-500">{dictionary.forms.employees101to500}</option>
+          <option value="500+">{dictionary.forms.employees500plus}</option>
         </select>
       </div>
       <button
@@ -106,11 +111,11 @@ export function DemoForm() {
         disabled={submitting}
         className="w-full bg-forest text-cream px-8 py-4 rounded-full font-semibold hover:bg-forest/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
       >
-        {submitting ? "Creating account..." : demo.form.submitText}
+        {submitting ? dictionary.common.creatingAccount : dictionary.forms.startFreeTrial}
         {!submitting && <i className="fas fa-arrow-right" />}
       </button>
       <p className="text-center text-ink/40 text-xs">
-        By signing up, you agree to our Terms of Service and Privacy Policy.
+        {dictionary.forms.termsAgreement}
       </p>
     </form>
   );

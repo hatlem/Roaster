@@ -1,12 +1,13 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
-import { successResponse, errorResponse, requireAuth, requireRole } from "@/lib/api-utils";
+import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { hash } from "bcrypt";
 
 // GET /api/employees - List employees
 export async function GET(request: NextRequest) {
   try {
-    await requireRole(["ADMIN", "MANAGER"]);
+    const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const { searchParams } = new URL(request.url);
     const locationId = searchParams.get("locationId");
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "50");
 
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { organizationId: orgId };
 
     if (locationId) {
       where.locationId = locationId;
@@ -71,6 +72,9 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error && error.message === "Forbidden") {
       return errorResponse("Forbidden", 403);
     }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
+    }
     console.error("Error fetching employees:", error);
     return errorResponse("Failed to fetch employees", 500);
   }
@@ -80,6 +84,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const body = await request.json();
     const {
@@ -134,6 +139,7 @@ export async function POST(request: NextRequest) {
         locationId,
         hourlyRate,
         hireDate: startDate ? new Date(startDate) : new Date(),
+        organizationId: orgId,
       },
       select: {
         id: true,
@@ -156,6 +162,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return errorResponse("Forbidden", 403);
+    }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
     }
     console.error("Error creating employee:", error);
     return errorResponse("Failed to create employee", 500);

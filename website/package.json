@@ -28,6 +28,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/web-push": "^3.6.4",
+    "agentation": "^2.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "prisma": "^6.19.1",

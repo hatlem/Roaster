@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
-import { successResponse, errorResponse, requireRole } from "@/lib/api-utils";
+import { successResponse, errorResponse, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { addHours, differenceInHours, startOfWeek, endOfWeek } from "date-fns";
 
 interface ComplianceViolation {
@@ -14,7 +14,8 @@ interface ComplianceViolation {
 // POST /api/compliance/validate - Validate roster compliance
 export async function POST(request: NextRequest) {
   try {
-    await requireRole(["ADMIN", "MANAGER"]);
+    const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const body = await request.json();
     const { rosterId } = body;
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    if (!roster) {
+    if (!roster || roster.organizationId !== orgId) {
       return errorResponse("Roster not found", 404);
     }
 
@@ -176,6 +177,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return errorResponse("Forbidden", 403);
+    }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
     }
     console.error("Error validating compliance:", error);
     return errorResponse("Failed to validate compliance", 500);

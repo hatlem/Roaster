@@ -1,66 +1,99 @@
 import Link from "next/link";
-import { company, navigation, features } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
+import { laborLawByLocale } from "@/i18n/config";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const lawRef = laborLawByLocale[locale];
+
   return (
     <>
-      {/* Hero - Simple and direct */}
-      <section className="pt-32 pb-20 px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-ink/50 mb-4 tracking-wide uppercase text-sm">
-            Scheduling software for Norway
-          </p>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">
-            {company.tagline}
-          </h1>
-          <p className="text-xl md:text-2xl text-ink/60 mb-10 leading-relaxed max-w-2xl">
-            {company.description}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href={navigation.cta.primary.href} className="btn-primary">
-              {navigation.cta.primary.name}
-            </Link>
-            <Link href={navigation.cta.secondary.href} className="btn-secondary">
-              {navigation.cta.secondary.name}
-            </Link>
+      {/* Hero */}
+      <section className="relative pt-36 pb-28 px-6 lg:px-8 overflow-hidden grain">
+        <div
+          className="warm-orb w-[500px] h-[500px] -top-40 -right-40"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)" }}
+        />
+        <div
+          className="warm-orb w-[400px] h-[400px] bottom-0 left-[-200px]"
+          style={{ background: "radial-gradient(circle, var(--gold), transparent)", animationDelay: "-5s" }}
+        />
+
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-3xl">
+            <p className="text-terracotta mb-5 tracking-widest uppercase text-xs font-semibold animate-fade-up">
+              {dict.homePage.heroTagline}
+            </p>
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-8 animate-fade-up delay-1">
+              {dict.content.companyTagline}
+            </h1>
+            <p className="text-xl md:text-2xl text-ink/55 mb-12 leading-relaxed max-w-2xl animate-fade-up delay-2">
+              {dict.content.companyDescription}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up delay-3">
+              <Link href="/onboarding" className="btn-primary">
+                {dict.common.startFreeTrial}
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+              <Link href="/demo" className="btn-secondary">
+                {dict.common.bookADemo}
+              </Link>
+            </div>
           </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto mt-20">
+          <div className="accent-line animate-line-reveal delay-5" />
         </div>
       </section>
 
-      {/* The actual rules we enforce */}
-      <section className="py-20 bg-ink text-cream">
+      {/* Rules */}
+      <section className="relative py-24 bg-warm-dark text-cream overflow-hidden grain">
+        <div
+          className="warm-orb w-[600px] h-[600px] top-[-200px] right-[-200px]"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)", opacity: 0.06 }}
+        />
+
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="max-w-2xl mb-16">
-            <p className="text-cream/50 mb-4 tracking-wide uppercase text-sm">
-              Arbeidsmiljøloven Chapter 10
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-4">
-              The rules we track
-            </h2>
-            <p className="text-cream/60 text-lg">
-              Norwegian working time regulations have specific requirements.
-              Miss one and your employees can refuse shifts—or worse, Arbeidstilsynet gets involved.
-            </p>
+          <div className="grid lg:grid-cols-12 gap-12 mb-20">
+            <div className="lg:col-span-5">
+              <p className="text-terracotta mb-4 tracking-widest uppercase text-xs font-semibold animate-fade-up">
+                {lawRef.name}
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] animate-fade-up delay-1">
+                {dict.homePage.rulesTitle}
+              </h2>
+            </div>
+            <div className="lg:col-span-7 lg:pt-12">
+              <p className="text-cream/50 text-lg leading-relaxed max-w-lg animate-fade-up delay-2">
+                {dict.homePage.rulesDescription}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-px">
-            {features.rules.map((rule, index) => (
+          <div className="space-y-0">
+            {dict.content.rules.map((rule, index) => (
               <div
-                key={rule.id}
-                className="group grid md:grid-cols-12 gap-6 py-8 border-t border-cream/10 hover:bg-cream/5 transition-colors -mx-6 px-6"
+                key={index}
+                className="group grid md:grid-cols-12 gap-6 py-7 border-t border-cream/8 hover:bg-cream/[0.03] transition-all duration-300 -mx-6 px-6 rounded-lg"
               >
                 <div className="md:col-span-2">
-                  <span className="font-mono text-terracotta text-sm">{rule.law}</span>
+                  <span className="font-mono text-terracotta text-sm font-medium rule-number">{rule.law}</span>
                 </div>
                 <div className="md:col-span-3">
-                  <h3 className="font-semibold text-lg">{rule.title}</h3>
+                  <h3 className="font-semibold text-lg group-hover:text-terracotta transition-colors duration-300">{rule.title}</h3>
                 </div>
                 <div className="md:col-span-5">
-                  <p className="text-cream/60">{rule.description}</p>
+                  <p className="text-cream/50 group-hover:text-cream/70 transition-colors duration-300">{rule.description}</p>
                 </div>
-                <div className="md:col-span-2 text-right">
-                  <span className="text-xs text-cream/40 uppercase tracking-wide">
-                    {index === 0 ? "→ Tracked" : "Tracked"}
+                <div className="md:col-span-2 flex items-center justify-end">
+                  <span className="inline-flex items-center gap-2 text-xs text-cream/30 uppercase tracking-wide group-hover:text-forest transition-colors duration-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-forest opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {dict.common.tracked}
                   </span>
                 </div>
               </div>
@@ -69,75 +102,109 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works - simple grid */}
-      <section className="py-20 px-6 lg:px-8">
+      {/* How it works */}
+      <section className="relative py-24 px-6 lg:px-8 overflow-hidden grain">
+        <div
+          className="warm-orb w-[500px] h-[500px] -bottom-60 right-[-100px]"
+          style={{ background: "radial-gradient(circle, var(--ocean), transparent)", animationDelay: "-8s" }}
+        />
+
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-16">
-            <p className="text-ink/50 mb-4 tracking-wide uppercase text-sm">
-              How it works
+          <div className="max-w-2xl mb-20">
+            <p className="text-ocean mb-4 tracking-widest uppercase text-xs font-semibold">
+              {dict.homePage.howItWorks}
             </p>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight">
-              Schedule. Validate. Done.
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6">
+              {dict.homePage.scheduleValidateDone}
             </h2>
+            <p className="text-ink/50 text-lg">
+              {dict.homePage.threeSteps}
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {features.main.map((feature) => (
-              <div key={feature.id} className="group">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dict.content.mainFeatures.map((feature, index) => (
+              <div
+                key={index}
+                className="group card-hover p-7 rounded-xl bg-stone/25 border border-stone/40 hover:border-stone/70 transition-colors duration-300"
+              >
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
                   style={{ backgroundColor: `var(--${feature.color})` }}
                 >
-                  <i className={`fas fa-${feature.icon} text-cream`} />
+                  <i className={`fas fa-${feature.icon} text-cream text-sm`} />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-ink/60 leading-relaxed">{feature.description}</p>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-terracotta transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-ink/55 leading-relaxed text-[0.95rem]">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Simple demo section */}
-      <section className="py-20 bg-stone/30">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
-            See it in action
+      {/* Demo */}
+      <section className="relative py-24 overflow-hidden grain">
+        <div className="absolute inset-0 bg-gradient-to-br from-stone/40 via-stone/20 to-transparent" />
+
+        <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <div className="inline-block mb-8">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-terracotta/10 text-terracotta text-sm font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-terracotta animate-pulse" />
+              {dict.homePage.demoAvailable}
+            </span>
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6">
+            {dict.homePage.seeItInAction}
           </h2>
-          <p className="text-xl text-ink/60 mb-10 max-w-2xl mx-auto">
-            Book a 20-minute demo. We&apos;ll show you how Roaster handles your specific scheduling needs.
+          <p className="text-xl text-ink/55 mb-12 max-w-2xl mx-auto leading-relaxed">
+            {dict.homePage.demoDescription}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/demo" className="btn-primary">
-              Book a demo
+              {dict.common.bookADemo}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
             <Link href="/onboarding" className="btn-secondary">
-              Or start a free trial
+              {dict.homePage.orStartTrial}
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer CTA - Honest startup message */}
-      <section className="py-20 px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-ink/50 mb-4 tracking-wide uppercase text-sm">
-            Built in Oslo
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
-            Norwegian law, Norwegian software
-          </h2>
-          <p className="text-xl text-ink/60 mb-8 leading-relaxed">
-            We&apos;re a small team focused on one thing: making Norwegian labor law compliance automatic.
-            No generic &ldquo;international&rdquo; solution—just deep knowledge of Arbeidsmiljøloven built into every feature.
-          </p>
-          <Link
-            href="/about"
-            className="inline-flex items-center gap-2 font-semibold hover:text-terracotta transition-colors group"
-          >
-            About us
-            <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform" />
-          </Link>
+      {/* Footer CTA */}
+      <section className="relative py-28 px-6 lg:px-8 overflow-hidden grain">
+        <div
+          className="warm-orb w-[400px] h-[400px] top-[-100px] left-[-100px]"
+          style={{ background: "radial-gradient(circle, var(--gold), transparent)", animationDelay: "-3s" }}
+        />
+
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12 items-end">
+          <div className="lg:col-span-7">
+            <p className="text-gold mb-4 tracking-widest uppercase text-xs font-semibold">
+              {lawRef.shortName}
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6">
+              {dict.homePage.localSoftwareTitle}
+            </h2>
+            <p className="text-xl text-ink/55 leading-relaxed max-w-xl">
+              {dict.homePage.localSoftwareDescription}
+            </p>
+          </div>
+          <div className="lg:col-span-5 lg:text-right">
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-3 font-semibold text-lg hover:text-terracotta transition-colors group"
+            >
+              {dict.homePage.aboutUs}
+              <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { CurrencyNote } from "../CurrencyNote"
+import type { Dictionary } from "@/i18n/dictionaries"
 
 interface BillingInfo {
   plan: string | null
@@ -9,29 +10,29 @@ interface BillingInfo {
   hasStripeCustomer: boolean
 }
 
-const PLAN_LABELS: Record<string, string> = {
-  free: "Free",
-  starter: "Starter",
-  professional: "Professional",
-  enterprise: "Enterprise",
-}
-
-const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  active: { label: "Active", color: "bg-forest/10 text-forest" },
-  trialing: { label: "Trial", color: "bg-ocean/10 text-ocean" },
-  past_due: { label: "Past due", color: "bg-terracotta/10 text-terracotta" },
-  canceled: { label: "Canceled", color: "bg-stone text-ink/60" },
-  incomplete: { label: "Incomplete", color: "bg-gold/10 text-gold" },
-  incomplete_expired: { label: "Expired", color: "bg-stone text-ink/40" },
-  unpaid: { label: "Unpaid", color: "bg-terracotta/10 text-terracotta" },
-  paused: { label: "Paused", color: "bg-stone text-ink/60" },
-}
-
-export function BillingSection({ billing }: { billing: BillingInfo }) {
+export function BillingSection({ billing, dictionary: d }: { billing: BillingInfo; dictionary: Dictionary["dashboard"]["components"]["billing"] }) {
   const [isLoading, setIsLoading] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const planLabel = PLAN_LABELS[billing.plan || "free"] || billing.plan || "Free"
+  const PLAN_LABELS: Record<string, string> = {
+    free: d.free,
+    starter: d.starter,
+    professional: d.professional,
+    enterprise: d.enterprise,
+  }
+
+  const STATUS_LABELS: Record<string, { label: string; color: string }> = {
+    active: { label: d.statusActive, color: "bg-forest/10 text-forest" },
+    trialing: { label: d.statusTrial, color: "bg-ocean/10 text-ocean" },
+    past_due: { label: d.statusPastDue, color: "bg-terracotta/10 text-terracotta" },
+    canceled: { label: d.statusCanceled, color: "bg-stone text-ink/60" },
+    incomplete: { label: d.statusIncomplete, color: "bg-gold/10 text-gold" },
+    incomplete_expired: { label: d.statusExpired, color: "bg-stone text-ink/40" },
+    unpaid: { label: d.statusUnpaid, color: "bg-terracotta/10 text-terracotta" },
+    paused: { label: d.statusPaused, color: "bg-stone text-ink/60" },
+  }
+
+  const planLabel = PLAN_LABELS[billing.plan || "free"] || billing.plan || d.free
   const statusInfo = STATUS_LABELS[billing.status || ""] || null
   const isFree = !billing.plan || billing.plan === "free"
   const isActive = billing.status === "active" || billing.status === "trialing"
@@ -88,7 +89,7 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
     <div className="space-y-6">
       {/* Current Plan */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50">
-        <h2 className="font-display text-xl mb-6">Current Plan</h2>
+        <h2 className="font-display text-xl mb-6">{d.currentPlan}</h2>
 
         <div className="flex items-center gap-4 mb-6">
           <div>
@@ -102,22 +103,22 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
             </div>
             {isFree && (
               <p className="text-ink/60 text-sm mt-1">
-                Upgrade to unlock full compliance automation and advanced features.
+                {d.upgradeMessage}
               </p>
             )}
             {!isFree && isActive && (
               <p className="text-ink/60 text-sm mt-1">
-                Your subscription is active. Manage your billing details through the Stripe portal.
+                {d.activeMessage}
               </p>
             )}
             {!isFree && billing.status === "past_due" && (
               <p className="text-terracotta text-sm mt-1">
-                Your payment is past due. Please update your payment method to continue service.
+                {d.pastDueMessage}
               </p>
             )}
             {!isFree && billing.status === "canceled" && (
               <p className="text-ink/60 text-sm mt-1">
-                Your subscription has been canceled. Subscribe again to regain access to paid features.
+                {d.canceledMessage}
               </p>
             )}
           </div>
@@ -133,12 +134,12 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
             {isLoading === "portal" ? (
               <>
                 <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                Opening...
+                {d.opening}
               </>
             ) : (
               <>
                 <i className="fas fa-external-link-alt text-sm" />
-                Manage Billing
+                {d.manageBilling}
               </>
             )}
           </button>
@@ -148,7 +149,7 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
       {/* Upgrade Plans (for free users or canceled) */}
       {(isFree || billing.status === "canceled") && (
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
-          <h2 className="font-display text-xl mb-2">Choose a Plan</h2>
+          <h2 className="font-display text-xl mb-2">{d.choosePlan}</h2>
           <div className="mb-6">
             <CurrencyNote />
           </div>
@@ -163,30 +164,30 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Starter */}
             <div className="border border-stone/50 rounded-xl p-5">
-              <h3 className="font-semibold text-lg mb-1">Starter</h3>
+              <h3 className="font-semibold text-lg mb-1">{d.starter}</h3>
               <p className="text-ink/60 text-sm mb-4">
-                For small teams getting started with compliant scheduling.
+                {d.starterDesc}
               </p>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="font-display text-3xl">&#8364;9</span>
-                <span className="text-ink/60 text-sm">/employee/month</span>
+                <span className="text-ink/60 text-sm">{d.perEmployeeMonth}</span>
               </div>
               <ul className="space-y-2 mb-6 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Up to 25 employees
+                  {d.starterEmployees}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Basic compliance validation
+                  {d.starterCompliance}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Mobile app access
+                  {d.starterMobile}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Email support
+                  {d.starterSupport}
                 </li>
               </ul>
               <button
@@ -197,10 +198,10 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
                 {isLoading === "starter" ? (
                   <>
                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Redirecting...
+                    {d.redirecting}
                   </>
                 ) : (
-                  "Subscribe to Starter"
+                  d.subscribeToStarter
                 )}
               </button>
             </div>
@@ -208,32 +209,32 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
             {/* Professional */}
             <div className="border-2 border-ocean rounded-xl p-5 relative">
               <span className="absolute -top-3 left-4 bg-ocean text-cream text-xs font-medium px-3 py-1 rounded-full">
-                Most Popular
+                {d.mostPopular}
               </span>
-              <h3 className="font-semibold text-lg mb-1">Professional</h3>
+              <h3 className="font-semibold text-lg mb-1">{d.professional}</h3>
               <p className="text-ink/60 text-sm mb-4">
-                Full compliance automation for growing businesses.
+                {d.professionalDesc}
               </p>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="font-display text-3xl">&#8364;14</span>
-                <span className="text-ink/60 text-sm">/employee/month</span>
+                <span className="text-ink/60 text-sm">{d.perEmployeeMonth}</span>
               </div>
               <ul className="space-y-2 mb-6 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Up to 100 employees
+                  {d.professionalEmployees}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Full compliance validation
+                  {d.professionalCompliance}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  Shift marketplace &amp; audit reports
+                  {d.professionalMarketplace}
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-forest mt-0.5"><i className="fas fa-check text-xs" /></span>
-                  API access &amp; priority support
+                  {d.professionalApi}
                 </li>
               </ul>
               <button
@@ -244,19 +245,19 @@ export function BillingSection({ billing }: { billing: BillingInfo }) {
                 {isLoading === "professional" ? (
                   <>
                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Redirecting...
+                    {d.redirecting}
                   </>
                 ) : (
-                  "Subscribe to Professional"
+                  d.subscribeToProfessional
                 )}
               </button>
             </div>
           </div>
 
           <p className="text-ink/40 text-sm mt-6 text-center">
-            Need unlimited employees or custom integrations?{" "}
+            {d.enterpriseMessage}{" "}
             <a href="/contact" className="text-ocean hover:underline">
-              Contact us for Enterprise pricing
+              {d.contactEnterprise}
             </a>
           </p>
         </div>

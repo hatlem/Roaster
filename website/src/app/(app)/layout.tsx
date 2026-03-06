@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { company } from "@/content";
 import PasswordSetupModal from "@/components/PasswordSetupModal";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export default async function AppLayout({
   children,
@@ -14,6 +16,8 @@ export default async function AppLayout({
   if (!session?.user) {
     redirect("/login");
   }
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   return (
     <div className="min-h-screen bg-cream flex">
       {/* Sidebar */}
@@ -117,7 +121,7 @@ export default async function AppLayout({
       </main>
 
       {/* Password setup modal for users without password */}
-      <PasswordSetupModal />
+      <PasswordSetupModal dictionary={dict} />
     </div>
   );
 }

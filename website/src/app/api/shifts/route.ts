@@ -1,11 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
-import { successResponse, errorResponse, requireAuth, requireRole } from "@/lib/api-utils";
+import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
 
 // GET /api/shifts - List shifts
 export async function GET(request: NextRequest) {
   try {
     const session = await requireAuth();
+    const orgId = await getOrganizationId(session.user.id);
 
     const { searchParams } = new URL(request.url);
     const rosterId = searchParams.get("rosterId");
@@ -13,7 +14,9 @@ export async function GET(request: NextRequest) {
     const startDate = searchParams.get("startDate");
     const endDate = searchParams.get("endDate");
 
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = {
+      roster: { organizationId: orgId },
+    };
 
     if (rosterId) {
       where.rosterId = rosterId;
@@ -60,6 +63,9 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return errorResponse("Unauthorized", 401);
     }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
+    }
     console.error("Error fetching shifts:", error);
     return errorResponse("Failed to fetch shifts", 500);
   }
@@ -68,7 +74,8 @@ export async function GET(request: NextRequest) {
 // POST /api/shifts - Create shift
 export async function POST(request: NextRequest) {
   try {
-    await requireRole(["ADMIN", "MANAGER"]);
+    const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const body = await request.json();
     const {
@@ -84,6 +91,14 @@ export async function POST(request: NextRequest) {
 
     if (!rosterId || !userId || !startTime || !endTime) {
       return errorResponse("Missing required fields");
+    }
+
+    const roster = await prisma.roster.findUnique({
+      where: { id: rosterId },
+      select: { organizationId: true },
+    });
+    if (!roster || roster.organizationId !== orgId) {
+      return errorResponse("Roster not found", 404);
     }
 
     // Get user's hourly rate for labor cost calculation
@@ -130,6 +145,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return errorResponse("Forbidden", 403);
+    }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
     }
     console.error("Error creating shift:", error);
     return errorResponse("Failed to create shift", 500);

@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +45,10 @@ export default async function SchedulePage() {
   const shifts = await getWeeklyShifts(session.user.id);
   const today = new Date();
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const t = dict.mobile.schedule;
+
   // Generate week days
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - today.getDay() + 1);
@@ -75,10 +81,10 @@ export default async function SchedulePage() {
     <div className="p-4">
       {/* Week Header */}
       <div className="mb-6">
-        <h1 className="font-display text-2xl mb-1">My Schedule</h1>
+        <h1 className="font-display text-2xl mb-1">{t.title}</h1>
         <p className="text-ink/60 text-sm">
-          Week of{" "}
-          {startOfWeek.toLocaleDateString("en-GB", {
+          {t.weekOf}{" "}
+          {startOfWeek.toLocaleDateString(locale, {
             month: "long",
             day: "numeric",
           })}
@@ -89,13 +95,13 @@ export default async function SchedulePage() {
       <div className="grid grid-cols-2 gap-3 mb-6">
         <div className="bg-white rounded-xl p-4 border border-stone/30">
           <p className="text-2xl font-display text-ocean">{shifts.length}</p>
-          <p className="text-xs text-ink/60">Shifts this week</p>
+          <p className="text-xs text-ink/60">{t.shiftsThisWeek}</p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-stone/30">
           <p className="text-2xl font-display text-forest">
             {totalHours.toFixed(1)}h
           </p>
-          <p className="text-xs text-ink/60">Hours scheduled</p>
+          <p className="text-xs text-ink/60">{t.hoursScheduled}</p>
         </div>
       </div>
 
@@ -126,11 +132,11 @@ export default async function SchedulePage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">
-                    {date.toLocaleDateString("en-GB", { weekday: "long" })}
-                    {isToday && <span className="ml-2 text-xs">Today</span>}
+                    {date.toLocaleDateString(locale, { weekday: "long" })}
+                    {isToday && <span className="ml-2 text-xs">{t.today}</span>}
                   </span>
                   <span className="text-sm opacity-80">
-                    {date.toLocaleDateString("en-GB", {
+                    {date.toLocaleDateString(locale, {
                       day: "numeric",
                       month: "short",
                     })}
@@ -141,7 +147,7 @@ export default async function SchedulePage() {
               {/* Shifts */}
               <div className="bg-white">
                 {dayShifts.length === 0 ? (
-                  <p className="px-4 py-3 text-ink/40 text-sm">No shifts</p>
+                  <p className="px-4 py-3 text-ink/40 text-sm">{t.noShifts}</p>
                 ) : (
                   dayShifts.map((shift) => {
                     const start = new Date(shift.startTime);
@@ -156,23 +162,23 @@ export default async function SchedulePage() {
                       >
                         <div className="flex-1">
                           <p className="font-medium">
-                            {start.toLocaleTimeString("en-GB", {
+                            {start.toLocaleTimeString(locale, {
                               hour: "2-digit",
                               minute: "2-digit",
                             })}{" "}
                             -{" "}
-                            {end.toLocaleTimeString("en-GB", {
+                            {end.toLocaleTimeString(locale, {
                               hour: "2-digit",
                               minute: "2-digit",
                             })}
                           </p>
                           <p className="text-xs text-ink/60">
-                            {duration.toFixed(1)} hours
+                            {duration.toFixed(1)} {t.hours}
                           </p>
                         </div>
                         {shift.isOvertime && (
                           <span className="text-xs bg-gold/10 text-gold px-2 py-1 rounded-full">
-                            OT
+                            {t.overtime}
                           </span>
                         )}
                       </div>

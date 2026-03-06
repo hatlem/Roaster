@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface ApprovalActionsProps {
   listingId: string;
+  dictionary: Dictionary["dashboard"]["components"]["approvalActions"];
 }
 
-export function ApprovalActions({ listingId }: ApprovalActionsProps) {
+export function ApprovalActions({ listingId, dictionary: d }: ApprovalActionsProps) {
   const router = useRouter();
   const [isApproving, setIsApproving] = useState(false);
   const [isRejecting, setIsRejecting] = useState(false);
@@ -79,7 +81,7 @@ export function ApprovalActions({ listingId }: ApprovalActionsProps) {
           ) : (
             <>
               <i className="fas fa-check" />
-              Approve
+              {d.approve}
             </>
           )}
         </button>
@@ -88,7 +90,7 @@ export function ApprovalActions({ listingId }: ApprovalActionsProps) {
           className="px-3 py-1.5 rounded-lg border border-terracotta text-terracotta text-sm font-medium hover:bg-terracotta/5 transition-colors flex items-center gap-1"
         >
           <i className="fas fa-times" />
-          Reject
+          {d.reject}
         </button>
       </div>
 
@@ -98,14 +100,14 @@ export function ApprovalActions({ listingId }: ApprovalActionsProps) {
       {showRejectModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h3 className="font-display text-xl mb-4">Reject Transfer</h3>
+            <h3 className="font-display text-xl mb-4">{d.rejectTransferTitle}</h3>
             <p className="text-ink/60 mb-4">
-              Please provide a reason for rejecting this shift transfer.
+              {d.rejectTransferDesc}
             </p>
             <textarea
               value={rejectReason}
               onChange={(e) => setRejectReason(e.target.value)}
-              placeholder="Enter reason for rejection..."
+              placeholder={d.rejectPlaceholder}
               className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean resize-none"
               rows={3}
             />
@@ -115,7 +117,7 @@ export function ApprovalActions({ listingId }: ApprovalActionsProps) {
                 disabled={isRejecting}
                 className="px-5 py-2.5 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors"
               >
-                Cancel
+                {d.cancel}
               </button>
               <button
                 onClick={handleReject}
@@ -125,7 +127,7 @@ export function ApprovalActions({ listingId }: ApprovalActionsProps) {
                 {isRejecting ? (
                   <i className="fas fa-spinner fa-spin" />
                 ) : (
-                  "Reject"
+                  d.reject
                 )}
               </button>
             </div>

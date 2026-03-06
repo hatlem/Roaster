@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface AgentEvaluation {
   agentName: string;
@@ -57,6 +58,7 @@ interface ScheduleReviewPanelProps {
   onApply: () => void;
   onReject: () => void;
   onClose: () => void;
+  dictionary: Dictionary["dashboard"]["components"]["scheduleReview"];
 }
 
 export function ScheduleReviewPanel({
@@ -64,6 +66,7 @@ export function ScheduleReviewPanel({
   onApply,
   onReject,
   onClose,
+  dictionary: d,
 }: ScheduleReviewPanelProps) {
   const [job, setJob] = useState<JobData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -162,9 +165,9 @@ export function ScheduleReviewPanel({
           <div className="w-16 h-16 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <i className="fas fa-robot text-ocean text-2xl animate-pulse" />
           </div>
-          <h2 className="font-display text-xl mb-2">Generating Schedule</h2>
+          <h2 className="font-display text-xl mb-2">{d.generatingTitle}</h2>
           <p className="text-ink/60 mb-6">
-            Our AI agents are working to create an optimal schedule...
+            {d.generatingDesc}
           </p>
           <div className="flex items-center justify-center gap-3">
             <div className="w-3 h-3 bg-ocean rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
@@ -184,15 +187,15 @@ export function ScheduleReviewPanel({
           <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <i className="fas fa-exclamation-triangle text-terracotta text-2xl" />
           </div>
-          <h2 className="font-display text-xl mb-2">Generation Failed</h2>
+          <h2 className="font-display text-xl mb-2">{d.failedTitle}</h2>
           <p className="text-ink/60 mb-6">
-            {job.errorMessage || error || "An error occurred while generating the schedule."}
+            {job.errorMessage || error || d.failedDesc}
           </p>
           <button
             onClick={onClose}
             className="px-6 py-2.5 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-colors"
           >
-            Close
+            {d.close}
           </button>
         </div>
       </div>
@@ -210,9 +213,9 @@ export function ScheduleReviewPanel({
         <div className="p-6 border-b border-stone/30 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-display text-2xl">Review Generated Schedule</h2>
+              <h2 className="font-display text-2xl">{d.reviewTitle}</h2>
               <p className="text-ink/60 text-sm mt-1">
-                {job.priorityMode.replace("_", " ")} priority
+                {job.priorityMode.replace("_", " ")} {d.priority}
               </p>
             </div>
             <button
@@ -250,13 +253,13 @@ export function ScheduleReviewPanel({
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold">
-                    Consensus: {consensus.status.replace("_", " ")}
+                    {d.consensus} {consensus.status.replace("_", " ")}
                   </p>
                   <p className="text-sm text-ink/60">{consensus.summary}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-display">{job.consensusScore}%</p>
-                  <p className="text-xs text-ink/60">Score</p>
+                  <p className="text-xs text-ink/60">{d.score}</p>
                 </div>
               </div>
             </div>
@@ -276,9 +279,9 @@ export function ScheduleReviewPanel({
                     : "border-transparent text-ink/60 hover:text-ink"
                 }`}
               >
-                {tab === "shifts" && <><i className="fas fa-calendar-alt mr-2" />Shifts ({shifts.length})</>}
-                {tab === "agents" && <><i className="fas fa-robot mr-2" />Agent Analysis</>}
-                {tab === "metrics" && <><i className="fas fa-chart-bar mr-2" />Metrics</>}
+                {tab === "shifts" && <><i className="fas fa-calendar-alt mr-2" />{d.shiftsTab} ({shifts.length})</>}
+                {tab === "agents" && <><i className="fas fa-robot mr-2" />{d.agentAnalysis}</>}
+                {tab === "metrics" && <><i className="fas fa-chart-bar mr-2" />{d.metrics}</>}
               </button>
             ))}
           </div>
@@ -292,11 +295,11 @@ export function ScheduleReviewPanel({
               <table className="w-full">
                 <thead className="bg-cream border-b border-stone/50">
                   <tr>
-                    <th className="text-left p-3 font-semibold text-sm">Employee</th>
-                    <th className="text-left p-3 font-semibold text-sm">Date</th>
-                    <th className="text-left p-3 font-semibold text-sm">Time</th>
-                    <th className="text-left p-3 font-semibold text-sm">Cost</th>
-                    <th className="text-left p-3 font-semibold text-sm">Scores</th>
+                    <th className="text-left p-3 font-semibold text-sm">{d.employee}</th>
+                    <th className="text-left p-3 font-semibold text-sm">{d.date}</th>
+                    <th className="text-left p-3 font-semibold text-sm">{d.time}</th>
+                    <th className="text-left p-3 font-semibold text-sm">{d.cost}</th>
+                    <th className="text-left p-3 font-semibold text-sm">{d.scores}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -388,7 +391,7 @@ export function ScheduleReviewPanel({
                       <div>
                         <p className="text-xs font-medium text-forest mb-1">
                           <i className="fas fa-check-circle mr-1" />
-                          Reasoning
+                          {d.reasoning}
                         </p>
                         <ul className="text-sm text-ink/70 space-y-1">
                           {agent.reasoning.map((r, i) => (
@@ -401,7 +404,7 @@ export function ScheduleReviewPanel({
                       <div>
                         <p className="text-xs font-medium text-terracotta mb-1">
                           <i className="fas fa-exclamation-circle mr-1" />
-                          Concerns
+                          {d.concerns}
                         </p>
                         <ul className="text-sm text-ink/70 space-y-1">
                           {agent.concerns.map((c, i) => (
@@ -414,7 +417,7 @@ export function ScheduleReviewPanel({
                       <div>
                         <p className="text-xs font-medium text-ocean mb-1">
                           <i className="fas fa-lightbulb mr-1" />
-                          Suggestions
+                          {d.suggestions}
                         </p>
                         <ul className="text-sm text-ink/70 space-y-1">
                           {agent.suggestions.map((s, i) => (
@@ -436,33 +439,33 @@ export function ScheduleReviewPanel({
                 <p className="text-2xl font-display text-forest">
                   {Math.round(metrics.complianceScore)}%
                 </p>
-                <p className="text-sm text-ink/60">Compliance Score</p>
+                <p className="text-sm text-ink/60">{d.complianceScore}</p>
               </div>
               <div className="bg-ocean/5 rounded-xl p-4 border border-ocean/20">
                 <p className="text-2xl font-display text-ocean">
                   {Math.round(metrics.coverageScore)}%
                 </p>
-                <p className="text-sm text-ink/60">Coverage Score</p>
+                <p className="text-sm text-ink/60">{d.coverageScore}</p>
               </div>
               <div className="bg-gold/5 rounded-xl p-4 border border-gold/20">
                 <p className="text-2xl font-display text-gold">
                   {Math.round(metrics.preferenceScore)}%
                 </p>
-                <p className="text-sm text-ink/60">Preference Score</p>
+                <p className="text-sm text-ink/60">{d.preferenceScore}</p>
               </div>
               <div className="bg-white rounded-xl p-4 border border-stone/30">
                 <p className="text-2xl font-display">
                   {metrics.totalCost.toLocaleString()} NOK
                 </p>
-                <p className="text-sm text-ink/60">Estimated Total Cost</p>
+                <p className="text-sm text-ink/60">{d.estimatedTotalCost}</p>
               </div>
               <div className="bg-white rounded-xl p-4 border border-stone/30">
                 <p className="text-2xl font-display">{metrics.shiftCount}</p>
-                <p className="text-sm text-ink/60">Total Shifts</p>
+                <p className="text-sm text-ink/60">{d.totalShifts}</p>
               </div>
               <div className="bg-white rounded-xl p-4 border border-stone/30">
                 <p className="text-2xl font-display">{metrics.overtimeHours}h</p>
-                <p className="text-sm text-ink/60">Overtime Hours</p>
+                <p className="text-sm text-ink/60">{d.overtimeHours}</p>
               </div>
             </div>
           )}
@@ -476,7 +479,7 @@ export function ScheduleReviewPanel({
             className="px-5 py-2.5 rounded-xl border border-terracotta text-terracotta font-medium hover:bg-terracotta/5 transition-colors disabled:opacity-50"
           >
             <i className="fas fa-times mr-2" />
-            Reject & Regenerate
+            {d.rejectRegenerate}
           </button>
           <div className="flex gap-3">
             <button
@@ -484,7 +487,7 @@ export function ScheduleReviewPanel({
               disabled={applying}
               className="px-5 py-2.5 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors disabled:opacity-50"
             >
-              Cancel
+              {d.cancel}
             </button>
             <button
               onClick={handleApply}
@@ -494,12 +497,12 @@ export function ScheduleReviewPanel({
               {applying ? (
                 <>
                   <i className="fas fa-spinner fa-spin" />
-                  Applying...
+                  {d.applying}
                 </>
               ) : (
                 <>
                   <i className="fas fa-check" />
-                  Apply Schedule
+                  {d.applySchedule}
                 </>
               )}
             </button>
@@ -511,15 +514,14 @@ export function ScheduleReviewPanel({
       {showRejectModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h3 className="font-display text-xl mb-4">Reject Schedule</h3>
+            <h3 className="font-display text-xl mb-4">{d.rejectTitle}</h3>
             <p className="text-ink/60 mb-4">
-              Please provide a reason for rejecting this schedule. You can
-              regenerate with different parameters.
+              {d.rejectDesc}
             </p>
             <textarea
               value={rejectReason}
               onChange={(e) => setRejectReason(e.target.value)}
-              placeholder="Enter reason for rejection..."
+              placeholder={d.rejectPlaceholder}
               className="w-full px-4 py-3 border border-stone/50 rounded-xl focus:ring-2 focus:ring-ocean focus:border-ocean resize-none"
               rows={3}
             />
@@ -529,7 +531,7 @@ export function ScheduleReviewPanel({
                 disabled={rejecting}
                 className="px-5 py-2.5 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors"
               >
-                Cancel
+                {d.cancel}
               </button>
               <button
                 onClick={handleReject}
@@ -539,7 +541,7 @@ export function ScheduleReviewPanel({
                 {rejecting ? (
                   <i className="fas fa-spinner fa-spin" />
                 ) : (
-                  "Reject"
+                  d.reject
                 )}
               </button>
             </div>

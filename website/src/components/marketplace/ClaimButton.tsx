@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface ClaimButtonProps {
   listingId: string;
+  dictionary: Dictionary["dashboard"]["components"]["claimButton"];
 }
 
-export function ClaimButton({ listingId }: ClaimButtonProps) {
+export function ClaimButton({ listingId, dictionary: d }: ClaimButtonProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,12 +47,12 @@ export function ClaimButton({ listingId }: ClaimButtonProps) {
         {isLoading ? (
           <>
             <i className="fas fa-spinner fa-spin" />
-            Claiming...
+            {d.claiming}
           </>
         ) : (
           <>
             <i className="fas fa-hand-paper" />
-            Claim Shift
+            {d.claimShift}
           </>
         )}
       </button>

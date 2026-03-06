@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface AutoScheduleModalProps {
   rosterId: string;
@@ -8,38 +9,10 @@ interface AutoScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: (jobId: string) => void;
+  dictionary: Dictionary["dashboard"]["components"]["autoSchedule"];
 }
 
 type PriorityMode = "LOWEST_COST" | "EQUAL_HOURS" | "PREFERENCE_BASED";
-
-const priorityModes: {
-  value: PriorityMode;
-  label: string;
-  description: string;
-  icon: string;
-}[] = [
-  {
-    value: "LOWEST_COST",
-    label: "Lowest Cost",
-    description:
-      "Minimize labor expenses by prioritizing lower-rate employees and avoiding overtime",
-    icon: "fa-coins",
-  },
-  {
-    value: "EQUAL_HOURS",
-    label: "Equal Hours",
-    description:
-      "Distribute hours fairly across all employees for equitable scheduling",
-    icon: "fa-balance-scale",
-  },
-  {
-    value: "PREFERENCE_BASED",
-    label: "Preference Based",
-    description:
-      "Maximize employee satisfaction by prioritizing their shift preferences",
-    icon: "fa-heart",
-  },
-];
 
 export function AutoScheduleModal({
   rosterId,
@@ -47,10 +20,37 @@ export function AutoScheduleModal({
   isOpen,
   onClose,
   onSuccess,
+  dictionary: d,
 }: AutoScheduleModalProps) {
   const [selectedMode, setSelectedMode] = useState<PriorityMode>("EQUAL_HOURS");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const priorityModes: {
+    value: PriorityMode;
+    label: string;
+    description: string;
+    icon: string;
+  }[] = [
+    {
+      value: "LOWEST_COST",
+      label: d.lowestCost,
+      description: d.lowestCostDesc,
+      icon: "fa-coins",
+    },
+    {
+      value: "EQUAL_HOURS",
+      label: d.equalHours,
+      description: d.equalHoursDesc,
+      icon: "fa-balance-scale",
+    },
+    {
+      value: "PREFERENCE_BASED",
+      label: d.preferenceBased,
+      description: d.preferenceBasedDesc,
+      icon: "fa-heart",
+    },
+  ];
 
   if (!isOpen) return null;
 
@@ -89,7 +89,7 @@ export function AutoScheduleModal({
         <div className="p-6 border-b border-stone/30">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-display text-2xl">AI Auto-Schedule</h2>
+              <h2 className="font-display text-2xl">{d.title}</h2>
               <p className="text-ink/60 text-sm mt-1">{rosterName}</p>
             </div>
             <button
@@ -104,9 +104,7 @@ export function AutoScheduleModal({
         {/* Body */}
         <div className="p-6">
           <p className="text-ink/70 mb-6">
-            Select a scheduling priority. Our AI will generate an optimal
-            schedule evaluated by 4 specialized agents for compliance, cost,
-            fairness, and operations.
+            {d.description}
           </p>
 
           {/* Priority Mode Selection */}
@@ -160,11 +158,9 @@ export function AutoScheduleModal({
             <div className="flex items-start gap-3">
               <i className="fas fa-robot text-ocean mt-0.5" />
               <div className="text-sm">
-                <p className="font-medium text-ink">Multi-Agent Consensus</p>
+                <p className="font-medium text-ink">{d.multiAgentTitle}</p>
                 <p className="text-ink/60 mt-1">
-                  The generated schedule will be reviewed by 4 AI agents:
-                  Compliance, Cost, Employee Advocate, and Operations. You can
-                  review their analysis before applying.
+                  {d.multiAgentDesc}
                 </p>
               </div>
             </div>
@@ -178,7 +174,7 @@ export function AutoScheduleModal({
             disabled={isSubmitting}
             className="px-5 py-2.5 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors disabled:opacity-50"
           >
-            Cancel
+            {d.cancel}
           </button>
           <button
             onClick={handleSubmit}
@@ -188,12 +184,12 @@ export function AutoScheduleModal({
             {isSubmitting ? (
               <>
                 <i className="fas fa-spinner fa-spin" />
-                Generating...
+                {d.generating}
               </>
             ) : (
               <>
                 <i className="fas fa-magic" />
-                Generate Schedule
+                {d.generateSchedule}
               </>
             )}
           </button>

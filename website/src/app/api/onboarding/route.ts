@@ -3,11 +3,18 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse } from "@/lib/api-utils";
 import { sendWelcomeEmail } from "@/lib/email";
 import { enrollInOnboardingAsync } from "@/lib/services/email-onboarding";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { randomBytes } from "crypto";
 
 // POST /api/onboarding - Create new account with organization
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { allowed, resetIn } = checkRateLimit(`onboarding:${ip}`, 3, 60 * 60 * 1000);
+    if (!allowed) {
+      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+    }
+
     const { email } = await request.json();
 
     if (!email) {
@@ -49,12 +56,16 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Create admin user (no password - will use magic link)
+    const emailLocalPart = email.split("@")[0];
+    const nameParts = emailLocalPart.split(/[._-]/).filter(Boolean);
+    const extractedFirstName = nameParts[0] ? nameParts[0].charAt(0).toUpperCase() + nameParts[0].slice(1).toLowerCase() : "";
+    const extractedLastName = nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0).toUpperCase() + nameParts[nameParts.length - 1].slice(1).toLowerCase() : "";
+
     const user = await prisma.user.create({
       data: {
         email: email.toLowerCase(),
-        firstName: "",
-        lastName: "",
+        firstName: extractedFirstName,
+        lastName: extractedLastName,
         role: "ADMIN",
         organizationId: organization.id,
         magicLinkToken,

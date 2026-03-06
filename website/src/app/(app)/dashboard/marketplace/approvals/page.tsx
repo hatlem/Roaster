@@ -4,12 +4,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { ApprovalActions } from "@/components/marketplace/ApprovalActions";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Shift Transfer Approvals",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.marketplace.approvalsTitle };
+}
 
 async function getPendingApprovals(organizationId: string) {
   try {
@@ -24,27 +28,15 @@ async function getPendingApprovals(organizationId: string) {
         shift: {
           include: {
             user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-              },
+              select: { id: true, firstName: true, lastName: true },
             },
             roster: {
-              select: {
-                id: true,
-                name: true,
-              },
+              select: { id: true, name: true },
             },
           },
         },
         claimedByUser: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-          },
+          select: { id: true, firstName: true, lastName: true, email: true },
         },
       },
       orderBy: { claimedAt: "asc" },
@@ -70,10 +62,14 @@ export default async function ApprovalsPage() {
     redirect("/dashboard");
   }
 
-  // Only managers can access this page
   if (!["ADMIN", "MANAGER"].includes(user.role)) {
     redirect("/dashboard/marketplace");
   }
+
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.marketplace;
+  const cd = dict.dashboard.components;
 
   const pendingApprovals = await getPendingApprovals(user.organizationId);
 
@@ -85,10 +81,10 @@ export default async function ApprovalsPage() {
           className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4"
         >
           <i className="fas fa-arrow-left" />
-          Back to Marketplace
+          {d.backToMarketplace}
         </Link>
-        <h1 className="font-display text-4xl mb-2">Shift Transfer Approvals</h1>
-        <p className="text-ink/60">Review and approve shift transfer requests</p>
+        <h1 className="font-display text-4xl mb-2">{d.approvalsTitle}</h1>
+        <p className="text-ink/60">{d.approvalsSubtitle}</p>
       </div>
 
       {/* Info Box */}
@@ -98,11 +94,9 @@ export default async function ApprovalsPage() {
             <i className="fas fa-info-circle text-ocean" />
           </div>
           <div>
-            <h3 className="font-semibold mb-1">Approval Guidelines</h3>
+            <h3 className="font-semibold mb-1">{d.approvalGuidelinesTitle}</h3>
             <p className="text-ink/60 text-sm">
-              When approving a shift transfer, the shift will be reassigned to the
-              new employee. Both employees will be notified of the decision.
-              Consider compliance implications before approving.
+              {d.approvalGuidelinesDesc}
             </p>
           </div>
         </div>
@@ -112,8 +106,8 @@ export default async function ApprovalsPage() {
       {pendingApprovals.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 border border-stone/50 text-center">
           <i className="fas fa-check-circle text-4xl mb-4 text-forest" />
-          <p className="text-lg font-medium mb-2">All caught up!</p>
-          <p className="text-ink/60">No pending shift transfers to review</p>
+          <p className="text-lg font-medium mb-2">{d.allCaughtUp}</p>
+          <p className="text-ink/60">{d.noPendingTransfers}</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -173,7 +167,7 @@ export default async function ApprovalsPage() {
                           </span>
                         </div>
                         <div>
-                          <p className="text-xs text-ink/60">From</p>
+                          <p className="text-xs text-ink/60">{d.from}</p>
                           <p className="text-sm font-medium">
                             {shift.user?.firstName} {shift.user?.lastName}
                           </p>
@@ -192,7 +186,7 @@ export default async function ApprovalsPage() {
                           </span>
                         </div>
                         <div>
-                          <p className="text-xs text-ink/60">To</p>
+                          <p className="text-xs text-ink/60">{d.toLabel}</p>
                           <p className="text-sm font-medium">
                             {listing.claimedByUser?.firstName}{" "}
                             {listing.claimedByUser?.lastName}
@@ -205,11 +199,11 @@ export default async function ApprovalsPage() {
                     <div className="flex items-center gap-4 text-xs text-ink/60">
                       <span>
                         <i className="fas fa-calendar mr-1" />
-                        Roster: {shift.roster?.name}
+                        {d.rosterColon} {shift.roster?.name}
                       </span>
                       <span>
                         <i className="fas fa-clock mr-1" />
-                        Claimed:{" "}
+                        {d.claimedColon}{" "}
                         {listing.claimedAt
                           ? new Date(listing.claimedAt).toLocaleDateString("en-GB")
                           : "-"}
@@ -237,7 +231,7 @@ export default async function ApprovalsPage() {
 
                   {/* Actions */}
                   <div className="ml-6">
-                    <ApprovalActions listingId={listing.id} />
+                    <ApprovalActions listingId={listing.id} dictionary={cd.approvalActions} />
                   </div>
                 </div>
               </div>

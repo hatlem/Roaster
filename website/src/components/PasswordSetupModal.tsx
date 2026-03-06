@@ -2,8 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export default function PasswordSetupModal() {
+type Props = {
+  dictionary: Dictionary;
+};
+
+export default function PasswordSetupModal({ dictionary }: Props) {
+  const t = dictionary.auth.passwordSetup;
   const { data: session, update } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
@@ -27,12 +33,12 @@ export default function PasswordSetupModal() {
     setError("");
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError(t.errors.tooShort);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t.errors.mismatch);
       return;
     }
 
@@ -59,7 +65,7 @@ export default function PasswordSetupModal() {
         setIsOpen(false);
       }, 1500);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : t.errors.generic);
     } finally {
       setIsSubmitting(false);
     }
@@ -87,9 +93,9 @@ export default function PasswordSetupModal() {
             <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <i className="fas fa-check text-forest text-2xl" />
             </div>
-            <h2 className="font-display text-2xl mb-2">Password set!</h2>
+            <h2 className="font-display text-2xl mb-2">{t.success.title}</h2>
             <p className="text-ink/60">
-              You can now sign in with your email and password.
+              {t.success.description}
             </p>
           </div>
         ) : (
@@ -98,9 +104,9 @@ export default function PasswordSetupModal() {
               <div className="w-16 h-16 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <i className="fas fa-lock text-ocean text-2xl" />
               </div>
-              <h2 className="font-display text-2xl mb-2">Set your password</h2>
+              <h2 className="font-display text-2xl mb-2">{t.title}</h2>
               <p className="text-ink/60">
-                Create a password for faster sign-in, or continue using magic links.
+                {t.description}
               </p>
             </div>
 
@@ -114,14 +120,14 @@ export default function PasswordSetupModal() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="password" className="block text-sm font-medium mb-2">
-                  Password
+                  {t.passwordLabel}
                 </label>
                 <input
                   type="password"
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="At least 8 characters"
+                  placeholder={t.passwordPlaceholder}
                   required
                   minLength={8}
                   className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
@@ -129,14 +135,14 @@ export default function PasswordSetupModal() {
               </div>
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
-                  Confirm password
+                  {t.confirmPasswordLabel}
                 </label>
                 <input
                   type="password"
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Enter password again"
+                  placeholder={t.confirmPasswordPlaceholder}
                   required
                   minLength={8}
                   className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
@@ -151,11 +157,11 @@ export default function PasswordSetupModal() {
                 {isSubmitting ? (
                   <>
                     <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Setting password...
+                    {t.settingPassword}
                   </>
                 ) : (
                   <>
-                    Set password
+                    {t.setPassword}
                     <i className="fas fa-arrow-right" />
                   </>
                 )}
@@ -166,7 +172,7 @@ export default function PasswordSetupModal() {
               onClick={handleDismiss}
               className="w-full mt-4 text-ink/60 hover:text-ink text-sm font-medium py-2 transition-colors"
             >
-              I&apos;ll do this later
+              {t.doThisLater}
             </button>
           </>
         )}

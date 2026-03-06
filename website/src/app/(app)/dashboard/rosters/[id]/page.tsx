@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { RosterActions } from "@/components/scheduling/RosterActions";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -41,14 +43,20 @@ async function getRoster(id: string) {
 
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   const roster = await getRoster(id);
   return {
-    title: roster ? roster.name : "Roster Not Found",
+    title: roster ? roster.name : dict.dashboard.rosters.rosterNotFound,
   };
 }
 
 export default async function RosterDetailPage({ params }: Props) {
   const { id } = await params;
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.rosters;
+  const cd = dict.dashboard.components;
   const roster = await getRoster(id);
 
   if (!roster) {
@@ -72,7 +80,7 @@ export default async function RosterDetailPage({ params }: Props) {
           className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4"
         >
           <i className="fas fa-arrow-left" />
-          Back to Rosters
+          {d.backToRosters}
         </Link>
         <div className="flex items-center justify-between">
           <div>
@@ -96,7 +104,7 @@ export default async function RosterDetailPage({ params }: Props) {
             {roster.status === "DRAFT" && (
               <button className="bg-ocean text-white px-4 py-2 rounded-xl font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2">
                 <i className="fas fa-paper-plane" />
-                Publish Roster
+                {d.publishRoster}
               </button>
             )}
           </div>
@@ -107,23 +115,23 @@ export default async function RosterDetailPage({ params }: Props) {
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
           <p className="text-3xl font-display">{roster._count.shifts}</p>
-          <p className="text-ink/60 text-sm">Total Shifts</p>
+          <p className="text-ink/60 text-sm">{d.totalShifts}</p>
         </div>
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
           <p className="text-3xl font-display">{daysUntilStart > 0 ? daysUntilStart : 0}</p>
-          <p className="text-ink/60 text-sm">Days Until Start</p>
+          <p className="text-ink/60 text-sm">{d.daysUntilStart}</p>
         </div>
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
           <p className="text-3xl font-display">{roster.location?.name || "All"}</p>
-          <p className="text-ink/60 text-sm">Location</p>
+          <p className="text-ink/60 text-sm">{d.locationLabel}</p>
         </div>
         <div className={`rounded-2xl p-6 border ${
           is14DayCompliant ? "bg-forest/5 border-forest/20" : "bg-terracotta/5 border-terracotta/20"
         }`}>
           <p className={`text-3xl font-display ${is14DayCompliant ? "text-forest" : "text-terracotta"}`}>
-            {is14DayCompliant ? "Yes" : "No"}
+            {is14DayCompliant ? d.yes : d.no}
           </p>
-          <p className="text-ink/60 text-sm">14-Day Compliant</p>
+          <p className="text-ink/60 text-sm">{d.fourteenDayCompliant}</p>
         </div>
       </div>
 
@@ -135,10 +143,9 @@ export default async function RosterDetailPage({ params }: Props) {
               <i className="fas fa-exclamation-triangle text-gold" />
             </div>
             <div>
-              <h3 className="font-semibold mb-1">14-Day Publishing Deadline</h3>
+              <h3 className="font-semibold mb-1">{d.fourteenDayDeadlineTitle}</h3>
               <p className="text-ink/60 text-sm">
-                This roster starts in {daysUntilStart} days. According to Norwegian labor law (§ 10-2),
-                you must publish it at least 14 days before it takes effect to be compliant.
+                {d.fourteenDayDeadlineDesc.replace('{days}', String(daysUntilStart))}
               </p>
             </div>
           </div>
@@ -148,31 +155,32 @@ export default async function RosterDetailPage({ params }: Props) {
       {/* Shifts Table */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-display text-xl">Shifts</h2>
+          <h2 className="font-display text-xl">{d.shiftsTitle}</h2>
           <RosterActions
             rosterId={roster.id}
             rosterName={roster.name}
             status={roster.status}
             hasShifts={roster.shifts.length > 0}
+            dictionary={cd}
           />
         </div>
 
         {roster.shifts.length === 0 ? (
           <div className="text-center py-12 text-ink/60">
             <i className="fas fa-calendar-alt text-4xl mb-4 text-stone" />
-            <p>No shifts added yet</p>
-            <p className="text-sm">Add shifts to this roster to start scheduling</p>
+            <p>{d.noShiftsAdded}</p>
+            <p className="text-sm">{d.noShiftsDescription}</p>
           </div>
         ) : (
           <table className="w-full">
             <thead className="bg-cream border-b border-stone/50">
               <tr>
-                <th className="text-left p-3 font-semibold text-sm">Employee</th>
-                <th className="text-left p-3 font-semibold text-sm">Date</th>
-                <th className="text-left p-3 font-semibold text-sm">Time</th>
-                <th className="text-left p-3 font-semibold text-sm">Duration</th>
-                <th className="text-left p-3 font-semibold text-sm">Type</th>
-                <th className="text-right p-3 font-semibold text-sm">Actions</th>
+                <th className="text-left p-3 font-semibold text-sm">{d.employee}</th>
+                <th className="text-left p-3 font-semibold text-sm">{d.date}</th>
+                <th className="text-left p-3 font-semibold text-sm">{d.time}</th>
+                <th className="text-left p-3 font-semibold text-sm">{d.duration}</th>
+                <th className="text-left p-3 font-semibold text-sm">{d.type}</th>
+                <th className="text-right p-3 font-semibold text-sm">{d.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -194,7 +202,7 @@ export default async function RosterDetailPage({ params }: Props) {
                           <span>{shift.user.firstName} {shift.user.lastName}</span>
                         </div>
                       ) : (
-                        <span className="text-ink/40">Unassigned</span>
+                        <span className="text-ink/40">{d.unassigned}</span>
                       )}
                     </td>
                     <td className="p-3 text-ink/60">{start.toLocaleDateString("en-GB")}</td>
@@ -207,12 +215,12 @@ export default async function RosterDetailPage({ params }: Props) {
                       <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                         shift.isOvertime ? "bg-gold/10 text-gold" : "bg-ocean/10 text-ocean"
                       }`}>
-                        {shift.isOvertime ? "Overtime" : "Regular"}
+                        {shift.isOvertime ? d.overtime : d.regular}
                       </span>
                     </td>
                     <td className="p-3 text-right">
                       <button className="text-ocean hover:text-ocean/70 font-medium">
-                        Edit
+                        {d.edit}
                       </button>
                     </td>
                   </tr>

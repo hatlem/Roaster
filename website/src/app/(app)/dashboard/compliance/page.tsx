@@ -1,15 +1,23 @@
 import { complianceStats } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const metadata = {
-  title: "Compliance",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.compliance.title };
+}
 
-export default function CompliancePage() {
+export default async function CompliancePage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.compliance;
+
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="font-display text-4xl mb-2">Compliance</h1>
-        <p className="text-ink/60">Labor law compliance monitoring</p>
+        <h1 className="font-display text-4xl mb-2">{d.title}</h1>
+        <p className="text-ink/60">{d.subtitle}</p>
       </div>
 
       {/* Compliance Score */}
@@ -20,11 +28,11 @@ export default function CompliancePage() {
               <i className="fas fa-shield-alt text-forest text-xl" />
             </div>
             <span className="text-xs font-medium text-forest bg-forest/10 px-2 py-1 rounded-full">
-              Excellent
+              {d.excellent}
             </span>
           </div>
           <p className="font-display text-3xl mb-1">{complianceStats.complianceRate}</p>
-          <p className="text-ink/60 text-sm">Overall Compliance Rate</p>
+          <p className="text-ink/60 text-sm">{d.overallComplianceRate}</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
@@ -34,7 +42,7 @@ export default function CompliancePage() {
             </div>
           </div>
           <p className="font-display text-3xl mb-1">0</p>
-          <p className="text-ink/60 text-sm">Rest Period Violations</p>
+          <p className="text-ink/60 text-sm">{d.restPeriodViolations}</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-stone/50">
@@ -44,13 +52,13 @@ export default function CompliancePage() {
             </div>
           </div>
           <p className="font-display text-3xl mb-1">0</p>
-          <p className="text-ink/60 text-sm">Overtime Limit Violations</p>
+          <p className="text-ink/60 text-sm">{d.overtimeLimitViolations}</p>
         </div>
       </div>
 
       {/* Compliance Rules */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-8">
-        <h2 className="font-display text-xl mb-6">Active Compliance Rules</h2>
+        <h2 className="font-display text-xl mb-6">{d.activeComplianceRules}</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
             <div className="flex items-center gap-4">
@@ -58,11 +66,11 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">14-Day Publication Rule</p>
-                <p className="text-ink/60 text-sm">Rosters must be published 14 days before start</p>
+                <p className="font-semibold">{d.publicationRuleTitle}</p>
+                <p className="text-ink/60 text-sm">{d.publicationRuleDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
@@ -71,11 +79,11 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">11-Hour Daily Rest</p>
-                <p className="text-ink/60 text-sm">Minimum 11 hours between shifts</p>
+                <p className="font-semibold">{d.dailyRestTitle}</p>
+                <p className="text-ink/60 text-sm">{d.dailyRestDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
@@ -84,11 +92,11 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">35-Hour Weekly Rest</p>
-                <p className="text-ink/60 text-sm">Minimum 35 consecutive hours rest per week</p>
+                <p className="font-semibold">{d.weeklyRestTitle}</p>
+                <p className="text-ink/60 text-sm">{d.weeklyRestDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
@@ -97,11 +105,11 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">9/40 Hour Work Limits</p>
-                <p className="text-ink/60 text-sm">Max 9 hours/day and 40 hours/week normal work</p>
+                <p className="font-semibold">{d.workLimitsTitle}</p>
+                <p className="text-ink/60 text-sm">{d.workLimitsDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
@@ -110,11 +118,11 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">Overtime Limits (10h/25h/200h)</p>
-                <p className="text-ink/60 text-sm">Weekly, monthly, and annual overtime caps</p>
+                <p className="font-semibold">{d.overtimeLimitsTitle}</p>
+                <p className="text-ink/60 text-sm">{d.overtimeLimitsDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
 
           <div className="flex items-center justify-between p-4 bg-forest/5 rounded-xl border border-forest/20">
@@ -123,22 +131,22 @@ export default function CompliancePage() {
                 <i className="fas fa-check text-forest" />
               </div>
               <div>
-                <p className="font-semibold">2-Year Audit Retention</p>
-                <p className="text-ink/60 text-sm">All schedule changes logged for compliance audits</p>
+                <p className="font-semibold">{d.auditRetentionTitle}</p>
+                <p className="text-ink/60 text-sm">{d.auditRetentionDesc}</p>
               </div>
             </div>
-            <span className="text-forest font-medium">Active</span>
+            <span className="text-forest font-medium">{d.active}</span>
           </div>
         </div>
       </div>
 
       {/* Audit Log */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50">
-        <h2 className="font-display text-xl mb-6">Recent Audit Log</h2>
+        <h2 className="font-display text-xl mb-6">{d.recentAuditLog}</h2>
         <div className="text-center py-8 text-ink/60">
           <i className="fas fa-clipboard-list text-4xl mb-4 text-stone" />
-          <p>No compliance events to display</p>
-          <p className="text-sm">All scheduling changes are automatically logged for auditing</p>
+          <p>{d.noComplianceEvents}</p>
+          <p className="text-sm">{d.auditLogAutomatic}</p>
         </div>
       </div>
     </div>

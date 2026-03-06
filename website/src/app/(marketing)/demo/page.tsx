@@ -1,12 +1,21 @@
-import { demo, testimonials, pricing } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
+import { pricing, testimonials } from "@/content";
 import { DemoForm } from "@/components/forms/DemoForm";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Start Free Trial",
-  description: "Start your 14-day free trial of Roaster. No credit card required.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return {
+    title: dict.demoPage.metaTitle,
+    description: dict.demoPage.metaDescription,
+  };
+}
 
-export default function DemoPage() {
+export default async function DemoPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   const featuredTestimonial = testimonials.find((t) => t.featured);
 
   return (
@@ -19,18 +28,18 @@ export default function DemoPage() {
             <div>
               <span className="feature-tag mb-6 inline-block">
                 <span className="w-2 h-2 bg-forest rounded-full mr-2" />
-                {pricing.trial.days}-Day Free Trial
+                {dict.demoPage.trialTag.replace('{days}', String(pricing.trial.days))}
               </span>
               <h1 className="font-display text-5xl md:text-6xl mb-6">
-                {demo.hero.title}
+                {dict.content.demo.heroTitle}
               </h1>
               <p className="text-xl text-ink/60 mb-12">
-                {demo.hero.subtitle}
+                {dict.content.demo.heroSubtitle}
               </p>
 
               {/* Benefits */}
               <div className="grid grid-cols-2 gap-6">
-                {demo.benefits.map((benefit, i) => (
+                {dict.content.demo.benefits.map((benefit, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-10 h-10 bg-forest/10 rounded-xl flex items-center justify-center flex-shrink-0">
                       <i className={`fas fa-${benefit.icon} text-forest`} />
@@ -65,11 +74,11 @@ export default function DemoPage() {
 
             {/* Right - Form */}
             <div className="bg-white rounded-3xl p-8 lg:p-12 border border-stone/50 shadow-xl">
-              <h2 className="font-display text-3xl mb-2">Create your account</h2>
+              <h2 className="font-display text-3xl mb-2">{dict.demoPage.createAccount}</h2>
               <p className="text-ink/60 mb-8">
-                Start your {pricing.trial.days}-day free trial in minutes.
+                {dict.demoPage.startTrialIn.replace('{days}', String(pricing.trial.days))}
               </p>
-              <DemoForm />
+              <DemoForm dictionary={dict} />
             </div>
           </div>
         </div>

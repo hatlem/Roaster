@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contact } from "@/content";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export function ContactForm() {
+interface ContactFormProps {
+  dictionary: Dictionary;
+}
+
+export function ContactForm({ dictionary }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,9 +28,9 @@ export function ContactForm() {
         <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <i className="fas fa-check text-forest text-2xl" />
         </div>
-        <h3 className="font-display text-2xl mb-2">Message sent</h3>
+        <h3 className="font-display text-2xl mb-2">{dictionary.forms.messageSentTitle}</h3>
         <p className="text-ink/60">
-          We&apos;ll get back to you within 24 hours.
+          {dictionary.forms.messageSentDesc}
         </p>
       </div>
     );
@@ -37,7 +41,7 @@ export function ContactForm() {
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-            First name *
+            {dictionary.forms.firstName} *
           </label>
           <input
             type="text"
@@ -49,7 +53,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-            Last name *
+            {dictionary.forms.lastName} *
           </label>
           <input
             type="text"
@@ -62,7 +66,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Work email *
+          {dictionary.forms.workEmail} *
         </label>
         <input
           type="email"
@@ -74,7 +78,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="company" className="block text-sm font-medium mb-2">
-          Company *
+          {dictionary.forms.company} *
         </label>
         <input
           type="text"
@@ -86,7 +90,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="message" className="block text-sm font-medium mb-2">
-          How can we help? *
+          {dictionary.forms.howCanWeHelp} *
         </label>
         <textarea
           id="message"
@@ -101,7 +105,7 @@ export function ContactForm() {
         disabled={submitting}
         className="w-full btn-primary justify-center disabled:opacity-50"
       >
-        {submitting ? "Sending..." : contact.form.submitText}
+        {submitting ? dictionary.common.sending : dictionary.forms.sendMessage}
         {!submitting && <i className="fas fa-arrow-right" />}
       </button>
     </form>

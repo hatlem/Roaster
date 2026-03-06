@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
+import { prisma } from "./db";
 
 export type ApiResponse<T = unknown> = {
   success: boolean;
@@ -35,4 +36,15 @@ export async function requireRole(roles: string[]) {
     throw new Error("Forbidden");
   }
   return session;
+}
+
+export async function getOrganizationId(userId: string): Promise<string> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { organizationId: true },
+  });
+  if (!user?.organizationId) {
+    throw new Error("NoOrganization");
+  }
+  return user.organizationId;
 }

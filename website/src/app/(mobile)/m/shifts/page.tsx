@@ -3,6 +3,8 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ClaimButton } from "@/components/marketplace/ClaimButton";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -56,21 +58,26 @@ export default async function ShiftsPage() {
 
   const listings = await getAvailableShifts(user.organizationId, session.user.id);
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const cd = dict.dashboard.components;
+  const t = dict.mobile.shifts;
+
   return (
     <div className="p-4">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="font-display text-2xl">Available Shifts</h1>
-        <p className="text-ink/60 text-sm">Claim shifts from coworkers</p>
+        <h1 className="font-display text-2xl">{t.title}</h1>
+        <p className="text-ink/60 text-sm">{t.subtitle}</p>
       </div>
 
       {/* Listings */}
       {listings.length === 0 ? (
         <div className="bg-white rounded-xl p-8 border border-stone/30 text-center">
           <i className="fas fa-exchange-alt text-3xl mb-3 text-stone" />
-          <p className="text-ink/60">No shifts available</p>
+          <p className="text-ink/60">{t.noShiftsAvailable}</p>
           <p className="text-sm text-ink/40 mt-1">
-            Check back later for new opportunities
+            {t.checkBackLater}
           </p>
         </div>
       ) : (
@@ -94,20 +101,20 @@ export default async function ShiftsPage() {
                       {startTime.getDate()}
                     </span>
                     <span className="text-xs text-ocean">
-                      {startTime.toLocaleDateString("en-GB", { month: "short" })}
+                      {startTime.toLocaleDateString(locale, { month: "short" })}
                     </span>
                   </div>
                   <div className="flex-1">
                     <p className="font-medium">
-                      {startTime.toLocaleDateString("en-GB", { weekday: "long" })}
+                      {startTime.toLocaleDateString(locale, { weekday: "long" })}
                     </p>
                     <p className="text-sm text-ink/60">
-                      {startTime.toLocaleTimeString("en-GB", {
+                      {startTime.toLocaleTimeString(locale, {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}{" "}
                       -{" "}
-                      {endTime.toLocaleTimeString("en-GB", {
+                      {endTime.toLocaleTimeString(locale, {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -148,7 +155,7 @@ export default async function ShiftsPage() {
                 )}
 
                 {/* Claim Button */}
-                <ClaimButton listingId={listing.id} />
+                <ClaimButton listingId={listing.id} dictionary={cd.claimButton} />
               </div>
             );
           })}

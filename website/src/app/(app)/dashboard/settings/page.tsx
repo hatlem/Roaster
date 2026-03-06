@@ -3,9 +3,13 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import { redirect } from "next/navigation"
 import { SettingsContent } from "./settings-content"
+import { getServerLocale } from "@/i18n/server"
+import { getDictionary } from "@/i18n/dictionaries"
 
-export const metadata = {
-  title: "Settings",
+export async function generateMetadata() {
+  const locale = await getServerLocale()
+  const dict = getDictionary(locale)
+  return { title: dict.dashboard.settings.title }
 }
 
 export default async function SettingsPage() {
@@ -13,6 +17,9 @@ export default async function SettingsPage() {
   if (!session?.user) {
     redirect("/login")
   }
+
+  const locale = await getServerLocale()
+  const dict = getDictionary(locale)
 
   // Fetch organization with billing info
   const user = await prisma.user.findUnique({
@@ -60,5 +67,5 @@ export default async function SettingsPage() {
     overtimePremium: org?.overtimePremium ? Number(org.overtimePremium) * 100 - 100 : 40,
   }
 
-  return <SettingsContent orgInfo={orgInfo} billingInfo={billingInfo} />
+  return <SettingsContent orgInfo={orgInfo} billingInfo={billingInfo} dictionary={dict} />
 }

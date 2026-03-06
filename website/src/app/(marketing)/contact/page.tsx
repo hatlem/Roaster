@@ -1,12 +1,22 @@
-import { contact, company } from "@/content";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
+import { company } from "@/content";
 import { ContactForm } from "@/components/forms/ContactForm";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Contact",
-  description: "Get in touch with the Roaster team.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return {
+    title: dict.contactPage.metaTitle,
+    description: dict.contactPage.metaDescription,
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   return (
     <>
       {/* Hero */}
@@ -17,13 +27,13 @@ export default function ContactPage() {
             <div>
               <span className="feature-tag mb-6 inline-block">
                 <span className="w-2 h-2 bg-ocean rounded-full mr-2" />
-                Contact Us
+                {dict.contactPage.tagline}
               </span>
               <h1 className="font-display text-5xl md:text-6xl mb-6">
-                {contact.hero.title}
+                {dict.content.contact.heroTitle}
               </h1>
               <p className="text-xl text-ink/60 mb-12">
-                {contact.hero.subtitle}
+                {dict.content.contact.heroSubtitle}
               </p>
 
               {/* Contact Info */}
@@ -33,7 +43,7 @@ export default function ContactPage() {
                     <i className="fas fa-envelope text-ocean" />
                   </div>
                   <div>
-                    <p className="font-semibold">Email</p>
+                    <p className="font-semibold">{dict.common.email}</p>
                     <a href={`mailto:${company.contact.email}`} className="text-ocean hover:underline">
                       {company.contact.email}
                     </a>
@@ -44,7 +54,7 @@ export default function ContactPage() {
                     <i className="fas fa-map-marker-alt text-forest" />
                   </div>
                   <div>
-                    <p className="font-semibold">Location</p>
+                    <p className="font-semibold">{dict.common.location}</p>
                     <p className="text-ink/60">
                       {company.contact.address.city}, {company.contact.address.country}
                     </p>
@@ -54,9 +64,9 @@ export default function ContactPage() {
 
               {/* FAQ */}
               <div>
-                <h3 className="font-display text-2xl mb-6">Common Questions</h3>
+                <h3 className="font-display text-2xl mb-6">{dict.contactPage.commonQuestions}</h3>
                 <div className="space-y-4">
-                  {contact.faq.map((item, i) => (
+                  {dict.content.contact.faq.map((item, i) => (
                     <div key={i} className="bg-white rounded-2xl p-6 border border-stone/50">
                       <h4 className="font-semibold mb-2">{item.question}</h4>
                       <p className="text-ink/60 text-sm">{item.answer}</p>
@@ -68,8 +78,8 @@ export default function ContactPage() {
 
             {/* Right - Form */}
             <div className="bg-white rounded-3xl p-8 lg:p-12 border border-stone/50 shadow-xl h-fit">
-              <h2 className="font-display text-3xl mb-8">Send us a message</h2>
-              <ContactForm />
+              <h2 className="font-display text-3xl mb-8">{dict.contactPage.sendMessage}</h2>
+              <ContactForm dictionary={dict} />
             </div>
           </div>
         </div>

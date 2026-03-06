@@ -1,11 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
-import { successResponse, errorResponse, requireAuth, requireRole } from "@/lib/api-utils";
+import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
 
 // GET /api/rosters - List rosters
 export async function GET(request: NextRequest) {
   try {
     const session = await requireAuth();
+    const orgId = await getOrganizationId(session.user.id);
     const { searchParams } = new URL(request.url);
 
     const status = searchParams.get("status");
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
 
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { organizationId: orgId };
 
     if (status) {
       where.status = status;
@@ -57,6 +58,9 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return errorResponse("Unauthorized", 401);
     }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
+    }
     console.error("Error fetching rosters:", error);
     return errorResponse("Failed to fetch rosters", 500);
   }
@@ -66,6 +70,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const body = await request.json();
     const { name, startDate, endDate, locationId } = body;
@@ -74,24 +79,12 @@ export async function POST(request: NextRequest) {
       return errorResponse("Missing required fields: name, startDate, endDate");
     }
 
-    // Get or create default organization
-    let organization = await prisma.organization.findFirst();
-    if (!organization) {
-      organization = await prisma.organization.create({
-        data: {
-          name: "Default Organization",
-          orgNumber: "000000000",
-          contactEmail: "admin@example.no",
-        },
-      });
-    }
-
     const roster = await prisma.roster.create({
       data: {
         name,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
-        organizationId: organization.id,
+        organizationId: orgId,
         locationId,
         createdBy: session.user?.email || "system",
         status: "DRAFT",
@@ -108,6 +101,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return errorResponse("Forbidden", 403);
+    }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return errorResponse("No organization found", 400);
     }
     console.error("Error creating roster:", error);
     return errorResponse("Failed to create roster", 500);

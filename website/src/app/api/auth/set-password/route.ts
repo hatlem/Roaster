@@ -1,12 +1,19 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth } from "@/lib/api-utils";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { hash } from "bcrypt";
 
 // POST /api/auth/set-password - Set password for authenticated user
 export async function POST(request: NextRequest) {
   try {
     const session = await requireAuth();
+
+    const { allowed, resetIn } = checkRateLimit(`set-password:${session.user.id}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+    }
+
     const { password } = await request.json();
 
     if (!password) {

@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireRole } from "@/lib/api-utils";
+import { requireRole, getOrganizationId } from "@/lib/api-utils";
+import { prisma } from "@/lib/db";
 import { createAutoScheduleJob } from "@/services/autoSchedulerService";
 import { SchedulePriorityMode } from "@prisma/client";
 
 export async function POST(request: NextRequest) {
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
+    const orgId = await getOrganizationId(session.user.id);
 
     const body = await request.json();
     const { rosterId, priorityMode } = body;
@@ -14,6 +16,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "rosterId is required" },
         { status: 400 }
+      );
+    }
+
+    const roster = await prisma.roster.findUnique({
+      where: { id: rosterId },
+      select: { organizationId: true },
+    });
+    if (!roster || roster.organizationId !== orgId) {
+      return NextResponse.json(
+        { error: "Roster not found" },
+        { status: 404 }
       );
     }
 
@@ -50,6 +63,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+    if (error instanceof Error && error.message === "NoOrganization") {
+      return NextResponse.json({ error: "No organization found" }, { status: 400 });
     }
     console.error("Auto-fill error:", error);
     return NextResponse.json(

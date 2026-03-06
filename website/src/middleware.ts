@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { locales, defaultLocale, type Locale, localeToCountry } from './i18n/config';
 
-// Get the preferred locale from Accept-Language header
 function getPreferredLocale(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language');
   if (!acceptLanguage) return defaultLocale;
 
-  // Parse Accept-Language header
   const languages = acceptLanguage
     .split(',')
     .map(lang => {
@@ -18,13 +16,10 @@ function getPreferredLocale(request: NextRequest): Locale {
     })
     .sort((a, b) => b.quality - a.quality);
 
-  // Find matching locale
   for (const { code } of languages) {
-    // Exact match
     if (locales.includes(code as Locale)) {
       return code as Locale;
     }
-    // Match language part (e.g., 'en' matches 'en-GB')
     const langPart = code.split('-')[0];
     const match = locales.find(locale =>
       locale === langPart || locale.startsWith(langPart + '-')
@@ -38,7 +33,6 @@ function getPreferredLocale(request: NextRequest): Locale {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip for static files, API routes, and Next.js internals
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
@@ -48,50 +42,53 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check if pathname has a supported locale
   const pathnameSegments = pathname.split('/');
   const pathnameLocale = pathnameSegments[1];
 
-  // Map country codes to locales for URL matching
   const countryToLocale: Record<string, Locale> = {};
   for (const [locale, country] of Object.entries(localeToCountry)) {
     countryToLocale[country] = locale as Locale;
   }
 
-  // Check if URL uses country code (e.g., /se, /dk, /de)
   const localeFromCountry = countryToLocale[pathnameLocale];
   if (localeFromCountry) {
-    // Already has a valid locale/country prefix
-    return NextResponse.next();
+    // Set locale cookie for country-code URLs
+    const response = NextResponse.next();
+    response.cookies.set('NEXT_LOCALE', localeFromCountry, { path: '/', sameSite: 'lax' });
+    return response;
   }
 
-  // Check if URL uses locale directly (e.g., /sv, /da, /de)
   if (locales.includes(pathnameLocale as Locale)) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.cookies.set('NEXT_LOCALE', pathnameLocale, { path: '/', sameSite: 'lax' });
+    return response;
   }
 
-  // No locale in pathname - only redirect the root path to locale-specific homepage
-  // Other marketing pages don't have locale variants, so don't redirect them
-  if (pathname === '/') {
-    const preferredLocale = getPreferredLocale(request);
+  // Detect locale and set cookie for all other pages
+  const preferredLocale = getPreferredLocale(request);
+  const response = NextResponse.next();
+
+  // Only set cookie if not already set to the right value
+  const existingLocale = request.cookies.get('NEXT_LOCALE')?.value;
+  if (!existingLocale) {
+    response.cookies.set('NEXT_LOCALE', preferredLocale, { path: '/', sameSite: 'lax' });
+  }
+
+  // Redirect root path to locale-specific homepage
+  if (pathname === '/' && preferredLocale !== defaultLocale) {
     const country = localeToCountry[preferredLocale];
-
-    if (preferredLocale !== defaultLocale) {
-      const url = request.nextUrl.clone();
-      url.pathname = `/${country}`;
-      return NextResponse.redirect(url);
-    }
+    const url = request.nextUrl.clone();
+    url.pathname = `/${country}`;
+    const redirectResponse = NextResponse.redirect(url);
+    redirectResponse.cookies.set('NEXT_LOCALE', preferredLocale, { path: '/', sameSite: 'lax' });
+    return redirectResponse;
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
   matcher: [
-    // Match all pathnames except for
-    // - api routes
-    // - _next (Next.js internals)
-    // - static files
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
   ],
 };

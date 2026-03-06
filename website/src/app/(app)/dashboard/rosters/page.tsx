@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Rosters",
-};
+export async function generateMetadata() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  return { title: dict.dashboard.rosters.title };
+}
 
 async function getRosters() {
   try {
@@ -25,21 +29,24 @@ async function getRosters() {
 }
 
 export default async function RostersPage() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const d = dict.dashboard.rosters;
   const rosters = await getRosters();
 
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-4xl mb-2">Rosters</h1>
-          <p className="text-ink/60">Manage your work schedules</p>
+          <h1 className="font-display text-4xl mb-2">{d.title}</h1>
+          <p className="text-ink/60">{d.subtitle}</p>
         </div>
         <Link
           href="/dashboard/rosters/new"
           className="bg-ocean text-white px-6 py-3 rounded-xl font-semibold hover:bg-ocean/90 transition-colors flex items-center gap-2"
         >
           <i className="fas fa-plus" />
-          Create Roster
+          {d.createRoster}
         </Link>
       </div>
 
@@ -48,14 +55,14 @@ export default async function RostersPage() {
           <div className="w-16 h-16 bg-ocean/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <i className="fas fa-calendar-alt text-ocean text-2xl" />
           </div>
-          <h2 className="font-display text-2xl mb-2">No Rosters Yet</h2>
-          <p className="text-ink/60 mb-6">Create your first roster to start scheduling shifts</p>
+          <h2 className="font-display text-2xl mb-2">{d.noRostersTitle}</h2>
+          <p className="text-ink/60 mb-6">{d.noRostersDescription}</p>
           <Link
             href="/dashboard/rosters/new"
             className="inline-flex items-center gap-2 bg-ocean text-white px-6 py-3 rounded-xl font-semibold hover:bg-ocean/90 transition-colors"
           >
             <i className="fas fa-plus" />
-            Create Your First Roster
+            {d.createFirstRoster}
           </Link>
         </div>
       ) : (
@@ -63,12 +70,12 @@ export default async function RostersPage() {
           <table className="w-full">
             <thead className="bg-cream border-b border-stone/50">
               <tr>
-                <th className="text-left p-4 font-semibold">Name</th>
-                <th className="text-left p-4 font-semibold">Period</th>
-                <th className="text-left p-4 font-semibold">Status</th>
-                <th className="text-left p-4 font-semibold">Shifts</th>
-                <th className="text-left p-4 font-semibold">Published</th>
-                <th className="text-right p-4 font-semibold">Actions</th>
+                <th className="text-left p-4 font-semibold">{d.name}</th>
+                <th className="text-left p-4 font-semibold">{d.period}</th>
+                <th className="text-left p-4 font-semibold">{d.status}</th>
+                <th className="text-left p-4 font-semibold">{d.shifts}</th>
+                <th className="text-left p-4 font-semibold">{d.published}</th>
+                <th className="text-right p-4 font-semibold">{d.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +111,7 @@ export default async function RostersPage() {
                       href={`/dashboard/rosters/${roster.id}`}
                       className="text-ocean hover:text-ocean/70 font-medium"
                     >
-                      View
+                      {d.view}
                     </Link>
                   </td>
                 </tr>

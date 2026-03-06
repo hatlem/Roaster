@@ -5,10 +5,16 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { company } from "@/content";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 type LoginMode = "password" | "magic-link";
 
-export default function LoginForm() {
+type Props = {
+  dictionary: Dictionary;
+};
+
+export default function LoginForm({ dictionary }: Props) {
+  const t = dictionary.auth.login;
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
@@ -33,12 +39,12 @@ export default function LoginForm() {
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError(t.invalidCredentials);
       } else {
         router.push(callbackUrl);
       }
     } catch {
-      setError("An error occurred. Please try again.");
+      setError(t.genericError);
     } finally {
       setLoading(false);
     }
@@ -64,7 +70,7 @@ export default function LoginForm() {
 
       setMagicLinkSent(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : t.genericError);
     } finally {
       setLoading(false);
     }
@@ -78,12 +84,12 @@ export default function LoginForm() {
           <div className="w-16 h-16 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <i className="fas fa-envelope text-ocean text-2xl" />
           </div>
-          <h1 className="font-display text-2xl mb-2">Check your email</h1>
+          <h1 className="font-display text-2xl mb-2">{t.magicLinkSent.title}</h1>
           <p className="text-ink/60 mb-6">
-            We sent a magic link to <strong className="text-ink">{email}</strong>
+            {t.magicLinkSent.sentTo} <strong className="text-ink">{email}</strong>
           </p>
           <p className="text-sm text-ink/50 mb-8">
-            Click the link in the email to sign in. The link expires in 1 hour.
+            {t.magicLinkSent.clickLink}
           </p>
           <button
             onClick={() => {
@@ -92,7 +98,7 @@ export default function LoginForm() {
             }}
             className="text-ocean hover:underline font-medium text-sm"
           >
-            Use a different email
+            {t.magicLinkSent.useDifferentEmail}
           </button>
         </div>
       </div>
@@ -103,8 +109,8 @@ export default function LoginForm() {
     <div className="w-full max-w-md">
       <div className="bg-white rounded-3xl p-8 shadow-xl border border-stone/50">
         <div className="text-center mb-8">
-          <h1 className="font-display text-3xl mb-2">Welcome back</h1>
-          <p className="text-ink/60">Sign in to your {company.name} account</p>
+          <h1 className="font-display text-3xl mb-2">{t.welcomeBack}</h1>
+          <p className="text-ink/60">{t.signInTo.replace('{companyName}', company.name)}</p>
         </div>
 
         {/* Toggle */}
@@ -121,7 +127,7 @@ export default function LoginForm() {
                 : "text-ink/60 hover:text-ink"
             }`}
           >
-            Password
+            {t.passwordTab}
           </button>
           <button
             type="button"
@@ -135,7 +141,7 @@ export default function LoginForm() {
                 : "text-ink/60 hover:text-ink"
             }`}
           >
-            Magic link
+            {t.magicLinkTab}
           </button>
         </div>
 
@@ -150,7 +156,7 @@ export default function LoginForm() {
           <form onSubmit={handlePasswordSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
+                {t.emailLabel}
               </label>
               <input
                 type="email"
@@ -159,13 +165,13 @@ export default function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                placeholder="you@company.no"
+                placeholder={t.emailPlaceholder}
               />
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium mb-2">
-                Password
+                {t.passwordLabel}
               </label>
               <input
                 type="password"
@@ -174,17 +180,17 @@ export default function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                placeholder="Enter your password"
+                placeholder={t.passwordPlaceholder}
               />
             </div>
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2">
                 <input type="checkbox" className="rounded border-stone" />
-                <span className="text-ink/60">Remember me</span>
+                <span className="text-ink/60">{t.rememberMe}</span>
               </label>
               <Link href="/forgot-password" className="text-ocean hover:underline">
-                Forgot password?
+                {t.forgotPassword}
               </Link>
             </div>
 
@@ -196,10 +202,10 @@ export default function LoginForm() {
               {loading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Signing in...
+                  {t.signingIn}
                 </>
               ) : (
-                "Sign in"
+                t.signIn
               )}
             </button>
           </form>
@@ -207,7 +213,7 @@ export default function LoginForm() {
           <form onSubmit={handleMagicLinkSubmit} className="space-y-6">
             <div>
               <label htmlFor="magic-email" className="block text-sm font-medium mb-2">
-                Email
+                {t.emailLabel}
               </label>
               <input
                 type="email"
@@ -216,12 +222,12 @@ export default function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-stone focus:border-ocean focus:outline-none focus:ring-2 focus:ring-ocean/20"
-                placeholder="you@company.no"
+                placeholder={t.emailPlaceholder}
               />
             </div>
 
             <p className="text-sm text-ink/50">
-              We&apos;ll send you a magic link to sign in without a password.
+              {t.magicLinkDescription}
             </p>
 
             <button
@@ -232,11 +238,11 @@ export default function LoginForm() {
               {loading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Sending...
+                  {t.sending}
                 </>
               ) : (
                 <>
-                  Send magic link
+                  {t.sendMagicLink}
                   <i className="fas fa-paper-plane ml-2" />
                 </>
               )}
@@ -245,9 +251,9 @@ export default function LoginForm() {
         )}
 
         <div className="mt-8 text-center text-sm text-ink/60">
-          Don&apos;t have an account?{" "}
+          {t.noAccount}{" "}
           <Link href="/onboarding" className="text-ocean hover:underline font-medium">
-            Start free trial
+            {t.startFreeTrial}
           </Link>
         </div>
       </div>

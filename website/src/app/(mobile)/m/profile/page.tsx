@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import { SignOutButton } from "@/components/mobile/SignOutButton";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamic = "force-dynamic";
 
@@ -39,12 +41,16 @@ export default async function ProfilePage() {
     redirect("/login");
   }
 
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const t = dict.mobile.profile;
+
   return (
     <div className="p-4">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="font-display text-2xl">Profile</h1>
-        <p className="text-ink/60 text-sm">Manage your account</p>
+        <h1 className="font-display text-2xl">{t.title}</h1>
+        <p className="text-ink/60 text-sm">{t.subtitle}</p>
       </div>
 
       {/* Profile Card */}
@@ -68,9 +74,9 @@ export default async function ProfilePage() {
           <div className="flex items-center gap-3">
             <i className="fas fa-building w-5 text-ink/40" />
             <div>
-              <p className="text-xs text-ink/60">Organization</p>
+              <p className="text-xs text-ink/60">{t.organization}</p>
               <p className="font-medium">
-                {user.organization?.name || "Not assigned"}
+                {user.organization?.name || t.notAssigned}
               </p>
             </div>
           </div>
@@ -78,9 +84,9 @@ export default async function ProfilePage() {
           <div className="flex items-center gap-3">
             <i className="fas fa-map-marker-alt w-5 text-ink/40" />
             <div>
-              <p className="text-xs text-ink/60">Location</p>
+              <p className="text-xs text-ink/60">{t.location}</p>
               <p className="font-medium">
-                {user.location?.name || "Not assigned"}
+                {user.location?.name || t.notAssigned}
               </p>
             </div>
           </div>
@@ -88,9 +94,9 @@ export default async function ProfilePage() {
           <div className="flex items-center gap-3">
             <i className="fas fa-user-tag w-5 text-ink/40" />
             <div>
-              <p className="text-xs text-ink/60">Role</p>
+              <p className="text-xs text-ink/60">{t.role}</p>
               <p className="font-medium capitalize">
-                {user.role?.toLowerCase().replace("_", " ") || "Employee"}
+                {user.role?.toLowerCase().replace("_", " ") || t.employee}
               </p>
             </div>
           </div>
@@ -106,7 +112,7 @@ export default async function ProfilePage() {
         >
           <div className="flex items-center gap-3">
             <i className="fas fa-bell w-5 text-ink/60" />
-            <span>Notifications</span>
+            <span>{t.notifications}</span>
           </div>
           <i className="fas fa-chevron-right text-ink/40" />
         </Link>
@@ -117,7 +123,7 @@ export default async function ProfilePage() {
         >
           <div className="flex items-center gap-3">
             <i className="fas fa-sliders-h w-5 text-ink/60" />
-            <span>Preferences</span>
+            <span>{t.preferences}</span>
           </div>
           <i className="fas fa-chevron-right text-ink/40" />
         </Link>
@@ -128,7 +134,7 @@ export default async function ProfilePage() {
         >
           <div className="flex items-center gap-3">
             <i className="fas fa-calendar-check w-5 text-ink/60" />
-            <span>Availability</span>
+            <span>{t.availability}</span>
           </div>
           <i className="fas fa-chevron-right text-ink/40" />
         </Link>
@@ -142,7 +148,7 @@ export default async function ProfilePage() {
         >
           <div className="flex items-center gap-3">
             <i className="fas fa-question-circle w-5 text-ink/60" />
-            <span>Help & Support</span>
+            <span>{t.helpSupport}</span>
           </div>
           <i className="fas fa-chevron-right text-ink/40" />
         </Link>
@@ -153,7 +159,7 @@ export default async function ProfilePage() {
         >
           <div className="flex items-center gap-3">
             <i className="fas fa-shield-alt w-5 text-ink/60" />
-            <span>Privacy Policy</span>
+            <span>{t.privacyPolicy}</span>
           </div>
           <i className="fas fa-chevron-right text-ink/40" />
         </Link>
@@ -161,12 +167,12 @@ export default async function ProfilePage() {
 
       {/* Sign Out */}
       <div className="mt-6">
-        <SignOutButton />
+        <SignOutButton label={t.signOut} />
       </div>
 
       {/* App Version */}
       <p className="text-center text-xs text-ink/40 mt-6">
-        Roaster v1.0.0
+        {t.version}
       </p>
     </div>
   );
