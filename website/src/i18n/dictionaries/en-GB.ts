@@ -924,6 +924,7 @@ export const enGB: Dictionary = {
     rateLimits: 'Rate Limits',
     requestsPerMinute: 'requests per minute',
     basedOnNeeds: 'based on your needs',
+    custom: 'Custom',
     sdks: 'SDKs & Libraries',
     readyToIntegrate: 'Ready to integrate?',
     apiAccessInfo: 'API access is available on Professional and Enterprise plans.',
@@ -976,6 +977,45 @@ export const enGB: Dictionary = {
     ],
     changesTitle: 'Changes to Subprocessors',
     changesText: 'We will notify customers of any changes to our subprocessor list. For questions about our data processing practices, please contact us at',
+  },
+  // Dashboard section - British English overrides
+  dashboard: {
+    ...en.dashboard,
+    employees: {
+      ...en.dashboard.employees,
+      newSubtitle: 'Add a new team member to your organisation',
+    },
+    compliance: {
+      ...en.dashboard.compliance,
+      subtitle: 'Labour law compliance monitoring',
+    },
+    reports: {
+      ...en.dashboard.reports,
+      laborCostsTitle: 'Labour Costs',
+      laborCostsDesc: 'Analyse scheduled vs actual labour costs with budget variance',
+      costsTitle: 'Labour Costs Report',
+      costsSubtitle: 'Analyse scheduled vs actual labour costs with budget variance',
+      noLaborCostData: 'No labour cost data available',
+      noLaborCostDataHint: 'Cost analysis will appear once shifts and hourly rates are configured',
+      noRostersToAnalyze: 'No rosters to analyse',
+    },
+    settings: {
+      ...en.dashboard.settings,
+      subtitle: 'Configure your organisation and compliance settings',
+      organization: 'Organisation',
+      organizationDetails: 'Organisation Details',
+      organizationName: 'Organisation Name',
+      organizationNumber: 'Organisation Number',
+      laborLawSettings: 'Labour Law Compliance Settings',
+    },
+    components: {
+      ...en.dashboard.components,
+      billing: {
+        ...en.dashboard.components.billing,
+        canceledMessage: 'Your subscription has been cancelled. Subscribe again to regain access to paid features.',
+        statusCanceled: 'Cancelled',
+      },
+    },
   },
   api: { ...en.api },
 };

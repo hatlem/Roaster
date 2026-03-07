@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { BillingSection } from "@/components/billing/BillingSection"
 import type { Dictionary } from "@/i18n/dictionaries"
 
@@ -160,8 +160,58 @@ const labelClass = "block text-sm font-medium text-ink/80 mb-2"
 /* -------------------------------------------------------------------------- */
 
 function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionary: Dictionary["dashboard"]["settings"] }) {
+  const router = useRouter()
+  const [name, setName] = useState(orgInfo.name)
+  const [orgNumber, setOrgNumber] = useState(orgInfo.orgNumber)
+  const [contactEmail, setContactEmail] = useState(orgInfo.contactEmail)
+  const [address, setAddress] = useState(orgInfo.address)
+  const [saving, setSaving] = useState(false)
+  const [banner, setBanner] = useState<{ type: "success" | "error"; message: string } | null>(null)
+
+  const handleSave = async () => {
+    setSaving(true)
+    setBanner(null)
+    try {
+      const res = await fetch("/api/settings/organization", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, orgNumber, contactEmail, address }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        setBanner({ type: "error", message: data.error || d.failedToSave })
+      } else {
+        setBanner({ type: "success", message: d.organizationSaved })
+        router.refresh()
+      }
+    } catch {
+      setBanner({ type: "error", message: d.unexpectedError })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleCancel = () => {
+    setName(orgInfo.name)
+    setOrgNumber(orgInfo.orgNumber)
+    setContactEmail(orgInfo.contactEmail)
+    setAddress(orgInfo.address)
+    setBanner(null)
+  }
+
   return (
     <>
+      {banner && (
+        <div className={`mb-6 p-4 rounded-xl text-sm flex items-center gap-3 ${
+          banner.type === "success"
+            ? "bg-forest/10 text-forest"
+            : "bg-red-50 text-red-700"
+        }`}>
+          <i className={`fas ${banner.type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`} />
+          <span>{banner.message}</span>
+        </div>
+      )}
+
       <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
         {/* Section header with icon */}
         <div className="flex items-center gap-3 mb-6">
@@ -178,7 +228,8 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
               <label className={labelClass}>{d.organizationName}</label>
               <input
                 type="text"
-                defaultValue={orgInfo.name}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className={inputClass}
               />
             </div>
@@ -186,7 +237,8 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
               <label className={labelClass}>{d.organizationNumber}</label>
               <input
                 type="text"
-                defaultValue={orgInfo.orgNumber}
+                value={orgNumber}
+                onChange={(e) => setOrgNumber(e.target.value)}
                 className={inputClass}
               />
             </div>
@@ -199,7 +251,8 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
                 <label className={labelClass}>{d.contactEmail}</label>
                 <input
                   type="email"
-                  defaultValue={orgInfo.contactEmail}
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
                   className={inputClass}
                 />
               </div>
@@ -207,7 +260,8 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
                 <label className={labelClass}>{d.address}</label>
                 <input
                   type="text"
-                  defaultValue={orgInfo.address}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   className={inputClass}
                 />
               </div>
@@ -218,11 +272,25 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
 
       {/* Save / Cancel */}
       <div className="flex justify-end gap-4 mb-8">
-        <button className="px-6 py-3 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-all duration-200">
+        <button
+          onClick={handleCancel}
+          className="px-6 py-3 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-all duration-200"
+        >
           {d.cancel}
         </button>
-        <button className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200">
-          {d.saveChanges}
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {saving ? (
+            <span className="flex items-center gap-2">
+              <i className="fas fa-spinner fa-spin" />
+              {d.saving}
+            </span>
+          ) : (
+            d.saveChanges
+          )}
         </button>
       </div>
 
@@ -233,17 +301,17 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
             <i className="fas fa-exclamation-triangle text-red-500" />
           </div>
           <div>
-            <h3 className="font-display text-lg text-red-700">Danger Zone</h3>
-            <p className="text-sm text-ink/50">Irreversible actions for your organization</p>
+            <h3 className="font-display text-lg text-red-700">{d.dangerZone}</h3>
+            <p className="text-sm text-ink/50">{d.dangerZoneDescription}</p>
           </div>
         </div>
         <div className="flex items-center justify-between p-4 rounded-xl border border-red-200 bg-red-50/30">
           <div>
-            <p className="font-medium text-ink/80">Delete Organization</p>
-            <p className="text-sm text-ink/50">Permanently remove your organization and all associated data</p>
+            <p className="font-medium text-ink/80">{d.deleteOrganization}</p>
+            <p className="text-sm text-ink/50">{d.deleteOrganizationDescription}</p>
           </div>
           <button className="px-5 py-2.5 rounded-xl border-2 border-red-400 text-red-600 font-medium hover:bg-red-50 transition-all duration-200 whitespace-nowrap">
-            Delete Organization
+            {d.deleteOrganization}
           </button>
         </div>
       </div>
@@ -255,7 +323,7 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
 /*  Compliance Tab                                                             */
 /* -------------------------------------------------------------------------- */
 
-function ComplianceFieldIndicator({ fieldKey, value }: { fieldKey: string; value: number }) {
+function ComplianceFieldIndicator({ fieldKey, value, dictionary: d }: { fieldKey: string; value: number; dictionary: Dictionary["dashboard"]["settings"] }) {
   const defaultVal = NORWEGIAN_DEFAULTS[fieldKey]
   const isDefault = defaultVal !== undefined && value === defaultVal
 
@@ -264,12 +332,12 @@ function ComplianceFieldIndicator({ fieldKey, value }: { fieldKey: string; value
       {isDefault ? (
         <>
           <i className="fas fa-check-circle text-forest text-xs" />
-          <span className="text-xs text-forest/70">Norwegian default</span>
+          <span className="text-xs text-forest/70">{d.norwegianDefault}</span>
         </>
       ) : (
         <>
           <i className="fas fa-pen text-gold text-xs" />
-          <span className="text-xs text-gold/80">Customized (default: {defaultVal})</span>
+          <span className="text-xs text-gold/80">{d.customized.replace('{defaultVal}', String(defaultVal))}</span>
         </>
       )}
     </div>
@@ -277,8 +345,69 @@ function ComplianceFieldIndicator({ fieldKey, value }: { fieldKey: string; value
 }
 
 function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionary: Dictionary["dashboard"]["settings"] }) {
+  const router = useRouter()
+  const [maxDailyHours, setMaxDailyHours] = useState(orgInfo.maxDailyHours)
+  const [maxWeeklyHours, setMaxWeeklyHours] = useState(orgInfo.maxWeeklyHours)
+  const [minDailyRest, setMinDailyRest] = useState(orgInfo.minDailyRest)
+  const [minWeeklyRest, setMinWeeklyRest] = useState(orgInfo.minWeeklyRest)
+  const [publishDeadline, setPublishDeadline] = useState(orgInfo.publishDeadline)
+  const [overtimePremium, setOvertimePremium] = useState(orgInfo.overtimePremium)
+  const [saving, setSaving] = useState(false)
+  const [banner, setBanner] = useState<{ type: "success" | "error"; message: string } | null>(null)
+
+  const handleSave = async () => {
+    setSaving(true)
+    setBanner(null)
+    try {
+      const res = await fetch("/api/settings/compliance", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          maxDailyHours,
+          maxWeeklyHours,
+          minDailyRest,
+          minWeeklyRest,
+          publishDeadline,
+          overtimePremium,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        setBanner({ type: "error", message: data.error || d.failedToSave })
+      } else {
+        setBanner({ type: "success", message: d.complianceSaved })
+        router.refresh()
+      }
+    } catch {
+      setBanner({ type: "error", message: d.unexpectedError })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleCancel = () => {
+    setMaxDailyHours(orgInfo.maxDailyHours)
+    setMaxWeeklyHours(orgInfo.maxWeeklyHours)
+    setMinDailyRest(orgInfo.minDailyRest)
+    setMinWeeklyRest(orgInfo.minWeeklyRest)
+    setPublishDeadline(orgInfo.publishDeadline)
+    setOvertimePremium(orgInfo.overtimePremium)
+    setBanner(null)
+  }
+
   return (
     <>
+      {banner && (
+        <div className={`mb-6 p-4 rounded-xl text-sm flex items-center gap-3 ${
+          banner.type === "success"
+            ? "bg-forest/10 text-forest"
+            : "bg-red-50 text-red-700"
+        }`}>
+          <i className={`fas ${banner.type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`} />
+          <span>{banner.message}</span>
+        </div>
+      )}
+
       <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
         {/* Section header */}
         <div className="flex items-center gap-3 mb-6">
@@ -287,7 +416,7 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
           </div>
           <div>
             <h2 className="font-display text-xl">{d.laborLawSettings}</h2>
-            <p className="text-sm text-ink/50">Based on Arbeidsmiljoloven (Norwegian Working Environment Act)</p>
+            <p className="text-sm text-ink/50">{d.laborLawDescription}</p>
           </div>
         </div>
 
@@ -295,28 +424,30 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-1.5 h-1.5 rounded-full bg-ocean" />
-            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">Working Hours</h3>
+            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">{d.workingHours}</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>{d.maxDailyHours}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.maxDailyHours}
+                value={maxDailyHours}
+                onChange={(e) => setMaxDailyHours(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-4 Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="maxDailyHours" value={orgInfo.maxDailyHours} />
+              <ComplianceFieldIndicator fieldKey="maxDailyHours" value={maxDailyHours} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.maxWeeklyHours}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.maxWeeklyHours}
+                value={maxWeeklyHours}
+                onChange={(e) => setMaxWeeklyHours(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-4(1) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="maxWeeklyHours" value={orgInfo.maxWeeklyHours} />
+              <ComplianceFieldIndicator fieldKey="maxWeeklyHours" value={maxWeeklyHours} dictionary={d} />
             </div>
           </div>
         </div>
@@ -325,28 +456,30 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
         <div className="border-t border-stone/30 pt-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-1.5 h-1.5 rounded-full bg-forest" />
-            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">Rest Periods</h3>
+            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">{d.restPeriods}</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>{d.minDailyRest}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.minDailyRest}
+                value={minDailyRest}
+                onChange={(e) => setMinDailyRest(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-8(1) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="minDailyRest" value={orgInfo.minDailyRest} />
+              <ComplianceFieldIndicator fieldKey="minDailyRest" value={minDailyRest} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.minWeeklyRest}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.minWeeklyRest}
+                value={minWeeklyRest}
+                onChange={(e) => setMinWeeklyRest(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-8(2) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="minWeeklyRest" value={orgInfo.minWeeklyRest} />
+              <ComplianceFieldIndicator fieldKey="minWeeklyRest" value={minWeeklyRest} dictionary={d} />
             </div>
           </div>
         </div>
@@ -355,39 +488,55 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
         <div className="border-t border-stone/30 pt-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-1.5 h-1.5 rounded-full bg-terracotta" />
-            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">Overtime</h3>
+            <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">{d.overtime}</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>{d.publishDeadline}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.publishDeadline}
+                value={publishDeadline}
+                onChange={(e) => setPublishDeadline(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-3 Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="publishDeadline" value={orgInfo.publishDeadline} />
+              <ComplianceFieldIndicator fieldKey="publishDeadline" value={publishDeadline} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.overtimePremium}</label>
               <input
                 type="number"
-                defaultValue={orgInfo.overtimePremium}
+                value={overtimePremium}
+                onChange={(e) => setOvertimePremium(Number(e.target.value))}
                 className={inputClass}
               />
               <p className="text-xs text-ink/40 mt-1">&sect;10-6(11) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="overtimePremium" value={orgInfo.overtimePremium} />
+              <ComplianceFieldIndicator fieldKey="overtimePremium" value={overtimePremium} dictionary={d} />
             </div>
           </div>
         </div>
       </div>
 
       <div className="flex justify-end gap-4">
-        <button className="px-6 py-3 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-all duration-200">
+        <button
+          onClick={handleCancel}
+          className="px-6 py-3 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-all duration-200"
+        >
           {d.cancel}
         </button>
-        <button className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200">
-          {d.saveChanges}
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {saving ? (
+            <span className="flex items-center gap-2">
+              <i className="fas fa-spinner fa-spin" />
+              {d.saving}
+            </span>
+          ) : (
+            d.saveChanges
+          )}
         </button>
       </div>
     </>
@@ -428,54 +577,22 @@ function ToggleSwitch({
 
 interface NotificationOption {
   key: string
-  title: string
-  description: string
+  titleKey: string
+  descriptionKey: string
 }
 
-const EMAIL_NOTIFICATIONS: NotificationOption[] = [
-  {
-    key: "rosterPublished",
-    title: "Roster Published",
-    description: "Get notified when a new roster is published for your team",
-  },
-  {
-    key: "shiftChanges",
-    title: "Shift Changes",
-    description: "Receive alerts when your shifts are modified or swapped",
-  },
-  {
-    key: "complianceWarnings",
-    title: "Compliance Warnings",
-    description: "Important alerts when scheduling may violate labor regulations",
-  },
-  {
-    key: "marketplaceActivity",
-    title: "Marketplace Activity",
-    description: "Updates on shift marketplace requests and approvals",
-  },
-  {
-    key: "weeklySummary",
-    title: "Weekly Compliance Summary",
-    description: "A weekly digest of compliance status and scheduling metrics",
-  },
+const EMAIL_NOTIFICATION_KEYS: NotificationOption[] = [
+  { key: "rosterPublished", titleKey: "rosterPublishedTitle", descriptionKey: "rosterPublishedDescription" },
+  { key: "shiftChanges", titleKey: "shiftChangesTitle", descriptionKey: "shiftChangesDescription" },
+  { key: "complianceWarnings", titleKey: "complianceWarningsTitle", descriptionKey: "complianceWarningsDescription" },
+  { key: "marketplaceActivity", titleKey: "marketplaceActivityTitle", descriptionKey: "marketplaceActivityDescription" },
+  { key: "weeklySummary", titleKey: "weeklySummaryTitle", descriptionKey: "weeklySummaryDescription" },
 ]
 
-const IN_APP_ALERTS: NotificationOption[] = [
-  {
-    key: "desktopNotifications",
-    title: "Desktop Notifications",
-    description: "Show browser notifications for urgent schedule changes",
-  },
-  {
-    key: "soundAlerts",
-    title: "Sound Alerts",
-    description: "Play a sound for incoming notifications",
-  },
-  {
-    key: "shiftReminders",
-    title: "Shift Reminders",
-    description: "Get reminded 1 hour before your shift starts",
-  },
+const IN_APP_ALERT_KEYS: NotificationOption[] = [
+  { key: "desktopNotifications", titleKey: "desktopNotificationsTitle", descriptionKey: "desktopNotificationsDescription" },
+  { key: "soundAlerts", titleKey: "soundAlertsTitle", descriptionKey: "soundAlertsDescription" },
+  { key: "shiftReminders", titleKey: "shiftRemindersTitle", descriptionKey: "shiftRemindersDescription" },
 ]
 
 function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"]["settings"] }) {
@@ -510,21 +627,21 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
             <i className="fas fa-envelope text-terracotta" />
           </div>
           <div>
-            <h2 className="font-display text-xl">Email Notifications</h2>
-            <p className="text-sm text-ink/50">Choose which emails you would like to receive</p>
+            <h2 className="font-display text-xl">{d.emailNotifications}</h2>
+            <p className="text-sm text-ink/50">{d.emailNotificationsDescription}</p>
           </div>
         </div>
 
         <div className="space-y-1">
-          {EMAIL_NOTIFICATIONS.map((option, i) => (
+          {EMAIL_NOTIFICATION_KEYS.map((option, i) => (
             <div
               key={option.key}
               className="flex items-center justify-between p-4 rounded-xl hover:bg-cream/50 transition-all duration-200"
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div className="pr-4">
-                <p className="font-medium text-ink/80">{option.title}</p>
-                <p className="text-sm text-ink/50 mt-0.5">{option.description}</p>
+                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d]}</p>
+                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d]}</p>
               </div>
               <ToggleSwitch
                 enabled={emailToggles[option.key] ?? false}
@@ -542,21 +659,21 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
             <i className="fas fa-bell text-ocean" />
           </div>
           <div>
-            <h2 className="font-display text-xl">In-App Alerts</h2>
-            <p className="text-sm text-ink/50">Configure how you receive in-app notifications</p>
+            <h2 className="font-display text-xl">{d.inAppAlerts}</h2>
+            <p className="text-sm text-ink/50">{d.inAppAlertsDescription}</p>
           </div>
         </div>
 
         <div className="space-y-1">
-          {IN_APP_ALERTS.map((option, i) => (
+          {IN_APP_ALERT_KEYS.map((option, i) => (
             <div
               key={option.key}
               className="flex items-center justify-between p-4 rounded-xl hover:bg-cream/50 transition-all duration-200"
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div className="pr-4">
-                <p className="font-medium text-ink/80">{option.title}</p>
-                <p className="text-sm text-ink/50 mt-0.5">{option.description}</p>
+                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d]}</p>
+                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d]}</p>
               </div>
               <ToggleSwitch
                 enabled={appToggles[option.key] ?? false}
@@ -585,45 +702,45 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
 
 interface Integration {
   name: string
-  description: string
+  descriptionKey: string
   color: string
   connected: boolean
-  category: string
+  categoryKey: string
 }
 
 const INTEGRATIONS: Integration[] = [
   // Payroll
-  { name: "Visma", description: "Sync employee data and export payroll reports", color: "#c65d3b", connected: false, category: "Payroll" },
-  { name: "Tripletex", description: "Automated time tracking and salary integration", color: "#2d5a4a", connected: false, category: "Payroll" },
-  { name: "Xledger", description: "Cloud ERP with real-time financial data sync", color: "#3a6b7c", connected: false, category: "Payroll" },
+  { name: "Visma", descriptionKey: "vismaDescription", color: "#c65d3b", connected: false, categoryKey: "categoryPayroll" },
+  { name: "Tripletex", descriptionKey: "tripletexDescription", color: "#2d5a4a", connected: false, categoryKey: "categoryPayroll" },
+  { name: "Xledger", descriptionKey: "xledgerDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryPayroll" },
   // Calendar
-  { name: "Google Calendar", description: "Two-way sync of shifts and schedules", color: "#b8860b", connected: true, category: "Calendar" },
-  { name: "Outlook", description: "Sync rosters with Microsoft Outlook calendars", color: "#3a6b7c", connected: false, category: "Calendar" },
+  { name: "Google Calendar", descriptionKey: "googleCalendarDescription", color: "#b8860b", connected: true, categoryKey: "categoryCalendar" },
+  { name: "Outlook", descriptionKey: "outlookDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryCalendar" },
   // Communication
-  { name: "Slack", description: "Post schedule updates and shift notifications", color: "#2d5a4a", connected: true, category: "Communication" },
-  { name: "Teams", description: "Microsoft Teams notifications and updates", color: "#3a6b7c", connected: false, category: "Communication" },
+  { name: "Slack", descriptionKey: "slackDescription", color: "#2d5a4a", connected: true, categoryKey: "categoryCommunication" },
+  { name: "Teams", descriptionKey: "teamsDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryCommunication" },
 ]
 
 function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"]["settings"] }) {
-  const categories = [...new Set(INTEGRATIONS.map((i) => i.category))]
+  const categories = [...new Set(INTEGRATIONS.map((i) => i.categoryKey))]
 
   return (
     <>
-      {categories.map((category, catIdx) => (
-        <div key={category} className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
+      {categories.map((categoryKey, catIdx) => (
+        <div key={categoryKey} className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-xl bg-ocean/10 flex items-center justify-center">
               <i className={`fas ${
-                category === "Payroll" ? "fa-file-invoice-dollar" :
-                category === "Calendar" ? "fa-calendar-alt" :
+                categoryKey === "categoryPayroll" ? "fa-file-invoice-dollar" :
+                categoryKey === "categoryCalendar" ? "fa-calendar-alt" :
                 "fa-comments"
               } text-ocean`} />
             </div>
-            <h2 className="font-display text-xl">{category}</h2>
+            <h2 className="font-display text-xl">{d[categoryKey as keyof typeof d]}</h2>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            {INTEGRATIONS.filter((i) => i.category === category).map((integration, i) => (
+            {INTEGRATIONS.filter((i) => i.categoryKey === categoryKey).map((integration, i) => (
               <div
                 key={integration.name}
                 className="card-hover p-5 rounded-xl border border-stone/40 bg-cream/20 transition-all duration-200"
@@ -641,17 +758,17 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
                     <div className="flex items-center justify-between gap-2">
                       <h3 className="font-medium text-ink/90">{integration.name}</h3>
                     </div>
-                    <p className="text-sm text-ink/50 mt-1">{integration.description}</p>
+                    <p className="text-sm text-ink/50 mt-1">{d[integration.descriptionKey as keyof typeof d]}</p>
                     <div className="mt-3">
                       {integration.connected ? (
                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-forest bg-forest/10 px-3 py-1.5 rounded-lg">
                           <i className="fas fa-check-circle" />
-                          Connected
+                          {d.connected}
                         </span>
                       ) : (
                         <button className="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-forest px-3 py-1.5 rounded-lg hover:bg-forest/90 transition-all duration-200">
                           <i className="fas fa-plug text-[10px]" />
-                          Connect
+                          {d.connect}
                         </button>
                       )}
                     </div>
@@ -670,14 +787,14 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
             <i className="fas fa-code text-warm-dark" />
           </div>
           <div>
-            <h2 className="font-display text-xl">Custom API</h2>
-            <p className="text-sm text-ink/50">Build your own integrations with our REST API</p>
+            <h2 className="font-display text-xl">{d.customApi}</h2>
+            <p className="text-sm text-ink/50">{d.customApiDescription}</p>
           </div>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className={labelClass}>API Key</label>
+            <label className={labelClass}>{d.apiKey}</label>
             <div className="flex gap-3">
               <input
                 type="text"
@@ -696,7 +813,7 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
             className="inline-flex items-center gap-2 text-sm text-ocean hover:text-ocean/80 transition-colors font-medium"
           >
             <i className="fas fa-book" />
-            View API Documentation
+            {d.viewApiDocumentation}
             <i className="fas fa-arrow-right text-xs" />
           </a>
         </div>
