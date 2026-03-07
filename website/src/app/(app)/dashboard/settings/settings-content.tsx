@@ -34,14 +34,62 @@ const TAB_ICONS: Record<Tab, string> = {
   billing: "fa-credit-card",
 }
 
-// Norwegian labor law defaults for comparison
-const NORWEGIAN_DEFAULTS: Record<string, number> = {
-  maxDailyHours: 9,
-  maxWeeklyHours: 40,
-  minDailyRest: 11,
-  minWeeklyRest: 35,
-  publishDeadline: 14,
-  overtimePremium: 40,
+// Country-specific labor law defaults
+const COUNTRY_COMPLIANCE_DEFAULTS: Record<string, Record<string, number>> = {
+  NO: { maxDailyHours: 9, maxWeeklyHours: 40, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 14, overtimePremium: 40 },
+  SE: { maxDailyHours: 13, maxWeeklyHours: 40, minDailyRest: 11, minWeeklyRest: 36, publishDeadline: 14, overtimePremium: 50 },
+  DK: { maxDailyHours: 13, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 16, overtimePremium: 50 },
+  FI: { maxDailyHours: 10, maxWeeklyHours: 40, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 14, overtimePremium: 50 },
+  DE: { maxDailyHours: 10, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 24, publishDeadline: 7, overtimePremium: 25 },
+  AT: { maxDailyHours: 10, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 36, publishDeadline: 14, overtimePremium: 50 },
+  CH: { maxDailyHours: 12.5, maxWeeklyHours: 45, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 14, overtimePremium: 25 },
+  FR: { maxDailyHours: 10, maxWeeklyHours: 35, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 7, overtimePremium: 25 },
+  BE: { maxDailyHours: 9, maxWeeklyHours: 38, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 7, overtimePremium: 50 },
+  NL: { maxDailyHours: 12, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 36, publishDeadline: 28, overtimePremium: 0 },
+  ES: { maxDailyHours: 9, maxWeeklyHours: 40, minDailyRest: 12, minWeeklyRest: 36, publishDeadline: 5, overtimePremium: 75 },
+  PT: { maxDailyHours: 8, maxWeeklyHours: 40, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 7, overtimePremium: 25 },
+  IT: { maxDailyHours: 13, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 24, publishDeadline: 7, overtimePremium: 15 },
+  PL: { maxDailyHours: 8, maxWeeklyHours: 40, minDailyRest: 11, minWeeklyRest: 35, publishDeadline: 7, overtimePremium: 50 },
+  GB: { maxDailyHours: 13, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 24, publishDeadline: 7, overtimePremium: 0 },
+  IE: { maxDailyHours: 13, maxWeeklyHours: 48, minDailyRest: 11, minWeeklyRest: 24, publishDeadline: 7, overtimePremium: 0 },
+}
+
+const COUNTRY_LAW_NAMES: Record<string, string> = {
+  NO: "Arbeidsmiljøloven",
+  SE: "Arbetsmiljölagen",
+  DK: "Arbejdsmiljøloven",
+  FI: "Työaikalaki",
+  DE: "Arbeitszeitgesetz",
+  AT: "Arbeitszeitgesetz",
+  CH: "Arbeitsgesetz",
+  FR: "Code du travail",
+  BE: "Loi sur le travail",
+  NL: "Arbeidstijdenwet",
+  ES: "Estatuto de los Trabajadores",
+  PT: "Código do Trabalho",
+  IT: "Contratto Collettivo Nazionale",
+  PL: "Kodeks pracy",
+  GB: "Working Time Regulations",
+  IE: "Organisation of Working Time Act",
+}
+
+const COUNTRY_NAMES_EN: Record<string, string> = {
+  NO: "Norway",
+  SE: "Sweden",
+  DK: "Denmark",
+  FI: "Finland",
+  DE: "Germany",
+  AT: "Austria",
+  CH: "Switzerland",
+  FR: "France",
+  BE: "Belgium",
+  NL: "Netherlands",
+  ES: "Spain",
+  PT: "Portugal",
+  IT: "Italy",
+  PL: "Poland",
+  GB: "United Kingdom",
+  IE: "Ireland",
 }
 
 export function SettingsContent({
@@ -323,8 +371,10 @@ function OrganizationTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; diction
 /*  Compliance Tab                                                             */
 /* -------------------------------------------------------------------------- */
 
-function ComplianceFieldIndicator({ fieldKey, value, dictionary: d }: { fieldKey: string; value: number; dictionary: Dictionary["dashboard"]["settings"] }) {
-  const defaultVal = NORWEGIAN_DEFAULTS[fieldKey]
+function ComplianceFieldIndicator({ fieldKey, value, selectedCountry, dictionary: d }: { fieldKey: string; value: number; selectedCountry: string; dictionary: Dictionary["dashboard"]["settings"] }) {
+  const defaults = COUNTRY_COMPLIANCE_DEFAULTS[selectedCountry] ?? COUNTRY_COMPLIANCE_DEFAULTS.NO
+  const defaultVal = defaults[fieldKey]
+  const countryName = COUNTRY_NAMES_EN[selectedCountry] ?? selectedCountry
   const isDefault = defaultVal !== undefined && value === defaultVal
 
   return (
@@ -332,7 +382,7 @@ function ComplianceFieldIndicator({ fieldKey, value, dictionary: d }: { fieldKey
       {isDefault ? (
         <>
           <i className="fas fa-check-circle text-forest text-xs" />
-          <span className="text-xs text-forest/70">{d.norwegianDefault}</span>
+          <span className="text-xs text-forest/70">{d.countryDefault.replace('{country}', countryName)}</span>
         </>
       ) : (
         <>
@@ -346,6 +396,7 @@ function ComplianceFieldIndicator({ fieldKey, value, dictionary: d }: { fieldKey
 
 function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionary: Dictionary["dashboard"]["settings"] }) {
   const router = useRouter()
+  const [selectedCountry, setSelectedCountry] = useState("NO")
   const [maxDailyHours, setMaxDailyHours] = useState(orgInfo.maxDailyHours)
   const [maxWeeklyHours, setMaxWeeklyHours] = useState(orgInfo.maxWeeklyHours)
   const [minDailyRest, setMinDailyRest] = useState(orgInfo.minDailyRest)
@@ -354,6 +405,20 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
   const [overtimePremium, setOvertimePremium] = useState(orgInfo.overtimePremium)
   const [saving, setSaving] = useState(false)
   const [banner, setBanner] = useState<{ type: "success" | "error"; message: string } | null>(null)
+
+  const applyCountryDefaults = (countryCode: string) => {
+    const defaults = COUNTRY_COMPLIANCE_DEFAULTS[countryCode]
+    if (defaults) {
+      setMaxDailyHours(defaults.maxDailyHours)
+      setMaxWeeklyHours(defaults.maxWeeklyHours)
+      setMinDailyRest(defaults.minDailyRest)
+      setMinWeeklyRest(defaults.minWeeklyRest)
+      setPublishDeadline(defaults.publishDeadline)
+      setOvertimePremium(defaults.overtimePremium)
+    }
+  }
+
+  const lawName = COUNTRY_LAW_NAMES[selectedCountry] ?? "Labor Law"
 
   const handleSave = async () => {
     setSaving(true)
@@ -416,8 +481,38 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
           </div>
           <div>
             <h2 className="font-display text-xl">{d.laborLawSettings}</h2>
-            <p className="text-sm text-ink/50">{d.laborLawDescription}</p>
+            <p className="text-sm text-ink/50">{d.laborLawDescription.replace('{lawName}', lawName)}</p>
           </div>
+        </div>
+
+        {/* Country Selector */}
+        <div className="mb-6">
+          <label className={labelClass}>{d.country}</label>
+          <select
+            value={selectedCountry}
+            onChange={(e) => {
+              setSelectedCountry(e.target.value)
+              applyCountryDefaults(e.target.value)
+            }}
+            className={inputClass}
+          >
+            <option value="NO">{d.countryNO}</option>
+            <option value="SE">{d.countrySE}</option>
+            <option value="DK">{d.countryDK}</option>
+            <option value="FI">{d.countryFI}</option>
+            <option value="DE">{d.countryDE}</option>
+            <option value="AT">{d.countryAT}</option>
+            <option value="CH">{d.countryCH}</option>
+            <option value="FR">{d.countryFR}</option>
+            <option value="BE">{d.countryBE}</option>
+            <option value="NL">{d.countryNL}</option>
+            <option value="ES">{d.countryES}</option>
+            <option value="PT">{d.countryPT}</option>
+            <option value="IT">{d.countryIT}</option>
+            <option value="PL">{d.countryPL}</option>
+            <option value="GB">{d.countryGB}</option>
+            <option value="IE">{d.countryIE}</option>
+          </select>
         </div>
 
         {/* Working Hours Section */}
@@ -435,8 +530,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setMaxDailyHours(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-4 Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="maxDailyHours" value={maxDailyHours} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="maxDailyHours" value={maxDailyHours} selectedCountry={selectedCountry} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.maxWeeklyHours}</label>
@@ -446,8 +541,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setMaxWeeklyHours(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-4(1) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="maxWeeklyHours" value={maxWeeklyHours} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="maxWeeklyHours" value={maxWeeklyHours} selectedCountry={selectedCountry} dictionary={d} />
             </div>
           </div>
         </div>
@@ -467,8 +562,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setMinDailyRest(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-8(1) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="minDailyRest" value={minDailyRest} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="minDailyRest" value={minDailyRest} selectedCountry={selectedCountry} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.minWeeklyRest}</label>
@@ -478,8 +573,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setMinWeeklyRest(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-8(2) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="minWeeklyRest" value={minWeeklyRest} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="minWeeklyRest" value={minWeeklyRest} selectedCountry={selectedCountry} dictionary={d} />
             </div>
           </div>
         </div>
@@ -499,8 +594,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setPublishDeadline(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-3 Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="publishDeadline" value={publishDeadline} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="publishDeadline" value={publishDeadline} selectedCountry={selectedCountry} dictionary={d} />
             </div>
             <div>
               <label className={labelClass}>{d.overtimePremium}</label>
@@ -510,8 +605,8 @@ function ComplianceTab({ orgInfo, dictionary: d }: { orgInfo: OrgInfo; dictionar
                 onChange={(e) => setOvertimePremium(Number(e.target.value))}
                 className={inputClass}
               />
-              <p className="text-xs text-ink/40 mt-1">&sect;10-6(11) Arbeidsmiljoloven</p>
-              <ComplianceFieldIndicator fieldKey="overtimePremium" value={overtimePremium} dictionary={d} />
+              <p className="text-xs text-ink/40 mt-1">{lawName}</p>
+              <ComplianceFieldIndicator fieldKey="overtimePremium" value={overtimePremium} selectedCountry={selectedCountry} dictionary={d} />
             </div>
           </div>
         </div>
@@ -705,20 +800,21 @@ interface Integration {
   descriptionKey: string
   color: string
   connected: boolean
+  status: "coming_soon" | "request_access" | "connected"
   categoryKey: string
 }
 
 const INTEGRATIONS: Integration[] = [
   // Payroll
-  { name: "Visma", descriptionKey: "vismaDescription", color: "#c65d3b", connected: false, categoryKey: "categoryPayroll" },
-  { name: "Tripletex", descriptionKey: "tripletexDescription", color: "#2d5a4a", connected: false, categoryKey: "categoryPayroll" },
-  { name: "Xledger", descriptionKey: "xledgerDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryPayroll" },
+  { name: "Visma", descriptionKey: "vismaDescription", color: "#c65d3b", connected: false, status: "coming_soon", categoryKey: "categoryPayroll" },
+  { name: "Tripletex", descriptionKey: "tripletexDescription", color: "#2d5a4a", connected: false, status: "coming_soon", categoryKey: "categoryPayroll" },
+  { name: "Xledger", descriptionKey: "xledgerDescription", color: "#3a6b7c", connected: false, status: "coming_soon", categoryKey: "categoryPayroll" },
   // Calendar
-  { name: "Google Calendar", descriptionKey: "googleCalendarDescription", color: "#b8860b", connected: true, categoryKey: "categoryCalendar" },
-  { name: "Outlook", descriptionKey: "outlookDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryCalendar" },
+  { name: "Google Calendar", descriptionKey: "googleCalendarDescription", color: "#b8860b", connected: false, status: "request_access", categoryKey: "categoryCalendar" },
+  { name: "Outlook", descriptionKey: "outlookDescription", color: "#3a6b7c", connected: false, status: "coming_soon", categoryKey: "categoryCalendar" },
   // Communication
-  { name: "Slack", descriptionKey: "slackDescription", color: "#2d5a4a", connected: true, categoryKey: "categoryCommunication" },
-  { name: "Teams", descriptionKey: "teamsDescription", color: "#3a6b7c", connected: false, categoryKey: "categoryCommunication" },
+  { name: "Slack", descriptionKey: "slackDescription", color: "#2d5a4a", connected: false, status: "request_access", categoryKey: "categoryCommunication" },
+  { name: "Teams", descriptionKey: "teamsDescription", color: "#3a6b7c", connected: false, status: "coming_soon", categoryKey: "categoryCommunication" },
 ]
 
 function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"]["settings"] }) {
@@ -760,16 +856,21 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
                     </div>
                     <p className="text-sm text-ink/50 mt-1">{d[integration.descriptionKey as keyof typeof d]}</p>
                     <div className="mt-3">
-                      {integration.connected ? (
+                      {integration.status === "connected" ? (
                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-forest bg-forest/10 px-3 py-1.5 rounded-lg">
                           <i className="fas fa-check-circle" />
                           {d.connected}
                         </span>
-                      ) : (
-                        <button className="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-forest px-3 py-1.5 rounded-lg hover:bg-forest/90 transition-all duration-200">
-                          <i className="fas fa-plug text-[10px]" />
-                          {d.connect}
+                      ) : integration.status === "request_access" ? (
+                        <button className="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-ocean px-3 py-1.5 rounded-lg hover:bg-ocean/90 transition-all duration-200">
+                          <i className="fas fa-envelope text-[10px]" />
+                          {d.requestAccess}
                         </button>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ink/40 bg-stone/30 px-3 py-1.5 rounded-lg cursor-default">
+                          <i className="fas fa-clock text-[10px]" />
+                          {d.comingSoon}
+                        </span>
                       )}
                     </div>
                   </div>

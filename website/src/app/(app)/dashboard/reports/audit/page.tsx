@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { ReportExportButton } from "@/components/dashboard/ReportExportButton";
+import { AuditActivityChart } from "@/components/dashboard/ReportCharts";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
   const locale = await getServerLocale();
@@ -8,10 +15,74 @@ export async function generateMetadata() {
   return { title: dict.dashboard.reports.auditTitle };
 }
 
+async function getAuditData(orgId: string) {
+  try {
+    // Get audit logs tied to rosters in this org
+    const rosterLogs = await prisma.auditLog.findMany({
+      where: {
+        roster: { organizationId: orgId },
+      },
+      orderBy: { timestamp: "desc" },
+      take: 50,
+    });
+
+    // Also get logs tied to users in this org (not linked to a roster)
+    const orgUserIds = await prisma.user.findMany({
+      where: { organizationId: orgId },
+      select: { id: true },
+    });
+    const userIds = orgUserIds.map(u => u.id);
+
+    const userLogs = await prisma.auditLog.findMany({
+      where: {
+        userId: { in: userIds },
+        rosterId: null,
+      },
+      orderBy: { timestamp: "desc" },
+      take: 50,
+    });
+
+    const allLogs = [...rosterLogs, ...userLogs]
+      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+      .slice(0, 50);
+
+    const rosterChanges = allLogs.filter(l => l.entityType === "Roster").length;
+    const shiftUpdates = allLogs.filter(l => l.entityType === "Shift").length;
+    const userActions = allLogs.filter(l => l.entityType === "User").length;
+
+    return {
+      totalEvents: allLogs.length,
+      rosterChanges,
+      shiftUpdates,
+      userActions,
+      logs: allLogs,
+    };
+  } catch {
+    return {
+      totalEvents: 0,
+      rosterChanges: 0,
+      shiftUpdates: 0,
+      userActions: 0,
+      logs: [],
+    };
+  }
+}
+
 export default async function AuditReportPage() {
+  const session = await getServerSession(authOptions);
+  const orgId = (session?.user as { organizationId?: string })?.organizationId;
   const locale = await getServerLocale();
   const dict = getDictionary(locale);
   const d = dict.dashboard.reports;
+
+  const data = orgId ? await getAuditData(orgId) : null;
+  const { totalEvents, rosterChanges, shiftUpdates, userActions, logs } = data || {
+    totalEvents: 0,
+    rosterChanges: 0,
+    shiftUpdates: 0,
+    userActions: 0,
+    logs: [],
+  };
 
   return (
     <div className="p-8">
@@ -94,34 +165,45 @@ export default async function AuditReportPage() {
       <div className="grid md:grid-cols-4 gap-4 mb-6">
         <div className="relative bg-white rounded-2xl p-6 border border-stone/50 card-hover overflow-hidden animate-fade-up delay-3">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-stone to-stone/20" />
-          <p className="text-3xl font-display">0</p>
+          <p className="text-3xl font-display">{totalEvents}</p>
           <p className="text-ink/60 text-sm">{d.totalEvents}</p>
         </div>
         <div className="relative bg-white rounded-2xl p-6 border border-stone/50 card-hover overflow-hidden animate-fade-up delay-4">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-forest to-forest/40" />
-          <p className="text-3xl font-display text-forest">0</p>
+          <p className="text-3xl font-display text-forest">{rosterChanges}</p>
           <p className="text-ink/60 text-sm">{d.rosterChanges}</p>
         </div>
         <div className="relative bg-white rounded-2xl p-6 border border-stone/50 card-hover overflow-hidden animate-fade-up delay-5">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-ocean to-ocean/40" />
-          <p className="text-3xl font-display text-ocean">0</p>
+          <p className="text-3xl font-display text-ocean">{shiftUpdates}</p>
           <p className="text-ink/60 text-sm">{d.shiftUpdates}</p>
         </div>
         <div className="relative bg-white rounded-2xl p-6 border border-stone/50 card-hover overflow-hidden animate-fade-up delay-6">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-gold to-gold/40" />
-          <p className="text-3xl font-display text-gold">0</p>
+          <p className="text-3xl font-display text-gold">{userActions}</p>
           <p className="text-ink/60 text-sm">{d.userActions}</p>
         </div>
       </div>
+
+      {/* Activity Breakdown Chart */}
+      {totalEvents > 0 && (
+        <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6 animate-fade-up delay-7">
+          <h2 className="font-display text-xl mb-4">{d.auditTitle}</h2>
+          <AuditActivityChart
+            data={[
+              { type: d.rosterChanges, count: rosterChanges },
+              { type: d.shiftUpdates, count: shiftUpdates },
+              { type: d.userActions, count: userActions },
+            ].filter(d => d.count > 0)}
+          />
+        </div>
+      )}
 
       {/* Audit Log Table */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50 animate-fade-up delay-7">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display text-xl">{d.auditLog}</h2>
-          <button className="flex items-center gap-2 border border-stone/50 px-4 py-2 rounded-xl font-medium hover:bg-cream transition-colors">
-            <i className="fas fa-download" />
-            {d.exportForAudit}
-          </button>
+          <ReportExportButton reportType="audit" format="csv" label={d.exportForAudit} icon="fas fa-download" className="border border-stone/50 px-4 py-2 rounded-xl font-medium hover:bg-cream transition-colors" />
         </div>
 
         <div className="overflow-x-auto">
@@ -136,17 +218,40 @@ export default async function AuditReportPage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colSpan={5}>
-                  <div className="flex flex-col items-center py-10">
-                    <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-stone/40 bg-cream/50 flex items-center justify-center mb-4">
-                      <i className="fas fa-history text-2xl text-stone/60" />
+              {logs.length > 0 ? (
+                logs.map((log, idx) => (
+                  <tr key={log.id} className={`border-b border-stone/30 ${idx % 2 === 0 ? "bg-cream/30" : "bg-white"}`}>
+                    <td className="p-3 text-sm text-ink/60">{new Date(log.timestamp).toLocaleString(locale)}</td>
+                    <td className="p-3 text-sm">{log.userEmail || "-"}</td>
+                    <td className="p-3">
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                        log.action.includes("CREATE") ? "bg-forest/10 text-forest" :
+                        log.action.includes("DELETE") ? "bg-terracotta/10 text-terracotta" :
+                        log.action.includes("PUBLISH") ? "bg-ocean/10 text-ocean" :
+                        "bg-gold/10 text-gold"
+                      }`}>
+                        {log.action}
+                      </span>
+                    </td>
+                    <td className="p-3 text-sm">{log.entityType}</td>
+                    <td className="p-3 text-sm text-ink/60 max-w-[200px] truncate">
+                      {typeof log.details === "object" ? JSON.stringify(log.details) : String(log.details || "-")}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="flex flex-col items-center py-10">
+                      <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-stone/40 bg-cream/50 flex items-center justify-center mb-4">
+                        <i className="fas fa-history text-2xl text-stone/60" />
+                      </div>
+                      <p className="text-ink/60 font-medium mb-1">{d.noAuditEvents}</p>
+                      <p className="text-ink/40 text-sm">{d.noAuditEventsHint}</p>
                     </div>
-                    <p className="text-ink/60 font-medium mb-1">{d.noAuditEvents}</p>
-                    <p className="text-ink/40 text-sm">{d.noAuditEventsHint}</p>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

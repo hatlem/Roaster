@@ -1018,4 +1018,5 @@ export const enGB: Dictionary = {
     },
   },
   api: { ...en.api },
+  emails: { ...en.emails },
 };

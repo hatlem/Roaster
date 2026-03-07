@@ -1,47 +1,47 @@
-// Features content - focused on specific Norwegian labor law compliance
+// Features content - focused on European labor law compliance
 
 export const features = {
   hero: {
     title: "How it works",
-    subtitle: "Every scheduling rule from Arbeidsmiljøloven, checked automatically",
+    subtitle: "Every scheduling rule from your country's labor law, checked automatically",
   },
 
   // The specific rules we enforce
   rules: [
     {
-      id: "aml-10-8",
-      law: "§ 10-8",
-      title: "14-day publishing rule",
-      description: "Schedules must be published 14 days before they take effect. We track every roster and warn you before you miss the deadline.",
+      id: "publishing-deadline",
+      law: "EU / National",
+      title: "Schedule publishing deadline",
+      description: "Most European countries require advance notice for schedules — 14 days in Norway, 7 days in Germany and France, 28 days in the Netherlands. We track the rule for your country automatically.",
       consequence: "Employees can refuse shifts published late.",
     },
     {
-      id: "aml-10-11",
-      law: "§ 10-11 (1)",
+      id: "daily-rest",
+      law: "EU WTD Art. 3",
       title: "11-hour daily rest",
-      description: "Every employee needs 11 hours off between shifts. We block scheduling that violates this—no exceptions.",
-      consequence: "Violation can result in orders from Arbeidstilsynet.",
+      description: "The EU Working Time Directive mandates 11 hours of daily rest across all member states. We block scheduling that violates this — no exceptions.",
+      consequence: "Violation can result in orders from the national labor inspectorate.",
     },
     {
-      id: "aml-10-11-weekly",
-      law: "§ 10-11 (2)",
+      id: "weekly-rest",
+      law: "EU WTD Art. 5",
       title: "35-hour weekly rest",
-      description: "One continuous 35-hour rest period per 7 days, including a Sunday where possible. We calculate this automatically.",
+      description: "35 hours continuous rest per week is the baseline — but it varies by country. We calculate the correct requirement automatically.",
       consequence: "Systematic violations lead to fines.",
     },
     {
-      id: "aml-10-6",
-      law: "§ 10-6",
+      id: "overtime-limits",
+      law: "National",
       title: "Overtime limits",
-      description: "Max 10 hours/week, 25 hours/4 weeks, 200 hours/year. We track running totals and warn before you hit limits.",
-      consequence: "Overtime beyond limits requires union agreement.",
+      description: "Each country sets different overtime caps — 10h/week in Norway, 8h/week in Germany, 220h/year in France. We track running totals for your country and warn before you hit limits.",
+      consequence: "Overtime beyond limits requires special agreements.",
     },
     {
-      id: "aml-10-4",
-      law: "§ 10-4",
-      title: "40-hour work week",
-      description: "Standard max is 40 hours/week (37.5 with tariff). Night/weekend work has stricter limits. We handle all the variations.",
-      consequence: "Hours beyond count as overtime.",
+      id: "work-week",
+      law: "National",
+      title: "Maximum work week",
+      description: "From 35 hours in France to 48 hours in the UK — every country defines its own standard. We adapt to your country's rules, including variations for night and weekend work.",
+      consequence: "Hours beyond the limit count as overtime.",
     },
   ],
 
@@ -52,7 +52,7 @@ export const features = {
       icon: "shield-alt",
       color: "forest",
       title: "Real-time validation",
-      description: "Every shift is checked against Arbeidsmiljøloven before you save it. Red means illegal. Green means compliant.",
+      description: "Every shift is checked against your country's labor law before you save it. Red means illegal. Green means compliant.",
     },
     {
       id: "publishing",
@@ -65,8 +65,8 @@ export const features = {
       id: "reports",
       icon: "file-alt",
       color: "terracotta",
-      title: "Arbeidstilsynet-ready reports",
-      description: "If the labor inspectorate asks for documentation, export everything in their format with one click.",
+      title: "Audit-ready reports for any labor inspectorate",
+      description: "Whether it's Arbeidstilsynet, the Gewerbeaufsichtsamt, or DIRECCTE — export everything in the right format with one click.",
     },
     {
       id: "overtime",

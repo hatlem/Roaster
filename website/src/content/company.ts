@@ -3,8 +3,8 @@
 export const company = {
   name: "Roaster",
   legalName: "Getia AS",
-  tagline: "Scheduling that knows Norwegian labor law",
-  description: "Arbeidsmiljøloven has 50+ rules about working time. We track all of them so you don't have to.",
+  tagline: "Scheduling that knows European labor law",
+  description: "Every European country has complex working time rules. We track all of them so you don't have to.",
 
   contact: {
     email: "hello@getia.no",

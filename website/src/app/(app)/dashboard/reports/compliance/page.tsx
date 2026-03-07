@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { ReportExportButton } from "@/components/dashboard/ReportExportButton";
 
 export const dynamic = "force-dynamic";
 
@@ -64,10 +65,7 @@ export default async function ComplianceReportPage() {
       <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6 animate-fade-up delay-2">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-display text-xl">{d.reportSummary}</h2>
-          <button className="flex items-center gap-2 bg-ocean text-white px-4 py-2 rounded-xl font-medium hover:bg-ocean/90 transition-colors">
-            <i className="fas fa-download" />
-            {d.exportPDF}
-          </button>
+          <ReportExportButton reportType="compliance" format="csv" label={d.exportPDF} icon="fas fa-download" className="bg-ocean text-white px-4 py-2 rounded-xl font-medium hover:bg-ocean/90 transition-colors" />
         </div>
 
         <div className="grid md:grid-cols-4 gap-4 mb-6">
