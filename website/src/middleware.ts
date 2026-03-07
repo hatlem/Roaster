@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { locales, defaultLocale, type Locale, localeToCountry } from './i18n/config';
 
+/** ISO 27001 A.8.9 — Security headers applied to all responses */
+function applySecurityHeaders(response: NextResponse): NextResponse {
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  return response;
+}
+
 function getPreferredLocale(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language');
   if (!acceptLanguage) return defaultLocale;
@@ -39,7 +49,7 @@ export function middleware(request: NextRequest) {
     pathname.includes('.') ||
     pathname.startsWith('/favicon')
   ) {
-    return NextResponse.next();
+    return applySecurityHeaders(NextResponse.next());
   }
 
   const pathnameSegments = pathname.split('/');
@@ -55,13 +65,13 @@ export function middleware(request: NextRequest) {
     // Set locale cookie for country-code URLs
     const response = NextResponse.next();
     response.cookies.set('NEXT_LOCALE', localeFromCountry, { path: '/', sameSite: 'lax' });
-    return response;
+    return applySecurityHeaders(response);
   }
 
   if (locales.includes(pathnameLocale as Locale)) {
     const response = NextResponse.next();
     response.cookies.set('NEXT_LOCALE', pathnameLocale, { path: '/', sameSite: 'lax' });
-    return response;
+    return applySecurityHeaders(response);
   }
 
   // Detect locale and set cookie for all other pages
@@ -81,10 +91,10 @@ export function middleware(request: NextRequest) {
     url.pathname = `/${country}`;
     const redirectResponse = NextResponse.redirect(url);
     redirectResponse.cookies.set('NEXT_LOCALE', preferredLocale, { path: '/', sameSite: 'lax' });
-    return redirectResponse;
+    return applySecurityHeaders(redirectResponse);
   }
 
-  return response;
+  return applySecurityHeaders(response);
 }
 
 export const config = {
