@@ -3,16 +3,20 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { approveListing } from "@/services/marketplaceService";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     // Check if user is a manager
@@ -23,7 +27,7 @@ export async function POST(
 
     if (!user || !["ADMIN", "MANAGER"].includes(user.role)) {
       return NextResponse.json(
-        { error: "Only managers can approve shift transfers" },
+        { error: dict.api.marketplace.onlyManagersApprove },
         { status: 403 }
       );
     }
@@ -37,12 +41,12 @@ export async function POST(
 
     return NextResponse.json({
       success: true,
-      message: "Shift transfer approved!",
+      message: dict.api.marketplace.shiftTransferApproved,
     });
   } catch (error) {
     console.error("Approve listing error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to approve transfer" },
+      { error: error instanceof Error ? error.message : dict.api.marketplace.failedApproveTransfer },
       { status: 500 }
     );
   }

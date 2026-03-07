@@ -12,6 +12,7 @@ interface RosterActionsProps {
   status: string;
   hasShifts: boolean;
   dictionary: Dictionary["dashboard"]["components"];
+  locale?: string;
 }
 
 export function RosterActions({
@@ -20,6 +21,7 @@ export function RosterActions({
   status,
   hasShifts,
   dictionary,
+  locale = "en",
 }: RosterActionsProps) {
   const router = useRouter();
   const [showAutoScheduleModal, setShowAutoScheduleModal] = useState(false);
@@ -80,6 +82,7 @@ export function RosterActions({
           onReject={handleScheduleRejected}
           onClose={() => setActiveJobId(null)}
           dictionary={dictionary.scheduleReview}
+          locale={locale}
         />
       )}
     </>

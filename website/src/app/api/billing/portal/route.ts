@@ -2,10 +2,15 @@ import { NextResponse } from "next/server"
 import { getStripe } from "@/lib/stripe"
 import { prisma } from "@/lib/db"
 import { requireRole, errorResponse } from "@/lib/api-utils"
+import { getServerLocale } from "@/i18n/server"
+import { getDictionary } from "@/i18n/dictionaries"
 
 // POST /api/billing/portal - Create a Stripe Customer Portal session
 export async function POST() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
+
     const session = await requireRole(["ADMIN"])
 
     // Get user with organization
@@ -15,13 +20,13 @@ export async function POST() {
     })
 
     if (!user?.organization) {
-      return errorResponse("No organization found.", 400)
+      return errorResponse(dict.api.billing.noOrgFound, 400)
     }
 
     const org = user.organization
 
     if (!org.stripeCustomerId) {
-      return errorResponse("No billing account found. Subscribe to a plan first.", 400)
+      return errorResponse(dict.api.billing.noBillingAccount, 400)
     }
 
     const stripe = getStripe()
@@ -38,12 +43,12 @@ export async function POST() {
     })
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401)
+      return errorResponse(dict.api.common.unauthorized, 401)
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Only admins can manage billing", 403)
+      return errorResponse(dict.api.billing.onlyAdminsBilling, 403)
     }
     console.error("[billing/portal] Error:", error)
-    return errorResponse("Failed to create portal session", 500)
+    return errorResponse(dict.api.billing.failedCreatePortal, 500)
   }
 }

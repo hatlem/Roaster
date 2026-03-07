@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // Get current clock status
 export async function GET() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const today = new Date();
@@ -47,7 +51,7 @@ export async function GET() {
   } catch (error) {
     console.error("Get clock status error:", error);
     return NextResponse.json(
-      { error: "Failed to get clock status" },
+      { error: dict.api.mobile.failedGetClockStatus },
       { status: 500 }
     );
   }
@@ -55,11 +59,13 @@ export async function GET() {
 
 // Clock in/out
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const body = await request.json();
@@ -67,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     if (!["clock_in", "clock_out"].includes(action)) {
       return NextResponse.json(
-        { error: "Invalid action. Must be clock_in or clock_out" },
+        { error: dict.api.mobile.invalidClockAction },
         { status: 400 }
       );
     }
@@ -95,7 +101,7 @@ export async function POST(request: NextRequest) {
         if (!isGeofenceValid) {
           return NextResponse.json(
             {
-              error: `You are ${Math.round(distance)}m from the work location. Must be within ${radius}m to clock in.`,
+              error: dict.api.mobile.geofenceDistance.replace('{distance}', String(Math.round(distance))).replace('{radius}', String(radius)),
             },
             { status: 400 }
           );
@@ -115,7 +121,7 @@ export async function POST(request: NextRequest) {
 
       if (activeClockIn) {
         return NextResponse.json(
-          { error: "Already clocked in" },
+          { error: dict.api.mobile.alreadyClockedIn },
           { status: 400 }
         );
       }
@@ -136,7 +142,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: "Clocked in successfully",
+        message: dict.api.mobile.clockedInSuccess,
       });
     } else {
       // Clock out
@@ -150,7 +156,7 @@ export async function POST(request: NextRequest) {
 
       if (!activeClockIn) {
         return NextResponse.json(
-          { error: "Not clocked in" },
+          { error: dict.api.mobile.notClockedInError },
           { status: 400 }
         );
       }
@@ -175,14 +181,14 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: "Clocked out successfully",
+        message: dict.api.mobile.clockedOutSuccess,
         totalHours,
       });
     }
   } catch (error) {
     console.error("Clock action error:", error);
     return NextResponse.json(
-      { error: "Failed to process clock action" },
+      { error: dict.api.mobile.failedClockAction },
       { status: 500 }
     );
   }

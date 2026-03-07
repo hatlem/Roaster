@@ -3,25 +3,30 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth } from "@/lib/api-utils";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { hash } from "bcrypt";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // POST /api/auth/set-password - Set password for authenticated user
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const session = await requireAuth();
 
     const { allowed, resetIn } = checkRateLimit(`set-password:${session.user.id}`, 5, 15 * 60 * 1000);
     if (!allowed) {
-      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+      return errorResponse(dict.api.common.tooManyRequests.replace('{seconds}', String(Math.ceil(resetIn / 1000))), 429);
     }
 
     const { password } = await request.json();
 
     if (!password) {
-      return errorResponse("Password is required");
+      return errorResponse(dict.api.auth.passwordRequired);
     }
 
     if (password.length < 8) {
-      return errorResponse("Password must be at least 8 characters");
+      return errorResponse(dict.api.auth.passwordMinLength);
     }
 
     // Hash the password
@@ -35,12 +40,12 @@ export async function POST(request: NextRequest) {
 
     console.log(`[SET_PASSWORD] Password set for user ${session.user.id}`);
 
-    return successResponse({ message: "Password set successfully" });
+    return successResponse({ message: dict.api.auth.passwordSetSuccess });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     console.error("Error setting password:", error);
-    return errorResponse("Failed to set password", 500);
+    return errorResponse(dict.api.auth.failedSetPassword, 500);
   }
 }

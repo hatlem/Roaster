@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // Get user's schedule for a date range
 export async function GET(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
@@ -59,7 +63,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Get schedule error:", error);
     return NextResponse.json(
-      { error: "Failed to get schedule" },
+      { error: dict.api.mobile.failedGetSchedule },
       { status: 500 }
     );
   }

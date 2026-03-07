@@ -81,28 +81,43 @@ export default async function MyRequestsPage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <Link
-          href="/dashboard/marketplace"
-          className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4"
-        >
-          <i className="fas fa-arrow-left" />
-          {d.backToMarketplace}
-        </Link>
-        <h1 className="font-display text-4xl mb-2">{d.myRequestsTitle}</h1>
-        <p className="text-ink/60">{d.myRequestsSubtitle}</p>
+      {/* Header with warm-orb */}
+      <div className="relative mb-10 overflow-hidden">
+        <div
+          className="warm-orb w-[400px] h-[400px] -top-48 -right-32"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)", opacity: 0.07 }}
+        />
+        <div className="relative">
+          <Link
+            href="/dashboard/marketplace"
+            className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4 animate-fade-up"
+          >
+            <i className="fas fa-arrow-left" />
+            {d.backToMarketplace}
+          </Link>
+          <p className="text-terracotta mb-3 tracking-widest uppercase text-xs font-semibold animate-fade-up delay-1">
+            {d.myRequestsTitle}
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl mb-3 animate-fade-up delay-2">{d.myRequestsTitle}</h1>
+          <p className="text-ink/60 text-lg animate-fade-up delay-3">{d.myRequestsSubtitle}</p>
+        </div>
       </div>
 
       {/* Shifts I've Posted */}
-      <div className="mb-8">
-        <h2 className="font-display text-xl mb-4">{d.shiftsPosted}</h2>
+      <div className="mb-10">
+        <div className="mb-5">
+          <h2 className="font-display text-2xl mb-2">{d.shiftsPosted}</h2>
+          <div className="accent-line w-24" />
+        </div>
         {myListings.length === 0 ? (
-          <div className="bg-white rounded-2xl p-8 border border-stone/50 text-center">
-            <i className="fas fa-upload text-3xl mb-3 text-stone" />
+          <div className="relative bg-cream/30 rounded-2xl p-10 border border-dashed border-stone text-center overflow-hidden animate-fade-up delay-4">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl border-2 border-dashed border-stone flex items-center justify-center">
+              <i className="fas fa-upload text-2xl text-stone" />
+            </div>
             <p className="text-ink/60">{d.noShiftsPosted}</p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden animate-fade-up delay-4">
             <table className="w-full">
               <thead className="bg-cream border-b border-stone/50">
                 <tr>
@@ -119,22 +134,22 @@ export default async function MyRequestsPage() {
                   const endTime = new Date(listing.shift.endTime);
 
                   return (
-                    <tr key={listing.id} className="border-b border-stone/30">
+                    <tr key={listing.id} className="border-b border-stone/30 even:bg-cream/30 card-hover">
                       <td className="p-4">
                         <p className="font-medium">
-                          {startTime.toLocaleDateString("en-GB", {
+                          {startTime.toLocaleDateString(locale, {
                             weekday: "short",
                             day: "numeric",
                             month: "short",
                           })}
                         </p>
                         <p className="text-sm text-ink/60">
-                          {startTime.toLocaleTimeString("en-GB", {
+                          {startTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
                           -{" "}
-                          {endTime.toLocaleTimeString("en-GB", {
+                          {endTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -142,7 +157,7 @@ export default async function MyRequestsPage() {
                       </td>
                       <td className="p-4">
                         <span
-                          className={`text-xs font-medium px-2 py-1 rounded-full ${
+                          className={`text-xs font-semibold px-3 py-1 rounded-full ${
                             listing.mode === "SELL"
                               ? "bg-forest/10 text-forest"
                               : listing.mode === "SWAP"
@@ -173,7 +188,7 @@ export default async function MyRequestsPage() {
                       </td>
                       <td className="p-4">
                         <span
-                          className={`text-xs font-medium px-2 py-1 rounded-full ${
+                          className={`text-xs font-semibold px-3 py-1 rounded-full ${
                             listing.status === "AVAILABLE"
                               ? "bg-ocean/10 text-ocean"
                               : listing.status === "CLAIMED"
@@ -189,7 +204,7 @@ export default async function MyRequestsPage() {
                         </span>
                       </td>
                       <td className="p-4 text-sm text-ink/60">
-                        {new Date(listing.availableUntil).toLocaleDateString("en-GB")}
+                        {new Date(listing.availableUntil).toLocaleDateString(locale)}
                       </td>
                     </tr>
                   );
@@ -202,14 +217,19 @@ export default async function MyRequestsPage() {
 
       {/* Shifts I've Claimed */}
       <div>
-        <h2 className="font-display text-xl mb-4">{d.shiftsClaimed}</h2>
+        <div className="mb-5">
+          <h2 className="font-display text-2xl mb-2">{d.shiftsClaimed}</h2>
+          <div className="accent-line w-24" />
+        </div>
         {claimedShifts.length === 0 ? (
-          <div className="bg-white rounded-2xl p-8 border border-stone/50 text-center">
-            <i className="fas fa-hand-paper text-3xl mb-3 text-stone" />
+          <div className="relative bg-cream/30 rounded-2xl p-10 border border-dashed border-stone text-center overflow-hidden animate-fade-up delay-5">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl border-2 border-dashed border-stone flex items-center justify-center">
+              <i className="fas fa-hand-paper text-2xl text-stone" />
+            </div>
             <p className="text-ink/60">{d.noShiftsClaimed}</p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-stone/50 overflow-hidden animate-fade-up delay-5">
             <table className="w-full">
               <thead className="bg-cream border-b border-stone/50">
                 <tr>
@@ -226,22 +246,22 @@ export default async function MyRequestsPage() {
                   const endTime = new Date(listing.shift.endTime);
 
                   return (
-                    <tr key={listing.id} className="border-b border-stone/30">
+                    <tr key={listing.id} className="border-b border-stone/30 even:bg-cream/30 card-hover">
                       <td className="p-4">
                         <p className="font-medium">
-                          {startTime.toLocaleDateString("en-GB", {
+                          {startTime.toLocaleDateString(locale, {
                             weekday: "short",
                             day: "numeric",
                             month: "short",
                           })}
                         </p>
                         <p className="text-sm text-ink/60">
-                          {startTime.toLocaleTimeString("en-GB", {
+                          {startTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
                           -{" "}
-                          {endTime.toLocaleTimeString("en-GB", {
+                          {endTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -266,7 +286,7 @@ export default async function MyRequestsPage() {
                       </td>
                       <td className="p-4">
                         <span
-                          className={`text-xs font-medium px-2 py-1 rounded-full ${
+                          className={`text-xs font-semibold px-3 py-1 rounded-full ${
                             listing.status === "CLAIMED"
                               ? "bg-gold/10 text-gold"
                               : listing.status === "APPROVED"
@@ -283,7 +303,7 @@ export default async function MyRequestsPage() {
                       </td>
                       <td className="p-4 text-sm text-ink/60">
                         {listing.claimedAt
-                          ? new Date(listing.claimedAt).toLocaleDateString("en-GB")
+                          ? new Date(listing.claimedAt).toLocaleDateString(locale)
                           : "-"}
                       </td>
                     </tr>

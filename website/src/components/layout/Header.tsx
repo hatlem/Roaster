@@ -21,6 +21,8 @@ export function Header({ dictionary }: HeaderProps) {
   const navLinks = [
     { href: "/features", label: dictionary.nav.features },
     { href: "/pricing", label: dictionary.nav.pricing },
+    { href: "/industries", label: dictionary.nav.industries },
+    { href: "/customers", label: dictionary.nav.customers },
     { href: "/about", label: dictionary.nav.about },
   ];
 
@@ -68,7 +70,7 @@ export function Header({ dictionary }: HeaderProps) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 hover:bg-stone/30 rounded-lg transition-colors"
-            aria-label="Toggle menu"
+            aria-label={dictionary.common.toggleMenu}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {mobileMenuOpen ? (

@@ -42,13 +42,13 @@ export default function NewTimeOffPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to submit request");
+        throw new Error(data.error || t.failedSubmitRequest);
       }
 
       router.push("/m/time-off");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : t.anErrorOccurred);
     } finally {
       setLoading(false);
     }

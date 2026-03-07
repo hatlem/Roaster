@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { addHours, differenceInHours, startOfWeek, endOfWeek } from "date-fns";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 interface ComplianceViolation {
   type: "REST_PERIOD" | "DAILY_HOURS" | "WEEKLY_HOURS" | "OVERTIME" | "14_DAY_RULE";
@@ -13,6 +15,8 @@ interface ComplianceViolation {
 
 // POST /api/compliance/validate - Validate roster compliance
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -21,7 +25,7 @@ export async function POST(request: NextRequest) {
     const { rosterId } = body;
 
     if (!rosterId) {
-      return errorResponse("Missing roster ID");
+      return errorResponse(dict.api.compliance.missingRosterId);
     }
 
     // Get roster with all shifts
@@ -39,7 +43,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!roster || roster.organizationId !== orgId) {
-      return errorResponse("Roster not found", 404);
+      return errorResponse(dict.api.compliance.rosterNotFound, 404);
     }
 
     const violations: ComplianceViolation[] = [];
@@ -71,7 +75,7 @@ export async function POST(request: NextRequest) {
           violations.push({
             type: "DAILY_HOURS",
             severity: "ERROR",
-            message: `Shift exceeds daily limit of ${org.maxDailyHours} hours (${shiftHours.toFixed(1)}h)`,
+            message: dict.api.compliance.shiftExceedsDailyLimit.replace('{maxHours}', String(org.maxDailyHours)).replace('{actual}', shiftHours.toFixed(1)),
             shiftId: shift.id,
             userId,
           });
@@ -89,7 +93,7 @@ export async function POST(request: NextRequest) {
             violations.push({
               type: "REST_PERIOD",
               severity: "ERROR",
-              message: `Insufficient rest period: ${restHours}h (minimum ${org.minDailyRest}h required)`,
+              message: dict.api.compliance.insufficientRestPeriod.replace('{actual}', String(restHours)).replace('{minimum}', String(org.minDailyRest)),
               shiftId: shift.id,
               userId,
             });
@@ -115,7 +119,7 @@ export async function POST(request: NextRequest) {
           violations.push({
             type: "WEEKLY_HOURS",
             severity: "ERROR",
-            message: `Weekly hours exceed limit of ${org.maxWeeklyHours}h (${hours.toFixed(1)}h scheduled)`,
+            message: dict.api.compliance.weeklyHoursExceedLimit.replace('{maxHours}', String(org.maxWeeklyHours)).replace('{actual}', hours.toFixed(1)),
             userId,
           });
         }
@@ -130,7 +134,7 @@ export async function POST(request: NextRequest) {
       violations.push({
         type: "14_DAY_RULE",
         severity: "WARNING",
-        message: `Roster should be published ${org.publishDeadline} days before start date (${Math.floor(daysUntilStart)} days remaining)`,
+        message: dict.api.compliance.rosterPublishDeadline.replace('{days}', String(org.publishDeadline)).replace('{remaining}', String(Math.floor(daysUntilStart))),
       });
     }
 
@@ -173,15 +177,15 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Forbidden", 403);
+      return errorResponse(dict.api.common.forbidden, 403);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error validating compliance:", error);
-    return errorResponse("Failed to validate compliance", 500);
+    return errorResponse(dict.api.compliance.failedValidateCompliance, 500);
   }
 }

@@ -5,26 +5,31 @@ import { sendWelcomeEmail } from "@/lib/email";
 import { enrollInOnboardingAsync } from "@/lib/services/email-onboarding";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { randomBytes } from "crypto";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // POST /api/onboarding - Create new account with organization
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     const { allowed, resetIn } = checkRateLimit(`onboarding:${ip}`, 3, 60 * 60 * 1000);
     if (!allowed) {
-      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+      return errorResponse(dict.api.common.tooManyRequests.replace('{seconds}', String(Math.ceil(resetIn / 1000))), 429);
     }
 
     const { email } = await request.json();
 
     if (!email) {
-      return errorResponse("Email is required");
+      return errorResponse(dict.api.auth.emailRequired);
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return errorResponse("Invalid email format");
+      return errorResponse(dict.api.onboarding.invalidEmailFormat);
     }
 
     // Check if email already exists
@@ -33,7 +38,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingUser) {
-      return errorResponse("An account with this email already exists. Please sign in instead.", 409);
+      return errorResponse(dict.api.onboarding.emailAlreadyExists, 409);
     }
 
     // Generate magic link token (24 hours for initial signup)
@@ -95,6 +100,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Error in onboarding:", error);
-    return errorResponse("Failed to create account", 500);
+    return errorResponse(dict.api.onboarding.failedCreateAccount, 500);
   }
 }

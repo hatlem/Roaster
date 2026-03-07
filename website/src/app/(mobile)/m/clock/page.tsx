@@ -58,7 +58,7 @@ export default function ClockPage() {
   const getLocation = (): Promise<GeoPosition> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error("Geolocation not supported"));
+        reject(new Error(t.geolocationNotSupported));
         return;
       }
 
@@ -119,13 +119,13 @@ export default function ClockPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to clock in/out");
+        throw new Error(data.error || t.failedClockInOut);
       }
 
       // Refresh status
       await fetchClockStatus();
     } catch (err) {
-      setGeoError(err instanceof Error ? err.message : "An error occurred");
+      setGeoError(err instanceof Error ? err.message : t.anErrorOccurred);
     } finally {
       setLoading(false);
     }

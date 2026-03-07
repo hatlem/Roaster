@@ -2,9 +2,14 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { hash } from "bcrypt";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // GET /api/employees - List employees
 export async function GET(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -67,21 +72,24 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Forbidden", 403);
+      return errorResponse(dict.api.common.forbidden, 403);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error fetching employees:", error);
-    return errorResponse("Failed to fetch employees", 500);
+    return errorResponse(dict.api.employees.failedFetchEmployees, 500);
   }
 }
 
 // POST /api/employees - Create employee
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -102,24 +110,24 @@ export async function POST(request: NextRequest) {
     } = body;
 
     if (!email || !firstName || !lastName) {
-      return errorResponse("Missing required fields: email, firstName, lastName");
+      return errorResponse(dict.api.employees.missingRequiredFields);
     }
 
     // Validate role is a valid enum value
     const validRoles = ["ADMIN", "MANAGER", "REPRESENTATIVE", "EMPLOYEE"];
     if (!validRoles.includes(role)) {
-      return errorResponse("Invalid role");
+      return errorResponse(dict.api.employees.invalidRole);
     }
 
     // Managers cannot create admins
     if (session.user.role === "MANAGER" && role === "ADMIN") {
-      return errorResponse("Managers cannot create admin users", 403);
+      return errorResponse(dict.api.employees.managersCannotCreateAdmin, 403);
     }
 
     // Check if email already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return errorResponse("Email already exists");
+      return errorResponse(dict.api.employees.emailAlreadyExists);
     }
 
     // Generate temporary password if not provided
@@ -158,15 +166,15 @@ export async function POST(request: NextRequest) {
     return successResponse({ ...employee, temporaryPassword: password ? undefined : tempPassword }, 201);
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Forbidden", 403);
+      return errorResponse(dict.api.common.forbidden, 403);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error creating employee:", error);
-    return errorResponse("Failed to create employee", 500);
+    return errorResponse(dict.api.employees.failedCreateEmployee, 500);
   }
 }

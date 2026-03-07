@@ -75,20 +75,31 @@ export default async function ApprovalsPage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <Link
-          href="/dashboard/marketplace"
-          className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4"
-        >
-          <i className="fas fa-arrow-left" />
-          {d.backToMarketplace}
-        </Link>
-        <h1 className="font-display text-4xl mb-2">{d.approvalsTitle}</h1>
-        <p className="text-ink/60">{d.approvalsSubtitle}</p>
+      {/* Header with warm-orb */}
+      <div className="relative mb-10 overflow-hidden">
+        <div
+          className="warm-orb w-[400px] h-[400px] -top-48 -right-32"
+          style={{ background: "radial-gradient(circle, var(--forest), transparent)", opacity: 0.07 }}
+        />
+        <div className="relative">
+          <Link
+            href="/dashboard/marketplace"
+            className="text-ocean hover:text-ocean/70 font-medium flex items-center gap-2 mb-4 animate-fade-up"
+          >
+            <i className="fas fa-arrow-left" />
+            {d.backToMarketplace}
+          </Link>
+          <p className="text-forest mb-3 tracking-widest uppercase text-xs font-semibold animate-fade-up delay-1">
+            {d.approvalsTitle}
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl mb-3 animate-fade-up delay-2">{d.approvalsTitle}</h1>
+          <p className="text-ink/60 text-lg animate-fade-up delay-3">{d.approvalsSubtitle}</p>
+        </div>
       </div>
 
       {/* Info Box */}
-      <div className="bg-ocean/5 rounded-2xl p-6 border border-ocean/20 mb-6">
+      <div className="relative bg-cream/50 rounded-2xl p-6 border border-stone/50 mb-8 overflow-hidden animate-fade-up delay-3">
+        <div className="accent-line absolute top-0 left-0 right-0" />
         <div className="flex items-start gap-4">
           <div className="w-10 h-10 bg-ocean/10 rounded-lg flex items-center justify-center flex-shrink-0">
             <i className="fas fa-info-circle text-ocean" />
@@ -104,50 +115,67 @@ export default async function ApprovalsPage() {
 
       {/* Pending Approvals */}
       {pendingApprovals.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 border border-stone/50 text-center">
-          <i className="fas fa-check-circle text-4xl mb-4 text-forest" />
-          <p className="text-lg font-medium mb-2">{d.allCaughtUp}</p>
-          <p className="text-ink/60">{d.noPendingTransfers}</p>
+        <div className="relative bg-forest/5 rounded-2xl p-16 border border-forest/20 text-center overflow-hidden animate-fade-up delay-4">
+          {/* Decorative dots */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute w-2 h-2 rounded-full bg-forest/20 top-6 left-[15%]" />
+            <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/30 top-10 left-[30%]" />
+            <div className="absolute w-2.5 h-2.5 rounded-full bg-forest/15 top-4 right-[25%]" />
+            <div className="absolute w-1.5 h-1.5 rounded-full bg-ocean/20 top-8 right-[10%]" />
+            <div className="absolute w-2 h-2 rounded-full bg-terracotta/15 top-12 left-[50%]" />
+            <div className="absolute w-1 h-1 rounded-full bg-forest/25 top-5 left-[70%]" />
+            <div className="absolute w-2 h-2 rounded-full bg-gold/20 top-14 right-[40%]" />
+            <div className="absolute w-1.5 h-1.5 rounded-full bg-forest/20 top-3 left-[85%]" />
+          </div>
+          <div className="relative">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-forest/10 flex items-center justify-center">
+              <i className="fas fa-check-circle text-4xl text-forest" />
+            </div>
+            <p className="text-xl font-display mb-2 text-forest">{d.allCaughtUp}</p>
+            <p className="text-ink/60">{d.noPendingTransfers}</p>
+          </div>
         </div>
       ) : (
-        <div className="space-y-4">
-          {pendingApprovals.map((listing) => {
+        <div className="space-y-5">
+          {pendingApprovals.map((listing, index) => {
             const shift = listing.shift;
             const startTime = new Date(shift.startTime);
             const endTime = new Date(shift.endTime);
             const duration =
               (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
 
+            const delayClass = index <= 5 ? `delay-${Math.min(index + 1, 6)}` : "delay-6";
+
             return (
               <div
                 key={listing.id}
-                className="bg-white rounded-2xl p-6 border border-stone/50"
+                className={`bg-white rounded-2xl p-6 border border-stone/50 card-hover animate-fade-up ${delayClass}`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     {/* Shift Info */}
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-14 h-14 bg-gold/10 rounded-xl flex flex-col items-center justify-center">
-                        <span className="text-sm font-bold text-gold">
-                          {startTime.toLocaleDateString("en-GB", { day: "numeric" })}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-16 h-16 bg-gradient-to-br from-gold/20 to-terracotta/10 rounded-2xl flex flex-col items-center justify-center border border-gold/20">
+                        <span className="text-lg font-bold text-gold">
+                          {startTime.toLocaleDateString(locale, { day: "numeric" })}
                         </span>
-                        <span className="text-xs text-gold">
-                          {startTime.toLocaleDateString("en-GB", { month: "short" })}
+                        <span className="text-xs font-medium text-gold/80 uppercase">
+                          {startTime.toLocaleDateString(locale, { month: "short" })}
                         </span>
                       </div>
                       <div>
                         <p className="font-semibold text-lg">
-                          {startTime.toLocaleDateString("en-GB", {
+                          {startTime.toLocaleDateString(locale, {
                             weekday: "long",
                           })}
                         </p>
                         <p className="text-ink/60">
-                          {startTime.toLocaleTimeString("en-GB", {
+                          {startTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
                           -{" "}
-                          {endTime.toLocaleTimeString("en-GB", {
+                          {endTime.toLocaleTimeString(locale, {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -157,36 +185,39 @@ export default async function ApprovalsPage() {
                     </div>
 
                     {/* Transfer Details */}
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-2 mb-5">
                       {/* From */}
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-terracotta/10 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center ring-2 ring-terracotta/30 bg-terracotta/10">
                           <span className="text-terracotta text-xs font-semibold">
                             {shift.user?.firstName[0]}
                             {shift.user?.lastName[0]}
                           </span>
                         </div>
                         <div>
-                          <p className="text-xs text-ink/60">{d.from}</p>
+                          <p className="text-xs text-ink/40 uppercase tracking-wide font-medium">{d.from}</p>
                           <p className="text-sm font-medium">
                             {shift.user?.firstName} {shift.user?.lastName}
                           </p>
                         </div>
                       </div>
 
-                      {/* Arrow */}
-                      <i className="fas fa-arrow-right text-ink/30" />
+                      {/* Gradient line */}
+                      <div className="flex-1 mx-3 flex items-center">
+                        <div className="h-[2px] flex-1 bg-gradient-to-r from-terracotta/40 via-gold/30 to-forest/40 rounded-full" />
+                        <i className="fas fa-chevron-right text-forest/40 text-xs mx-1" />
+                      </div>
 
                       {/* To */}
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-forest/10 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center ring-2 ring-forest/30 bg-forest/10">
                           <span className="text-forest text-xs font-semibold">
                             {listing.claimedByUser?.firstName[0]}
                             {listing.claimedByUser?.lastName[0]}
                           </span>
                         </div>
                         <div>
-                          <p className="text-xs text-ink/60">{d.toLabel}</p>
+                          <p className="text-xs text-ink/40 uppercase tracking-wide font-medium">{d.toLabel}</p>
                           <p className="text-sm font-medium">
                             {listing.claimedByUser?.firstName}{" "}
                             {listing.claimedByUser?.lastName}
@@ -205,11 +236,11 @@ export default async function ApprovalsPage() {
                         <i className="fas fa-clock mr-1" />
                         {d.claimedColon}{" "}
                         {listing.claimedAt
-                          ? new Date(listing.claimedAt).toLocaleDateString("en-GB")
+                          ? new Date(listing.claimedAt).toLocaleDateString(locale)
                           : "-"}
                       </span>
                       <span
-                        className={`px-2 py-0.5 rounded-full ${
+                        className={`px-3 py-1 rounded-full font-semibold ${
                           listing.mode === "SELL"
                             ? "bg-forest/10 text-forest"
                             : listing.mode === "SWAP"
@@ -223,9 +254,12 @@ export default async function ApprovalsPage() {
 
                     {/* Reason */}
                     {listing.reason && (
-                      <p className="mt-3 text-sm text-ink/60 italic">
-                        &quot;{listing.reason}&quot;
-                      </p>
+                      <div className="mt-4">
+                        <span className="font-display text-2xl text-terracotta/60 leading-none">&ldquo;</span>
+                        <p className="text-sm text-ink/60 italic -mt-2 pl-4">
+                          {listing.reason}
+                        </p>
+                      </div>
                     )}
                   </div>
 

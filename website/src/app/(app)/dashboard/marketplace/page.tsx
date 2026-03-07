@@ -78,107 +78,158 @@ export default async function MarketplacePage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="font-display text-4xl mb-2">{d.title}</h1>
-            <p className="text-ink/60">{d.subtitle}</p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              href="/dashboard/marketplace/my-requests"
-              className="px-4 py-2 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors flex items-center gap-2"
-            >
-              <i className="fas fa-list" />
-              {d.myRequests}
-            </Link>
-            {isManager && (
+      {/* Header with warm-orb */}
+      <div className="relative mb-10 overflow-hidden">
+        <div
+          className="warm-orb w-[400px] h-[400px] -top-48 -right-32"
+          style={{ background: "radial-gradient(circle, var(--ocean), transparent)", opacity: 0.07 }}
+        />
+        <div
+          className="warm-orb w-[300px] h-[300px] -bottom-32 -left-20"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)", opacity: 0.05, animationDelay: "-5s" }}
+        />
+        <div className="relative">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-ocean mb-3 tracking-widest uppercase text-xs font-semibold animate-fade-up">
+                {d.title}
+              </p>
+              <h1 className="font-display text-4xl md:text-5xl mb-3 animate-fade-up delay-1">{d.title}</h1>
+              <p className="text-ink/60 text-lg animate-fade-up delay-2">{d.subtitle}</p>
+            </div>
+            <div className="flex gap-3 animate-fade-up delay-3">
               <Link
-                href="/dashboard/marketplace/approvals"
-                className="px-4 py-2 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2"
+                href="/dashboard/marketplace/my-requests"
+                className="px-4 py-2 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-colors flex items-center gap-2"
               >
-                <i className="fas fa-check-circle" />
-                {d.approvals}
+                <i className="fas fa-list" />
+                {d.myRequests}
               </Link>
-            )}
+              {isManager && (
+                <Link
+                  href="/dashboard/marketplace/approvals"
+                  className="px-4 py-2 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-colors flex items-center gap-2"
+                >
+                  <i className="fas fa-check-circle" />
+                  {d.approvals}
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Mode Legend */}
-      <div className="flex gap-4 mb-6">
-        <div className="flex items-center gap-2 text-sm">
-          <span className="w-3 h-3 rounded-full bg-forest" />
-          <span className="text-ink/60">{d.sellMode}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="w-3 h-3 rounded-full bg-ocean" />
-          <span className="text-ink/60">{d.swapMode}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="w-3 h-3 rounded-full bg-gold" />
-          <span className="text-ink/60">{d.handoverMode}</span>
+      <div className="bg-white rounded-2xl p-4 border border-stone/50 mb-8 animate-fade-up delay-3">
+        <div className="flex gap-6">
+          <div className="flex items-center gap-3 text-sm">
+            <span className="w-4 h-4 rounded-full bg-forest shadow-[0_0_8px_rgba(45,90,74,0.3)]" />
+            <span className="text-ink/70 font-medium">{d.sellMode}</span>
+          </div>
+          <div className="flex items-center gap-3 text-sm">
+            <span className="w-4 h-4 rounded-full bg-ocean shadow-[0_0_8px_rgba(58,107,124,0.3)]" />
+            <span className="text-ink/70 font-medium">{d.swapMode}</span>
+          </div>
+          <div className="flex items-center gap-3 text-sm">
+            <span className="w-4 h-4 rounded-full bg-gold shadow-[0_0_8px_rgba(184,134,11,0.3)]" />
+            <span className="text-ink/70 font-medium">{d.handoverMode}</span>
+          </div>
         </div>
       </div>
 
       {/* Listings Grid */}
       {listings.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 border border-stone/50 text-center">
-          <i className="fas fa-store text-4xl mb-4 text-stone" />
-          <p className="text-lg font-medium mb-2">{d.noShiftsAvailable}</p>
-          <p className="text-ink/60">
-            {d.noShiftsAvailableDesc}
-          </p>
+        <div className="relative bg-white rounded-2xl p-16 border border-stone/50 text-center overflow-hidden animate-fade-up delay-4">
+          <div
+            className="warm-orb w-[300px] h-[300px] top-[-100px] left-1/2 -translate-x-1/2"
+            style={{ background: "radial-gradient(circle, var(--ocean), transparent)", opacity: 0.06 }}
+          />
+          <div className="relative">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl border-2 border-dashed border-stone flex items-center justify-center">
+              <i className="fas fa-store text-3xl text-stone" />
+            </div>
+            <p className="text-xl font-display mb-2">{d.noShiftsAvailable}</p>
+            <p className="text-ink/60 max-w-md mx-auto">
+              {d.noShiftsAvailableDesc}
+            </p>
+          </div>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {listings.map((listing) => {
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {listings.map((listing, index) => {
             const shift = listing.shift;
             const startTime = new Date(shift.startTime);
             const endTime = new Date(shift.endTime);
             const duration =
               (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
 
+            const modeColor =
+              listing.mode === "SELL"
+                ? "forest"
+                : listing.mode === "SWAP"
+                  ? "ocean"
+                  : "gold";
+
+            const modeColorBorder =
+              listing.mode === "SELL"
+                ? "border-l-forest"
+                : listing.mode === "SWAP"
+                  ? "border-l-ocean"
+                  : "border-l-gold";
+
+            const modeColorRing =
+              listing.mode === "SELL"
+                ? "ring-forest/30"
+                : listing.mode === "SWAP"
+                  ? "ring-ocean/30"
+                  : "ring-gold/30";
+
+            const hoursUntilExpiry =
+              (new Date(listing.availableUntil).getTime() - Date.now()) / (1000 * 60 * 60);
+
+            const delayClass = index <= 5 ? `delay-${Math.min(index + 1, 6)}` : "delay-6";
+
             return (
               <div
                 key={listing.id}
-                className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors"
+                className={`relative bg-white rounded-2xl p-6 border border-stone/50 border-l-[3px] ${modeColorBorder} card-hover animate-fade-up ${delayClass} ${index === 0 ? "grain" : ""}`}
               >
                 {/* Mode Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <span
-                    className={`text-xs font-medium px-2 py-1 rounded-full ${
-                      listing.mode === "SELL"
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                      modeColor === "forest"
                         ? "bg-forest/10 text-forest"
-                        : listing.mode === "SWAP"
+                        : modeColor === "ocean"
                           ? "bg-ocean/10 text-ocean"
                           : "bg-gold/10 text-gold"
                     }`}
                   >
                     {listing.mode}
                   </span>
-                  <span className="text-xs text-ink/60">
+                  <span className={`text-xs ${hoursUntilExpiry < 48 ? "text-terracotta font-semibold" : "text-ink/60"}`}>
+                    {hoursUntilExpiry < 48 && <i className="fas fa-exclamation-triangle mr-1" />}
                     {d.expires}{" "}
-                    {new Date(listing.availableUntil).toLocaleDateString("en-GB")}
+                    {new Date(listing.availableUntil).toLocaleDateString(locale)}
                   </span>
                 </div>
 
                 {/* Shift Details */}
                 <div className="mb-4">
                   <p className="font-semibold text-lg">
-                    {startTime.toLocaleDateString("en-GB", {
+                    {startTime.toLocaleDateString(locale, {
                       weekday: "long",
                       day: "numeric",
                       month: "short",
                     })}
                   </p>
                   <p className="text-ink/60">
-                    {startTime.toLocaleTimeString("en-GB", {
+                    {startTime.toLocaleTimeString(locale, {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}{" "}
                     -{" "}
-                    {endTime.toLocaleTimeString("en-GB", {
+                    {endTime.toLocaleTimeString(locale, {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
@@ -188,8 +239,20 @@ export default async function MarketplacePage() {
 
                 {/* Posted By */}
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-ocean/10 rounded-full flex items-center justify-center">
-                    <span className="text-ocean text-xs font-semibold">
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ring-2 ${modeColorRing} ${
+                    modeColor === "forest"
+                      ? "bg-forest/10"
+                      : modeColor === "ocean"
+                        ? "bg-ocean/10"
+                        : "bg-gold/10"
+                  }`}>
+                    <span className={`text-xs font-semibold ${
+                      modeColor === "forest"
+                        ? "text-forest"
+                        : modeColor === "ocean"
+                          ? "text-ocean"
+                          : "text-gold"
+                    }`}>
                       {shift.user?.firstName?.[0]}
                       {shift.user?.lastName?.[0]}
                     </span>
@@ -206,9 +269,12 @@ export default async function MarketplacePage() {
 
                 {/* Reason */}
                 {listing.reason && (
-                  <p className="text-sm text-ink/60 mb-4 italic">
-                    &quot;{listing.reason}&quot;
-                  </p>
+                  <div className="mb-4">
+                    <span className="font-display text-2xl text-terracotta/60 leading-none">&ldquo;</span>
+                    <p className="text-sm text-ink/60 italic -mt-2 pl-4">
+                      {listing.reason}
+                    </p>
+                  </div>
                 )}
 
                 {/* Claim Button */}

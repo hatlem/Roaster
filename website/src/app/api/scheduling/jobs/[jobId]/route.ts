@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireRole } from "@/lib/api-utils";
 import { getAutoScheduleJob } from "@/services/autoSchedulerService";
 import { getConsensusDecision } from "@/services/consensus/multiAgentConsensusService";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     await requireRole(["ADMIN", "MANAGER"]);
 
@@ -14,7 +18,7 @@ export async function GET(
     const job = await getAutoScheduleJob(jobId);
 
     if (!job) {
-      return NextResponse.json({ error: "Job not found" }, { status: 404 });
+      return NextResponse.json({ error: dict.api.scheduling.jobNotFound }, { status: 404 });
     }
 
     // Get consensus decision if available
@@ -56,14 +60,14 @@ export async function GET(
     });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return NextResponse.json({ error: dict.api.common.forbidden }, { status: 403 });
     }
     console.error("Get job error:", error);
     return NextResponse.json(
-      { error: "Failed to get job status" },
+      { error: dict.api.scheduling.failedGetJobStatus },
       { status: 500 }
     );
   }

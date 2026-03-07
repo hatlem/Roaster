@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // Subscribe to push notifications
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const body = await request.json();
@@ -17,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     if (!endpoint || !keys?.p256dh || !keys?.auth) {
       return NextResponse.json(
-        { error: "Invalid subscription data" },
+        { error: dict.api.push.invalidSubscriptionData },
         { status: 400 }
       );
     }
@@ -45,7 +49,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Push subscribe error:", error);
     return NextResponse.json(
-      { error: "Failed to subscribe to push notifications" },
+      { error: dict.api.push.failedSubscribePush },
       { status: 500 }
     );
   }
@@ -53,11 +57,13 @@ export async function POST(request: NextRequest) {
 
 // Unsubscribe from push notifications
 export async function DELETE(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const body = await request.json();
@@ -65,7 +71,7 @@ export async function DELETE(request: NextRequest) {
 
     if (!endpoint) {
       return NextResponse.json(
-        { error: "Endpoint is required" },
+        { error: dict.api.push.endpointRequired },
         { status: 400 }
       );
     }
@@ -82,7 +88,7 @@ export async function DELETE(request: NextRequest) {
   } catch (error) {
     console.error("Push unsubscribe error:", error);
     return NextResponse.json(
-      { error: "Failed to unsubscribe from push notifications" },
+      { error: dict.api.push.failedUnsubscribePush },
       { status: 500 }
     );
   }

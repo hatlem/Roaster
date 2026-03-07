@@ -1,9 +1,13 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // GET /api/shifts - List shifts
 export async function GET(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await requireAuth();
     const orgId = await getOrganizationId(session.user.id);
@@ -61,18 +65,20 @@ export async function GET(request: NextRequest) {
     return successResponse(shifts);
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error fetching shifts:", error);
-    return errorResponse("Failed to fetch shifts", 500);
+    return errorResponse(dict.api.shifts.failedFetchShifts, 500);
   }
 }
 
 // POST /api/shifts - Create shift
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -90,7 +96,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     if (!rosterId || !userId || !startTime || !endTime) {
-      return errorResponse("Missing required fields");
+      return errorResponse(dict.api.shifts.missingRequiredFields);
     }
 
     const roster = await prisma.roster.findUnique({
@@ -98,7 +104,7 @@ export async function POST(request: NextRequest) {
       select: { organizationId: true },
     });
     if (!roster || roster.organizationId !== orgId) {
-      return errorResponse("Roster not found", 404);
+      return errorResponse(dict.api.shifts.rosterNotFound, 404);
     }
 
     // Get user's hourly rate for labor cost calculation
@@ -141,15 +147,15 @@ export async function POST(request: NextRequest) {
     return successResponse(shift, 201);
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Forbidden", 403);
+      return errorResponse(dict.api.common.forbidden, 403);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error creating shift:", error);
-    return errorResponse("Failed to create shift", 500);
+    return errorResponse(dict.api.shifts.failedCreateShift, 500);
   }
 }

@@ -13,115 +13,121 @@ export default async function ReportsPage() {
   const dict = getDictionary(locale);
   const d = dict.dashboard.reports;
 
+  const reports = [
+    {
+      title: d.complianceReportTitle,
+      desc: d.complianceReportDesc,
+      href: "/dashboard/reports/compliance",
+      icon: "fas fa-shield-alt",
+      iconBg: "bg-forest/10",
+      iconColor: "text-forest",
+      accentGradient: "from-forest to-forest/40",
+      cta: d.generateReport,
+    },
+    {
+      title: d.workingHoursTitle,
+      desc: d.workingHoursDesc,
+      href: "/dashboard/reports/hours",
+      icon: "fas fa-clock",
+      iconBg: "bg-ocean/10",
+      iconColor: "text-ocean",
+      accentGradient: "from-ocean to-ocean/40",
+      cta: d.generateReport,
+    },
+    {
+      title: d.overtimeAnalysisTitle,
+      desc: d.overtimeAnalysisDesc,
+      href: "/dashboard/reports/overtime",
+      icon: "fas fa-hourglass-half",
+      iconBg: "bg-terracotta/10",
+      iconColor: "text-terracotta",
+      accentGradient: "from-terracotta to-gold",
+      cta: d.generateReport,
+    },
+    {
+      title: d.laborCostsTitle,
+      desc: d.laborCostsDesc,
+      href: "/dashboard/reports/costs",
+      icon: "fas fa-coins",
+      iconBg: "bg-gold/10",
+      iconColor: "text-gold",
+      accentGradient: "from-gold to-terracotta/40",
+      cta: d.generateReport,
+    },
+    {
+      title: d.attendanceTitle,
+      desc: d.attendanceDesc,
+      href: "/dashboard/reports/attendance",
+      icon: "fas fa-user-check",
+      iconBg: "bg-ocean/10",
+      iconColor: "text-ocean",
+      accentGradient: "from-ocean to-forest/40",
+      cta: d.generateReport,
+    },
+    {
+      title: d.auditTrailTitle,
+      desc: d.auditTrailDesc,
+      href: "/dashboard/reports/audit",
+      icon: "fas fa-history",
+      iconBg: "bg-stone/20",
+      iconColor: "text-ink/60",
+      accentGradient: "from-stone to-stone/20",
+      cta: d.viewAuditLog,
+    },
+  ];
+
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <h1 className="font-display text-4xl mb-2">{d.title}</h1>
-        <p className="text-ink/60">{d.subtitle}</p>
+      {/* Header with warm-orb */}
+      <div className="relative mb-10 overflow-hidden">
+        <div
+          className="warm-orb w-[400px] h-[400px] -top-48 -right-32"
+          style={{ background: "radial-gradient(circle, var(--terracotta), transparent)", opacity: 0.07 }}
+        />
+        <div className="relative">
+          <p className="text-terracotta mb-3 tracking-widest uppercase text-xs font-semibold animate-fade-up">
+            {d.title}
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl mb-3 animate-fade-up delay-1">{d.title}</h1>
+          <p className="text-ink/60 text-lg animate-fade-up delay-2">{d.subtitle}</p>
+        </div>
       </div>
 
+      {/* Stat summary row */}
+      <div className="bg-cream/50 border border-stone/30 rounded-2xl px-6 py-4 mb-8 flex items-center gap-3 animate-fade-up delay-2">
+        <div className="w-8 h-8 bg-ocean/10 rounded-lg flex items-center justify-center">
+          <i className="fas fa-chart-bar text-ocean text-sm" />
+        </div>
+        <p className="text-ink/70 text-sm">
+          <span className="font-semibold text-ink">6</span> report types available
+        </p>
+      </div>
+
+      {/* Report Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Compliance Report */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-shield-alt text-forest text-xl" />
-          </div>
-          <h3 className="font-display text-xl mb-2">{d.complianceReportTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.complianceReportDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/compliance"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
+        {reports.map((report, i) => (
+          <div
+            key={report.href}
+            className={`relative bg-white rounded-2xl p-6 border border-stone/50 card-hover overflow-hidden animate-fade-up delay-${i + 1}`}
           >
-            {d.generateReport} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
+            {/* Accent line at top */}
+            <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${report.accentGradient}`} />
 
-        {/* Working Hours Report */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-ocean/10 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-clock text-ocean text-xl" />
+            <div className={`w-12 h-12 ${report.iconBg} rounded-xl flex items-center justify-center mb-4`}>
+              <i className={`${report.icon} ${report.iconColor} text-xl`} />
+            </div>
+            <h3 className="font-display text-xl mb-2">{report.title}</h3>
+            <p className="text-ink/60 text-sm mb-4">
+              {report.desc}
+            </p>
+            <Link
+              href={report.href}
+              className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2 transition-colors"
+            >
+              {report.cta} <i className="fas fa-arrow-right text-sm" />
+            </Link>
           </div>
-          <h3 className="font-display text-xl mb-2">{d.workingHoursTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.workingHoursDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/hours"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
-          >
-            {d.generateReport} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
-
-        {/* Overtime Report */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-hourglass-half text-terracotta text-xl" />
-          </div>
-          <h3 className="font-display text-xl mb-2">{d.overtimeAnalysisTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.overtimeAnalysisDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/overtime"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
-          >
-            {d.generateReport} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
-
-        {/* Labor Cost Report */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-coins text-gold text-xl" />
-          </div>
-          <h3 className="font-display text-xl mb-2">{d.laborCostsTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.laborCostsDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/costs"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
-          >
-            {d.generateReport} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
-
-        {/* Attendance Report */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-ocean/10 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-user-check text-ocean text-xl" />
-          </div>
-          <h3 className="font-display text-xl mb-2">{d.attendanceTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.attendanceDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/attendance"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
-          >
-            {d.generateReport} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
-
-        {/* Audit Trail */}
-        <div className="bg-white rounded-2xl p-6 border border-stone/50 hover:border-ocean/50 transition-colors">
-          <div className="w-12 h-12 bg-stone/30 rounded-xl flex items-center justify-center mb-4">
-            <i className="fas fa-history text-ink/60 text-xl" />
-          </div>
-          <h3 className="font-display text-xl mb-2">{d.auditTrailTitle}</h3>
-          <p className="text-ink/60 text-sm mb-4">
-            {d.auditTrailDesc}
-          </p>
-          <Link
-            href="/dashboard/reports/audit"
-            className="text-ocean font-medium hover:text-ocean/70 flex items-center gap-2"
-          >
-            {d.viewAuditLog} <i className="fas fa-arrow-right text-sm" />
-          </Link>
-        </div>
+        ))}
       </div>
     </div>
   );

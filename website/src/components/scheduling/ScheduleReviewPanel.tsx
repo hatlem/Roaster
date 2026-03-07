@@ -59,6 +59,7 @@ interface ScheduleReviewPanelProps {
   onReject: () => void;
   onClose: () => void;
   dictionary: Dictionary["dashboard"]["components"]["scheduleReview"];
+  locale?: string;
 }
 
 export function ScheduleReviewPanel({
@@ -67,6 +68,7 @@ export function ScheduleReviewPanel({
   onReject,
   onClose,
   dictionary: d,
+  locale = "en",
 }: ScheduleReviewPanelProps) {
   const [job, setJob] = useState<JobData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -307,7 +309,7 @@ export function ScheduleReviewPanel({
                     <tr key={idx} className="border-b border-stone/30">
                       <td className="p-3">{shift.employeeName}</td>
                       <td className="p-3 text-ink/60">
-                        {new Date(shift.date).toLocaleDateString("en-GB", {
+                        {new Date(shift.date).toLocaleDateString(locale, {
                           weekday: "short",
                           day: "numeric",
                           month: "short",

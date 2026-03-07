@@ -82,7 +82,7 @@ export function LocalizedHeader({ dictionary, locale, country }: LocalizedHeader
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 hover:bg-stone/30 rounded-lg transition-colors"
-              aria-label="Toggle menu"
+              aria-label={dictionary.common.toggleMenu}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? (

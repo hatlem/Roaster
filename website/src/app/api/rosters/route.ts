@@ -1,9 +1,14 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // GET /api/rosters - List rosters
 export async function GET(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const session = await requireAuth();
     const orgId = await getOrganizationId(session.user.id);
@@ -56,18 +61,21 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error fetching rosters:", error);
-    return errorResponse("Failed to fetch rosters", 500);
+    return errorResponse(dict.api.rosters.failedFetchRosters, 500);
   }
 }
 
 // POST /api/rosters - Create roster
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -76,7 +84,7 @@ export async function POST(request: NextRequest) {
     const { name, startDate, endDate, locationId } = body;
 
     if (!name || !startDate || !endDate) {
-      return errorResponse("Missing required fields: name, startDate, endDate");
+      return errorResponse(dict.api.rosters.missingRequiredFields);
     }
 
     const roster = await prisma.roster.create({
@@ -97,15 +105,15 @@ export async function POST(request: NextRequest) {
     return successResponse(roster, 201);
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401);
+      return errorResponse(dict.api.common.unauthorized, 401);
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Forbidden", 403);
+      return errorResponse(dict.api.common.forbidden, 403);
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return errorResponse("No organization found", 400);
+      return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error creating roster:", error);
-    return errorResponse("Failed to create roster", 500);
+    return errorResponse(dict.api.rosters.failedCreateRoster, 500);
   }
 }

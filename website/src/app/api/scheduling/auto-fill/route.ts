@@ -3,8 +3,12 @@ import { requireRole, getOrganizationId } from "@/lib/api-utils";
 import { prisma } from "@/lib/db";
 import { createAutoScheduleJob } from "@/services/autoSchedulerService";
 import { SchedulePriorityMode } from "@prisma/client";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await requireRole(["ADMIN", "MANAGER"]);
     const orgId = await getOrganizationId(session.user.id);
@@ -14,7 +18,7 @@ export async function POST(request: NextRequest) {
 
     if (!rosterId) {
       return NextResponse.json(
-        { error: "rosterId is required" },
+        { error: dict.api.scheduling.rosterIdRequired },
         { status: 400 }
       );
     }
@@ -25,7 +29,7 @@ export async function POST(request: NextRequest) {
     });
     if (!roster || roster.organizationId !== orgId) {
       return NextResponse.json(
-        { error: "Roster not found" },
+        { error: dict.api.scheduling.rosterNotFound },
         { status: 404 }
       );
     }
@@ -39,7 +43,7 @@ export async function POST(request: NextRequest) {
     if (!priorityMode || !validModes.includes(priorityMode)) {
       return NextResponse.json(
         {
-          error: "Invalid priorityMode. Must be one of: LOWEST_COST, EQUAL_HOURS, PREFERENCE_BASED",
+          error: dict.api.scheduling.invalidPriorityMode,
         },
         { status: 400 }
       );
@@ -55,21 +59,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       jobId,
-      message: "Auto-scheduling job started",
+      message: dict.api.scheduling.autoSchedulingStarted,
     });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return NextResponse.json({ error: dict.api.common.forbidden }, { status: 403 });
     }
     if (error instanceof Error && error.message === "NoOrganization") {
-      return NextResponse.json({ error: "No organization found" }, { status: 400 });
+      return NextResponse.json({ error: dict.api.common.noOrganization }, { status: 400 });
     }
     console.error("Auto-fill error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to start auto-scheduling" },
+      { error: error instanceof Error ? error.message : dict.api.scheduling.failedAutoScheduling },
       { status: 500 }
     );
   }

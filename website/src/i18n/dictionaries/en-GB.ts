@@ -147,6 +147,7 @@ export const enGB: Dictionary = {
     tryFreeForDays: 'Try it free for {days} days',
     getStartedInMinutes: 'Get started in 10 minutes. No credit card required.',
     startTrialToday: 'Start your free {days}-day trial today.',
+    toggleMenu: 'Toggle menu',
   },
 
   // Form labels
@@ -976,4 +977,5 @@ export const enGB: Dictionary = {
     changesTitle: 'Changes to Subprocessors',
     changesText: 'We will notify customers of any changes to our subprocessor list. For questions about our data processing practices, please contact us at',
   },
+  api: { ...en.api },
 };

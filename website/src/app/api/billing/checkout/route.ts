@@ -2,21 +2,26 @@ import { NextRequest, NextResponse } from "next/server"
 import { getStripe, STRIPE_PRICE_IDS } from "@/lib/stripe"
 import { prisma } from "@/lib/db"
 import { requireRole, errorResponse } from "@/lib/api-utils"
+import { getServerLocale } from "@/i18n/server"
+import { getDictionary } from "@/i18n/dictionaries"
 
 // POST /api/billing/checkout - Create a Stripe Checkout session
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
+
     const session = await requireRole(["ADMIN"])
 
     const { plan } = await request.json()
 
     if (!plan || !["starter", "professional"].includes(plan)) {
-      return errorResponse("Invalid plan. Choose 'starter' or 'professional'.")
+      return errorResponse(dict.api.billing.invalidPlan)
     }
 
     const priceId = STRIPE_PRICE_IDS[plan]
     if (!priceId) {
-      return errorResponse("Price ID not configured for this plan. Contact support.")
+      return errorResponse(dict.api.billing.priceNotConfigured)
     }
 
     // Get user with organization
@@ -26,7 +31,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (!user?.organization) {
-      return errorResponse("No organization found. Complete onboarding first.")
+      return errorResponse(dict.api.billing.noOrgFoundOnboard)
     }
 
     const org = user.organization
@@ -88,12 +93,12 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
-      return errorResponse("Unauthorized", 401)
+      return errorResponse(dict.api.common.unauthorized, 401)
     }
     if (error instanceof Error && error.message === "Forbidden") {
-      return errorResponse("Only admins can manage billing", 403)
+      return errorResponse(dict.api.billing.onlyAdminsBilling, 403)
     }
     console.error("[billing/checkout] Error:", error)
-    return errorResponse("Failed to create checkout session", 500)
+    return errorResponse(dict.api.billing.failedCreateCheckout, 500)
   }
 }

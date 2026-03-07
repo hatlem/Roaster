@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // Get user's time off requests
 export async function GET() {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const requests = await prisma.timeOffRequest.findMany({
@@ -22,7 +26,7 @@ export async function GET() {
   } catch (error) {
     console.error("Get time off requests error:", error);
     return NextResponse.json(
-      { error: "Failed to get time off requests" },
+      { error: dict.api.mobile.failedGetTimeOff },
       { status: 500 }
     );
   }
@@ -30,11 +34,13 @@ export async function GET() {
 
 // Create new time off request
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const body = await request.json();
@@ -43,7 +49,7 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     if (!type || !startDate || !endDate) {
       return NextResponse.json(
-        { error: "Type, start date, and end date are required" },
+        { error: dict.api.mobile.typeStartEndRequired },
         { status: 400 }
       );
     }
@@ -54,7 +60,7 @@ export async function POST(request: NextRequest) {
 
     if (start > end) {
       return NextResponse.json(
-        { error: "End date must be after start date" },
+        { error: dict.api.mobile.endDateAfterStart },
         { status: 400 }
       );
     }
@@ -72,7 +78,7 @@ export async function POST(request: NextRequest) {
 
     if (!user?.organizationId) {
       return NextResponse.json(
-        { error: "User not associated with an organization" },
+        { error: dict.api.mobile.userNoOrg },
         { status: 400 }
       );
     }
@@ -105,8 +111,8 @@ export async function POST(request: NextRequest) {
         data: managers.map((manager) => ({
           userId: manager.id,
           type: "TIME_OFF_REQUEST",
-          title: "New Time Off Request",
-          message: `${session.user.name || "An employee"} requested ${totalDays} day${totalDays !== 1 ? "s" : ""} off`,
+          title: dict.api.mobile.newTimeOffRequestTitle,
+          message: dict.api.mobile.timeOffRequestMessage.replace('{name}', session.user.name || 'Employee').replace('{days}', String(totalDays)),
           relatedEntityType: "TimeOffRequest",
           relatedEntityId: timeOffRequest.id,
         })),
@@ -120,7 +126,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Create time off request error:", error);
     return NextResponse.json(
-      { error: "Failed to create time off request" },
+      { error: dict.api.mobile.failedCreateTimeOff },
       { status: 500 }
     );
   }

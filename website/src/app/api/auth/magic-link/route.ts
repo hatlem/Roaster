@@ -4,20 +4,25 @@ import { successResponse, errorResponse } from "@/lib/api-utils";
 import { sendMagicLinkEmail } from "@/lib/email";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { randomBytes } from "crypto";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // POST /api/auth/magic-link - Request magic link for login
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     const { allowed, resetIn } = checkRateLimit(`magic-link:${ip}`, 5, 15 * 60 * 1000);
     if (!allowed) {
-      return errorResponse(`Too many requests. Try again in ${Math.ceil(resetIn / 1000)} seconds.`, 429);
+      return errorResponse(dict.api.common.tooManyRequests.replace('{seconds}', String(Math.ceil(resetIn / 1000))), 429);
     }
 
     const { email } = await request.json();
 
     if (!email) {
-      return errorResponse("Email is required");
+      return errorResponse(dict.api.auth.emailRequired);
     }
 
     const user = await prisma.user.findUnique({
@@ -25,7 +30,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Always return success message for security (don't reveal if user exists)
-    const successMessage = "If an account exists with this email, a magic link has been sent.";
+    const successMessage = dict.api.auth.magicLinkSent;
 
     if (!user || !user.isActive) {
       // Don't reveal that user doesn't exist
@@ -50,6 +55,6 @@ export async function POST(request: NextRequest) {
     return successResponse({ message: successMessage });
   } catch (error) {
     console.error("Error generating magic link:", error);
-    return errorResponse("Failed to send magic link", 500);
+    return errorResponse(dict.api.auth.failedSendMagicLink, 500);
   }
 }

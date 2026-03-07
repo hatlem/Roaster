@@ -7,13 +7,17 @@ import {
   createListing,
 } from "@/services/marketplaceService";
 import { MarketplaceMode } from "@prisma/client";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export async function GET(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     // Get user's organization
@@ -23,7 +27,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!user?.organizationId) {
-      return NextResponse.json({ error: "No organization" }, { status: 400 });
+      return NextResponse.json({ error: dict.api.marketplace.noOrganization }, { status: 400 });
     }
 
     const listings = await getAvailableListings(user.organizationId);
@@ -32,18 +36,20 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Get listings error:", error);
     return NextResponse.json(
-      { error: "Failed to get listings" },
+      { error: dict.api.marketplace.failedGetListings },
       { status: 500 }
     );
   }
 }
 
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: dict.api.common.unauthorized }, { status: 401 });
     }
 
     const body = await request.json();
@@ -59,7 +65,7 @@ export async function POST(request: NextRequest) {
 
     if (!shiftId) {
       return NextResponse.json(
-        { error: "shiftId is required" },
+        { error: dict.api.marketplace.shiftIdRequired },
         { status: 400 }
       );
     }
@@ -68,7 +74,7 @@ export async function POST(request: NextRequest) {
     const validModes: MarketplaceMode[] = ["SWAP", "HANDOVER", "SELL"];
     if (!mode || !validModes.includes(mode)) {
       return NextResponse.json(
-        { error: "Invalid mode. Must be one of: SWAP, HANDOVER, SELL" },
+        { error: dict.api.marketplace.invalidMode },
         { status: 400 }
       );
     }
@@ -76,7 +82,7 @@ export async function POST(request: NextRequest) {
     // HANDOVER mode requires targetEmployeeId
     if (mode === "HANDOVER" && !targetEmployeeId) {
       return NextResponse.json(
-        { error: "targetEmployeeId is required for HANDOVER mode" },
+        { error: dict.api.marketplace.targetEmployeeRequired },
         { status: 400 }
       );
     }
@@ -98,7 +104,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Create listing error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to create listing" },
+      { error: error instanceof Error ? error.message : dict.api.marketplace.failedCreateListing },
       { status: 500 }
     );
   }

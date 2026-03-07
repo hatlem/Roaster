@@ -3,17 +3,22 @@ import { getStripe, planFromPriceId } from "@/lib/stripe"
 import { prisma } from "@/lib/db"
 import { exitOnboardingSequenceAsync } from "@/lib/services/email-onboarding"
 import Stripe from "stripe"
+import { getServerLocale } from "@/i18n/server"
+import { getDictionary } from "@/i18n/dictionaries"
 
 // Disable body parsing -- Stripe needs the raw body for signature verification
 export const dynamic = "force-dynamic"
 
 export async function POST(request: NextRequest) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const stripe = getStripe()
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
   if (!webhookSecret) {
     console.error("[billing/webhook] STRIPE_WEBHOOK_SECRET is not set")
-    return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 })
+    return NextResponse.json({ error: dict.api.billing.webhookSecretNotConfigured }, { status: 500 })
   }
 
   // Read the raw body for signature verification
@@ -21,7 +26,7 @@ export async function POST(request: NextRequest) {
   const signature = request.headers.get("stripe-signature")
 
   if (!signature) {
-    return NextResponse.json({ error: "Missing stripe-signature header" }, { status: 400 })
+    return NextResponse.json({ error: dict.api.billing.missingStripeSignature }, { status: 400 })
   }
 
   let event: Stripe.Event
@@ -31,7 +36,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error"
     console.error("[billing/webhook] Signature verification failed:", message)
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
+    return NextResponse.json({ error: dict.api.billing.invalidSignature }, { status: 400 })
   }
 
   try {
@@ -56,7 +61,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error(`[billing/webhook] Error handling ${event.type}:`, error)
     // Return 200 anyway to prevent Stripe retries for app-level errors
-    return NextResponse.json({ received: true, error: "Handler failed" }, { status: 200 })
+    return NextResponse.json({ received: true, error: dict.api.billing.handlerFailed }, { status: 200 })
   }
 
   return NextResponse.json({ received: true })

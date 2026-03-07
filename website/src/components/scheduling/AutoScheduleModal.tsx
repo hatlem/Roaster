@@ -71,12 +71,12 @@ export function AutoScheduleModal({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to start auto-scheduling");
+        throw new Error(data.error || d.failedAutoScheduling);
       }
 
       onSuccess(data.jobId);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : d.anErrorOccurred);
     } finally {
       setIsSubmitting(false);
     }
