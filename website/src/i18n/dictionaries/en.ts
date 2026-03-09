@@ -1149,6 +1149,17 @@ export const en = {
       showingOf: 'Showing {count} of {total} employees',
       noResults: 'No employees match your search',
       clearSearch: 'Clear search',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Rosters section
@@ -1888,6 +1899,12 @@ export const en = {
         anErrorOccurred: 'An error occurred',
         failedCreateCheckout: 'Failed to create checkout session',
         failedOpenPortal: 'Failed to open billing portal',
+        tierLimited: 'Upgrade your plan to access this feature',
+        upgradeRequired: 'Upgrade Required',
+        employeeLimitReached: 'You\'ve reached the employee limit for your plan',
+        locationLimitReached: 'You\'ve reached the location limit for your plan',
+        featureNotAvailable: 'This feature is not available on your current plan',
+        upgradeTo: 'Upgrade to {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Password set!',
@@ -2186,6 +2203,12 @@ export const en = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: {
+        noFileProvided: 'No CSV file provided',
+        invalidFileType: 'File must be a CSV',
+        emptyFile: 'CSV file is empty or has no data rows',
+        failedImport: 'Failed to import employees',
+      },
     },
     rosters: {
       failedFetchRosters: 'Failed to fetch rosters',
@@ -2339,6 +2362,21 @@ export const en = {
       contactUs: 'Questions? Reply to this email or contact us at hello@getia.no',
       footer: 'Roaster - Scheduling software built for labor law compliance',
       textBody: 'Welcome to Roaster!\n\nYour 14-day free trial is ready. Click the link below to access your dashboard:\n{url}\n\nWhat\'s included:\n- Automatic labor law compliance\n- Publishing rule enforcement\n- Rest period validation\n- Audit-ready compliance reports\n\nQuestions? Contact us at hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

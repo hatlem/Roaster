@@ -1,9 +1,11 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
+import { checkEmployeeLimit } from "@/lib/tier-gating";
 import { hash } from "bcrypt";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 // GET /api/employees - List employees
 export async function GET(request: NextRequest) {
@@ -113,6 +115,12 @@ export async function POST(request: NextRequest) {
       return errorResponse(dict.api.employees.missingRequiredFields);
     }
 
+    // Check employee limit for current tier
+    const employeeLimitCheck = await checkEmployeeLimit(orgId);
+    if (!employeeLimitCheck.allowed) {
+      return errorResponse(dict.dashboard.components.billing.tierLimited, 403);
+    }
+
     // Validate role is a valid enum value
     const validRoles = ["ADMIN", "MANAGER", "REPRESENTATIVE", "EMPLOYEE"];
     if (!validRoles.includes(role)) {
@@ -163,6 +171,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    audit.create(session.user.id, 'employee', employee.id, { email, role }, orgId);
+
     return successResponse({ ...employee, temporaryPassword: password ? undefined : tempPassword }, 201);
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -173,6 +183,9 @@ export async function POST(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "NoOrganization") {
       return errorResponse(dict.api.common.noOrganization, 400);
+    }
+    if (error instanceof Error && error.message === "TierLimited") {
+      return errorResponse(dict.dashboard.components.billing.tierLimited, 403);
     }
     console.error("Error creating employee:", error);
     return errorResponse(dict.api.employees.failedCreateEmployee, 500);

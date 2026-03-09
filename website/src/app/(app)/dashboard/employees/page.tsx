@@ -53,13 +53,22 @@ export default async function EmployeesPage() {
               )}
             </p>
           </div>
-          <Link
-            href="/dashboard/employees/new"
-            className="bg-ocean text-white px-6 py-3 rounded-xl font-semibold hover:bg-ocean/90 transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center gap-2"
-          >
-            <i className="fas fa-user-plus" />
-            {d.addEmployee}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/dashboard/employees/import"
+              className="bg-white text-ink border border-stone/50 px-6 py-3 rounded-xl font-semibold hover:bg-cream/50 transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center gap-2"
+            >
+              <i className="fas fa-file-import" />
+              {d.importCsv}
+            </Link>
+            <Link
+              href="/dashboard/employees/new"
+              className="bg-ocean text-white px-6 py-3 rounded-xl font-semibold hover:bg-ocean/90 transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center gap-2"
+            >
+              <i className="fas fa-user-plus" />
+              {d.addEmployee}
+            </Link>
+          </div>
         </div>
         <div className="accent-line mt-6 animate-line-reveal delay-2" />
       </div>

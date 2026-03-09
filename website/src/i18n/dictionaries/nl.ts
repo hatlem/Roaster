@@ -987,6 +987,7 @@ export const nl: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Roosters ophalen mislukt',
@@ -1240,6 +1241,17 @@ export const nl: Dictionary = {
       showingOf: '{count} van {total} medewerkers weergegeven',
       noResults: 'Geen medewerkers komen overeen met uw zoekopdracht',
       clearSearch: 'Zoekopdracht wissen',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Roosters',
@@ -1810,6 +1822,12 @@ export const nl: Dictionary = {
         anErrorOccurred: 'Er is een fout opgetreden',
         failedCreateCheckout: 'Betaalsessie aanmaken mislukt',
         failedOpenPortal: 'Factureringsportaal openen mislukt',
+        tierLimited: 'Upgrade je abonnement om toegang te krijgen tot deze functie',
+        upgradeRequired: 'Upgrade vereist',
+        employeeLimitReached: 'Je hebt de werknemerslimiet van je abonnement bereikt',
+        locationLimitReached: 'Je hebt de locatielimiet van je abonnement bereikt',
+        featureNotAvailable: 'Deze functie is niet beschikbaar in je huidige abonnement',
+        upgradeTo: 'Upgraden naar {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Wachtwoord ingesteld!',
@@ -1852,6 +1870,21 @@ export const nl: Dictionary = {
       contactUs: 'Vragen? Beantwoord deze e-mail of neem contact met ons op via hello@getia.no',
       footer: 'Roaster - Planningssoftware gebouwd voor naleving van het arbeidsrecht',
       textBody: 'Welkom bij Roaster!\n\nUw gratis proefperiode van 14 dagen is klaar. Klik op de link hieronder om naar uw dashboard te gaan:\n{url}\n\nWat is inbegrepen:\n- Automatische naleving van het arbeidsrecht\n- Handhaving van publicatieregels\n- Validatie van rustperiodes\n- Audit-klare nalevingsrapporten\n\nVragen? Neem contact met ons op via hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

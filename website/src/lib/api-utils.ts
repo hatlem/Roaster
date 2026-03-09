@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
 import { prisma } from "./db";
+import { checkTierAccess } from "./tier-gating";
 
 export type ApiResponse<T = unknown> = {
   success: boolean;
@@ -47,4 +48,12 @@ export async function getOrganizationId(userId: string): Promise<string> {
     throw new Error("NoOrganization");
   }
   return user.organizationId;
+}
+
+export async function requireTier(orgId: string, feature: string) {
+  const access = await checkTierAccess(orgId, feature);
+  if (!access.allowed) {
+    throw new Error("TierLimited");
+  }
+  return access;
 }

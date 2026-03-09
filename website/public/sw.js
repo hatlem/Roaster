@@ -59,44 +59,30 @@ self.addEventListener('fetch', (event) => {
 });
 
 // Push notification event
-self.addEventListener('push', (event) => {
-  if (!event.data) return;
-
-  const data = event.data.json();
+self.addEventListener('push', function(event) {
+  const data = event.data ? event.data.json() : {};
   const options = {
-    body: data.body,
-    icon: '/icons/icon-192.png',
-    badge: '/icons/badge-72.png',
-    vibrate: [100, 50, 100],
-    data: {
-      url: data.url || '/m',
-    },
+    body: data.body || '',
+    icon: data.icon || '/icons/icon-192x192.png',
+    badge: data.badge || '/icons/icon-192x192.png',
+    tag: data.tag,
+    data: data.data,
     actions: data.actions || [],
   };
-
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
+  event.waitUntil(self.registration.showNotification(data.title || 'Roaster', options));
 });
 
-// Notification click event
-self.addEventListener('notificationclick', (event) => {
+// Notification click event — route to the appropriate page based on notification type
+self.addEventListener('notificationclick', function(event) {
   event.notification.close();
-
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
-      // If app is already open, focus it
-      for (const client of clientList) {
-        if (client.url.includes('/m') && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // Otherwise open new window
-      if (clients.openWindow) {
-        return clients.openWindow(event.notification.data.url || '/m');
-      }
-    })
-  );
+  const data = event.notification.data || {};
+  let url = '/dashboard';
+  if (data.type === 'ROSTER_PUBLISHED') url = '/dashboard/rosters';
+  if (data.type === 'SHIFT_CHANGED') url = '/dashboard/rosters';
+  if (data.type === 'SHIFT_CLAIMED') url = '/dashboard/marketplace/approvals';
+  if (data.type === 'APPROVAL_NEEDED') url = '/dashboard/marketplace/approvals';
+  if (data.type === 'TIME_OFF_APPROVED' || data.type === 'TIME_OFF_REJECTED') url = '/m/time-off';
+  event.waitUntil(clients.openWindow(url));
 });
 
 // Background sync for offline clock-in/out

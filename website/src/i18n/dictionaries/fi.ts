@@ -724,6 +724,7 @@ export const fi: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Työvuorolistojen hakeminen epäonnistui',
@@ -977,6 +978,17 @@ export const fi: Dictionary = {
       showingOf: 'Näytetään {count} / {total} työntekijää',
       noResults: 'Yksikään työntekijä ei vastaa hakuasi',
       clearSearch: 'Tyhjennä haku',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Työvuorolistat',
@@ -1547,6 +1559,12 @@ export const fi: Dictionary = {
         anErrorOccurred: 'Tapahtui virhe',
         failedCreateCheckout: 'Maksusession luominen epäonnistui',
         failedOpenPortal: 'Laskutusportaalin avaaminen epäonnistui',
+        tierLimited: 'Päivitä tilauksesi käyttääksesi tätä ominaisuutta',
+        upgradeRequired: 'Päivitys vaaditaan',
+        employeeLimitReached: 'Olet saavuttanut tilauksesi työntekijärajan',
+        locationLimitReached: 'Olet saavuttanut tilauksesi toimipisterajan',
+        featureNotAvailable: 'Tämä ominaisuus ei ole saatavilla nykyisessä tilauksessasi',
+        upgradeTo: 'Päivitä {plan}-tilaukseen',
       },
       passwordSetup: {
         passwordSetTitle: 'Salasana asetettu!',
@@ -1589,6 +1607,21 @@ export const fi: Dictionary = {
       contactUs: 'Kysyttävää? Vastaa tähän sähköpostiin tai ota yhteyttä osoitteeseen hello@getia.no',
       footer: 'Roaster - Työvuorosuunnittelutyökalu, joka on rakennettu työlainsäädännön noudattamiseen',
       textBody: 'Tervetuloa Roasteriin!\n\n14 päivän ilmainen kokeilujaksosi on valmis. Napsauta alla olevaa linkkiä päästäksesi hallintapaneeliin:\n{url}\n\nMitä sisältyy:\n- Automaattinen työlainsäädännön noudattaminen\n- Julkaisusääntöjen noudattaminen\n- Lepoaikojen vahvistaminen\n- Tarkastusvalmiit vaatimustenmukaisuusraportit\n\nKysyttävää? Ota yhteyttä osoitteeseen hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

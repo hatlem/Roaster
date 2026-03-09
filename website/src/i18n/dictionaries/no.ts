@@ -1054,6 +1054,7 @@ export const no: Dictionary = {
       employeeNotFound: 'Ansatt ikke funnet',
       failedUpdateEmployee: 'Kunne ikke oppdatere ansatt',
       managersCannotPromoteToAdmin: 'Ledere kan ikke forfremme brukere til administrator',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Kunne ikke hente vaktplaner',
@@ -1314,6 +1315,17 @@ export const no: Dictionary = {
       showingOf: 'Viser {count} av {total} ansatte',
       noResults: 'Ingen ansatte samsvarer med søket',
       clearSearch: 'Tøm søk',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Vaktplaner-seksjon
@@ -2053,6 +2065,12 @@ export const no: Dictionary = {
         anErrorOccurred: 'Det oppstod en feil',
         failedCreateCheckout: 'Kunne ikke opprette betalingsøkt',
         failedOpenPortal: 'Kunne ikke åpne faktureringsportalen',
+        tierLimited: 'Oppgrader abonnementet ditt for å få tilgang til denne funksjonen',
+        upgradeRequired: 'Oppgradering nødvendig',
+        employeeLimitReached: 'Du har nådd ansattgrensen for ditt abonnement',
+        locationLimitReached: 'Du har nådd lokasjonsgrensen for ditt abonnement',
+        featureNotAvailable: 'Denne funksjonen er ikke tilgjengelig på ditt nåværende abonnement',
+        upgradeTo: 'Oppgrader til {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Passord satt!',
@@ -2095,6 +2113,21 @@ export const no: Dictionary = {
       contactUs: 'Spørsmål? Svar på denne e-posten eller kontakt oss på hello@getia.no',
       footer: 'Roaster - Planleggingsverktøy bygget for overholdelse av arbeidsmiljøloven',
       textBody: 'Velkommen til Roaster!\n\nDin 14-dagers gratis prøveperiode er klar. Klikk på lenken nedenfor for å åpne dashbordet ditt:\n{url}\n\nHva som er inkludert:\n- Automatisk overholdelse av arbeidsmiljøloven\n- Håndhevelse av publiseringsregler\n- Validering av hvileperioder\n- Revisjonsklare samsvarsrapporter\n\nSpørsmål? Kontakt oss på hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

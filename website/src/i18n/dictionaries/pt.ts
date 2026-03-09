@@ -1011,6 +1011,7 @@ export const pt: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Falha ao obter as escalas',
@@ -1264,6 +1265,17 @@ export const pt: Dictionary = {
       showingOf: 'A mostrar {count} de {total} funcion\u00e1rios',
       noResults: 'Nenhum funcion\u00e1rio corresponde \u00e0 pesquisa',
       clearSearch: 'Limpar pesquisa',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Escalas',
@@ -1834,6 +1846,12 @@ export const pt: Dictionary = {
         anErrorOccurred: 'Ocorreu um erro',
         failedCreateCheckout: 'Falha ao criar sess\u00e3o de pagamento',
         failedOpenPortal: 'Falha ao abrir portal de fatura\u00e7\u00e3o',
+        tierLimited: 'Atualize seu plano para acessar esta funcionalidade',
+        upgradeRequired: 'Atualiza\u00e7\u00e3o necess\u00e1ria',
+        employeeLimitReached: 'Voc\u00ea atingiu o limite de funcion\u00e1rios do seu plano',
+        locationLimitReached: 'Voc\u00ea atingiu o limite de locais do seu plano',
+        featureNotAvailable: 'Esta funcionalidade n\u00e3o est\u00e1 dispon\u00edvel no seu plano atual',
+        upgradeTo: 'Atualizar para {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Password definida!',
@@ -1876,6 +1894,21 @@ export const pt: Dictionary = {
       contactUs: 'Questões? Responda a este e-mail ou contacte-nos em hello@getia.no',
       footer: 'Roaster - Software de planeamento concebido para conformidade com a legislação laboral',
       textBody: 'Bem-vindo ao Roaster!\n\nO seu período de teste gratuito de 14 dias está pronto. Clique no link abaixo para aceder ao seu painel de controlo:\n{url}\n\nO que está incluído:\n- Conformidade automática com a legislação laboral\n- Aplicação de regras de publicação\n- Validação de períodos de descanso\n- Relatórios de conformidade prontos para auditoria\n\nQuestões? Contacte-nos em hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

@@ -10,6 +10,7 @@ import {
 import { MarketplaceMode } from "@prisma/client";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 const createListingSchema = z.object({
   shiftId: z.string().min(1, "Shift ID is required"),
@@ -90,6 +91,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { organizationId: true },
+    });
+
     const listing = await createListing({
       shiftId,
       postedBy: session.user.id,
@@ -102,6 +108,8 @@ export async function POST(request: NextRequest) {
       eligibleRoles,
       eligibleUserIds,
     });
+
+    audit.create(session.user.id, 'marketplace-listing', listing.id, { shiftId, mode }, user?.organizationId || undefined);
 
     return NextResponse.json({ listing }, { status: 201 });
   } catch (error) {

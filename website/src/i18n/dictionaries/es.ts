@@ -1010,6 +1010,7 @@ export const es: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Error al obtener los turnos',
@@ -1269,6 +1270,17 @@ export const es: Dictionary = {
       showingOf: 'Mostrando {count} de {total} empleados',
       noResults: 'Ningún empleado coincide con su búsqueda',
       clearSearch: 'Borrar búsqueda',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Secci\u00F3n Cuadrantes
@@ -1851,6 +1863,12 @@ export const es: Dictionary = {
         anErrorOccurred: 'Se ha producido un error',
         failedCreateCheckout: 'Error al crear la sesi\u00F3n de pago',
         failedOpenPortal: 'Error al abrir el portal de facturaci\u00F3n',
+        tierLimited: 'Actualiza tu plan para acceder a esta funci\u00F3n',
+        upgradeRequired: 'Actualizaci\u00F3n requerida',
+        employeeLimitReached: 'Has alcanzado el l\u00EDmite de empleados de tu plan',
+        locationLimitReached: 'Has alcanzado el l\u00EDmite de ubicaciones de tu plan',
+        featureNotAvailable: 'Esta funci\u00F3n no est\u00E1 disponible en tu plan actual',
+        upgradeTo: 'Actualizar a {plan}',
       },
       passwordSetup: {
         passwordSetTitle: '\u00A1Contrase\u00F1a establecida!',
@@ -1893,6 +1911,21 @@ export const es: Dictionary = {
       contactUs: '¿Preguntas? Responda a este correo electrónico o contáctenos en hello@getia.no',
       footer: 'Roaster - Software de planificación diseñado para el cumplimiento de la legislación laboral',
       textBody: '¡Bienvenido a Roaster!\n\nSu prueba gratuita de 14 días está lista. Haga clic en el enlace de abajo para acceder a su panel de control:\n{url}\n\nQué está incluido:\n- Cumplimiento automático de la legislación laboral\n- Aplicación de reglas de publicación\n- Validación de períodos de descanso\n- Informes de cumplimiento listos para auditoría\n\n¿Preguntas? Contáctenos en hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

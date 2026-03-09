@@ -1112,6 +1112,17 @@ export const sv: Dictionary = {
       showingOf: 'Visar {count} av {total} anställda',
       noResults: 'Inga anställda matchar din sökning',
       clearSearch: 'Rensa sökning',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Rosters section
@@ -1694,6 +1705,12 @@ export const sv: Dictionary = {
         anErrorOccurred: 'Ett fel uppstod',
         failedCreateCheckout: 'Kunde inte skapa betalningssession',
         failedOpenPortal: 'Kunde inte öppna faktureringsportalen',
+        tierLimited: 'Uppgradera ditt abonnemang för att få tillgång till denna funktion',
+        upgradeRequired: 'Uppgradering krävs',
+        employeeLimitReached: 'Du har nått anställningsgränsen för ditt abonnemang',
+        locationLimitReached: 'Du har nått platsgränsen för ditt abonnemang',
+        featureNotAvailable: 'Denna funktion är inte tillgänglig på ditt nuvarande abonnemang',
+        upgradeTo: 'Uppgradera till {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Lösenord skapat!',
@@ -1765,6 +1782,7 @@ export const sv: Dictionary = {
       employeeNotFound: 'Anställd hittades inte',
       failedUpdateEmployee: 'Kunde inte uppdatera anställd',
       managersCannotPromoteToAdmin: 'Chefer kan inte befordra användare till administratör',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Kunde inte hämta scheman',
@@ -1898,6 +1916,21 @@ export const sv: Dictionary = {
       contactUs: 'Frågor? Svara på detta e-postmeddelande eller kontakta oss på hello@getia.no',
       footer: 'Roaster - Schemaläggningsverktyg byggt för efterlevnad av arbetsrätten',
       textBody: 'Välkommen till Roaster!\n\nDin 14-dagars kostnadsfria provperiod är redo. Klicka på länken nedan för att komma åt din instrumentpanel:\n{url}\n\nVad som ingår:\n- Automatisk efterlevnad av arbetsrätten\n- Efterlevnad av publiceringsregler\n- Validering av viloperioder\n- Revisionsklara efterlevnadsrapporter\n\nFrågor? Kontakta oss på hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

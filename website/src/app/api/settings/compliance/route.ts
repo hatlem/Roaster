@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 // PUT /api/settings/compliance - Update compliance settings
 export async function PUT(request: NextRequest) {
@@ -80,6 +81,8 @@ export async function PUT(request: NextRequest) {
         overtimePremium: true,
       },
     });
+
+    audit.update(session.user.id, 'compliance-settings', orgId, body, orgId);
 
     return successResponse(updated);
   } catch (error) {

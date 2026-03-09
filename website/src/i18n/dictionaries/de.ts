@@ -82,7 +82,7 @@ export const de: Dictionary = {
     common: { unauthorized: 'Nicht autorisiert', forbidden: 'Zugriff verweigert', noOrganization: 'Keine Organisation gefunden', tooManyRequests: 'Zu viele Anfragen. Versuchen Sie es in {seconds} Sekunden erneut.' },
     auth: { passwordRequired: 'Passwort ist erforderlich', passwordMinLength: 'Passwort muss mindestens 8 Zeichen lang sein', passwordSetSuccess: 'Passwort erfolgreich gesetzt', failedSetPassword: 'Passwort konnte nicht gesetzt werden', emailRequired: 'E-Mail ist erforderlich', magicLinkSent: 'Falls ein Konto mit dieser E-Mail existiert, wurde ein Magic Link gesendet.', failedSendMagicLink: 'Magic Link konnte nicht gesendet werden' },
     onboarding: { invalidEmailFormat: 'Ungültiges E-Mail-Format', emailAlreadyExists: 'Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte melden Sie sich stattdessen an.', failedCreateAccount: 'Konto konnte nicht erstellt werden' },
-    employees: { failedFetchEmployees: 'Mitarbeiter konnten nicht abgerufen werden', missingRequiredFields: 'Fehlende Pflichtfelder: E-Mail, Vorname, Nachname', invalidRole: 'Ungültige Rolle', managersCannotCreateAdmin: 'Manager können keine Admin-Benutzer erstellen', emailAlreadyExists: 'E-Mail-Adresse existiert bereits', employeeNumberExists: 'Mitarbeiternummer bereits vergeben', failedCreateEmployee: 'Mitarbeiter konnte nicht erstellt werden', employeeNotFound: 'Mitarbeiter nicht gefunden', failedUpdateEmployee: 'Mitarbeiter konnte nicht aktualisiert werden', managersCannotPromoteToAdmin: 'Manager können Benutzer nicht zum Administrator befördern' },
+    employees: { failedFetchEmployees: 'Mitarbeiter konnten nicht abgerufen werden', missingRequiredFields: 'Fehlende Pflichtfelder: E-Mail, Vorname, Nachname', invalidRole: 'Ungültige Rolle', managersCannotCreateAdmin: 'Manager können keine Admin-Benutzer erstellen', emailAlreadyExists: 'E-Mail-Adresse existiert bereits', employeeNumberExists: 'Mitarbeiternummer bereits vergeben', failedCreateEmployee: 'Mitarbeiter konnte nicht erstellt werden', employeeNotFound: 'Mitarbeiter nicht gefunden', failedUpdateEmployee: 'Mitarbeiter konnte nicht aktualisiert werden', managersCannotPromoteToAdmin: 'Manager können Benutzer nicht zum Administrator befördern', import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' } },
     rosters: { failedFetchRosters: 'Dienstpläne konnten nicht abgerufen werden', missingRequiredFields: 'Fehlende Pflichtfelder: Name, Startdatum, Enddatum', failedCreateRoster: 'Dienstplan konnte nicht erstellt werden' },
     shifts: { failedFetchShifts: 'Schichten konnten nicht abgerufen werden', missingRequiredFields: 'Fehlende Pflichtfelder', rosterNotFound: 'Dienstplan nicht gefunden', failedCreateShift: 'Schicht konnte nicht erstellt werden' },
     billing: { invalidPlan: "Ungültiger Plan. Wählen Sie 'starter' oder 'professional'.", priceNotConfigured: 'Preis-ID für diesen Plan nicht konfiguriert. Kontaktieren Sie den Support.', noOrgFoundOnboard: 'Keine Organisation gefunden. Schließen Sie zuerst das Onboarding ab.', onlyAdminsBilling: 'Nur Administratoren können die Abrechnung verwalten', failedCreateCheckout: 'Checkout-Sitzung konnte nicht erstellt werden', noOrgFound: 'Keine Organisation gefunden.', noBillingAccount: 'Kein Abrechnungskonto gefunden. Abonnieren Sie zuerst einen Plan.', failedCreatePortal: 'Portal-Sitzung konnte nicht erstellt werden', webhookSecretNotConfigured: 'Webhook-Secret nicht konfiguriert', missingStripeSignature: 'Fehlender stripe-signature-Header', invalidSignature: 'Ungültige Signatur', handlerFailed: 'Handler fehlgeschlagen' },
@@ -237,6 +237,17 @@ export const de: Dictionary = {
       showingOf: '{count} von {total} Mitarbeitern angezeigt',
       noResults: 'Keine Mitarbeiter entsprechen Ihrer Suche',
       clearSearch: 'Suche löschen',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Dienstpläne',
@@ -807,6 +818,12 @@ export const de: Dictionary = {
         anErrorOccurred: 'Ein Fehler ist aufgetreten',
         failedCreateCheckout: 'Checkout-Sitzung konnte nicht erstellt werden',
         failedOpenPortal: 'Abrechnungsportal konnte nicht geöffnet werden',
+        tierLimited: 'Upgraden Sie Ihren Plan, um auf diese Funktion zuzugreifen',
+        upgradeRequired: 'Upgrade erforderlich',
+        employeeLimitReached: 'Sie haben das Mitarbeiterlimit Ihres Plans erreicht',
+        locationLimitReached: 'Sie haben das Standortlimit Ihres Plans erreicht',
+        featureNotAvailable: 'Diese Funktion ist in Ihrem aktuellen Plan nicht verfügbar',
+        upgradeTo: 'Auf {plan} upgraden',
       },
       passwordSetup: {
         passwordSetTitle: 'Passwort gesetzt!',
@@ -828,5 +845,20 @@ export const de: Dictionary = {
   emails: {
     magicLink: { subject: 'Bei Roaster anmelden', heading: 'Bei Roaster anmelden', body: 'Klicken Sie auf die Schaltfläche unten, um sich bei Ihrem Konto anzumelden. Dieser Link läuft in 1 Stunde ab.', buttonText: 'Bei Roaster anmelden', ignoreNotice: 'Wenn Sie diese E-Mail nicht angefordert haben, können Sie sie bedenkenlos ignorieren.', footer: 'Roaster - Dienstplanungssoftware für die Einhaltung des Arbeitsrechts', textBody: 'Bei Roaster anmelden\n\nKlicken Sie auf den Link unten, um sich anzumelden:\n{url}\n\nDieser Link läuft in 1 Stunde ab.\n\nWenn Sie diese E-Mail nicht angefordert haben, können Sie sie bedenkenlos ignorieren.' },
     welcome: { subject: 'Willkommen bei Roaster - Ihre Testversion ist bereit!', heading: 'Willkommen bei Roaster!', trialReady: 'Ihre 14-tägige kostenlose Testversion ist bereit. Sie haben jetzt Zugang zur einzigen Dienstplanungssoftware, die für die Einhaltung des Arbeitsrechts entwickelt wurde.', dashboardCta: 'Klicken Sie auf die Schaltfläche unten, um auf Ihr Dashboard zuzugreifen:', buttonText: 'Zum Dashboard', whatsIncluded: 'Was enthalten ist:', featureCompliance: 'Automatische Einhaltung des Arbeitsrechts', featurePublishing: 'Durchsetzung der Veröffentlichungsregeln', featureRest: 'Validierung der Ruhezeiten', featureReports: 'Prüfungssichere Compliance-Berichte', contactUs: 'Fragen? Antworten Sie auf diese E-Mail oder kontaktieren Sie uns unter hello@getia.no', footer: 'Roaster - Dienstplanungssoftware für die Einhaltung des Arbeitsrechts', textBody: 'Willkommen bei Roaster!\n\nIhre 14-tägige kostenlose Testversion ist bereit. Klicken Sie auf den Link unten, um auf Ihr Dashboard zuzugreifen:\n{url}\n\nWas enthalten ist:\n- Automatische Einhaltung des Arbeitsrechts\n- Durchsetzung der Veröffentlichungsregeln\n- Validierung der Ruhezeiten\n- Prüfungssichere Compliance-Berichte\n\nFragen? Kontaktieren Sie uns unter hello@getia.no' },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
+    },
   },
 };

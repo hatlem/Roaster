@@ -1110,6 +1110,17 @@ export const da: Dictionary = {
       showingOf: 'Viser {count} af {total} medarbejdere',
       noResults: 'Ingen medarbejdere matcher din søgning',
       clearSearch: 'Ryd søgning',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Rosters section
@@ -1692,6 +1703,12 @@ export const da: Dictionary = {
         anErrorOccurred: 'Der opstod en fejl',
         failedCreateCheckout: 'Kunne ikke oprette betalingssession',
         failedOpenPortal: 'Kunne ikke åbne faktureringsportalen',
+        tierLimited: 'Opgrader dit abonnement for at få adgang til denne funktion',
+        upgradeRequired: 'Opgradering påkrævet',
+        employeeLimitReached: 'Du har nået medarbejdergrænsen for dit abonnement',
+        locationLimitReached: 'Du har nået lokationsgrænsen for dit abonnement',
+        featureNotAvailable: 'Denne funktion er ikke tilgængelig på dit nuværende abonnement',
+        upgradeTo: 'Opgrader til {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Adgangskode oprettet!',
@@ -1763,6 +1780,7 @@ export const da: Dictionary = {
       employeeNotFound: 'Medarbejder ikke fundet',
       failedUpdateEmployee: 'Kunne ikke opdatere medarbejder',
       managersCannotPromoteToAdmin: 'Ledere kan ikke forfremme brugere til admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Kunne ikke hente vagtplaner',
@@ -1896,6 +1914,21 @@ export const da: Dictionary = {
       contactUs: 'Spørgsmål? Svar på denne e-mail eller kontakt os på hello@getia.no',
       footer: 'Roaster - Planlægningsværktøj bygget til overholdelse af arbejdslovgivningen',
       textBody: 'Velkommen til Roaster!\n\nDin 14-dages gratis prøveperiode er klar. Klik på linket nedenfor for at tilgå dit dashboard:\n{url}\n\nHvad der er inkluderet:\n- Automatisk overholdelse af arbejdslovgivningen\n- Håndhævelse af publiceringsregler\n- Validering af hvileperioder\n- Revisionsklare compliancerapporter\n\nSpørgsmål? Kontakt os på hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireAuth, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 // GET /api/rosters - List rosters
 export async function GET(request: NextRequest) {
@@ -101,6 +102,8 @@ export async function POST(request: NextRequest) {
         location: true,
       },
     });
+
+    audit.create(session.user.id, 'roster', roster.id, { name }, orgId);
 
     return successResponse(roster, 201);
   } catch (error) {

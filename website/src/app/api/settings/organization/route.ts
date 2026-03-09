@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 // PUT /api/settings/organization - Update organization details
 export async function PUT(request: NextRequest) {
@@ -61,6 +62,8 @@ export async function PUT(request: NextRequest) {
         address: true,
       },
     });
+
+    audit.update(session.user.id, 'organization', orgId, { name }, orgId);
 
     return successResponse(updated);
   } catch (error) {

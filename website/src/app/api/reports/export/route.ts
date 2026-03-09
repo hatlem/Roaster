@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { requireRole } from "@/lib/api-utils"
+import { requireRole, requireTier } from "@/lib/api-utils"
+import { audit } from "@/lib/audit"
 
 const VALID_TYPES = ["compliance", "hours", "overtime", "costs", "attendance", "audit"] as const
 type ReportType = (typeof VALID_TYPES)[number]
@@ -340,6 +341,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "No organization found" }, { status: 400 })
     }
 
+    // Check CSV export tier access
+    await requireTier(orgId, "csv_export")
+
     const { searchParams } = new URL(request.url)
     const type = searchParams.get("type") as ReportType | null
     const format = searchParams.get("format") as ExportFormat | null
@@ -355,6 +359,8 @@ export async function GET(request: NextRequest) {
 
     const startDate = startDateStr ? new Date(startDateStr) : undefined
     const endDate = endDateStr ? new Date(endDateStr) : undefined
+
+    audit.export(session.user.id, 'report', { type, format, startDate: startDateStr, endDate: endDateStr }, orgId)
 
     switch (type) {
       case "compliance":
@@ -378,6 +384,9 @@ export async function GET(request: NextRequest) {
     }
     if (error instanceof Error && error.message === "Forbidden") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+    if (error instanceof Error && error.message === "TierLimited") {
+      return NextResponse.json({ error: "Upgrade your plan to access this feature" }, { status: 403 })
     }
     console.error("[reports/export] Error:", error)
     return NextResponse.json({ error: "Failed to generate report" }, { status: 500 })

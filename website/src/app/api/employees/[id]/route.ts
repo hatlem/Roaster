@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { successResponse, errorResponse, requireRole, getOrganizationId } from "@/lib/api-utils";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import { audit } from "@/lib/audit";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -152,6 +153,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         createdAt: true,
       },
     });
+
+    audit.update(session.user.id, 'employee', id, { email, role }, orgId);
 
     return successResponse(employee);
   } catch (error) {

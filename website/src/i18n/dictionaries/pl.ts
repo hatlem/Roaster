@@ -1011,6 +1011,7 @@ export const pl: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Nie uda\u0142o si\u0119 pobra\u0107 grafik\u00F3w',
@@ -1264,6 +1265,17 @@ export const pl: Dictionary = {
       showingOf: 'Wyświetlanie {count} z {total} pracowników',
       noResults: 'Żaden pracownik nie pasuje do wyszukiwania',
       clearSearch: 'Wyczyść wyszukiwanie',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Grafiki',
@@ -1834,6 +1846,12 @@ export const pl: Dictionary = {
         anErrorOccurred: 'Wyst\u0105pi\u0142 b\u0142\u0105d',
         failedCreateCheckout: 'Nie uda\u0142o si\u0119 utworzy\u0107 sesji p\u0142atno\u015bci',
         failedOpenPortal: 'Nie uda\u0142o si\u0119 otworzy\u0107 portalu rozlicze\u0144',
+        tierLimited: 'Uaktualnij sw\u00F3j plan, aby uzyska\u0107 dost\u0119p do tej funkcji',
+        upgradeRequired: 'Wymagana aktualizacja',
+        employeeLimitReached: 'Osi\u0105gni\u0119to limit pracownik\u00F3w w Twoim planie',
+        locationLimitReached: 'Osi\u0105gni\u0119to limit lokalizacji w Twoim planie',
+        featureNotAvailable: 'Ta funkcja nie jest dost\u0119pna w Twoim obecnym planie',
+        upgradeTo: 'Uaktualnij do {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Has\u0142o ustawione!',
@@ -1876,6 +1894,21 @@ export const pl: Dictionary = {
       contactUs: 'Pytania? Odpowiedz na ten e-mail lub skontaktuj się z nami pod adresem hello@getia.no',
       footer: 'Roaster - Oprogramowanie do planowania zaprojektowane pod kątem zgodności z prawem pracy',
       textBody: 'Witamy w Roaster!\n\nTwój 14-dniowy bezpłatny okres próbny jest gotowy. Kliknij poniższy link, aby przejść do swojego panelu:\n{url}\n\nCo zawiera:\n- Automatyczna zgodność z prawem pracy\n- Egzekwowanie zasad publikacji\n- Walidacja okresów odpoczynku\n- Raporty zgodności gotowe do audytu\n\nPytania? Skontaktuj się z nami pod adresem hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

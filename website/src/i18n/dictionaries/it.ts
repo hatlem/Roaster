@@ -1011,6 +1011,7 @@ export const it: Dictionary = {
       employeeNotFound: 'Dipendente non trovato',
       failedUpdateEmployee: 'Impossibile aggiornare il dipendente',
       managersCannotPromoteToAdmin: 'I manager non possono promuovere utenti ad amministratore',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Impossibile recuperare i turni',
@@ -1264,6 +1265,17 @@ export const it: Dictionary = {
       showingOf: 'Visualizzazione di {count} su {total} dipendenti',
       noResults: 'Nessun dipendente corrisponde alla ricerca',
       clearSearch: 'Cancella ricerca',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Piani turni',
@@ -1834,6 +1846,12 @@ export const it: Dictionary = {
         anErrorOccurred: 'Si è verificato un errore',
         failedCreateCheckout: 'Creazione sessione di pagamento non riuscita',
         failedOpenPortal: 'Apertura portale di fatturazione non riuscita',
+        tierLimited: 'Aggiorna il tuo piano per accedere a questa funzionalità',
+        upgradeRequired: 'Aggiornamento richiesto',
+        employeeLimitReached: 'Hai raggiunto il limite di dipendenti del tuo piano',
+        locationLimitReached: 'Hai raggiunto il limite di sedi del tuo piano',
+        featureNotAvailable: 'Questa funzionalità non è disponibile nel tuo piano attuale',
+        upgradeTo: 'Aggiorna a {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Password impostata!',
@@ -1876,6 +1894,21 @@ export const it: Dictionary = {
       contactUs: 'Domande? Rispondi a questa e-mail o contattaci a hello@getia.no',
       footer: 'Roaster - Software di pianificazione progettato per la conformità al diritto del lavoro',
       textBody: 'Benvenuto su Roaster!\n\nLa tua prova gratuita di 14 giorni è pronta. Clicca il link qui sotto per accedere alla tua dashboard:\n{url}\n\nCosa è incluso:\n- Conformità automatica al diritto del lavoro\n- Applicazione delle regole di pubblicazione\n- Validazione dei periodi di riposo\n- Report di conformità pronti per l\'audit\n\nDomande? Contattaci a hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

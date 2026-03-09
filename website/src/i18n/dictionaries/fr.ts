@@ -1011,6 +1011,7 @@ export const fr: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Échec de la récupération des plannings',
@@ -1270,6 +1271,17 @@ export const fr: Dictionary = {
       showingOf: '{count} sur {total} employés affichés',
       noResults: 'Aucun employé ne correspond à votre recherche',
       clearSearch: 'Effacer la recherche',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
 
     // Section Plannings
@@ -1852,6 +1864,12 @@ export const fr: Dictionary = {
         anErrorOccurred: 'Une erreur s\'est produite',
         failedCreateCheckout: 'Échec de la création de la session de paiement',
         failedOpenPortal: 'Échec de l\'ouverture du portail de facturation',
+        tierLimited: 'Mettez à niveau votre abonnement pour accéder à cette fonctionnalité',
+        upgradeRequired: 'Mise à niveau requise',
+        employeeLimitReached: 'Vous avez atteint la limite d\'employés de votre abonnement',
+        locationLimitReached: 'Vous avez atteint la limite de sites de votre abonnement',
+        featureNotAvailable: 'Cette fonctionnalité n\'est pas disponible dans votre abonnement actuel',
+        upgradeTo: 'Passer à {plan}',
       },
       passwordSetup: {
         passwordSetTitle: 'Mot de passe défini !',
@@ -1894,6 +1912,21 @@ export const fr: Dictionary = {
       contactUs: 'Des questions ? Répondez à cet e-mail ou contactez-nous à hello@getia.no',
       footer: 'Roaster - Logiciel de planification conçu pour la conformité au droit du travail',
       textBody: 'Bienvenue sur Roaster !\n\nVotre essai gratuit de 14 jours est prêt. Cliquez sur le lien ci-dessous pour accéder à votre tableau de bord :\n{url}\n\nCe qui est inclus :\n- Conformité automatique au droit du travail\n- Application des règles de publication\n- Validation des périodes de repos\n- Rapports de conformité prêts pour l\'audit\n\nDes questions ? Contactez-nous à hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

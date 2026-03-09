@@ -1012,6 +1012,7 @@ export const deCH: Dictionary = {
       employeeNotFound: 'Employee not found',
       failedUpdateEmployee: 'Failed to update employee',
       managersCannotPromoteToAdmin: 'Managers cannot promote users to admin',
+      import: { noFileProvided: 'No CSV file provided', invalidFileType: 'File must be a CSV', emptyFile: 'CSV file is empty or has no data rows', failedImport: 'Failed to import employees' },
     },
     rosters: {
       failedFetchRosters: 'Dienstpläne konnten nicht abgerufen werden',
@@ -1265,6 +1266,17 @@ export const deCH: Dictionary = {
       showingOf: '{count} von {total} Mitarbeitern angezeigt',
       noResults: 'Keine Mitarbeiter entsprechen Ihrer Suche',
       clearSearch: 'Suche löschen',
+      importCsv: 'Import CSV',
+      downloadTemplate: 'Download Template',
+      dragDropCsv: 'Drag & drop a CSV file here, or click to browse',
+      validating: 'Validating...',
+      importing: 'Importing...',
+      importResults: 'Import Results',
+      validRows: '{count} valid rows',
+      errorRows: '{count} errors',
+      importButton: 'Import {count} employees',
+      importSuccess: 'Successfully imported {count} employees',
+      importFailed: 'Import failed',
     },
     rosters: {
       title: 'Dienstpläne',
@@ -1835,6 +1847,12 @@ export const deCH: Dictionary = {
         anErrorOccurred: 'Ein Fehler ist aufgetreten',
         failedCreateCheckout: 'Checkout-Sitzung konnte nicht erstellt werden',
         failedOpenPortal: 'Abrechnungsportal konnte nicht geöffnet werden',
+        tierLimited: 'Upgraden Sie Ihren Plan, um auf diese Funktion zuzugreifen',
+        upgradeRequired: 'Upgrade erforderlich',
+        employeeLimitReached: 'Sie haben das Mitarbeiterlimit Ihres Plans erreicht',
+        locationLimitReached: 'Sie haben das Standortlimit Ihres Plans erreicht',
+        featureNotAvailable: 'Diese Funktion ist in Ihrem aktuellen Plan nicht verfügbar',
+        upgradeTo: 'Auf {plan} upgraden',
       },
       passwordSetup: {
         passwordSetTitle: 'Passwort gesetzt!',
@@ -1877,6 +1895,21 @@ export const deCH: Dictionary = {
       contactUs: 'Fragen? Antworten Sie auf diese E-Mail oder kontaktieren Sie uns unter hello@getia.no',
       footer: 'Roaster - Dienstplanungssoftware für die Einhaltung des Arbeitsrechts',
       textBody: 'Willkommen bei Roaster!\n\nIhre 14-tägige kostenlose Testversion ist bereit. Klicken Sie auf den Link unten, um auf Ihr Dashboard zuzugreifen:\n{url}\n\nWas enthalten ist:\n- Automatische Einhaltung des Arbeitsrechts\n- Durchsetzung der Veröffentlichungsregeln\n- Validierung der Ruhezeiten\n- Prüfungssichere Compliance-Berichte\n\nFragen? Kontaktieren Sie uns unter hello@getia.no',
+    },
+    rosterPublished: {
+      subject: 'New Schedule Published - {rosterName}',
+    },
+    shiftChanged: {
+      subject: 'Shift Update - {date}',
+    },
+    timeOffApproved: {
+      subject: 'Time Off Approved',
+    },
+    timeOffRejected: {
+      subject: 'Time Off Not Approved',
+    },
+    complianceAlert: {
+      subject: 'Compliance Alert - Action Required',
     },
   },
 };

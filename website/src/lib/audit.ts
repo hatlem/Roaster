@@ -1,10 +1,12 @@
 /**
  * Audit trail logger for security-relevant events (ISO 27001 A.8.15)
- * Outputs structured JSON for log aggregation. No database dependency.
+ * Outputs structured JSON for log aggregation and persists to database.
  */
 
 import { headers } from 'next/headers'
 import { createHash } from 'crypto'
+import { prisma } from '@/lib/db'
+import type { Prisma } from '@prisma/client'
 
 export type AuditAction =
   | 'CREATE'
@@ -26,6 +28,7 @@ interface AuditEntry {
   resource: string
   resourceId?: string
   metadata?: Record<string, unknown>
+  organizationId?: string
 }
 
 function hashPII(data: string): string {
@@ -78,24 +81,40 @@ export async function logAuditEvent(entry: AuditEntry): Promise<void> {
     } else {
       console.log(`[AUDIT] ${event.action} ${event.resource}${event.resourceId ? ':' + event.resourceId : ''} by ${event.userId || 'anonymous'}`)
     }
+
+    // Persist to database (fire-and-forget)
+    const retainUntil = new Date()
+    retainUntil.setFullYear(retainUntil.getFullYear() + 2)
+
+    prisma.auditLog.create({
+      data: {
+        action: entry.action,
+        entityType: entry.resource,
+        entityId: entry.resourceId || entry.organizationId || 'unknown',
+        userId: entry.userId || null,
+        details: entry.metadata ? (sanitize(entry.metadata) as Prisma.InputJsonValue) : undefined,
+        ipAddress: client.ip || null,
+        retainUntil,
+      },
+    }).catch(console.error)
   } catch (error) {
     console.error('Audit log failed:', error)
   }
 }
 
 export const audit = {
-  login: (userId: string, email: string) =>
-    logAuditEvent({ userId, userEmail: email, action: 'LOGIN', resource: 'session' }),
-  logout: (userId: string) =>
-    logAuditEvent({ userId, action: 'LOGOUT', resource: 'session' }),
-  create: (userId: string, resource: string, resourceId: string, metadata?: Record<string, unknown>) =>
-    logAuditEvent({ userId, action: 'CREATE', resource, resourceId, metadata }),
-  update: (userId: string, resource: string, resourceId: string, metadata?: Record<string, unknown>) =>
-    logAuditEvent({ userId, action: 'UPDATE', resource, resourceId, metadata }),
-  delete: (userId: string, resource: string, resourceId: string) =>
-    logAuditEvent({ userId, action: 'DELETE', resource, resourceId }),
-  export: (userId: string, resource: string, metadata?: Record<string, unknown>) =>
-    logAuditEvent({ userId, action: 'EXPORT', resource, metadata }),
-  permissionChange: (userId: string, targetId: string, metadata: Record<string, unknown>) =>
-    logAuditEvent({ userId, action: 'PERMISSION_CHANGE', resource: 'user', resourceId: targetId, metadata }),
+  login: (userId: string, email: string, organizationId?: string) =>
+    logAuditEvent({ userId, userEmail: email, action: 'LOGIN', resource: 'session', organizationId }),
+  logout: (userId: string, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'LOGOUT', resource: 'session', organizationId }),
+  create: (userId: string, resource: string, resourceId: string, metadata?: Record<string, unknown>, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'CREATE', resource, resourceId, metadata, organizationId }),
+  update: (userId: string, resource: string, resourceId: string, metadata?: Record<string, unknown>, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'UPDATE', resource, resourceId, metadata, organizationId }),
+  delete: (userId: string, resource: string, resourceId: string, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'DELETE', resource, resourceId, organizationId }),
+  export: (userId: string, resource: string, metadata?: Record<string, unknown>, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'EXPORT', resource, metadata, organizationId }),
+  permissionChange: (userId: string, targetId: string, metadata: Record<string, unknown>, organizationId?: string) =>
+    logAuditEvent({ userId, action: 'PERMISSION_CHANGE', resource: 'user', resourceId: targetId, metadata, organizationId }),
 }
