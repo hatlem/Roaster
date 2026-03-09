@@ -57,10 +57,10 @@ export function EditEmployeeForm({ employee, dictionary: d }: Props) {
         router.push(`/dashboard/employees/${employee.id}`);
       } else {
         const result = await response.json();
-        setError(result.error || "Failed to update employee");
+        setError(result.error || d.failedUpdateEmployee);
       }
     } catch {
-      setError("Failed to update employee");
+      setError(d.failedUpdateEmployee);
     } finally {
       setIsSubmitting(false);
     }

@@ -136,15 +136,15 @@ function formatDate(locale: string) {
   }).format(new Date());
 }
 
-function timeAgo(date: Date): string {
+function timeAgo(date: Date, d: ReturnType<typeof getDictionary>["dashboard"]["home"]): string {
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (seconds < 60) return "just now";
+  if (seconds < 60) return d.justNow;
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return d.minutesAgo.replace('{minutes}', String(minutes));
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return d.hoursAgo.replace('{hours}', String(hours));
   const days = Math.floor(hours / 24);
-  return `${days}d ago`;
+  return d.daysAgo.replace('{days}', String(days));
 }
 
 const auditActionIcons: Record<string, { icon: string; color: string }> = {
@@ -461,7 +461,7 @@ export default async function DashboardPage() {
                           </p>
                         </div>
                         <p className="text-xs text-ink/40 whitespace-nowrap">
-                          {timeAgo(log.timestamp)}
+                          {timeAgo(log.timestamp, d)}
                         </p>
                       </div>
                     );

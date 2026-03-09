@@ -7,6 +7,7 @@ interface EmailCaptureFormProps {
   variant?: "light" | "dark";
   buttonText?: string;
   placeholder?: string;
+  loadingText?: string;
   className?: string;
 }
 
@@ -14,6 +15,7 @@ export default function EmailCaptureForm({
   variant = "light",
   buttonText = "Start free trial",
   placeholder = "Enter your work email",
+  loadingText = "Loading...",
   className = "",
 }: EmailCaptureFormProps) {
   const router = useRouter();
@@ -56,7 +58,7 @@ export default function EmailCaptureForm({
         {isSubmitting ? (
           <>
             <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-            <span>Loading...</span>
+            <span>{loadingText}</span>
           </>
         ) : (
           <>

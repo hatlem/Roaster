@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db";
 import { SchedulePriorityMode } from "@prisma/client";
 import { evaluateWithConsensus } from "./consensus/multiAgentConsensusService";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 // Types for the scheduling algorithm
 interface Employee {
@@ -437,6 +439,9 @@ export async function createAutoScheduleJob(
   priorityMode: SchedulePriorityMode,
   requestedBy: string
 ): Promise<string> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   // Get roster details
   const roster = await prisma.roster.findUnique({
     where: { id: rosterId },
@@ -444,7 +449,7 @@ export async function createAutoScheduleJob(
   });
 
   if (!roster) {
-    throw new Error("Roster not found");
+    throw new Error(dict.api.scheduling.rosterNotFound);
   }
 
   // Create job record
@@ -466,6 +471,9 @@ export async function createAutoScheduleJob(
 
 // Process auto-schedule job
 async function processAutoScheduleJob(jobId: string): Promise<void> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   try {
     // Update status to processing
     await prisma.autoScheduleJob.update({
@@ -479,7 +487,7 @@ async function processAutoScheduleJob(jobId: string): Promise<void> {
     });
 
     if (!job) {
-      throw new Error("Job not found");
+      throw new Error(dict.api.scheduling.jobNotFound);
     }
 
     // Get roster
@@ -488,7 +496,7 @@ async function processAutoScheduleJob(jobId: string): Promise<void> {
     });
 
     if (!roster) {
-      throw new Error("Roster not found");
+      throw new Error(dict.api.scheduling.rosterNotFound);
     }
 
     // Get available employees
@@ -499,7 +507,7 @@ async function processAutoScheduleJob(jobId: string): Promise<void> {
     );
 
     if (employees.length === 0) {
-      throw new Error("No available employees found");
+      throw new Error(dict.api.scheduling.noAvailableEmployees);
     }
 
     // Generate shift requirements
@@ -564,12 +572,15 @@ export async function applyAutoSchedule(
   jobId: string,
   appliedBy: string
 ): Promise<void> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const job = await prisma.autoScheduleJob.findUnique({
     where: { id: jobId },
   });
 
   if (!job || job.status !== "COMPLETED") {
-    throw new Error("Job not found or not completed");
+    throw new Error(dict.api.scheduling.jobNotFoundOrNotCompleted);
   }
 
   const shifts = job.generatedShifts as unknown as ProposedShift[];

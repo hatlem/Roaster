@@ -91,7 +91,7 @@ export function ScheduleReviewPanel({
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch job");
+          throw new Error(data.error || d.failedFetchJob);
         }
 
         setJob(data);
@@ -102,7 +102,7 @@ export function ScheduleReviewPanel({
           setLoading(false);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : d.anErrorOccurred);
         clearInterval(interval);
         setLoading(false);
       }
@@ -123,12 +123,12 @@ export function ScheduleReviewPanel({
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || "Failed to apply schedule");
+        throw new Error(data.error || d.failedApplySchedule);
       }
 
       onApply();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to apply");
+      setError(err instanceof Error ? err.message : d.failedToApply);
     } finally {
       setApplying(false);
     }
@@ -147,12 +147,12 @@ export function ScheduleReviewPanel({
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || "Failed to reject schedule");
+        throw new Error(data.error || d.failedToReject);
       }
 
       onReject();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to reject");
+      setError(err instanceof Error ? err.message : d.failedToReject);
     } finally {
       setRejecting(false);
       setShowRejectModal(false);

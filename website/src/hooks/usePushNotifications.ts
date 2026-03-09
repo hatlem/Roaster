@@ -2,6 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+export interface PushNotificationMessages {
+  permissionDenied: string;
+  failedSaveSubscription: string;
+  failedSubscribe: string;
+  failedUnsubscribe: string;
+}
+
 interface PushState {
   isSupported: boolean;
   isSubscribed: boolean;
@@ -9,7 +16,7 @@ interface PushState {
   error: string | null;
 }
 
-export function usePushNotifications() {
+export function usePushNotifications(messages: PushNotificationMessages) {
   const [state, setState] = useState<PushState>({
     isSupported: false,
     isSubscribed: false,
@@ -48,7 +55,7 @@ export function usePushNotifications() {
       // Request notification permission
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        throw new Error("Notification permission denied");
+        throw new Error(messages.permissionDenied);
       }
 
       // Get service worker registration
@@ -80,7 +87,7 @@ export function usePushNotifications() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to save subscription on server");
+        throw new Error(messages.failedSaveSubscription);
       }
 
       setState((prev) => ({
@@ -94,11 +101,11 @@ export function usePushNotifications() {
       setState((prev) => ({
         ...prev,
         isLoading: false,
-        error: err instanceof Error ? err.message : "Failed to subscribe",
+        error: err instanceof Error ? err.message : messages.failedSubscribe,
       }));
       return false;
     }
-  }, []);
+  }, [messages.permissionDenied, messages.failedSaveSubscription, messages.failedSubscribe]);
 
   const unsubscribe = useCallback(async () => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
@@ -130,11 +137,11 @@ export function usePushNotifications() {
       setState((prev) => ({
         ...prev,
         isLoading: false,
-        error: err instanceof Error ? err.message : "Failed to unsubscribe",
+        error: err instanceof Error ? err.message : messages.failedUnsubscribe,
       }));
       return false;
     }
-  }, []);
+  }, [messages.failedUnsubscribe]);
 
   return {
     ...state,

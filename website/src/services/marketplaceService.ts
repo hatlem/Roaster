@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/db";
 import { MarketplaceMode, MarketplaceStatus } from "@prisma/client";
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
 
 interface CreateListingParams {
   shiftId: string;
@@ -164,13 +166,16 @@ export async function getPendingApprovals(organizationId: string) {
 
 // Create a new marketplace listing
 export async function createListing(params: CreateListingParams) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   // Check if shift exists and is not already listed
   const existingListing = await prisma.shiftMarketplaceListing.findUnique({
     where: { shiftId: params.shiftId },
   });
 
   if (existingListing) {
-    throw new Error("This shift is already listed on the marketplace");
+    throw new Error(dict.api.marketplace.shiftAlreadyListed);
   }
 
   // Verify the shift belongs to the user posting it
@@ -180,11 +185,11 @@ export async function createListing(params: CreateListingParams) {
   });
 
   if (!shift) {
-    throw new Error("Shift not found");
+    throw new Error(dict.api.marketplace.shiftNotFound);
   }
 
   if (shift.userId !== params.postedBy) {
-    throw new Error("You can only post your own shifts to the marketplace");
+    throw new Error(dict.api.marketplace.canOnlyPostOwnShifts);
   }
 
   return prisma.shiftMarketplaceListing.create({
@@ -217,39 +222,42 @@ export async function createListing(params: CreateListingParams) {
 
 // Claim a listing
 export async function claimListing(params: ClaimListingParams) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const listing = await prisma.shiftMarketplaceListing.findUnique({
     where: { id: params.listingId },
     include: { shift: true },
   });
 
   if (!listing) {
-    throw new Error("Listing not found");
+    throw new Error(dict.api.marketplace.listingNotFound);
   }
 
   if (listing.status !== "AVAILABLE") {
-    throw new Error("This listing is no longer available");
+    throw new Error(dict.api.marketplace.listingNoLongerAvailable);
   }
 
   if (listing.availableUntil < new Date()) {
-    throw new Error("This listing has expired");
+    throw new Error(dict.api.marketplace.listingExpired);
   }
 
   // Check if user is eligible
   if (listing.mode === "HANDOVER" && listing.targetEmployeeId) {
     if (listing.targetEmployeeId !== params.claimedBy) {
-      throw new Error("This shift is designated for a specific employee");
+      throw new Error(dict.api.marketplace.shiftDesignatedForSpecificEmployee);
     }
   }
 
   if (listing.eligibleUserIds.length > 0) {
     if (!listing.eligibleUserIds.includes(params.claimedBy)) {
-      throw new Error("You are not eligible to claim this shift");
+      throw new Error(dict.api.marketplace.notEligibleToClaim);
     }
   }
 
   // Can't claim your own shift
   if (listing.postedBy === params.claimedBy) {
-    throw new Error("You cannot claim your own shift");
+    throw new Error(dict.api.marketplace.cannotClaimOwnShift);
   }
 
   return prisma.shiftMarketplaceListing.update({
@@ -284,21 +292,24 @@ export async function claimListing(params: ClaimListingParams) {
 
 // Approve a claimed listing
 export async function approveListing(params: ApproveListingParams) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const listing = await prisma.shiftMarketplaceListing.findUnique({
     where: { id: params.listingId },
     include: { shift: true },
   });
 
   if (!listing) {
-    throw new Error("Listing not found");
+    throw new Error(dict.api.marketplace.listingNotFound);
   }
 
   if (listing.status !== "CLAIMED") {
-    throw new Error("This listing is not pending approval");
+    throw new Error(dict.api.marketplace.listingNotPendingApproval);
   }
 
   if (!listing.claimedBy) {
-    throw new Error("No one has claimed this listing");
+    throw new Error(dict.api.marketplace.noOneClaimedListing);
   }
 
   // Transfer the shift to the new employee
@@ -324,16 +335,19 @@ export async function approveListing(params: ApproveListingParams) {
 
 // Reject a claimed listing
 export async function rejectListing(params: RejectListingParams) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const listing = await prisma.shiftMarketplaceListing.findUnique({
     where: { id: params.listingId },
   });
 
   if (!listing) {
-    throw new Error("Listing not found");
+    throw new Error(dict.api.marketplace.listingNotFound);
   }
 
   if (listing.status !== "CLAIMED") {
-    throw new Error("This listing is not pending approval");
+    throw new Error(dict.api.marketplace.listingNotPendingApproval);
   }
 
   return prisma.shiftMarketplaceListing.update({
@@ -350,20 +364,23 @@ export async function rejectListing(params: RejectListingParams) {
 
 // Cancel a listing
 export async function cancelListing(listingId: string, userId: string) {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+
   const listing = await prisma.shiftMarketplaceListing.findUnique({
     where: { id: listingId },
   });
 
   if (!listing) {
-    throw new Error("Listing not found");
+    throw new Error(dict.api.marketplace.listingNotFound);
   }
 
   if (listing.postedBy !== userId) {
-    throw new Error("You can only cancel your own listings");
+    throw new Error(dict.api.marketplace.canOnlyCancelOwnListings);
   }
 
   if (listing.status === "APPROVED") {
-    throw new Error("Cannot cancel an approved listing");
+    throw new Error(dict.api.marketplace.cannotCancelApprovedListing);
   }
 
   return prisma.shiftMarketplaceListing.update({

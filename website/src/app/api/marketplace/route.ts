@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { z } from "zod";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import {
@@ -9,6 +10,16 @@ import {
 import { MarketplaceMode } from "@prisma/client";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+
+const createListingSchema = z.object({
+  shiftId: z.string().min(1, "Shift ID is required"),
+  mode: z.enum(["SWAP", "HANDOVER", "SELL"]),
+  reason: z.string().optional(),
+  availableUntil: z.string().optional(),
+  targetEmployeeId: z.string().optional(),
+  eligibleRoles: z.array(z.string()).optional(),
+  eligibleUserIds: z.array(z.string()).optional(),
+});
 
 export async function GET(request: NextRequest) {
   const locale = await getServerLocale();
@@ -53,6 +64,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+    const parsed = createListingSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message || dict.api.marketplace.shiftIdRequired },
+        { status: 400 }
+      );
+    }
+
     const {
       shiftId,
       mode,
@@ -61,23 +80,7 @@ export async function POST(request: NextRequest) {
       targetEmployeeId,
       eligibleRoles,
       eligibleUserIds,
-    } = body;
-
-    if (!shiftId) {
-      return NextResponse.json(
-        { error: dict.api.marketplace.shiftIdRequired },
-        { status: 400 }
-      );
-    }
-
-    // Validate mode
-    const validModes: MarketplaceMode[] = ["SWAP", "HANDOVER", "SELL"];
-    if (!mode || !validModes.includes(mode)) {
-      return NextResponse.json(
-        { error: dict.api.marketplace.invalidMode },
-        { status: 400 }
-      );
-    }
+    } = parsed.data;
 
     // HANDOVER mode requires targetEmployeeId
     if (mode === "HANDOVER" && !targetEmployeeId) {

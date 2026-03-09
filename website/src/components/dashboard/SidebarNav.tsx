@@ -20,9 +20,11 @@ interface SidebarNavProps {
   };
   companyName: string;
   toggleSidebarLabel?: string;
+  signOutLabel?: string;
+  userAltText?: string;
 }
 
-export function SidebarNav({ items, user, companyName, toggleSidebarLabel = "Toggle sidebar" }: SidebarNavProps) {
+export function SidebarNav({ items, user, companyName, toggleSidebarLabel = "Toggle sidebar", signOutLabel = "Sign out", userAltText = "User" }: SidebarNavProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -122,7 +124,7 @@ export function SidebarNav({ items, user, companyName, toggleSidebarLabel = "Tog
           {user.image ? (
             <img
               src={user.image}
-              alt={user.name ?? "User"}
+              alt={user.name ?? userAltText}
               className="w-9 h-9 rounded-full object-cover ring-2 ring-white/[0.08]"
             />
           ) : (
@@ -150,7 +152,7 @@ export function SidebarNav({ items, user, companyName, toggleSidebarLabel = "Tog
           className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-cream/40 hover:bg-white/[0.04] hover:text-cream/60 transition-all duration-200"
         >
           <i className="fas fa-sign-out-alt w-5 text-center text-sm" />
-          <span className="text-[0.9375rem]">Sign out</span>
+          <span className="text-[0.9375rem]">{signOutLabel}</span>
         </Link>
       </div>
     </>

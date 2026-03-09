@@ -107,6 +107,25 @@ enum AccrualType {
   PARENTAL_LEAVE
 }
 
+// Employment type for compliance rule selection
+enum EmploymentType {
+  PERMANENT
+  TEMPORARY
+  ZERO_HOURS
+  FIXED_TERM
+  APPRENTICE
+}
+
+// Consultation status for works council / representative approval
+enum ConsultationStatus {
+  NOT_REQUIRED
+  PENDING
+  IN_CONSULTATION
+  APPROVED
+  REJECTED
+  ESCALATED
+}
+
 // Dashboard metric types
 enum MetricType {
   LABOR_COST
@@ -143,6 +162,18 @@ model User {
   position          String?
   hireDate          DateTime?
 
+  // Compliance-critical fields
+  dateOfBirth       DateTime?         // Young worker protections (EU 94/33/EC)
+  employmentType    EmploymentType    @default(PERMANENT)
+  contractedHours   Decimal?          @db.Decimal(5, 2)  // Guaranteed weekly hours (EU 2019/1152)
+  tempEndDate       DateTime?         // End date for temporary/fixed-term contracts
+  isPregnant        Boolean           @default(false)    // Night work restrictions (EU 92/85/EEC)
+  isNursingMother   Boolean           @default(false)    // Extended protections
+  wtdOptOut         Boolean           @default(false)    // WTD 48h opt-out (UK/IE)
+  wtdOptOutDate     DateTime?         // When opt-out was signed
+  nightWorkerAssessed Boolean         @default(false)    // Health assessment done (EU WTD Art 9)
+  nightWorkerAssessedAt DateTime?     // Last assessment date
+
   // Labor cost tracking
   hourlyRate        Decimal?          @db.Decimal(10, 2)  // For labor cost calculation
 
@@ -178,6 +209,11 @@ model User {
 
   // Mobile PWA push notifications
   pushSubscriptions       PushSubscription[]
+
+  // EU/Nordic compliance relations
+  toilBalances          TOILBalance[]
+  flexTimeAccount       FlexTimeAccount?
+  workerPostings        WorkerPosting[]
 
   @@index([email])
   @@index([employeeNumber])
@@ -220,6 +256,165 @@ model Organization {
   users             User[]
   rosters           Roster[]
   locations         Location[]
+  collectiveAgreement CollectiveAgreement?
+}
+
+// Collective Bargaining Agreement (CBA) model
+// Overrides statutory compliance defaults per organization
+model CollectiveAgreement {
+  id                    String       @id @default(cuid())
+  organizationId        String       @unique
+  organization          Organization @relation(fields: [organizationId], references: [id])
+
+  // Identification
+  name                  String       // e.g. "LO/NHO Landsavtalen"
+  countryCode           String       // "NO", "SE", "DK", etc.
+  sector                String?      // e.g. "retail", "manufacturing", "hospitality"
+  unionCode             String?      // e.g. "LO_NHO", "VIRKE", "IF_METALL"
+
+  // Overriding compliance rules (null = use org/country default)
+  maxDailyHours         Int?         // Override org default
+  maxWeeklyHours        Int?         // Override org default
+  overtimeWeeklyMax     Int?         // Override — CBA often allows more OT than law
+  overtimeYearlyMax     Int?         // Override
+  minDailyRest          Int?         // CBA can reduce to 8h in exceptional circumstances
+  minWeeklyRest         Int?         // CBA often allows 24h instead of statutory 35h
+  publishDeadlineOverride Int?       // CBA may specify different notice period
+  overtimePremiumOverride Decimal?   @db.Decimal(3, 2) // CBA premium (often higher than statutory)
+
+  // Night work overrides
+  nightWorkAllowed      Boolean      @default(true)
+  nightWorkMaxHoursPerShift Int?     // Default: 8h (EU WTD)
+  nightWorkRequiresConsent Boolean   @default(false)
+
+  // Special provisions
+  sundayPremiumAllowed  Boolean      @default(true)
+  sundayPremiumRate     Decimal?     @db.Decimal(3, 2) // e.g. 2.0 for double time
+  holidayPremiumRate    Decimal?     @db.Decimal(3, 2)
+  breakAllowance        Int?         // Paid break minutes per shift
+
+  // Metadata
+  effectiveFrom         DateTime?
+  effectiveTo           DateTime?
+  notes                 String?
+
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+}
+
+// TOIL - Time Off In Lieu (Norway: avspasering)
+model TOILBalance {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  year              Int               // Year of accrual
+
+  // Balance
+  earnedHours       Decimal           @default(0) @db.Decimal(7, 2)  // From overtime worked
+  usedHours         Decimal           @default(0) @db.Decimal(7, 2)  // Taken as time off
+  remainingHours    Decimal           @default(0) @db.Decimal(7, 2)  // Available
+  expiredHours      Decimal           @default(0) @db.Decimal(7, 2)  // Lost (carry-over expired)
+
+  // Policy
+  expiryDate        DateTime?         // When unused hours expire
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@unique([userId, year])
+  @@index([userId])
+}
+
+// Flex-time / Working Time Account (Germany: Arbeitszeitkonto, Sweden: Flextid)
+model FlexTimeAccount {
+  id                String            @id @default(cuid())
+  userId            String            @unique
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Current balance (+ means worked more, - means owe hours)
+  balanceHours      Decimal           @default(0) @db.Decimal(7, 2)
+
+  // Limits
+  maxPositive       Decimal           @default(40) @db.Decimal(7, 2)   // Max hours banked
+  maxNegative       Decimal           @default(-20) @db.Decimal(7, 2)  // Max hours owed
+
+  // Settlement
+  lastSettled       DateTime?         // Last balance reset/settlement
+  settlementPeriod  String            @default("quarterly")  // monthly/quarterly/yearly
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  entries           FlexTimeEntry[]
+
+  @@index([userId])
+}
+
+// Individual flex-time entries (log of + / - hours)
+model FlexTimeEntry {
+  id                String            @id @default(cuid())
+  accountId         String
+  account           FlexTimeAccount   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  date              DateTime
+  scheduledHours    Decimal           @db.Decimal(5, 2)  // What was expected
+  actualHours       Decimal           @db.Decimal(5, 2)  // What was worked
+  deltaHours        Decimal           @db.Decimal(5, 2)  // Difference (+ or -)
+  notes             String?
+
+  createdAt         DateTime          @default(now())
+
+  @@index([accountId])
+  @@index([date])
+}
+
+// Posted Worker tracking (EU Directive 2018/957)
+model WorkerPosting {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id])
+
+  // Posting details
+  homeCountry       String            // ISO country code (worker's normal country)
+  hostCountry       String            // ISO country code (where posted)
+  startDate         DateTime
+  endDate           DateTime?
+
+  // Host country rules apply
+  hostMaxDailyHours Int?
+  hostMaxWeeklyHours Int?
+  hostMinDailyRest  Int?
+  hostOvertimePremium Decimal?        @db.Decimal(3, 2)
+
+  isActive          Boolean           @default(true)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([hostCountry])
+  @@index([isActive])
+}
+
+// Public Holiday calendar per country
+model PublicHoliday {
+  id                String            @id @default(cuid())
+  countryCode       String            // "NO", "DE", "FR" etc.
+  regionCode        String?           // Optional: German Bundesland, etc.
+
+  date              DateTime
+  name              String            // Holiday name
+  nameLocal         String?           // Name in local language
+
+  isNationalHoliday Boolean           @default(true)
+  sundayRulesApply  Boolean           @default(true)  // Does this day follow Sunday restrictions?
+
+  year              Int               // For easy querying
+
+  @@unique([countryCode, date, regionCode])
+  @@index([countryCode, year])
+  @@index([date])
 }
 
 // Multi-location support
@@ -281,6 +476,14 @@ model Roster {
   reviewedAt        DateTime?
   reviewComments    String?
 
+  // Works council consultation (drøftingsplikt)
+  consultationStatus ConsultationStatus @default(NOT_REQUIRED)
+  consultationRequestedAt DateTime?
+  consultationRequestedBy String?
+  consultationRespondedAt DateTime?
+  consultationRespondedBy String?
+  consultationNotes String?
+
   // Metadata
   createdBy         String
   createdAt         DateTime          @default(now())
@@ -332,6 +535,17 @@ model Shift {
   violatesDailyLimit Boolean          @default(false)
   violatesWeeklyLimit Boolean         @default(false)
   isOvertime        Boolean           @default(false)
+
+  // Night work tracking
+  isNightShift      Boolean           @default(false)
+  nightHours        Decimal?          @db.Decimal(5, 2)  // Hours falling in night window
+
+  // Cancellation tracking (EU 2019/1152 predictability)
+  isCancelled       Boolean           @default(false)
+  cancelledAt       DateTime?
+  cancelledBy       String?
+  cancellationReason String?
+  predictabilityPayDue Boolean       @default(false)  // If cancelled after notice period
 
   // Change tracking
   isChanged         Boolean           @default(false)

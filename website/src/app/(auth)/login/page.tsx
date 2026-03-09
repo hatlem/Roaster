@@ -1,4 +1,7 @@
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import LoginForm from "./login-form";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -10,6 +13,11 @@ export async function generateMetadata() {
 }
 
 export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+
   const locale = await getServerLocale();
   const dict = getDictionary(locale);
   return (

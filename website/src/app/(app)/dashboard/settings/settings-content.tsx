@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation"
 import { BillingSection } from "@/components/billing/BillingSection"
 import type { Dictionary } from "@/i18n/dictionaries"
 
-type Tab = "organization" | "compliance" | "notifications" | "integrations" | "billing"
+type Tab = "organization" | "compliance" | "collectiveAgreement" | "notifications" | "integrations" | "billing"
 
 interface OrgInfo {
   name: string
@@ -29,6 +29,7 @@ interface BillingInfo {
 const TAB_ICONS: Record<Tab, string> = {
   organization: "fa-building",
   compliance: "fa-gavel",
+  collectiveAgreement: "fa-handshake",
   notifications: "fa-bell",
   integrations: "fa-plug",
   billing: "fa-credit-card",
@@ -108,6 +109,7 @@ export function SettingsContent({
   const TABS: { id: Tab; label: string }[] = [
     { id: "organization", label: d.organization },
     { id: "compliance", label: d.complianceRules },
+    { id: "collectiveAgreement", label: d.collectiveAgreement.title },
     { id: "notifications", label: d.notifications },
     { id: "integrations", label: d.integrations },
     { id: "billing", label: d.billing },
@@ -178,6 +180,9 @@ export function SettingsContent({
           )}
           {activeTab === "compliance" && (
             <ComplianceTab orgInfo={orgInfo} dictionary={d} />
+          )}
+          {activeTab === "collectiveAgreement" && (
+            <CollectiveAgreementTab dictionary={d} />
           )}
           {activeTab === "notifications" && (
             <NotificationsTab dictionary={d} />
@@ -735,8 +740,8 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div className="pr-4">
-                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d]}</p>
-                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d]}</p>
+                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d] as string}</p>
+                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d] as string}</p>
               </div>
               <ToggleSwitch
                 enabled={emailToggles[option.key] ?? false}
@@ -767,8 +772,8 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div className="pr-4">
-                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d]}</p>
-                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d]}</p>
+                <p className="font-medium text-ink/80">{d[option.titleKey as keyof typeof d] as string}</p>
+                <p className="text-sm text-ink/50 mt-0.5">{d[option.descriptionKey as keyof typeof d] as string}</p>
               </div>
               <ToggleSwitch
                 enabled={appToggles[option.key] ?? false}
@@ -787,6 +792,620 @@ function NotificationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard
           {d.saveChanges}
         </button>
       </div>
+    </>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Collective Agreement Tab                                                   */
+/* -------------------------------------------------------------------------- */
+
+interface CBAPreset {
+  code: string
+  name: string
+  overtimeWeeklyMax?: number
+  overtimeYearlyMax?: number
+  minDailyRest?: number
+  minWeeklyRest?: number
+  sundayPremiumRate?: number
+  overtimePremiumOverride?: number
+}
+
+const CBA_PRESETS: Record<string, CBAPreset[]> = {
+  NO: [
+    { code: "LO_NHO", name: "LO/NHO Landsavtalen", overtimeWeeklyMax: 10, overtimeYearlyMax: 200, minDailyRest: 8, sundayPremiumRate: 1.5, overtimePremiumOverride: 1.4 },
+    { code: "VIRKE", name: "Virke Landoverenskomsten", overtimeWeeklyMax: 10, overtimeYearlyMax: 200, overtimePremiumOverride: 1.5 },
+    { code: "SPEKTER", name: "Spekter", overtimeWeeklyMax: 10, overtimeYearlyMax: 200 },
+    { code: "KS", name: "KS (kommunesektoren)", overtimeWeeklyMax: 10, overtimeYearlyMax: 200 },
+    { code: "HK_HANDEL", name: "Handel og Kontor", overtimeWeeklyMax: 10, overtimeYearlyMax: 200 },
+  ],
+  SE: [
+    { code: "IF_METALL", name: "IF Metall / Teknikavtalet", overtimeWeeklyMax: 48, overtimeYearlyMax: 200 },
+    { code: "HRF", name: "HRF (hotell & restaurang)", overtimeYearlyMax: 200 },
+    { code: "HANDELS", name: "Handels (retail)", overtimeYearlyMax: 200 },
+    { code: "KOMMUNAL", name: "Kommunal", overtimeYearlyMax: 200 },
+  ],
+  DK: [
+    { code: "3F_DA", name: "3F/DA", minDailyRest: 8 },
+    { code: "HK", name: "HK", minDailyRest: 8 },
+    { code: "FOA", name: "FOA" },
+    { code: "BUPL", name: "BUPL" },
+  ],
+  FI: [
+    { code: "PAM", name: "PAM (palvelualojen)", overtimeYearlyMax: 250 },
+    { code: "SAK", name: "SAK", overtimeYearlyMax: 250 },
+    { code: "STTK", name: "STTK" },
+    { code: "AKAVA", name: "AKAVA" },
+  ],
+}
+
+interface CollectiveAgreementData {
+  id?: string
+  name: string
+  countryCode: string
+  sector: string
+  unionCode: string
+  overtimeWeeklyMax: string
+  overtimeYearlyMax: string
+  minDailyRest: string
+  minWeeklyRest: string
+  overtimePremiumOverride: string
+  sundayPremiumRate: string
+  nightWorkAllowed: boolean
+  nightWorkRequiresConsent: boolean
+  effectiveFrom: string
+  effectiveTo: string
+  notes: string
+}
+
+const EMPTY_FORM: CollectiveAgreementData = {
+  name: "",
+  countryCode: "NO",
+  sector: "",
+  unionCode: "",
+  overtimeWeeklyMax: "",
+  overtimeYearlyMax: "",
+  minDailyRest: "",
+  minWeeklyRest: "",
+  overtimePremiumOverride: "",
+  sundayPremiumRate: "",
+  nightWorkAllowed: true,
+  nightWorkRequiresConsent: false,
+  effectiveFrom: "",
+  effectiveTo: "",
+  notes: "",
+}
+
+function CollectiveAgreementTab({ dictionary: d }: { dictionary: Dictionary["dashboard"]["settings"] }) {
+  const router = useRouter()
+  const cd = d.collectiveAgreement
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [removing, setRemoving] = useState(false)
+  const [showForm, setShowForm] = useState(false)
+  const [existing, setExisting] = useState<CollectiveAgreementData & { id?: string } | null>(null)
+  const [form, setForm] = useState<CollectiveAgreementData>(EMPTY_FORM)
+  const [selectedPreset, setSelectedPreset] = useState<string>("")
+  const [banner, setBanner] = useState<{ type: "success" | "error"; message: string } | null>(null)
+
+  // Fetch existing agreement on mount
+  useEffect(() => {
+    const fetchAgreement = async () => {
+      try {
+        const res = await fetch("/api/settings/collective-agreement")
+        const data = await res.json()
+        if (data.data) {
+          const ag = data.data
+          setExisting({
+            id: ag.id,
+            name: ag.name,
+            countryCode: ag.countryCode,
+            sector: ag.sector ?? "",
+            unionCode: ag.unionCode ?? "",
+            overtimeWeeklyMax: ag.overtimeWeeklyMax != null ? String(ag.overtimeWeeklyMax) : "",
+            overtimeYearlyMax: ag.overtimeYearlyMax != null ? String(ag.overtimeYearlyMax) : "",
+            minDailyRest: ag.minDailyRest != null ? String(ag.minDailyRest) : "",
+            minWeeklyRest: ag.minWeeklyRest != null ? String(ag.minWeeklyRest) : "",
+            overtimePremiumOverride: ag.overtimePremiumOverride != null ? String(ag.overtimePremiumOverride) : "",
+            sundayPremiumRate: ag.sundayPremiumRate != null ? String(ag.sundayPremiumRate) : "",
+            nightWorkAllowed: ag.nightWorkAllowed,
+            nightWorkRequiresConsent: ag.nightWorkRequiresConsent,
+            effectiveFrom: ag.effectiveFrom ? ag.effectiveFrom.slice(0, 10) : "",
+            effectiveTo: ag.effectiveTo ? ag.effectiveTo.slice(0, 10) : "",
+            notes: ag.notes ?? "",
+          })
+        }
+      } catch {
+        // silently fail — no agreement
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchAgreement()
+  }, [])
+
+  const openForm = (prefill?: CollectiveAgreementData) => {
+    setForm(prefill ?? existing ?? EMPTY_FORM)
+    setSelectedPreset(prefill?.unionCode ?? existing?.unionCode ?? "")
+    setShowForm(true)
+    setBanner(null)
+  }
+
+  const applyPreset = (code: string, countryCode: string) => {
+    const presets = CBA_PRESETS[countryCode] ?? []
+    const preset = presets.find((p) => p.code === code)
+    if (!preset) return
+    setForm((prev) => ({
+      ...prev,
+      name: preset.name,
+      unionCode: preset.code,
+      overtimeWeeklyMax: preset.overtimeWeeklyMax != null ? String(preset.overtimeWeeklyMax) : "",
+      overtimeYearlyMax: preset.overtimeYearlyMax != null ? String(preset.overtimeYearlyMax) : "",
+      minDailyRest: preset.minDailyRest != null ? String(preset.minDailyRest) : "",
+      minWeeklyRest: preset.minWeeklyRest != null ? String(preset.minWeeklyRest) : "",
+      overtimePremiumOverride: preset.overtimePremiumOverride != null ? String(preset.overtimePremiumOverride) : "",
+      sundayPremiumRate: preset.sundayPremiumRate != null ? String(preset.sundayPremiumRate) : "",
+    }))
+    setBanner({ type: "success", message: cd.presetApplied })
+  }
+
+  const handleSave = async () => {
+    setSaving(true)
+    setBanner(null)
+    try {
+      const res = await fetch("/api/settings/collective-agreement", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          countryCode: form.countryCode,
+          sector: form.sector || null,
+          unionCode: form.unionCode || null,
+          overtimeWeeklyMax: form.overtimeWeeklyMax !== "" ? Number(form.overtimeWeeklyMax) : null,
+          overtimeYearlyMax: form.overtimeYearlyMax !== "" ? Number(form.overtimeYearlyMax) : null,
+          minDailyRest: form.minDailyRest !== "" ? Number(form.minDailyRest) : null,
+          minWeeklyRest: form.minWeeklyRest !== "" ? Number(form.minWeeklyRest) : null,
+          overtimePremiumOverride: form.overtimePremiumOverride !== "" ? Number(form.overtimePremiumOverride) : null,
+          sundayPremiumRate: form.sundayPremiumRate !== "" ? Number(form.sundayPremiumRate) : null,
+          nightWorkAllowed: form.nightWorkAllowed,
+          nightWorkRequiresConsent: form.nightWorkRequiresConsent,
+          effectiveFrom: form.effectiveFrom || null,
+          effectiveTo: form.effectiveTo || null,
+          notes: form.notes || null,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        setBanner({ type: "error", message: data.error || d.failedToSave })
+      } else {
+        setExisting({ ...form, id: data.data?.id })
+        setShowForm(false)
+        setBanner({ type: "success", message: cd.saved })
+        router.refresh()
+      }
+    } catch {
+      setBanner({ type: "error", message: d.unexpectedError })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleRemove = async () => {
+    if (!confirm(`Remove "${existing?.name}"? This will revert to statutory defaults.`)) return
+    setRemoving(true)
+    setBanner(null)
+    try {
+      const res = await fetch("/api/settings/collective-agreement", { method: "DELETE" })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        setBanner({ type: "error", message: data.error || d.failedToSave })
+      } else {
+        setExisting(null)
+        setShowForm(false)
+        setBanner({ type: "success", message: cd.removed })
+        router.refresh()
+      }
+    } catch {
+      setBanner({ type: "error", message: d.unexpectedError })
+    } finally {
+      setRemoving(false)
+    }
+  }
+
+  const countryPresets = CBA_PRESETS[form.countryCode] ?? []
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <i className="fas fa-spinner fa-spin text-ocean text-2xl" />
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {banner && (
+        <div className={`mb-6 p-4 rounded-xl text-sm flex items-center gap-3 ${
+          banner.type === "success" ? "bg-forest/10 text-forest" : "bg-red-50 text-red-700"
+        }`}>
+          <i className={`fas ${banner.type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`} />
+          <span>{banner.message}</span>
+        </div>
+      )}
+
+      {/* Header card */}
+      <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 rounded-xl bg-terracotta/10 flex items-center justify-center">
+            <i className="fas fa-handshake text-terracotta" />
+          </div>
+          <div>
+            <h2 className="font-display text-xl">{cd.title}</h2>
+            <p className="text-sm text-ink/50">{cd.subtitle}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* No agreement state */}
+      {!existing && !showForm && (
+        <div className="bg-white rounded-2xl p-8 border border-stone/50 mb-6 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-cream mx-auto flex items-center justify-center mb-4">
+            <i className="fas fa-file-contract text-3xl text-ink/30" />
+          </div>
+          <h3 className="font-display text-xl text-ink/80 mb-2">{cd.noAgreement}</h3>
+          <p className="text-sm text-ink/50 mb-6 max-w-md mx-auto">{cd.noAgreementDesc}</p>
+          <button
+            onClick={() => openForm()}
+            className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200"
+          >
+            <i className="fas fa-plus mr-2" />
+            {cd.configure}
+          </button>
+        </div>
+      )}
+
+      {/* Existing agreement summary */}
+      {existing && !showForm && (
+        <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 className="font-display text-lg">{existing.name}</h3>
+              {existing.unionCode && (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ocean bg-ocean/10 px-3 py-1 rounded-lg mt-1">
+                  <i className="fas fa-users text-[10px]" />
+                  {existing.unionCode}
+                </span>
+              )}
+            </div>
+            <div className="flex gap-2 flex-shrink-0">
+              <button
+                onClick={() => openForm()}
+                className="px-4 py-2 rounded-xl border border-stone/50 text-sm font-medium hover:bg-cream transition-all duration-200"
+              >
+                <i className="fas fa-edit mr-1.5" />
+                {cd.edit}
+              </button>
+              <button
+                onClick={handleRemove}
+                disabled={removing}
+                className="px-4 py-2 rounded-xl border border-red-200 text-red-600 text-sm font-medium hover:bg-red-50 transition-all duration-200 disabled:opacity-50"
+              >
+                {removing ? <i className="fas fa-spinner fa-spin" /> : <><i className="fas fa-trash mr-1.5" />{cd.remove}</>}
+              </button>
+            </div>
+          </div>
+
+          {/* Active overrides summary */}
+          <div className="grid sm:grid-cols-2 gap-3 mt-4">
+            {existing.overtimeWeeklyMax && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-clock text-terracotta text-xs" />
+                {cd.overtimeWeeklyMaxLabel}: <strong>{existing.overtimeWeeklyMax}h</strong>
+              </div>
+            )}
+            {existing.overtimeYearlyMax && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-calendar text-terracotta text-xs" />
+                {cd.overtimeYearlyMaxLabel}: <strong>{existing.overtimeYearlyMax}h</strong>
+              </div>
+            )}
+            {existing.minDailyRest && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-moon text-ocean text-xs" />
+                {cd.minDailyRestLabel.split('—')[0].trim()}: <strong>{existing.minDailyRest}h</strong>
+              </div>
+            )}
+            {existing.minWeeklyRest && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-bed text-ocean text-xs" />
+                {cd.minWeeklyRestLabel.split('—')[0].trim()}: <strong>{existing.minWeeklyRest}h</strong>
+              </div>
+            )}
+            {existing.overtimePremiumOverride && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-percent text-forest text-xs" />
+                {cd.overtimePremiumLabel}: <strong>×{existing.overtimePremiumOverride}</strong>
+              </div>
+            )}
+            {existing.sundayPremiumRate && (
+              <div className="flex items-center gap-2 text-sm text-ink/70 bg-cream/50 rounded-lg px-3 py-2">
+                <i className="fas fa-sun text-gold text-xs" />
+                {cd.sundayPremiumLabel}: <strong>×{existing.sundayPremiumRate}</strong>
+              </div>
+            )}
+          </div>
+
+          {existing.effectiveFrom && (
+            <p className="text-xs text-ink/40 mt-4">
+              {cd.effectiveFromLabel}: {existing.effectiveFrom}
+              {existing.effectiveTo ? ` → ${existing.effectiveTo}` : ""}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Form */}
+      {showForm && (
+        <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6">
+          <div className="space-y-5">
+            {/* Country */}
+            <div>
+              <label className={labelClass}>{cd.countryLabel}</label>
+              <select
+                value={form.countryCode}
+                onChange={(e) => {
+                  setForm((prev) => ({ ...prev, countryCode: e.target.value, unionCode: "" }))
+                  setSelectedPreset("")
+                }}
+                className={inputClass}
+              >
+                <option value="NO">Norway</option>
+                <option value="SE">Sweden</option>
+                <option value="DK">Denmark</option>
+                <option value="FI">Finland</option>
+                <option value="DE">Germany</option>
+                <option value="AT">Austria</option>
+                <option value="CH">Switzerland</option>
+                <option value="FR">France</option>
+                <option value="BE">Belgium</option>
+                <option value="NL">Netherlands</option>
+                <option value="ES">Spain</option>
+                <option value="PT">Portugal</option>
+                <option value="IT">Italy</option>
+                <option value="PL">Poland</option>
+                <option value="GB">United Kingdom</option>
+                <option value="IE">Ireland</option>
+              </select>
+            </div>
+
+            {/* Agreement preset */}
+            <div>
+              <label className={labelClass}>{cd.agreementLabel}</label>
+              <select
+                value={selectedPreset}
+                onChange={(e) => {
+                  setSelectedPreset(e.target.value)
+                  if (e.target.value) {
+                    applyPreset(e.target.value, form.countryCode)
+                  } else {
+                    setForm((prev) => ({ ...prev, name: "", unionCode: "" }))
+                  }
+                }}
+                className={inputClass}
+              >
+                <option value="">{cd.customAgreement}</option>
+                {countryPresets.map((p) => (
+                  <option key={p.code} value={p.code}>{p.name}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Name */}
+            <div>
+              <label className={labelClass}>{cd.agreementLabel} name</label>
+              <input
+                type="text"
+                value={form.name}
+                onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+                className={inputClass}
+                placeholder="e.g. LO/NHO Landsavtalen"
+              />
+            </div>
+
+            {/* Union code + Sector */}
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>{cd.unionCodeLabel}</label>
+                <input
+                  type="text"
+                  value={form.unionCode}
+                  onChange={(e) => setForm((prev) => ({ ...prev, unionCode: e.target.value }))}
+                  className={inputClass}
+                  placeholder="e.g. LO_NHO"
+                />
+              </div>
+              <div>
+                <label className={labelClass}>{cd.sectorLabel}</label>
+                <input
+                  type="text"
+                  value={form.sector}
+                  onChange={(e) => setForm((prev) => ({ ...prev, sector: e.target.value }))}
+                  className={inputClass}
+                  placeholder="e.g. retail, hospitality"
+                />
+              </div>
+            </div>
+
+            {/* Rule Overrides */}
+            <div className="border-t border-stone/30 pt-5">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-terracotta" />
+                <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">{cd.overridesSection}</h3>
+              </div>
+              <p className="text-xs text-ink/40 mb-4">{cd.overridesDesc}</p>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>{cd.overtimeWeeklyMaxLabel}</label>
+                  <input
+                    type="number"
+                    value={form.overtimeWeeklyMax}
+                    onChange={(e) => setForm((prev) => ({ ...prev, overtimeWeeklyMax: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={0}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.overtimeYearlyMaxLabel}</label>
+                  <input
+                    type="number"
+                    value={form.overtimeYearlyMax}
+                    onChange={(e) => setForm((prev) => ({ ...prev, overtimeYearlyMax: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={0}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.minDailyRestLabel}</label>
+                  <input
+                    type="number"
+                    value={form.minDailyRest}
+                    onChange={(e) => setForm((prev) => ({ ...prev, minDailyRest: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={0}
+                    max={24}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.minWeeklyRestLabel}</label>
+                  <input
+                    type="number"
+                    value={form.minWeeklyRest}
+                    onChange={(e) => setForm((prev) => ({ ...prev, minWeeklyRest: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={0}
+                    max={168}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.overtimePremiumLabel}</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={form.overtimePremiumOverride}
+                    onChange={(e) => setForm((prev) => ({ ...prev, overtimePremiumOverride: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={1}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.sundayPremiumLabel}</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={form.sundayPremiumRate}
+                    onChange={(e) => setForm((prev) => ({ ...prev, sundayPremiumRate: e.target.value }))}
+                    className={inputClass}
+                    placeholder={cd.useDefault}
+                    min={1}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Night Work */}
+            <div className="border-t border-stone/30 pt-5">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-1.5 h-1.5 rounded-full bg-ocean" />
+                <h3 className="font-medium text-ink/70 text-sm uppercase tracking-wide">{cd.nightWorkSection}</h3>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-4 rounded-xl bg-cream/30 border border-stone/30">
+                  <span className="text-sm font-medium text-ink/80">{cd.nightWorkAllowed}</span>
+                  <ToggleSwitch
+                    enabled={form.nightWorkAllowed}
+                    onToggle={() => setForm((prev) => ({ ...prev, nightWorkAllowed: !prev.nightWorkAllowed }))}
+                  />
+                </div>
+                {form.nightWorkAllowed && (
+                  <div className="flex items-center justify-between p-4 rounded-xl bg-cream/30 border border-stone/30">
+                    <span className="text-sm font-medium text-ink/80">{cd.nightWorkConsent}</span>
+                    <ToggleSwitch
+                      enabled={form.nightWorkRequiresConsent}
+                      onToggle={() => setForm((prev) => ({ ...prev, nightWorkRequiresConsent: !prev.nightWorkRequiresConsent }))}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Effective dates */}
+            <div className="border-t border-stone/30 pt-5">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>{cd.effectiveFromLabel}</label>
+                  <input
+                    type="date"
+                    value={form.effectiveFrom}
+                    onChange={(e) => setForm((prev) => ({ ...prev, effectiveFrom: e.target.value }))}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>{cd.effectiveToLabel}</label>
+                  <input
+                    type="date"
+                    value={form.effectiveTo}
+                    onChange={(e) => setForm((prev) => ({ ...prev, effectiveTo: e.target.value }))}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Notes */}
+            <div>
+              <label className={labelClass}>{cd.notesLabel}</label>
+              <textarea
+                value={form.notes}
+                onChange={(e) => setForm((prev) => ({ ...prev, notes: e.target.value }))}
+                className={`${inputClass} resize-none`}
+                rows={3}
+                placeholder="Any additional notes about this agreement..."
+              />
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              onClick={() => { setShowForm(false); setBanner(null) }}
+              className="px-6 py-3 rounded-xl border border-stone/50 font-medium hover:bg-cream transition-all duration-200"
+            >
+              {d.cancel}
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="px-6 py-3 rounded-xl bg-ocean text-white font-medium hover:bg-ocean/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {saving ? (
+                <span className="flex items-center gap-2">
+                  <i className="fas fa-spinner fa-spin" />
+                  {d.saving}
+                </span>
+              ) : (
+                cd.save
+              )}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
@@ -832,7 +1451,7 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
                 "fa-comments"
               } text-ocean`} />
             </div>
-            <h2 className="font-display text-xl">{d[categoryKey as keyof typeof d]}</h2>
+            <h2 className="font-display text-xl">{d[categoryKey as keyof typeof d] as string}</h2>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
@@ -854,7 +1473,7 @@ function IntegrationsTab({ dictionary: d }: { dictionary: Dictionary["dashboard"
                     <div className="flex items-center justify-between gap-2">
                       <h3 className="font-medium text-ink/90">{integration.name}</h3>
                     </div>
-                    <p className="text-sm text-ink/50 mt-1">{d[integration.descriptionKey as keyof typeof d]}</p>
+                    <p className="text-sm text-ink/50 mt-1">{d[integration.descriptionKey as keyof typeof d] as string}</p>
                     <div className="mt-3">
                       {integration.status === "connected" ? (
                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-forest bg-forest/10 px-3 py-1.5 rounded-lg">

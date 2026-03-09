@@ -51,13 +51,13 @@ export function BillingSection({ billing, dictionary: d }: { billing: BillingInf
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to create checkout session")
+        throw new Error(data.error || d.failedCreateCheckout)
       }
 
       // Redirect to Stripe Checkout
       window.location.href = data.data.url
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred")
+      setError(err instanceof Error ? err.message : d.anErrorOccurred)
       setIsLoading(null)
     }
   }
@@ -74,13 +74,13 @@ export function BillingSection({ billing, dictionary: d }: { billing: BillingInf
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to open billing portal")
+        throw new Error(data.error || d.failedOpenPortal)
       }
 
       // Redirect to Stripe Customer Portal
       window.location.href = data.data.url
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred")
+      setError(err instanceof Error ? err.message : d.anErrorOccurred)
       setIsLoading(null)
     }
   }

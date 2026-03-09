@@ -6,8 +6,108 @@ import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
 import { ReportExportButton } from "@/components/dashboard/ReportExportButton";
 import { OvertimeProgressChart } from "@/components/dashboard/ReportCharts";
+import {
+  getOvertimeTiers,
+  calculateOvertimeHours,
+  checkOvertimeTiers,
+  getOvertimeUtilization,
+  type OvertimeAccumulation,
+  type OvertimeTierViolation,
+  type OvertimeTierUtilization,
+} from "@/lib/compliance/overtime-tiers";
 
 export const dynamic = "force-dynamic";
+
+interface EmployeeTierRow {
+  userId: string;
+  name: string;
+  department: string | null;
+  accumulation: OvertimeAccumulation;
+  utilization: OvertimeTierUtilization;
+  violations: OvertimeTierViolation[];
+  overallStatus: "ok" | "warning" | "error";
+}
+
+async function getOvertimeTierData(orgId: string, year: number): Promise<EmployeeTierRow[]> {
+  try {
+    const yearStart = new Date(year, 0, 1);
+    const yearEnd = new Date(year + 1, 0, 1);
+
+    const countryCode = "NO";
+    const tiers = getOvertimeTiers(countryCode);
+
+    const org = await prisma.organization.findUnique({
+      where: { id: orgId },
+      select: { maxWeeklyHours: true },
+    });
+    const maxWeeklyHours = org?.maxWeeklyHours ?? 40;
+
+    const shifts = await prisma.shift.findMany({
+      where: {
+        roster: { organizationId: orgId },
+        startTime: { gte: yearStart, lt: yearEnd },
+      },
+      select: {
+        id: true,
+        userId: true,
+        startTime: true,
+        endTime: true,
+        breakMinutes: true,
+        user: {
+          select: { firstName: true, lastName: true, department: true },
+        },
+      },
+      orderBy: { startTime: "asc" },
+    });
+
+    const userMap = new Map<string, { firstName: string; lastName: string; department: string | null }>();
+    for (const s of shifts) {
+      if (!userMap.has(s.userId)) {
+        userMap.set(s.userId, {
+          firstName: s.user.firstName,
+          lastName: s.user.lastName,
+          department: s.user.department,
+        });
+      }
+    }
+
+    const plainShifts = shifts.map((s) => ({
+      id: s.id,
+      userId: s.userId,
+      startTime: s.startTime,
+      endTime: s.endTime,
+      breakMinutes: s.breakMinutes,
+    }));
+
+    const rows: EmployeeTierRow[] = [];
+    for (const [userId, userInfo] of userMap) {
+      const accumulation = calculateOvertimeHours(plainShifts, userId, maxWeeklyHours);
+      const utilization = getOvertimeUtilization(accumulation, tiers);
+      const violations = checkOvertimeTiers(accumulation, tiers, countryCode);
+      const hasError = violations.some((v) => v.severity === "ERROR");
+      const hasWarning = violations.some((v) => v.severity === "WARNING");
+      rows.push({
+        userId,
+        name: `${userInfo.firstName} ${userInfo.lastName}`,
+        department: userInfo.department,
+        accumulation,
+        utilization,
+        violations,
+        overallStatus: hasError ? "error" : hasWarning ? "warning" : "ok",
+      });
+    }
+
+    rows.sort((a, b) => {
+      const order = { error: 0, warning: 1, ok: 2 };
+      const diff = order[a.overallStatus] - order[b.overallStatus];
+      return diff !== 0 ? diff : a.name.localeCompare(b.name);
+    });
+
+    return rows;
+  } catch {
+    return [];
+  }
+}
 
 export async function generateMetadata() {
   const locale = await getServerLocale();
@@ -103,6 +203,9 @@ export default async function OvertimeReportPage() {
     employeesAtRisk: 0,
     byEmployee: [],
   };
+
+  const currentYear = new Date().getFullYear();
+  const tierRows = orgId ? await getOvertimeTierData(orgId, currentYear) : [];
 
   // Calculate progress percentages for limits (10h/week, 25h/month, 200h/year)
   const weeklyPct = Math.min(Math.round((weeklyHours / 10) * 100), 100);
@@ -227,6 +330,120 @@ export default async function OvertimeReportPage() {
           />
         </div>
       )}
+
+      {/* Overtime Tier Status */}
+      <div className="bg-white rounded-2xl p-6 border border-stone/50 mb-6 animate-fade-up delay-7">
+        <h2 className="font-display text-xl mb-1">Overtime Tier Status</h2>
+        <p className="text-ink/50 text-sm mb-4">Multi-period accumulation limits per EU/Nordic labor law</p>
+
+        {tierRows.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-warm-dark/5 border-b border-stone/50">
+                <tr>
+                  <th className="text-left p-3 font-semibold">Employee</th>
+                  <th className="text-left p-3 font-semibold">Department</th>
+                  <th className="text-right p-3 font-semibold">Weekly OT</th>
+                  <th className="text-right p-3 font-semibold">4-Week OT</th>
+                  <th className="text-right p-3 font-semibold">Monthly OT</th>
+                  <th className="text-right p-3 font-semibold">Yearly OT</th>
+                  <th className="text-center p-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tierRows.map((row, idx) => {
+                  const yearlyPctTier =
+                    row.utilization.yearly !== null
+                      ? Math.min(row.utilization.yearly, 100)
+                      : null;
+                  const statusColor =
+                    row.overallStatus === "error"
+                      ? "text-terracotta"
+                      : row.overallStatus === "warning"
+                      ? "text-gold"
+                      : "text-forest";
+                  const statusLabel =
+                    row.overallStatus === "error"
+                      ? "Over limit"
+                      : row.overallStatus === "warning"
+                      ? "Approaching"
+                      : "OK";
+                  const statusDot =
+                    row.overallStatus === "error"
+                      ? "bg-terracotta"
+                      : row.overallStatus === "warning"
+                      ? "bg-gold"
+                      : "bg-forest";
+
+                  const cellColor = (pct: number | null) => {
+                    if (pct === null) return "";
+                    if (pct >= 100) return "text-terracotta font-semibold";
+                    if (pct >= 80) return "text-gold font-medium";
+                    return "";
+                  };
+
+                  return (
+                    <tr
+                      key={row.userId}
+                      className={`border-b border-stone/30 ${idx % 2 === 0 ? "bg-cream/30" : "bg-white"}`}
+                    >
+                      <td className="p-3 font-medium">{row.name}</td>
+                      <td className="p-3 text-ink/60">{row.department ?? "-"}</td>
+                      <td className={`p-3 text-right ${cellColor(row.utilization.weekly)}`}>
+                        {row.accumulation.weeklyOT.toFixed(1)}h
+                      </td>
+                      <td className={`p-3 text-right ${cellColor(row.utilization.fourWeek)}`}>
+                        {row.accumulation.fourWeekOT.toFixed(1)}h
+                      </td>
+                      <td className={`p-3 text-right ${cellColor(row.utilization.monthly)}`}>
+                        {row.accumulation.monthlyOT.toFixed(1)}h
+                      </td>
+                      <td className="p-3 text-right">
+                        <div className={`${cellColor(row.utilization.yearly)} mb-1`}>
+                          {row.accumulation.yearlyOT.toFixed(1)}h
+                        </div>
+                        {yearlyPctTier !== null && (
+                          <div className="w-full h-1.5 bg-stone/15 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full ${
+                                yearlyPctTier >= 100
+                                  ? "bg-terracotta"
+                                  : yearlyPctTier >= 80
+                                  ? "bg-gold"
+                                  : "bg-forest"
+                              }`}
+                              style={{ width: `${yearlyPctTier}%` }}
+                            />
+                          </div>
+                        )}
+                      </td>
+                      <td className="p-3 text-center">
+                        <span className={`inline-flex items-center gap-1.5 font-medium ${statusColor}`}>
+                          <span className={`w-2 h-2 rounded-full ${statusDot}`} />
+                          {statusLabel}
+                        </span>
+                        {row.violations.length > 0 && (
+                          <p className="text-xs text-ink/40 mt-0.5">
+                            {row.violations.length} violation{row.violations.length > 1 ? "s" : ""}
+                          </p>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center py-8">
+            <div className="w-16 h-16 rounded-2xl border-2 border-dashed border-stone/40 bg-cream/50 flex items-center justify-center mb-3">
+              <i className="fas fa-shield-check text-xl text-stone/60" />
+            </div>
+            <p className="text-ink/60 font-medium">No overtime tier data</p>
+            <p className="text-ink/40 text-sm">Shifts will appear here once employees are scheduled</p>
+          </div>
+        )}
+      </div>
 
       {/* Employee Table */}
       <div className="bg-white rounded-2xl p-6 border border-stone/50 animate-fade-up delay-7">

@@ -4,9 +4,14 @@ import { successResponse, errorResponse, requireRole, getOrganizationId } from "
 import { addHours, differenceInHours, startOfWeek, endOfWeek } from "date-fns";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
+import {
+  getOvertimeTiers,
+  calculateOvertimeHours,
+  checkOvertimeTiers,
+} from "@/lib/compliance/overtime-tiers";
 
 interface ComplianceViolation {
-  type: "REST_PERIOD" | "DAILY_HOURS" | "WEEKLY_HOURS" | "OVERTIME" | "14_DAY_RULE";
+  type: "REST_PERIOD" | "DAILY_HOURS" | "WEEKLY_HOURS" | "OVERTIME" | "14_DAY_RULE" | "OVERTIME_TIER";
   severity: "ERROR" | "WARNING";
   message: string;
   shiftId?: string;
@@ -123,6 +128,39 @@ export async function POST(request: NextRequest) {
             userId,
           });
         }
+      }
+
+      // Check multi-period overtime tiers per country
+      const countryCode = "NO"; // Organization model does not have countryCode; default to NO
+      const tiers = getOvertimeTiers(countryCode);
+
+      // Fetch all shifts for this user in the current year for accurate yearly/rolling accumulation
+      const yearStart = new Date(new Date().getFullYear(), 0, 1);
+      const allYearShifts = await prisma.shift.findMany({
+        where: {
+          userId,
+          roster: { organizationId: orgId },
+          startTime: { gte: yearStart },
+        },
+        select: {
+          id: true,
+          userId: true,
+          startTime: true,
+          endTime: true,
+          breakMinutes: true,
+        },
+      });
+
+      const accumulation = calculateOvertimeHours(allYearShifts, userId, org.maxWeeklyHours);
+      const tierViolations = checkOvertimeTiers(accumulation, tiers, countryCode);
+
+      for (const v of tierViolations) {
+        violations.push({
+          type: "OVERTIME_TIER",
+          severity: v.severity,
+          message: `${v.tier} overtime limit: ${v.current.toFixed(1)}h used of ${v.limit}h allowed`,
+          userId,
+        });
       }
     }
 

@@ -26,12 +26,12 @@ export function ClaimButton({ listingId, dictionary: d }: ClaimButtonProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to claim shift");
+        throw new Error(data.error || d.failedToClaimShift);
       }
 
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : d.anErrorOccurred);
     } finally {
       setIsLoading(false);
     }

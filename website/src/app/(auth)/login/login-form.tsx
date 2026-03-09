@@ -65,7 +65,7 @@ export default function LoginForm({ dictionary }: Props) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to send magic link");
+        throw new Error(data.error || t.failedSendMagicLink);
       }
 
       setMagicLinkSent(true);

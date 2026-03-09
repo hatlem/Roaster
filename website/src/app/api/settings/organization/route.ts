@@ -18,21 +18,21 @@ export async function PUT(request: NextRequest) {
 
     // Validate required fields
     if (!name || !name.trim()) {
-      return errorResponse("Organization name is required");
+      return errorResponse(dict.api.settings.organization.nameRequired);
     }
 
     if (!orgNumber || !orgNumber.trim()) {
-      return errorResponse("Organization number is required");
+      return errorResponse(dict.api.settings.organization.orgNumberRequired);
     }
 
     if (!contactEmail || !contactEmail.trim()) {
-      return errorResponse("Contact email is required");
+      return errorResponse(dict.api.settings.organization.contactEmailRequired);
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(contactEmail)) {
-      return errorResponse("Invalid email format");
+      return errorResponse(dict.api.settings.organization.invalidEmailFormat);
     }
 
     // Check that org number is not taken by another organization
@@ -42,7 +42,7 @@ export async function PUT(request: NextRequest) {
     });
 
     if (existingOrg && existingOrg.id !== orgId) {
-      return errorResponse("Organization number is already in use");
+      return errorResponse(dict.api.settings.organization.orgNumberInUse);
     }
 
     const updated = await prisma.organization.update({
@@ -74,6 +74,6 @@ export async function PUT(request: NextRequest) {
       return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error updating organization:", error);
-    return errorResponse("Failed to update organization settings", 500);
+    return errorResponse(dict.api.settings.organization.failedUpdate, 500);
   }
 }

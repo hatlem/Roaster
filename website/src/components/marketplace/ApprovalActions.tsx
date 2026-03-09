@@ -29,12 +29,12 @@ export function ApprovalActions({ listingId, dictionary: d }: ApprovalActionsPro
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to approve");
+        throw new Error(data.error || d.failedToApprove);
       }
 
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : d.anErrorOccurred);
     } finally {
       setIsApproving(false);
     }
@@ -56,13 +56,13 @@ export function ApprovalActions({ listingId, dictionary: d }: ApprovalActionsPro
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to reject");
+        throw new Error(data.error || d.failedToReject);
       }
 
       setShowRejectModal(false);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : d.anErrorOccurred);
     } finally {
       setIsRejecting(false);
     }

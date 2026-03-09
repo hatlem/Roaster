@@ -54,7 +54,7 @@ export default function PasswordSetupModal({ dictionary }: Props) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to set password");
+        throw new Error(data.error || t.errors.generic);
       }
 
       setSuccess(true);

@@ -27,33 +27,33 @@ export async function PUT(request: NextRequest) {
     const fields = { maxDailyHours, maxWeeklyHours, minDailyRest, minWeeklyRest, publishDeadline, overtimePremium };
     for (const [key, value] of Object.entries(fields)) {
       if (value === undefined || value === null || typeof value !== "number" || isNaN(value)) {
-        return errorResponse(`${key} must be a valid number`);
+        return errorResponse(dict.api.settings.compliance.invalidNumber.replace("{field}", key));
       }
     }
 
     // Validate reasonable ranges
     if (maxDailyHours <= 0 || maxDailyHours > 24) {
-      return errorResponse("Max daily hours must be between 1 and 24");
+      return errorResponse(dict.api.settings.compliance.maxDailyHoursRange);
     }
 
     if (maxWeeklyHours <= 0 || maxWeeklyHours > 168) {
-      return errorResponse("Max weekly hours must be between 1 and 168");
+      return errorResponse(dict.api.settings.compliance.maxWeeklyHoursRange);
     }
 
     if (minDailyRest < 0 || minDailyRest > 24) {
-      return errorResponse("Min daily rest must be between 0 and 24 hours");
+      return errorResponse(dict.api.settings.compliance.minDailyRestRange);
     }
 
     if (minWeeklyRest < 0 || minWeeklyRest > 168) {
-      return errorResponse("Min weekly rest must be between 0 and 168 hours");
+      return errorResponse(dict.api.settings.compliance.minWeeklyRestRange);
     }
 
     if (publishDeadline < 0 || publishDeadline > 365) {
-      return errorResponse("Publish deadline must be between 0 and 365 days");
+      return errorResponse(dict.api.settings.compliance.publishDeadlineRange);
     }
 
     if (overtimePremium < 0 || overtimePremium > 300) {
-      return errorResponse("Overtime premium must be between 0% and 300%");
+      return errorResponse(dict.api.settings.compliance.overtimePremiumRange);
     }
 
     // Convert overtime premium from percentage to decimal multiplier
@@ -93,6 +93,6 @@ export async function PUT(request: NextRequest) {
       return errorResponse(dict.api.common.noOrganization, 400);
     }
     console.error("Error updating compliance settings:", error);
-    return errorResponse("Failed to update compliance settings", 500);
+    return errorResponse(dict.api.settings.compliance.failedUpdate, 500);
   }
 }

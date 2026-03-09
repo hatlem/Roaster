@@ -43,7 +43,7 @@ export default function OnboardingForm({ dictionary }: Props) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to create account");
+        throw new Error(data.error || t.failedToCreateAccount);
       }
 
       setStatus("signing-in");
@@ -55,7 +55,7 @@ export default function OnboardingForm({ dictionary }: Props) {
       });
 
       if (signInResult?.error) {
-        throw new Error("Failed to sign in");
+        throw new Error(t.failedToSignIn);
       }
 
       setStatus("success");

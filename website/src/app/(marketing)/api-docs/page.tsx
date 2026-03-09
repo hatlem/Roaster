@@ -124,7 +124,7 @@ export default async function APIDocsPage() {
             </div>
             <div className="bg-cream rounded-2xl p-6">
               <h3 className="font-semibold mb-2">{dict.content.plans.enterprise.name}</h3>
-              <p className="text-3xl font-display text-gold mb-1">Custom</p>
+              <p className="text-3xl font-display text-gold mb-1">{dict.apiDocsPage.custom}</p>
               <p className="text-ink/60 text-sm">{dict.apiDocsPage.basedOnNeeds}</p>
             </div>
           </div>

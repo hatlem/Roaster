@@ -3,6 +3,9 @@
  * https://getmailer.co
  */
 
+import { getServerLocale } from "@/i18n/server";
+import { getDictionary } from "@/i18n/dictionaries";
+
 const GETMAILER_API_URL = "https://getmailer.co/api/emails";
 const FROM_EMAIL = "hello@getia.no";
 
@@ -62,6 +65,10 @@ export async function sendMagicLinkEmail(
   email: string,
   token: string
 ): Promise<boolean> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const t = dict.emails.magicLink;
+
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const magicLinkUrl = `${baseUrl}/login/magic?token=${token}`;
 
@@ -70,7 +77,7 @@ export async function sendMagicLinkEmail(
 
   return sendEmail({
     to: email,
-    subject: "Sign in to Roaster",
+    subject: t.subject,
     html: `
       <!DOCTYPE html>
       <html>
@@ -80,25 +87,25 @@ export async function sendMagicLinkEmail(
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #faf9f6; padding: 40px 20px;">
           <div style="max-width: 480px; margin: 0 auto; background: white; border-radius: 16px; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <h1 style="font-size: 24px; margin: 0 0 16px; color: #1a1a1a;">Sign in to Roaster</h1>
+            <h1 style="font-size: 24px; margin: 0 0 16px; color: #1a1a1a;">${t.heading}</h1>
             <p style="color: #666; margin: 0 0 24px; line-height: 1.6;">
-              Click the button below to sign in to your account. This link expires in 1 hour.
+              ${t.body}
             </p>
             <a href="${magicLinkUrl}" style="display: inline-block; background: #1a1a1a; color: white; padding: 14px 28px; border-radius: 100px; text-decoration: none; font-weight: 600;">
-              Sign in to Roaster
+              ${t.buttonText}
             </a>
             <p style="color: #999; font-size: 14px; margin: 24px 0 0; line-height: 1.6;">
-              If you didn't request this email, you can safely ignore it.
+              ${t.ignoreNotice}
             </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Roaster - Scheduling software built for labor law compliance
+              ${t.footer}
             </p>
           </div>
         </body>
       </html>
     `,
-    text: `Sign in to Roaster\n\nClick the link below to sign in:\n${magicLinkUrl}\n\nThis link expires in 1 hour.\n\nIf you didn't request this email, you can safely ignore it.`,
+    text: t.textBody.replace('{url}', magicLinkUrl),
   });
 }
 
@@ -109,6 +116,10 @@ export async function sendWelcomeEmail(
   email: string,
   magicLinkToken: string
 ): Promise<boolean> {
+  const locale = await getServerLocale();
+  const dict = getDictionary(locale);
+  const t = dict.emails.welcome;
+
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const magicLinkUrl = `${baseUrl}/login/magic?token=${magicLinkToken}`;
 
@@ -117,7 +128,7 @@ export async function sendWelcomeEmail(
 
   return sendEmail({
     to: email,
-    subject: "Welcome to Roaster - Your trial is ready!",
+    subject: t.subject,
     html: `
       <!DOCTYPE html>
       <html>
@@ -127,36 +138,36 @@ export async function sendWelcomeEmail(
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #faf9f6; padding: 40px 20px;">
           <div style="max-width: 480px; margin: 0 auto; background: white; border-radius: 16px; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <h1 style="font-size: 24px; margin: 0 0 16px; color: #1a1a1a;">Welcome to Roaster!</h1>
+            <h1 style="font-size: 24px; margin: 0 0 16px; color: #1a1a1a;">${t.heading}</h1>
             <p style="color: #666; margin: 0 0 16px; line-height: 1.6;">
-              Your 14-day free trial is ready. You now have access to the only scheduling software built for labor law compliance.
+              ${t.trialReady}
             </p>
             <p style="color: #666; margin: 0 0 24px; line-height: 1.6;">
-              Click the button below to access your dashboard:
+              ${t.dashboardCta}
             </p>
             <a href="${magicLinkUrl}" style="display: inline-block; background: #2d5a4a; color: white; padding: 14px 28px; border-radius: 100px; text-decoration: none; font-weight: 600;">
-              Go to Dashboard
+              ${t.buttonText}
             </a>
             <div style="background: #f8f7f5; border-radius: 12px; padding: 20px; margin: 24px 0;">
-              <p style="color: #1a1a1a; font-weight: 600; margin: 0 0 12px;">What's included:</p>
+              <p style="color: #1a1a1a; font-weight: 600; margin: 0 0 12px;">${t.whatsIncluded}</p>
               <ul style="color: #666; margin: 0; padding-left: 20px; line-height: 1.8;">
-                <li>Automatic labor law compliance</li>
-                <li>Publishing rule enforcement</li>
-                <li>Rest period validation</li>
-                <li>Audit-ready compliance reports</li>
+                <li>${t.featureCompliance}</li>
+                <li>${t.featurePublishing}</li>
+                <li>${t.featureRest}</li>
+                <li>${t.featureReports}</li>
               </ul>
             </div>
             <p style="color: #999; font-size: 14px; margin: 0; line-height: 1.6;">
-              Questions? Reply to this email or contact us at hello@getia.no
+              ${t.contactUs}
             </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Roaster - Scheduling software built for labor law compliance
+              ${t.footer}
             </p>
           </div>
         </body>
       </html>
     `,
-    text: `Welcome to Roaster!\n\nYour 14-day free trial is ready. Click the link below to access your dashboard:\n${magicLinkUrl}\n\nWhat's included:\n- Automatic labor law compliance\n- Publishing rule enforcement\n- Rest period validation\n- Audit-ready compliance reports\n\nQuestions? Contact us at hello@getia.no`,
+    text: t.textBody.replace('{url}', magicLinkUrl),
   });
 }

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { RosterActions } from "@/components/scheduling/RosterActions";
+import { ConsultationPanel } from "@/components/scheduling/ConsultationPanel";
 import { getServerLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -66,6 +69,8 @@ function getAvatarRingColor(isOvertime: boolean) {
 
 export default async function RosterDetailPage({ params }: Props) {
   const { id } = await params;
+  const session = await getServerSession(authOptions);
+  const userRole = (session?.user as { role?: string })?.role || "EMPLOYEE";
   const locale = await getServerLocale();
   const dict = getDictionary(locale);
   const d = dict.dashboard.rosters;
@@ -261,6 +266,18 @@ export default async function RosterDetailPage({ params }: Props) {
               {d.noShiftsLabel}
             </span>
           </div>
+        </div>
+      )}
+
+      {/* Works Council Consultation */}
+      {["ADMIN", "MANAGER", "REPRESENTATIVE"].includes(userRole) && (
+        <div className="mb-8">
+          <ConsultationPanel
+            rosterId={roster.id}
+            rosterStatus={roster.status}
+            userRole={userRole}
+            dictionary={d}
+          />
         </div>
       )}
 
