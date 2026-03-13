@@ -70,11 +70,15 @@ function parseCsvLine(line: string): string[] {
   for (let i = 0; i < line.length; i++) {
     const char = line[i];
     if (char === '"') {
-      if (inQuotes && line[i + 1] === '"') {
+      if (!inQuotes && current.length === 0) {
+        inQuotes = true;
+      } else if (inQuotes && i + 1 < line.length && line[i + 1] === '"') {
         current += '"';
         i++;
+      } else if (inQuotes) {
+        inQuotes = false;
       } else {
-        inQuotes = !inQuotes;
+        current += char;
       }
     } else if (char === "," && !inQuotes) {
       values.push(current);
