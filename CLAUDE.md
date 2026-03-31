@@ -1,5 +1,8 @@
 # Roaster
 
+## Quality Standard
+We are NOT looking for the quickest solution. We are looking for the BEST-IN-CLASS solution. Take the time to do it right — write clean, production-grade code that we can be proud of.
+
 Coffee roasting business platform.
 
 ## Tech Stack
