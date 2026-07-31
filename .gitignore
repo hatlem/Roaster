@@ -80,3 +80,8 @@ testit.md
 testit-*.md
 testit.md
 testit-*.md
+
+# local config / secrets (never commit)
+.env*
+!.env.example
+!.env*.example
